@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Username Reset - Bdseducation.in</title>
+
+  <style>
+    body, table, td, p, a, li, blockquote {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    img {
+      -ms-interpolation-mode: bicubic;
+      border: 0;
+      height: auto;
+      outline: none;
+      text-decoration: none;
+    }
+
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+    }
+
+    /* Header */
+    .header {
+      background: #ffffff;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .logo-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-img {
+      width: 200px;
+      margin: 20px auto 10px auto;
+      display: block;
+    }
+
+    /* Main Content */
+    .content {
+      background-color: #ffffff;
+      padding: 40px 30px;
+    }
+
+    .greeting {
+      color: #1f2d3d;
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0 0 20px 0;
+    }
+
+    .intro-text {
+      color: #3c4858;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* CTA Button */
+    .reset-button {
+      display: inline-block;
+      background-color: #39A935;
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 20px 0;
+    }
+
+    /* Support text */
+    .support-text {
+      font-size: 15px;
+      color: #4a5568;
+      margin: 30px 0 10px;
+    }
+
+    .support-email {
+      color: #00AEEF;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #5FBA47;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .footer-text {
+      color: #eaf6e8;
+      font-size: 14px;
+      margin: 0 0 10px 0;
+    }
+
+    .footer-link {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-link:hover {
+      text-decoration: underline;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .email-container { width: 100% !important; }
+      .content { padding: 30px 20px !important; }
+    }
+  </style>
+</head>
+
+<body style="margin: 0; padding: 0; background-color: #eef3f8;">
+  <div class="email-container">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="logo-wrapper">
+        <img
+          src="https://bdseducation.in/_next/image?url=%2Fimages%2Flogo.png&w=256&q=75"
+          class="logo-img"
+          alt="BDS Education"
+        />
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <h2 class="greeting">Hello,</h2>
+
+      <p class="intro-text">
+        We received a request to reset your Username. Click the button below to set a new one:
+      </p>
+
+      <p style="text-align: center;">
+        <a href="<%= resetLink %>" class="reset-button">🔒 Reset Username</a>
+      </p>
+
+      <p class="intro-text" style="margin-top: 25px;">
+        This reset link will expire in 60 minutes. If you did not request a Username reset, you can safely ignore this email.
+      </p>
+
+      <p class="support-text">
+        Need help? Contact our support team at
+        <a href="mailto:support@bdseducation.in" class="support-email">
+          support@bdseducation.in
+        </a>.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p class="footer-text">Stay secure,</p>
+      <p class="footer-text"><strong>Team BDS Education</strong></p>
+      <p class="footer-text">
+        <a href="https://bdseducation.in/" class="footer-link">
+          www.bdseducation.in
+        </a>
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>

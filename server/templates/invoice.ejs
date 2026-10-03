@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Invoice <%= invoice.number %></title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        font-size: 12px;
+        color: #111827;
+      }
+      h1 {
+        text-align: center;
+        font-size: 24px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      th, td {
+        border: 1px solid #d1d5db;
+        padding: 6px;
+        text-align: left;
+      }
+      th {
+        background: #f3f4f6;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .right { text-align: right; }
+      .center { text-align: center; }
+    </style>
+  </head>
+  <body>
+    <h1>TAX INVOICE</h1>
+
+    <div class="grid" style="display: grid; grid-template-columns: 1fr 1fr auto; align-items: start; gap: 10px;">
+  <!-- Seller Details -->
+  <div>
+    <strong><%= seller.name %></strong><br />
+    <%= seller.address %><br />
+    <%= seller.country %><br />
+    Phone: <%= seller.phone %><br />
+    Email: <%= seller.email %><br />
+    GSTIN: <%= seller.gstin %>
+  </div>
+
+  <!-- Invoice Info -->
+  <div>
+    <strong>Invoice #:</strong> <%= invoice.number %><br />
+    <strong>Date:</strong> <%= invoice.date %><br />
+    <strong>Due Date:</strong> <%= invoice.dueDate %><br />
+    <strong>Place of Supply:</strong> <%= invoice.placeOfSupply %>
+  </div>
+
+  <!-- Logo -->
+  <div style="text-align: right;">
+    <img src="<%= company.logo %>" alt="Company Logo" style="width: 100px; height: auto;" />
+  </div>
+</div>
+
+    <hr />
+
+    <h3>Bill To:</h3>
+    <p>
+      <strong><%= buyer.name %></strong><br />
+      <%= buyer.address.replace(/\n/g, "<br/>") %><br />
+      GSTIN: <%= buyer.gstin %>
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th>HSN</th>
+          <th class="right">Qty</th>
+          <th class="right">Rate</th>
+          <th class="center">CGST %</th>
+          <th class="right">CGST Amt</th>
+          <th class="center">SGST %</th>
+          <th class="right">SGST Amt</th>
+          <th class="right">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% items.forEach((item, idx) => { 
+          const base = item.qty * item.rate;
+          const cgstAmt = (base * item.cgst) / 100;
+          const sgstAmt = (base * item.sgst) / 100;
+          const total = base + cgstAmt + sgstAmt;
+        %>
+          <tr>
+            <td><%= idx + 1 %></td>
+            <td><%= item.description.replace(/\n/g, "<br/>") %></td>
+            <td><%= item.hsn %></td>
+            <td class="right"><%= item.qty.toFixed(2) %></td>
+            <td class="right"><%= item.rate.toFixed(2) %></td>
+            <td class="center"><%= item.cgst %></td>
+            <td class="right"><%= cgstAmt.toFixed(2) %></td>
+            <td class="center"><%= item.sgst %></td>
+            <td class="right"><%= sgstAmt.toFixed(2) %></td>
+            <td class="right"><%= total.toFixed(2) %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <h3 style="text-align: right; margin-top: 20px;">
+      Total: ₹
+      <%= items.reduce((sum, item) => {
+        const base = item.qty * item.rate;
+        const cgstAmt = (base * item.cgst) / 100;
+        const sgstAmt = (base * item.sgst) / 100;
+        return sum + base + cgstAmt + sgstAmt;
+      }, 0).toFixed(2) %>
+    </h3>
+
+    <hr />
+
+    <h4>Bank Details</h4>
+    <p>
+      Account Name: <%= bankDetails.accountName %><br />
+      A/C Number: <%= bankDetails.accountNumber %><br />
+      IFSC: <%= bankDetails.ifsc %><br />
+      Bank: <%= bankDetails.bank %>
+    </p>
+
+    <p><%- notes %></p>
+  </body>
+</html>

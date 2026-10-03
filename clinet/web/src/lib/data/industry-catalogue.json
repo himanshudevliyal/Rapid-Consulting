@@ -1,0 +1,142 @@
+{
+  "industries": [
+    {
+      "id": "I01",
+      "schemes": [
+        "D018",
+        "D011",
+        "D004",
+        "D007",
+        "D010",
+        "D020",
+        "D021",
+        "D022",
+        "D027",
+        "D038",
+        "D039"
+      ],
+      "services": [
+        "D080",
+        "D066",
+        "D088",
+        "D067",
+        "D065",
+        "D062",
+        "D091",
+        "D077"
+      ],
+      "note": {
+        "en": "Processing, agriculture infrastructure and testing equipment are different investment needs. Check the individual scheme’s activity, policy period and application conditions.",
+        "hi": "प्रोसेसिंग, कृषि से जुड़ा बुनियादी ढाँचा और जाँच उपकरण अलग-अलग निवेश हैं। हर योजना का दायरा, लागू अवधि और आवेदन की शर्तें उसके पेज पर देखें।"
+      },
+      "labels": {
+        "en": "Food & Agro Processing",
+        "hi": "फूड और एग्रो प्रोसेसिंग"
+      }
+    },
+    {
+      "id": "I02",
+      "schemes": [
+        "D004",
+        "D050",
+        "D040",
+        "D005",
+        "D006",
+        "D007",
+        "D008",
+        "D009",
+        "D026",
+        "D031",
+        "D032",
+        "D036",
+        "D041",
+        "D044",
+        "D046",
+        "D053",
+        "D056"
+      ],
+      "services": [
+        "D066",
+        "D077",
+        "D090",
+        "D067",
+        "D069",
+        "D065",
+        "D076",
+        "D091"
+      ],
+      "note": {
+        "en": "Testing equipment, quality certification and PADMA investment support have different conditions. A manufacturing activity alone does not establish eligibility.",
+        "hi": "जाँच उपकरण, क्वालिटी सर्टिफिकेशन और PADMA निवेश सहायता की शर्तें अलग हैं। सिर्फ़ मैन्युफैक्चरिंग का काम होने से पात्रता तय नहीं होती।"
+      },
+      "labels": {
+        "en": "Engineering & Materials Manufacturing",
+        "hi": "इंजीनियरिंग और मटेरियल्स मैन्युफैक्चरिंग"
+      }
+    },
+    {
+      "id": "I03",
+      "schemes": [
+        "D058",
+        "D007"
+      ],
+      "services": [
+        "D066",
+        "D067",
+        "D069",
+        "D065",
+        "D062",
+        "D088",
+        "D091"
+      ],
+      "note": {
+        "en": "E-waste assistance has a specific ESDM-sector scope; it is not a general recycling or biofuel subsidy. Safety-equipment assistance concerns a separate investment. Both pages explain their policy-period limits.",
+        "hi": "ई-वेस्ट सहायता का दायरा खास तौर पर ESDM क्षेत्र से जुड़ा है; यह हर रीसाइक्लिंग या बायोफ्यूल प्रोजेक्ट की सब्सिडी नहीं है। सेफ्टी उपकरण की सहायता अलग निवेश से जुड़ी है। दोनों पेज पर लागू अवधि की सीमाएँ दी गई हैं।"
+      },
+      "labels": {
+        "en": "Recycling & Biofuel",
+        "hi": "रीसाइक्लिंग और बायोफ्यूल"
+      }
+    },
+    {
+      "id": "I04",
+      "schemes": [
+        "D017",
+        "D021",
+        "D011",
+        "D027",
+        "D038",
+        "D047"
+      ],
+      "services": [
+        "D068",
+        "D060",
+        "D074",
+        "D085",
+        "D065",
+        "D061",
+        "D062",
+        "D073",
+        "D088"
+      ],
+      "note": {
+        "en": "Agricultural storage, cold-chain facilities and general commercial buildings need different assessments. These schemes do not apply to every warehouse or property project.",
+        "hi": "कृषि भंडारण, कोल्ड चेन और सामान्य कमर्शियल बिल्डिंग की जाँच अलग तरह से होती है। ये योजनाएँ हर गोदाम या प्रॉपर्टी प्रोजेक्ट पर लागू नहीं होतीं।"
+      },
+      "labels": {
+        "en": "Commercial & Logistics Facilities",
+        "hi": "कमर्शियल और लॉजिस्टिक्स सुविधाएँ"
+      }
+    }
+  ],
+  "archives": {
+    "en": {
+      "schemes": "/en/p/R02",
+      "services": "/en/p/S00"
+    },
+    "hi": {
+      "schemes": "/en/p/R02",
+      "services": "/en/p/S00"
+    }
+  }
+}
