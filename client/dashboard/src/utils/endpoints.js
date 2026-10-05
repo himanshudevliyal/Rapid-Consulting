@@ -33,4 +33,5 @@ export const endpoints = {
   jobs: { getAll: "/jobs" },
   industries: { getAll: "/industries" },
   schemes: { getAll: "/schemes" },
+  services: { getAll: "/services" } 
 };

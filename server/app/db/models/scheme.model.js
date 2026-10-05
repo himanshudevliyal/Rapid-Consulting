@@ -16,7 +16,7 @@ const init = async (sequelize) => {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
-      name: { type: DataTypes.STRING(255), allowNull: false },
+      title: { type: DataTypes.STRING(255), allowNull: false },
       slug: { type: DataTypes.STRING(300), allowNull: false, unique: true },
       ministry: { type: DataTypes.STRING(255), allowNull: true },
       description: { type: DataTypes.TEXT, allowNull: true },
@@ -47,7 +47,7 @@ const init = async (sequelize) => {
 };
 
 const create = async (data) => {
-  if (!data.slug) data.slug = makeSlug(data.name);
+  if (!data.slug) data.slug = makeSlug(data.title);
   return SchemeModel.create(data);
 };
 
@@ -56,14 +56,14 @@ const getAll = async ({ published_only = false, q, page = 1, limit = 20 } = {}) 
   if (published_only) where.is_published = true;
   if (q) {
     where[Op.or] = [
-      { name: { [Op.iLike]: `%${q}%` } },
+      { title: { [Op.iLike]: `%${q}%` } },
       { ministry: { [Op.iLike]: `%${q}%` } },
     ];
   }
   const offset = (page - 1) * limit;
   const { count, rows } = await SchemeModel.findAndCountAll({
     where,
-    order: [["name", "ASC"]],
+    order: [["title", "ASC"]],
     limit,
     offset,
   });

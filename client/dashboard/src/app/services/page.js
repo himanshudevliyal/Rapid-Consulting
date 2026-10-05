@@ -6,37 +6,35 @@ import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
-import SubCategoriesTableActions from "../../features/sub-categories/components/table/sub-categories-table-actions";
-import SubCategoriesListing from "../../features/sub-categories/components/sub-categories-listing";
+import ServicesListing from "@/features/services/components/services-listing";
+import ServicesTableActions from "@/features/services/components/table/services-table-actions";
 
-export const metadata = {
-  title: "Sub Categories",
-};
+export const metadata = { title: "Services" };
 
-export default async function SubCategories({ searchParams }) {
+export default async function ServicesPage({ searchParams }) {
   searchParamsCache.parse(await searchParams);
   const key = serialize({ ...(await searchParams) });
 
   return (
     <PageContainer
-      pageTitle={"Sub Categories"}
-      pageDescription={"Manage sub categories (Create, Update, Delete)."}
+      pageTitle="Services"
+      pageDescription="Manage services (Create, Update, Delete)."
       scrollable={false}
       pageHeaderAction={
         <Link
-          href={"/sub-categories/create"}
+          href="/services/create"
           className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
         >
           <Plus /> Add
         </Link>
       }
     >
-      <SubCategoriesTableActions />
+      <ServicesTableActions />
       <Suspense
         key={key}
         fallback={<DataTableSkeleton columnCount={5} rowCount={10} />}
       >
-        <SubCategoriesListing />
+        <ServicesListing />
       </Suspense>
     </PageContainer>
   );

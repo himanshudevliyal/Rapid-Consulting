@@ -2,8 +2,7 @@ import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 
 export const fetchAdvisers = async (searchParams) => {
-  const { data } = await http().get(`${endpoints.advisers.getAll}?${searchParams}`);
-  return data;
+return await http().get(`${endpoints.advisers.getAll}?${searchParams}`);
 };
 
 export const fetchAdviser = async (id) => {

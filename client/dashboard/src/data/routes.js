@@ -68,48 +68,28 @@ export const sidebarData = [
       },
     ],
   },
-  {
-    title: "Sub Categories",
-    url: "/sub-categories?page=1&limit=10",
-    icon: Users,
-    roles: [ROLES.ADMIN],
-    isVisible: true,
-    items: [
-      {
-        title: "Create",
-        url: "/sub-categories/create",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-      {
-        title: "Edit",
-        url: "/sub-categories/:id/edit",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-    ],
-  },
-  {
-    title: "Products",
-    url: "/products?page=1&limit=10",
-    icon: Users,
-    roles: [ROLES.ADMIN],
-    isVisible: true,
-    items: [
-      {
-        title: "Create",
-        url: "/products/create",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-      {
-        title: "Edit",
-        url: "/products/:id/edit",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-    ],
-  },
+{
+  title: "Services",
+  url: "/services?page=1&limit=10",
+  icon: Briefcase,
+  roles: [ROLES.ADMIN],
+  isVisible: true,
+  items: [
+    {
+      title: "Create",
+      url: "/services/create",
+      roles: [ROLES.ADMIN],
+      isVisible: true,
+    },
+    {
+      title: "Edit",
+      url: "/services/:id/edit",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
+  ],
+},
+
 
 {
   title: "Blogs",
@@ -133,14 +113,7 @@ export const sidebarData = [
   ],
 },
 
-  {
-    title: "Product Inquiries",
-    url: "/product-inquiries?page=1&limit=10",
-    icon: Users,
-    roles: [ROLES.ADMIN],
-    isVisible: true,
-    items: [],
-  },
+
   {
     title: "Queries",
     url: "/queries?page=1&limit=10",

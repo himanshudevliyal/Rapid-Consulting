@@ -2,8 +2,7 @@ import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 
 export const fetchIndustries = async (searchParams) => {
-  const { data } = await http().get(`${endpoints.industries.getAll}?${searchParams}`);
-  return data;
+ return await http().get(`${endpoints.industries.getAll}?${searchParams}`);
 };
 
 export const fetchIndustry = async (id) => {

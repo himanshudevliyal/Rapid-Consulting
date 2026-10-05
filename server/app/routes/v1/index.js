@@ -22,9 +22,9 @@ import schemeRoutes from "../../api/scheme/routes.js";
 
 export default async function routes(fastify, options) {
   fastify.addHook("onRequest", jwtVerify.verifyToken);
-  // fastify.addHook("preHandler", async (request, reply) => {
-  //   request.body && console.log("body", request.body);
-  // });
+  fastify.addHook("preHandler", async (request, reply) => {
+    request.body && console.log("body", request.body);
+  });
 
   // routes
   fastify.register(userRoutes, { prefix: "users" });

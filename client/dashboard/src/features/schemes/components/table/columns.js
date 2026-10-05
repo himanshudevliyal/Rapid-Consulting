@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
 export const columns = (openModal, setId) => [
-  { accessorKey: "title", header: "Title", cell: ({ row }) => <div className="capitalize">{row.getValue("title")}</div> },
+  { accessorKey: "title", header: "Title", cell: ({ row }) => <div classTitle="capitalize">{row.getValue("title")}</div> },
   { accessorKey: "ministry", header: "Ministry", cell: ({ row }) => row.getValue("ministry") || "-" },
   {
     accessorKey: "is_published",
@@ -23,12 +23,12 @@ export const columns = (openModal, setId) => [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0"><span className="sr-only">Open menu</span><DotsHorizontalIcon className="h-4 w-4" /></Button>
+            <Button variant="ghost" classTitle="h-8 w-8 p-0"><span classTitle="sr-only">Open menu</span><DotsHorizontalIcon classTitle="h-4 w-4" /></Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem><Link href={`/schemes/${id}/edit`} className="w-full">Edit</Link></DropdownMenuItem>
+            <DropdownMenuItem><Link href={`/schemes/${id}/edit`} classTitle="w-full">Edit</Link></DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => { setId(id); openModal(); }}>Delete</DropdownMenuItem>
           </DropdownMenuContent>
