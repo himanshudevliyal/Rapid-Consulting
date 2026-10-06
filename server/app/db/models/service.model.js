@@ -1,16 +1,18 @@
 "use strict";
 import constants from "../../lib/constants/index.js";
-import { DataTypes, QueryTypes } from "sequelize";
+import { DataTypes, Op, QueryTypes } from "sequelize";
 import { toPgArray } from "../../helpers/to-pg-array.js";
+import { categoryFilter, withCategory } from "../../helpers/category-link.js";
 
 let ServiceModel = null;
 
 const SERVICE = constants.models.SERVICE_TABLE;
 const TRANSLATION = constants.models.SERVICE_TRANSLATION_TABLE;
 
-// Page types listed as services on the website. "service-index" is the
-// /services landing page record and is only fetched by code.
-const LISTED_TYPES = ["service", "service-family", "additional-service"];
+// "service-index" is the /services landing page record. It is only fetched by
+// code and is left out of service lists on the website; every other Format is
+// listed. (Formats are managed in the dashboard: /v1/service/format.)
+const INDEX_TYPE = "service-index";
 
 const init = async (sequelize) => {
   ServiceModel = sequelize.define(
@@ -37,6 +39,7 @@ const init = async (sequelize) => {
         defaultValue: "service",
       },
       family_code: { type: DataTypes.STRING(32), allowNull: true },
+      category_id: { type: DataTypes.UUID, allowNull: true },
       icon: { type: DataTypes.STRING(80), allowNull: true },
       pictures: { type: DataTypes.JSONB, defaultValue: [] },
       related_codes: { type: DataTypes.JSONB, defaultValue: [] },
@@ -47,7 +50,7 @@ const init = async (sequelize) => {
     {
       createdAt: "created_at",
       updatedAt: "updated_at",
-      indexes: [{ fields: ["type"] }, { fields: ["family_code"] }],
+      indexes: [{ fields: ["type"] }, { fields: ["family_code"] }, { fields: ["category_id"] }],
     },
   );
 
@@ -64,6 +67,7 @@ const create = async (req, transaction) => {
       slug: req.body.slug,
       type: req.body.type,
       family_code: req.body.family_code || null,
+      category_id: req.body.category_id || null,
       icon: req.body.icon,
       pictures: req.body.pictures,
       related_codes: req.body.related_codes,
@@ -92,6 +96,7 @@ const update = async (req, id, transaction) => {
     "slug",
     "type",
     "family_code",
+    "category_id",
     "icon",
     "pictures",
     "related_codes",
@@ -100,7 +105,7 @@ const update = async (req, id, transaction) => {
     "is_active",
   ];
   const values = Object.fromEntries(
-    keys.filter((key) => key in req.body).map((key) => [key, req.body[key]]),
+    keys.filter((key) => req.body[key] !== undefined).map((key) => [key, req.body[key]]),
   );
 
   return await ServiceModel.update(values, options);
@@ -112,6 +117,11 @@ const summaryQuery = (whereClause, pagination = "") => `
   SELECT
       srv.id, srv.code, srv.slug, srv.type, srv.family_code, srv.icon,
       srv.pictures, srv.sort_order, srv.related_codes, srv.updated_at,
+      srv.is_active, srv.category_id,
+      CASE WHEN cat.id IS NULL THEN NULL
+           ELSE JSON_BUILD_OBJECT('id', cat.id, 'title', cat.title, 'slug', cat.slug)
+      END AS category,
+      COALESCE(tr.status, def.status) AS status,
       COALESCE(tr.locale, def.locale) AS locale,
       (tr.id IS NOT NULL) AS has_locale,
       COALESCE(tr.title, def.title) AS title,
@@ -125,6 +135,7 @@ const summaryQuery = (whereClause, pagination = "") => `
     FROM ${SERVICE} srv
     JOIN ${TRANSLATION} def ON def.service_id = srv.id AND def.locale = :defaultLocale
     LEFT JOIN ${TRANSLATION} tr ON tr.service_id = srv.id AND tr.locale = :locale
+    LEFT JOIN ${constants.models.CATEGORY_TABLE} cat ON cat.id = srv.category_id
     ${whereClause}
     ORDER BY srv.sort_order ASC, srv.code ASC
     ${pagination}
@@ -153,9 +164,16 @@ const get = async (req) => {
     queryParams.query = `%${q}%`;
   }
 
-  const types = req.query.type ? req.query.type.split(".") : LISTED_TYPES;
-  whereConditions.push("srv.type = ANY(:types)");
-  queryParams.types = toPgArray(types);
+  // ?type=service.service-family filters by Format. Without it the website
+  // gets every Format except the /services index page; the admin view
+  // (include_inactive=true) gets all of them, so the index page can be edited.
+  if (req.query.type) {
+    whereConditions.push("srv.type = ANY(:types)");
+    queryParams.types = toPgArray(req.query.type.split("."));
+  } else if (req.query.include_inactive !== "true") {
+    whereConditions.push("srv.type <> :indexType");
+    queryParams.indexType = INDEX_TYPE;
+  }
 
   const families = req.query.family ? req.query.family.split(".") : null;
   if (families?.length) {
@@ -163,11 +181,21 @@ const get = async (req) => {
     queryParams.families = toPgArray(families);
   }
 
+  // ?category_id= filters by category (a malformed id matches nothing).
+  if (req.query.category_id) {
+    whereConditions.push("srv.category_id = :categoryId");
+    queryParams.categoryId = categoryFilter(req.query.category_id);
+  }
+
   const page = req.query.page ? Number(req.query.page) : 1;
   const limit = req.query.limit ? Number(req.query.limit) : null;
   const offset = limit ? (page - 1) * limit : 0;
 
-  const whereClause = `WHERE ${whereConditions.join(" AND ")}`;
+  // The admin view (include_inactive=true, no filters) has no conditions;
+  // an empty "WHERE" would be a SQL syntax error.
+  const whereClause = whereConditions.length
+    ? `WHERE ${whereConditions.join(" AND ")}`
+    : "";
 
   const services = await ServiceModel.sequelize.query(
     summaryQuery(whereClause, "LIMIT :limit OFFSET :offset"),
@@ -201,12 +229,12 @@ const getSummariesByCodes = async (codes, locale) => {
   if (!codes?.length) return [];
   return await ServiceModel.sequelize.query(
     summaryQuery(
-      "WHERE srv.is_active = true AND srv.code = ANY(:codes) AND srv.type = ANY(:types)",
+      "WHERE srv.is_active = true AND srv.code = ANY(:codes) AND srv.type <> :indexType",
     ),
     {
       replacements: {
         codes: toPgArray(codes),
-        types: toPgArray(LISTED_TYPES),
+        indexType: INDEX_TYPE,
         locale,
         defaultLocale: constants.defaultLocale,
       },
@@ -216,63 +244,33 @@ const getSummariesByCodes = async (codes, locale) => {
   );
 };
 
-const getRelatedCandidates = async (service, locale) => {
-  // Services that link to this one (inbound editorial links) and peers in
-  // the same family, in addition to this service's own related codes.
-  return await ServiceModel.sequelize.query(
-    summaryQuery(`
-      WHERE srv.is_active = true
-        AND srv.id <> :id
-        AND srv.type = ANY(:types)
-        AND (
-          srv.related_codes @> to_jsonb(ARRAY[:code]::text[])
-          OR (:familyCode IS NOT NULL AND (srv.family_code = :familyCode OR srv.code = :familyCode))
-          OR srv.family_code = :code
-        )
-    `),
+// Related services = the other active services of the same Family / topic.
+// A service in family S05 gets its S05 siblings plus the S05 family page; a
+// family page gets the services inside it. Services without a family get none.
+const getRelatedServices = async (service, locale, limit = 12) => {
+  const family = service.family_code || service.code;
+  const rows = await ServiceModel.sequelize.query(
+    summaryQuery(
+      `WHERE srv.is_active = true
+         AND srv.id <> :id
+         AND srv.type <> :indexType
+         AND (srv.family_code = :family OR srv.code = :family)`,
+      "LIMIT :limit",
+    ),
     {
       replacements: {
         id: service.id,
-        code: service.code,
-        familyCode: service.family_code ?? null,
-        types: toPgArray(LISTED_TYPES),
+        family,
+        indexType: INDEX_TYPE,
         locale,
         defaultLocale: constants.defaultLocale,
+        limit: Math.min(Math.max(Number(limit) || 12, 1), 100),
       },
       type: QueryTypes.SELECT,
       raw: true,
     },
   );
-};
-
-// Explicit outgoing links first, then incoming links, then family peers.
-// Self and duplicates are excluded.
-const buildRelated = (service, explicit, candidates, limit = 6) => {
-  const byCode = new Map(
-    [...explicit, ...candidates].map((item) => [item.code, item]),
-  );
-  const outgoing = (service.related_codes ?? [])
-    .map((code) => byCode.get(code))
-    .filter(Boolean);
-  const inbound = candidates.filter((item) =>
-    (item.related_codes ?? []).includes(service.code),
-  );
-  const peers = candidates.filter(
-    (item) =>
-      item.family_code === service.family_code ||
-      item.code === service.family_code ||
-      item.family_code === service.code,
-  );
-
-  const seen = new Set([service.code]);
-  return [...outgoing, ...inbound, ...peers]
-    .filter((item) => {
-      if (seen.has(item.code)) return false;
-      seen.add(item.code);
-      return true;
-    })
-    .slice(0, limit)
-    .map(({ related_codes, ...item }) => item);
+  return rows.map(({ related_codes, ...item }) => item);
 };
 
 const withContent = async (service, requestedLocale) => {
@@ -289,15 +287,14 @@ const withContent = async (service, requestedLocale) => {
     translations.find((t) => t.locale === constants.defaultLocale);
   if (!content) return null;
 
-  const [explicit, candidates, familyRows] = await Promise.all([
-    getSummariesByCodes(service.related_codes, locale),
-    getRelatedCandidates(service, locale),
+  const [related, familyRows] = await Promise.all([
+    getRelatedServices(service, locale),
     getSummariesByCodes(service.family_code ? [service.family_code] : [], locale),
   ]);
 
   const { id: _translationId, service_id, created_at, ...fields } = content;
 
-  return {
+  const full = {
     ...service,
     ...fields,
     updated_at:
@@ -308,8 +305,10 @@ const withContent = async (service, requestedLocale) => {
     is_fallback: content.locale !== locale,
     available_locales: translations.map((t) => t.locale).sort(),
     family: familyRows[0] ?? null,
-    related: buildRelated(service, explicit, candidates),
+    related,
   };
+
+  return withCategory(full);
 };
 
 const getBySlug = async (req, slug) => {
@@ -328,12 +327,53 @@ const getByCode = async (req, code) => {
   return await withContent(service, req.query?.locale);
 };
 
+// Public: related services of one service, by slug (?locale=hi&limit=12).
+const getRelated = async (req, slug) => {
+  const service = await ServiceModel.findOne({
+    where: { slug: req.params?.slug || slug, is_active: true },
+    raw: true,
+  });
+  if (!service) return null;
+  return await getRelatedServices(
+    service,
+    resolveLocale(req.query?.locale),
+    req.query?.limit,
+  );
+};
+
 const getById = async (req, id) => {
   return await ServiceModel.findOne({
     where: { id: req.params?.id || id },
     raw: true,
     plain: true,
   });
+};
+
+// Which unique field ("code" or "slug") is already taken by another service,
+// or null. Lets the API answer 409 with a clear message instead of a 500.
+const findConflict = async ({ code, slug, excludeId }) => {
+  const taken = [];
+  if (code) taken.push({ code });
+  if (slug) taken.push({ slug });
+  if (!taken.length) return null;
+
+  const where = { [Op.or]: taken };
+  if (excludeId) where.id = { [Op.ne]: excludeId };
+
+  const row = await ServiceModel.findOne({ where, raw: true });
+  if (!row) return null;
+  return code && row.code === code ? "code" : "slug";
+};
+
+// Next free code for a prefix: D096, X03, ... The admin never types one.
+const nextCode = async (prefix, width = 3) => {
+  const [row] = await ServiceModel.sequelize.query(
+    `SELECT COALESCE(MAX(SUBSTRING(code FROM ${prefix.length + 1})::integer), 0) + 1 AS next
+       FROM ${SERVICE}
+      WHERE code ~ :pattern`,
+    { replacements: { pattern: `^${prefix}[0-9]+$` }, type: QueryTypes.SELECT },
+  );
+  return `${prefix}${String(row.next).padStart(width, "0")}`;
 };
 
 const deleteById = async (req, id, transaction) => {
@@ -350,5 +390,8 @@ export default {
   getById: getById,
   getBySlug: getBySlug,
   getByCode: getByCode,
+  getRelated: getRelated,
+  findConflict: findConflict,
+  nextCode: nextCode,
   deleteById: deleteById,
 };

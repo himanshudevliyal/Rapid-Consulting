@@ -1,6 +1,7 @@
 "use strict";
 import { DataTypes, Op } from "sequelize";
 import slugify from "slugify";
+import { literal } from "sequelize";
 
 let CaseStudyModel = null;
 
@@ -46,25 +47,61 @@ const init = async (sequelize) => {
   await CaseStudyModel.sync({ alter: false, force: false });
 };
 
-const create = async (data) => {
-  if (!data.slug) data.slug = makeSlug(data.title);
-  if (data.is_published && !data.published_at) data.published_at = new Date();
-  return CaseStudyModel.create(data);
+const slugBase = (title) => makeSlug(title) || `case-study-${Date.now()}`;
+
+// Slug for a new case study: the one given, or one made from the title that
+// does not clash with an existing one (adds -2, -3, ...).
+const uniqueSlug = async (title, wanted) => {
+  if (wanted) return wanted;
+  const base = slugBase(title);
+  let slug = base;
+  for (let n = 2; await CaseStudyModel.findOne({ where: { slug }, attributes: ["id"] }); n++) {
+    slug = `${base}-${n}`;
+  }
+  return slug;
 };
 
-const getAll = async ({ published_only = false, q, page = 1, limit = 20 } = {}) => {
+// Is the slug already used by another case study?
+const slugTaken = async (slug, excludeId) => {
+  const where = { slug };
+  if (excludeId) where.id = { [Op.ne]: excludeId };
+  return !!(await CaseStudyModel.findOne({ where, attributes: ["id"] }));
+};
+
+const create = async (data) => {
+  const slug = await uniqueSlug(data.title, data.slug);
+  const published_at = data.is_published ? new Date() : null;
+  return CaseStudyModel.create({ ...data, slug, published_at });
+};
+
+// published_only: public site. is_published: "true" | "false" filters the
+// admin list. tag: only case studies carrying that tag.
+const getAll = async ({
+  published_only = false,
+  is_published,
+  tag,
+  q,
+  page = 1,
+  limit = 20,
+} = {}) => {
   const where = {};
   if (published_only) where.is_published = true;
+  else if (is_published === "true") where.is_published = true;
+  else if (is_published === "false") where.is_published = false;
+  if (tag) where.tags = { [Op.contains]: [tag] };
   if (q) {
     where[Op.or] = [
       { title: { [Op.iLike]: `%${q}%` } },
       { client_name: { [Op.iLike]: `%${q}%` } },
+      { industry: { [Op.iLike]: `%${q}%` } },
+      { slug: { [Op.iLike]: `%${q}%` } },
     ];
   }
   const offset = (page - 1) * limit;
   const { count, rows } = await CaseStudyModel.findAndCountAll({
     where,
-    order: [["published_at", "DESC"], ["created_at", "DESC"]],
+    // Newest published first; drafts (no publish date) after them.
+    order: [literal("published_at DESC NULLS LAST"), ["created_at", "DESC"]],
     limit,
     offset,
   });
@@ -74,10 +111,14 @@ const getAll = async ({ published_only = false, q, page = 1, limit = 20 } = {}) 
 const getBySlug = async (slug) => CaseStudyModel.findOne({ where: { slug } });
 const getById = async (id) => CaseStudyModel.findByPk(id);
 const updateById = async (id, data) => {
-  if (data.is_published && !data.published_at) data.published_at = new Date();
-  const [updated, rows] = await CaseStudyModel.update(data, { where: { id }, returning: true });
-  return updated ? rows[0] : null;
+  const current = await CaseStudyModel.findByPk(id);
+  if (!current) return null;
+  // The publish date is set the first time it is published and then left
+  // alone, so later edits do not move it.
+  if (data.is_published && !current.published_at) data.published_at = new Date();
+  const [, rows] = await CaseStudyModel.update(data, { where: { id }, returning: true });
+  return rows[0] ?? current;
 };
 const deleteById = async (id) => CaseStudyModel.destroy({ where: { id } });
 
-export default { init, create, getAll, getBySlug, getById, updateById, deleteById };
+export default { init, create, getAll, getBySlug, getById, updateById, deleteById, slugTaken };

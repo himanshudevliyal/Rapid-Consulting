@@ -4,6 +4,7 @@ import slugify from "slugify";
 import axios from "axios";
 import { StatusCodes } from "http-status-codes";
 import { sequelize } from "../../db/postgres.js";
+import { assertCategory } from "../../helpers/category-link.js";
 import config from "../../config/index.js";
 import constants from "../../lib/constants/index.js";
 import {
@@ -30,6 +31,68 @@ const notifyWebsite = (slugs = []) => {
     );
 };
 
+// The Format (type) and Family / topic (family_code) must be options an admin
+// has set up under /v1/service/format and /v1/service/family-topic. On update
+// a value that did not change is not re-checked, so a service keeps working
+// if its option is later marked inactive.
+const assertLookupValues = async (data, current = {}) => {
+  const problems = [];
+
+  if (data.type && data.type !== current.type) {
+    if (!(await table.ServiceFormatModel.isActive(data.type))) {
+      problems.push(`type - "${data.type}" is not an active Format`);
+    }
+  }
+  if (data.family_code && data.family_code !== current.family_code) {
+    if (!(await table.ServiceFamilyTopicModel.isActive(data.family_code))) {
+      problems.push(
+        `family_code - "${data.family_code}" is not an active Family / topic`,
+      );
+    }
+  }
+
+  if (data.category_id && data.category_id !== current.category_id) {
+    try {
+      await assertCategory(data.category_id);
+    } catch {
+      problems.push("category_id - this category does not exist");
+    }
+  }
+
+  if (problems.length) {
+    const error = new Error(problems.join(", "));
+    error.statusCode = StatusCodes.BAD_REQUEST;
+    error.validation = true;
+    throw error;
+  }
+};
+
+// A service's code is made here, not typed by the admin. A Service family
+// page takes the code of the Family / topic it is the landing page of (picked
+// by name in the form); every other service gets the next free D/X number.
+const CODE_PREFIX = { service: "D", "additional-service": "X" };
+
+const assignCode = async (data) => {
+  if (data.type === "service-family") {
+    const topic = data.code && (await table.ServiceFamilyTopicModel.getByCode(data.code));
+    if (!topic) {
+      const error = new Error("code - choose the Family / topic this page is the landing page of");
+      error.statusCode = StatusCodes.BAD_REQUEST;
+      error.validation = true;
+      throw error;
+    }
+    return;
+  }
+  if (!data.code) {
+    data.code = await table.ServiceModel.nextCode(CODE_PREFIX[data.type] ?? "D");
+  }
+};
+
+const conflictMessage = (field) =>
+  field === "code"
+    ? "A service with this code already exists."
+    : "A service with this slug already exists.";
+
 const create = async (req, res) => {
   const transaction = await sequelize.transaction();
 
@@ -42,6 +105,20 @@ const create = async (req, res) => {
     // when an editor sets it explicitly, so existing links keep working.
     validateData.slug = validateData.slug || makeSlug(english.title);
     req.body = validateData;
+
+    await assertLookupValues(validateData);
+    await assignCode(validateData);
+    req.body = validateData;
+    const conflict = await table.ServiceModel.findConflict({
+      code: validateData.code,
+      slug: validateData.slug,
+    });
+    if (conflict) {
+      await transaction.rollback();
+      return res
+        .code(StatusCodes.CONFLICT)
+        .send({ status: false, message: conflictMessage(conflict) });
+    }
 
     const service = await table.ServiceModel.create(req, transaction);
     await table.ServiceTranslationModel.upsertMany(
@@ -74,6 +151,19 @@ const updateById = async (req, res) => {
     }
 
     const validateData = serviceUpdateSchema.parse(req.body);
+
+    await assertLookupValues(validateData, record);
+    const conflict = await table.ServiceModel.findConflict({
+      code: validateData.code !== record.code ? validateData.code : null,
+      slug: validateData.slug !== record.slug ? validateData.slug : null,
+      excludeId: record.id,
+    });
+    if (conflict) {
+      await transaction.rollback();
+      return res
+        .code(StatusCodes.CONFLICT)
+        .send({ status: false, message: conflictMessage(conflict) });
+    }
 
     const documentsToDelete = [];
     if (validateData.pictures) {
@@ -147,6 +237,18 @@ const getByCode = async (req, res) => {
   res.code(StatusCodes.OK).send({ status: true, data: record });
 };
 
+// Public: related services of one service = the other services of the same
+// Family / topic. ?locale=hi&limit=12
+const getRelated = async (req, res) => {
+  const data = await table.ServiceModel.getRelated(req);
+  if (!data) {
+    return res
+      .code(StatusCodes.NOT_FOUND)
+      .send({ message: "Service not found!" });
+  }
+  res.code(StatusCodes.OK).send({ status: true, data });
+};
+
 // Public: listed services in the requested locale.
 // Filters: ?locale=hi&type=service.service-family&family=S02&q=fire
 const get = async (req, res) => {
@@ -208,6 +310,7 @@ export default {
   getById: getById,
   getBySlug: getBySlug,
   getByCode: getByCode,
+  getRelated: getRelated,
   get: get,
   deleteTranslation: deleteTranslation,
   deleteById: deleteById,

@@ -1,14 +1,3 @@
-// seeders/20261005100001-seed-articles.js
-// Seeds the 41 website articles into the articles table.
-// Source data: the website's static pages.json (type "article", English), with
-// /en/p/<ID> links already rewritten to slug URLs. See data/rapid-articles.json.
-// Run:      node scripts/seed.js up
-// Rollback: node scripts/seed.js down 20261005100001-seed-articles
-//           (deletes the articles with these 41 slugs, nothing else)
-//
-// Safe to run on a table that already has articles: a slug that already
-// exists is skipped, never overwritten.
-
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";

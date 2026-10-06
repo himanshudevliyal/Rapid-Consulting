@@ -11,6 +11,8 @@ import queryRoutes from "../../api/query/routes.js";
 import productInquiryRoutes from "../../api/product-inquiry/routes.js";
 import blogRoutes from "../../api/blog/routes.js";
 import serviceRoutes from "../../api/service/routes.js";
+import serviceFormatRoutes from "../../api/service-format/routes.js";
+import serviceFamilyTopicRoutes from "../../api/service-family-topic/routes.js";
 // ── Rapid Consulting additions ────────────────────────────────────
 import enquiryRoutes from "../../api/enquiry/routes.js";
 import articleRoutes from "../../api/article/routes.js";
@@ -39,6 +41,9 @@ export default async function routes(fastify, options) {
   fastify.register(productInquiryRoutes, { prefix: "product-inquiries" });
   fastify.register(blogRoutes, { prefix: "blogs" });
   fastify.register(serviceRoutes, { prefix: "services" });
+  // Option lists for the service form (admin only).
+  fastify.register(serviceFormatRoutes, { prefix: "service/format" });
+  fastify.register(serviceFamilyTopicRoutes, { prefix: "service/family-topic" });
   // ── Rapid Consulting ──────────────────────────────────────────
   fastify.register(enquiryRoutes, { prefix: "enquiries" });
   fastify.register(articleRoutes, { prefix: "articles" });

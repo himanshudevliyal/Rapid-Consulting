@@ -13,6 +13,8 @@ import productInquiryModel from "./models/product-inquiry.model.js";
 import blogModel from "./models/blog.model.js";
 import serviceModel from "./models/service.model.js";
 import serviceTranslationModel from "./models/service-translation.model.js";
+import serviceFormatModel from "./models/service-format.model.js";
+import serviceFamilyTopicModel from "./models/service-family-topic.model.js";
 // ── Rapid Consulting additions ────────────────────────────────────
 import enquiryModel from "./models/enquiry.model.js";
 import articleModel from "./models/article.model.js";
@@ -38,6 +40,8 @@ export default {
   BlogModel: blogModel,
   ServiceModel: serviceModel,
   ServiceTranslationModel: serviceTranslationModel,
+  ServiceFormatModel: serviceFormatModel,
+  ServiceFamilyTopicModel: serviceFamilyTopicModel,
   // ── Rapid Consulting ──────────────────────────────────────────
   EnquiryModel: enquiryModel,
   ArticleModel: articleModel,

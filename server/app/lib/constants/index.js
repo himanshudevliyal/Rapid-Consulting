@@ -60,6 +60,9 @@ const constants = {
     BLOG_TABLE: "blogs",
     SERVICE_TABLE: "services",
     SERVICE_TRANSLATION_TABLE: "service_translations",
+    // Admin-managed option lists for the service form (Format and Family / topic).
+    SERVICE_FORMAT_TABLE: "service_formats",
+    SERVICE_FAMILY_TOPIC_TABLE: "service_family_topics",
   },
   // Languages the website publishes. "en" is the default and the fallback
   // when a service has no translation for the requested locale.

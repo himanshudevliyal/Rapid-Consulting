@@ -70,21 +70,26 @@ export const serviceTranslationUpdateSchema = z.object({
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 const serviceFields = {
+  // Optional: when left out the server makes one (see the service controller).
   code: z
     .string()
     .trim()
-    .min(1, "Code is required")
-    .max(32, "Code is too long"),
+    .max(32, "Code is too long")
+    .optional()
+    .transform((value) => value || undefined),
   slug: z
     .string()
     .trim()
     .regex(slugPattern, "Slug may only contain lowercase letters, numbers and hyphens")
     .optional(),
-  type: z
-    .enum(["service", "service-family", "additional-service", "service-index"])
-    .optional()
-    .default("service"),
+  // Code of an active Format (/v1/service/format); checked in the controller.
+  type: z.string().trim().min(1).max(40).optional().default("service"),
   family_code: z.string().trim().max(32).nullish(),
+  // Id of a category (/v1/categories); "" or null means none.
+  category_id: z
+    .union([z.literal(""), z.uuid("Pick a valid category")])
+    .nullish()
+    .transform((value) => (value === undefined ? undefined : value || null)),
   icon: z.string().trim().optional(),
   pictures: z.array(z.string()).optional().default([]),
   related_codes: z.array(z.string().trim()).optional().default([]),
@@ -116,10 +121,9 @@ export const serviceSchema = z.object({
 export const serviceUpdateSchema = z.object({
   code: serviceFields.code.optional(),
   slug: serviceFields.slug,
-  type: z
-    .enum(["service", "service-family", "additional-service", "service-index"])
-    .optional(),
+  type: z.string().trim().min(1).max(40).optional(),
   family_code: serviceFields.family_code,
+  category_id: serviceFields.category_id,
   icon: serviceFields.icon,
   pictures: z.array(z.string()).optional(),
   related_codes: z.array(z.string().trim()).optional(),

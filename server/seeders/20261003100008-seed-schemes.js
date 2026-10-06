@@ -24,7 +24,9 @@ export async function up({ context: queryInterface }) {
 
   const rows = schemes.map((s) => ({
     id: uuidv4(),
-    name: s.name,
+    // The column is `title` (migration 20261003100008 renamed it from `name`);
+    // the JSON file still calls it `name`.
+    title: s.title ?? s.name,
     slug: s.slug,
     ministry: s.ministry ?? null,
     description: s.description ?? null,
