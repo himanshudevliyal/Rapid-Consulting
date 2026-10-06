@@ -27,11 +27,16 @@ export const endpoints = {
   blogs: { getAll: "/blogs" },
   // RC modules
   enquiries: { getAll: "/enquiries" },
-  articles: { getAll: "/articles" },
-  caseStudies: { getAll: "/case-studies" },
+  // getAll = base path for create / update / delete / by id; list = admin list incl. drafts
+  articles: { getAll: "/articles", list: "/articles/all" },
+  // getAll = base path for create / update / delete / by id; list = admin list incl. drafts
+  caseStudies: { getAll: "/case-studies", list: "/case-studies/all" },
   advisers: { getAll: "/advisers" },
   jobs: { getAll: "/jobs" },
   industries: { getAll: "/industries" },
-  schemes: { getAll: "/schemes" },
-  services: { getAll: "/services" } 
+  // getAll = base path for create / update / delete / by id; list = admin list incl. drafts
+  schemes: { getAll: "/schemes", list: "/schemes/all" },
+  services: { getAll: "/services" },
+  serviceFormats: { getAll: "/service/format" },
+  serviceFamilyTopics: { getAll: "/service/family-topic" },
 };

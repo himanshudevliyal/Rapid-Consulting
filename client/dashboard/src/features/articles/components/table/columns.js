@@ -10,35 +10,83 @@ import {
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import moment from "moment";
 import Link from "next/link";
+import { imageSrc } from "@/lib/image-src";
+
+// Small picture next to the title; a plain box when there is no image.
+function Thumb({ value }) {
+  return value ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={imageSrc(value)} alt="" className="size-10 shrink-0 rounded object-cover" />
+  ) : (
+    <div className="size-10 shrink-0 rounded bg-muted" aria-hidden="true" />
+  );
+}
+
+const formatDate = (value) =>
+  value ? new Date(value).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—";
 
 export const columns = (openModal, setId) => [
   {
     accessorKey: "title",
     header: "Title",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("title")}</div>,
+    cell: ({ row }) => (
+      <div className="flex items-center gap-3">
+        <Thumb value={row.original.cover_image} />
+        <div>
+          <div className="font-medium">{row.original.title}</div>
+          <div className="font-mono text-xs text-muted-foreground">{row.original.slug}</div>
+        </div>
+      </div>
+    ),
   },
   {
-    accessorKey: "slug",
-    header: "Slug",
-    cell: ({ row }) => <div className="text-muted-foreground text-xs">{row.getValue("slug")}</div>,
+    accessorKey: "category",
+    header: "Category",
+    cell: ({ row }) =>
+      row.original.category?.title ? (
+        <Badge variant="secondary">{row.original.category.title}</Badge>
+      ) : (
+        <span className="text-muted-foreground">—</span>
+      ),
+  },
+  {
+    accessorKey: "tags",
+    header: "Tags",
+    cell: ({ row }) => {
+      const tags = row.original.tags ?? [];
+      return tags.length ? (
+        <div className="flex flex-wrap gap-1">
+          {tags.slice(0, 2).map((tag) => (
+            <Badge key={tag} variant="outline">
+              {tag}
+            </Badge>
+          ))}
+          {tags.length > 2 && <span className="text-xs text-muted-foreground">+{tags.length - 2}</span>}
+        </div>
+      ) : (
+        "—"
+      );
+    },
   },
   {
     accessorKey: "is_published",
-    header: "Published",
+    header: "Status",
     cell: ({ row }) => (
-      <Badge variant={row.getValue("is_published") ? "default" : "secondary"}>
-        {row.getValue("is_published") ? "Published" : "Draft"}
+      <Badge variant={row.original.is_published ? "default" : "secondary"}>
+        {row.original.is_published ? "Published" : "Draft"}
       </Badge>
     ),
   },
   {
-    accessorKey: "created_at",
-    header: "Created on",
-    cell: ({ row }) => (
-      <div>{moment(row.getValue("created_at")).format("DD/MM/YYYY")}</div>
-    ),
+    accessorKey: "published_at",
+    header: "Published on",
+    cell: ({ row }) => <span className="text-sm text-muted-foreground">{formatDate(row.original.published_at)}</span>,
+  },
+  {
+    accessorKey: "updated_at",
+    header: "Updated",
+    cell: ({ row }) => <span className="text-sm text-muted-foreground">{formatDate(row.original.updated_at)}</span>,
   },
   {
     id: "actions",
@@ -56,11 +104,20 @@ export const columns = (openModal, setId) => [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link href={`/articles/${id}/edit`} className="w-full">Edit</Link>
+            <DropdownMenuItem asChild>
+              <Link href={`/articles/${id}/edit`} className="w-full">
+                Edit
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => { setId(id); openModal(); }}>Delete</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                setId(id);
+                openModal();
+              }}
+            >
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -296,8 +296,10 @@ function Sources({ page, t }) {
 
 function Related({ page, t, has, compact = false }) {
   const shown = new Set(displayedEvidenceIds(page));
+  // Pages built from API records bring their own related list (page.relatedItems).
+  const pool = page.relatedItems ?? getRelated(page, undefined, Infinity);
   const group = (types, limit = 2) =>
-    getRelated(page, undefined, Infinity)
+    pool
       .filter((p) => types.includes(p.type) && !shown.has(p.id))
       .slice(0, limit);
   const sets = [

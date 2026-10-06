@@ -1,10 +1,11 @@
 import config from "@/config";
 import { useFileUpload } from "@/hooks/use-file-upload";
 import { cn } from "@/lib/utils";
+import { imageSrc } from "@/lib/image-src";
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 import axios from "axios";
-import { ImageUpIcon, XIcon } from "lucide-react";
+import { AlertCircleIcon, ImageUpIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 
 export default function FileUploaderServer({
@@ -135,8 +136,9 @@ export default function FileUploaderServer({
     onFilesAdded: handleFilesAdded,
   });
 
-  const previewUrl =
-    files[0]?.preview || value ? `${config.file_base}/${value}` : null || null;
+  // The saved image if there is one, otherwise the local preview while the
+  // upload is still running.
+  const previewUrl = value ? imageSrc(value) : files[0]?.preview || null;
   return (
     <div className="flex flex-col gap-2">
       <div className="relative">

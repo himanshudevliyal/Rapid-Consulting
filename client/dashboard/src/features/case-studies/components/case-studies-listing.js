@@ -16,13 +16,20 @@ export default function CaseStudiesListing() {
   const deleteMutation = useDeleteCaseStudy(id, () => setIsModal(false));
   const openModal = () => setIsModal(true);
 
-  if (isLoading) return <DataTableSkeleton columnCount={5} rowCount={10} />;
+  if (isLoading) return <DataTableSkeleton columnCount={7} rowCount={10} />;
   if (isError) return <ErrorMessage error={error} />;
 
   return (
     <>
-      <DataTable columns={columns(openModal, setId)} data={data?.data ?? data?.case_studies ?? []} totalItems={data?.total ?? 0} />
-      <DeleteDialog deleteMutation={deleteMutation} isOpen={isModal} setIsOpen={setIsModal} id={id} />
+      <DataTable columns={columns(openModal, setId)} data={data?.data ?? []} totalItems={data?.total ?? 0} />
+      <DeleteDialog
+        deleteMutation={deleteMutation}
+        isOpen={isModal}
+        setIsOpen={setIsModal}
+        id={id}
+        title="Delete this case study?"
+        description="The case study is deleted for good. To hide it from the website instead, edit it and untick Published."
+      />
     </>
   );
 }

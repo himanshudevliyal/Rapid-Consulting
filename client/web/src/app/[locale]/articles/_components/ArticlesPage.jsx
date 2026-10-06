@@ -14,18 +14,22 @@ import { getSummaries } from "@/lib/pages/content";
 import { linkedContentIds } from "@/lib/pages/card-copy";
 import { ClientTicker } from "@/components/common/client-ticker";
 import { ContactExperience } from "@/components/form/contact-experience";
-import { Directory } from "@/components/pages/directory";
+import { ArticlesDirectory } from "./ArticlesDirectory";
 import { Html } from "@/components/pages/content-primitives";
 import Heading from "@/components/layout/heading";
 import Section from "@/components/layout/section";
 
-/** Both articles AND guides live on this collection page. */
-const ARTICLE_TYPES = ["article", "guide"];
-
-export function ArticlesPage({ page, t, has, image = "/assets/articles.jpg" }) {
+/**
+ * Articles come from the API (ArticlesDirectory); `initialData` is the list the
+ * server already fetched and `staticItems` the built-in guides (plus built-in
+ * articles while they are being moved into the admin panel).
+ */
+export function ArticlesPage({ page, t, has, image = "/assets/articles.jpg", initialData, staticItems = [] }) {
   // ── Data ────────────────────────────────────────────────────────────────────
+  // Sections that only list built-in articles / guides are replaced by the
+  // directory below, whatever the API holds.
   const items = getSummaries(page.locale).filter((p) =>
-    ARTICLE_TYPES.includes(p.type),
+    ["article", "guide"].includes(p.type),
   );
 
   const guidanceSections = page.sections.filter(
@@ -65,7 +69,7 @@ export function ArticlesPage({ page, t, has, image = "/assets/articles.jpg" }) {
       </Section>
 
       {/* ── Searchable directory ───────────────────────────────────────────── */}
-      <Directory items={items} kind="articles" copyById={{}} industry="" />
+      <ArticlesDirectory initialData={initialData} staticItems={staticItems} />
 
       {/* ── Guidance accordion ────────────────────────────────────────────── */}
       <Section className="collection-guidance">

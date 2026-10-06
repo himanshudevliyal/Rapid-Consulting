@@ -13,55 +13,21 @@ export default function ServiceEditPage({ id }) {
 
   const updateMutation = useUpdateService(id, () => {
     toast.success("Service updated successfully");
-    router.push("/services");
+    router.push("/services?page=1&limit=10");
   });
 
-  const onSubmit = (formData) => {
-    const payload = {
-      code: formData.code,
-      slug: formData.slug || undefined,
-      type: formData.type,
-      family_code: formData.family_code || null,
-      icon: formData.icon || undefined,
-      sort_order: formData.sort_order,
-      is_active: formData.is_active,
-      translations: [
-        {
-          locale: "en",
-          title: formData.title,
-          short_description: formData.short_description || undefined,
-          status: formData.status,
-        },
-      ],
-    };
-    updateMutation.mutate(payload);
-  };
-
-  if (isLoading || !data) return <Loader />;
+  if (isLoading) return <Loader />;
   if (isError) return <ErrorMessage error={error} />;
-
-  // translations array me se "en" locale nikalo
-  const enTranslation = data?.translations?.find((t) => t.locale === "en") ?? {};
-
-  const initialData = {
-    ...data,
-    title: enTranslation.title ?? enTranslation.h1 ?? "",
-    short_description: enTranslation.short_description ?? "",
-    status: enTranslation.status ?? "draft",
-  };
+  if (!data) return <ErrorMessage error={new Error("Service not found")} />;
 
   return (
     <PageContainer
       pageTitle="Edit Service"
-      pageDescription="Update service details"
+      pageDescription={`${data.translations?.find((t) => t.locale === "en")?.title ?? "This service"} · all the content of this service is shown below`}
       scrollable
     >
-      <div className="max-w-2xl">
-        <ServiceForm
-          initialData={initialData}
-          onSubmit={onSubmit}
-          loading={updateMutation.isPending}
-        />
+      <div className="max-w-5xl">
+        <ServiceForm initialData={data} onSubmit={(payload) => updateMutation.mutate(payload)} loading={updateMutation.isPending} />
       </div>
     </PageContainer>
   );

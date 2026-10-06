@@ -1,107 +1,233 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import Loader from "@/components/loader";
+import TextEditor from "@/components/editor";
+import CategoryField from "@/components/category-field";
+import CommandMenu from "@/components/command-menu";
+import FileUploaderServer from "@/components/file-uploader-server";
+import { FieldError, FormCard as Card, FormColumns } from "@/components/form-layout";
 import { Button } from "@/components/ui/button";
 import ErrorMessage from "@/components/ui/error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import Loader from "@/components/loader";
-import { useScheme, useCreateScheme, useUpdateScheme } from "@/hooks/use-schemes";
-import { Loader2 } from "lucide-react";
-import { z } from "zod";
-import TextEditor from "@/components/editor";
+import { useAllServiceFamilyTopics } from "@/hooks/use-service-options";
+import { useCreateScheme, useScheme, useUpdateScheme } from "@/hooks/use-schemes";
+import { slugify } from "@/lib/service-form";
+import { buildPayload, emptyScheme, RICH_FIELDS, toFormValues } from "@/lib/scheme-form";
+import { cn } from "@/lib/utils";
+import { schemeFormSchema } from "@/schemas/scheme";
 
-const schemeSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  ministry: z.string().optional(),
-  eligibility: z.string().optional(),
-  benefits: z.string().optional(),
-  application_process: z.string().optional(),
-  official_url: z.string().url("Invalid URL").optional().or(z.literal("")),
-  tags: z.string().optional(),
-  is_published: z.boolean().default(false),
-});
+const LIST_URL = "/schemes?page=1&limit=10";
 
 export default function SchemeForm({ id, type = "create" }) {
-  const { register, handleSubmit, formState: { errors }, reset, control } = useForm({
-    resolver: zodResolver(schemeSchema),
-    defaultValues: { is_published: false },
-  });
+  const isEdit = type === "edit";
   const router = useRouter();
-  const handleSuccess = () => { reset(); router.replace("/schemes?page=1&limit=10"); };
-  const createMutation = useCreateScheme(handleSuccess);
-  const updateMutation = useUpdateScheme(id, handleSuccess);
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    getValues,
+    watch,
+    formState: { errors, dirtyFields },
+  } = useForm({
+    resolver: zodResolver(schemeFormSchema),
+    defaultValues: emptyScheme,
+  });
+
+  const done = (message) => () => {
+    toast.success(message);
+    router.replace(LIST_URL);
+  };
+  const createMutation = useCreateScheme(done("Scheme created"));
+  const updateMutation = useUpdateScheme(id, done("Scheme updated"));
   const { data, isLoading, isError, error } = useScheme(id);
 
-  const onSubmit = (formData) => {
-    const payload = {
-      ...formData,
-      tags: formData.tags ? formData.tags.split(",").map((t) => t.trim()).filter(Boolean) : [],
-    };
-    type === "create" ? createMutation.mutate(payload) : updateMutation.mutate(payload);
+  // Family / topics are picked by name; the scheme stores the code as a tag.
+  const topics = useAllServiceFamilyTopics();
+  const topicRows = topics.data?.data;
+  const topicsReady = topics.isSuccess || topics.isError;
+  const familyCode = watch("family_code");
+  const topicOptions = useMemo(() => {
+    const rows = topicRows ?? [];
+    const list = rows.filter((row) => row.is_active).map((row) => ({ value: row.code, label: row.name }));
+    if (familyCode && !list.some((o) => o.value === familyCode)) {
+      const row = rows.find((r) => r.code === familyCode);
+      list.push({ value: familyCode, label: `${row ? row.name : familyCode} (inactive)` });
+    }
+    return list;
+  }, [topicRows, familyCode]);
+
+  // Load the saved scheme into the form (edit only), once the topic names are
+  // known so its Family / topic tag can be shown by name.
+  useEffect(() => {
+    if (isEdit && data && topicsReady) {
+      reset(toFormValues(data, (topicRows ?? []).map((row) => row.code)));
+    }
+  }, [isEdit, data?.id, data?.updated_at, topicsReady, reset]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // On a new scheme, suggest the slug while the title is typed, until the
+  // slug is edited by hand.
+  const titleField = register("title");
+  const suggestSlug = (event) => {
+    titleField.onChange(event);
+    if (!isEdit && !dirtyFields.slug) {
+      setValue("slug", slugify(event.target.value), { shouldValidate: false });
+    }
   };
 
-  useEffect(() => {
-    if (!data) return;
-    reset({
-      title: data.title ?? "",
-      ministry: data.ministry ?? "",
-      eligibility: data.eligibility ?? "",
-      benefits: data.benefits ?? "",
-      application_process: data.application_process ?? "",
-      official_url: data.official_url ?? "",
-      tags: Array.isArray(data.tags) ? data.tags.join(", ") : data.tags ?? "",
-      is_published: data.is_published ?? false,
-    });
-  }, [data, reset]);
+  const submit = (values) => {
+    const payload = buildPayload(values);
+    if (isEdit) updateMutation.mutate(payload);
+    else createMutation.mutate(payload);
+  };
+  const invalid = () => toast.error("Please fix the highlighted fields");
 
-  if (type === "edit" && isLoading) return <Loader />;
-  if (type === "edit" && isError) return <ErrorMessage error={error} />;
-  const isFormPending = (type === "create" && createMutation.isPending) || (type === "edit" && updateMutation.isPending);
+  if (isEdit && isLoading) return <Loader />;
+  if (isEdit && isError) return <ErrorMessage error={error} />;
+
+  const loading = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
-        <div className="space-y-1">
-          <Label htmlFor="title">Title</Label>
-          <Input id="title" className={cn({ "border-red-500": errors.title })} {...register("title")} placeholder="Scheme title" />
-          {errors.title && <p className="mt-1 text-sm text-red-500">{errors.title.message}</p>}
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="ministry">Ministry</Label>
-          <Input id="ministry" {...register("ministry")} placeholder="Responsible ministry" />
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="official_url">Official URL</Label>
-          <Input id="official_url" type="url" {...register("official_url")} placeholder="https://..." />
-          {errors.official_url && <p className="mt-1 text-sm text-red-500">{errors.official_url.message}</p>}
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="tags">Tags (comma separated)</Label>
-          <Input id="tags" {...register("tags")} placeholder="tag1, tag2" />
-        </div>
-        <div className="flex items-center gap-2 pt-6">
-          <input id="is_published" type="checkbox" className="h-4 w-4" {...register("is_published")} />
-          <Label htmlFor="is_published">Published</Label>
-        </div>
-      </div>
+    <form onSubmit={handleSubmit(submit, invalid)} className="space-y-6">
+      <FormColumns
+        main={
+          <>
+            <Card title="Basics" description="The title, public address and official details of the scheme.">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-4">
+                <div className="space-y-1">
+                  <Label htmlFor="title">Title *</Label>
+                  <Input
+                    id="title"
+                    className={cn({ "border-red-500": errors.title })}
+                    {...titleField}
+                    onChange={suggestSlug}
+                    placeholder="Scheme title"
+                  />
+                  <FieldError error={errors.title} />
+                </div>
 
-      {[["eligibility", "Eligibility"], ["benefits", "Benefits"], ["application_process", "Application Process"]].map(([field, label]) => (
-        <div key={field} className="space-y-1">
-          <Label>{label}</Label>
-          <Controller control={control} name={field}
-            render={({ field: f }) => <TextEditor value={f.value} onChange={f.onChange} />}
-          />
-        </div>
-      ))}
+                <div className="space-y-1">
+                  <Label htmlFor="slug">Slug (page address)</Label>
+                  <Input
+                    id="slug"
+                    className={cn("font-mono text-sm", { "border-red-500": errors.slug })}
+                    {...register("slug")}
+                    placeholder="made-from-the-title"
+                  />
+                  <FieldError error={errors.slug} />
+                  <p className="text-xs text-muted-foreground">
+                    {isEdit
+                      ? "Changing it changes the public link of this scheme."
+                      : "Filled in from the title; leave it as it is or edit it."}
+                  </p>
+                </div>
 
-      <div className="text-end">
-        <Button type="submit" disabled={isFormPending}>
-          {isFormPending && <Loader2 className="animate-spin" />} Submit
+                <div className="space-y-1">
+                  <Label htmlFor="ministry">Ministry / department</Label>
+                  <Input id="ministry" {...register("ministry")} placeholder="Responsible ministry" />
+                  <FieldError error={errors.ministry} />
+                </div>
+
+                <div className="space-y-1">
+                  <Label htmlFor="official_url">Official URL</Label>
+                  <Input id="official_url" className={cn({ "border-red-500": errors.official_url })} {...register("official_url")} placeholder="https://…" />
+                  <FieldError error={errors.official_url} />
+                </div>
+
+              </div>
+            </Card>
+
+            <Card title="Content" description="Shown on the scheme page.">
+              {RICH_FIELDS.map(([name, label, hint]) => (
+                <div key={name} className="space-y-1">
+                  <Label>{label}</Label>
+                  <p className="text-xs text-muted-foreground">{hint}</p>
+                  <Controller
+                    control={control}
+                    name={name}
+                    render={({ field }) => <TextEditor value={field.value ?? ""} onChange={field.onChange} />}
+                  />
+                </div>
+              ))}
+            </Card>
+          </>
+        }
+        side={
+          <>
+            <Card title="Status">
+              <label htmlFor="is_published" className="flex items-start gap-2 text-sm">
+                <input id="is_published" type="checkbox" className="mt-0.5 h-4 w-4" {...register("is_published")} />
+                <span>
+                  Published
+                  <span className="block text-xs text-muted-foreground">Unticked schemes stay hidden on the website.</span>
+                </span>
+              </label>
+            </Card>
+
+            <Card title="Family / topic">
+              <Controller
+                control={control}
+                name="family_code"
+                render={({ field }) => (
+                  <CommandMenu
+                    data={topicOptions}
+                    value={field.value}
+                    onChange={(val) => field.onChange(val ?? "")}
+                    searchPlaceholder="Search family / topic"
+                    isLoading={topics.isLoading}
+                    isError={topics.isError}
+                    error={topics.error}
+                  />
+                )}
+              />
+              <p className="text-xs text-muted-foreground">The group this scheme belongs to, same list as services.</p>
+            </Card>
+
+            <Card title="Category">
+              <Controller
+                control={control}
+                name="category_id"
+                render={({ field }) => (
+                  <CategoryField value={field.value} onChange={field.onChange} hasError={!!errors.category_id} />
+                )}
+              />
+              <FieldError error={errors.category_id} />
+            </Card>
+
+            <Card title="Image" description="Shown on cards and at the top of the page.">
+              <Controller
+                control={control}
+                name="cover_image"
+                render={({ field }) => (
+                  <FileUploaderServer value={field.value} onFileChange={(path) => field.onChange(path ?? "")} />
+                )}
+              />
+              <FieldError error={errors.cover_image} />
+            </Card>
+
+            <Card title="Tags">
+              <Input id="tags" {...register("tags")} placeholder="S01, subsidy, msme" />
+              <p className="text-xs text-muted-foreground">Separate with commas.</p>
+            </Card>
+          </>
+        }
+      />
+
+      <div className="sticky bottom-0 z-10 -mx-4 flex items-center justify-end gap-3 border-t bg-background/95 px-4 py-3 backdrop-blur">
+        <Button type="button" variant="outline" asChild>
+          <Link href={LIST_URL}>Cancel</Link>
+        </Button>
+        <Button type="submit" disabled={loading}>
+          {loading && <Loader2 className="mr-2 animate-spin" />} {isEdit ? "Save changes" : "Create scheme"}
         </Button>
       </div>
     </form>

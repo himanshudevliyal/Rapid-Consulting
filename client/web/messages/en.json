@@ -100,7 +100,7 @@
   "contact": {
     "eyebrow": "DISCUSS YOUR PROJECT",
     "heading": "Request an expert callback",
-    "intro": "Tell us what you are planning. This previews a callback request to an expert consultant.",
+    "intro": "Tell us what you are planning. An expert consultant will call you back.",
     "name": "Your name",
     "nameError": "Enter your name.",
     "phone": "Mobile number",
@@ -108,10 +108,13 @@
     "location": "Location (optional)",
     "requirement": "Your requirement (optional)",
     "submit": "Request a callback",
-    "demoNote": "Demo only. Nothing is sent or saved. Choose WhatsApp for an actual conversation.",
+    "demoNote": "We use your details only to respond to this request.",
     "previewDone": "Preview complete. Your request has not been sent or saved, and no callback has been booked.",
     "mobileButton": "Request expert callback",
-    "closeForm": "Close callback form"
+    "closeForm": "Close callback form",
+    "sending": "Sending…",
+    "sent": "Thank you. Your request has been received and an expert will call you back.",
+    "sendError": "We could not send your request. Please try again or choose WhatsApp."
   },
   "chat": {
     "eyebrow": "CHAT PREVIEW",
@@ -396,5 +399,19 @@
     "hero": {
       "watchOverview": "About Us"
     }
+  },
+  "state": {
+    "loading": "Loading…",
+    "errorTitle": "We could not load this right now",
+    "errorText": "Please check your connection and try again.",
+    "retry": "Try again",
+    "retrying": "Trying…",
+    "emptyTitle": "Nothing to show yet",
+    "emptyText": "Please check back soon.",
+    "noArticlesTitle": "No articles yet",
+    "noArticlesText": "New articles are on their way. Please check back soon.",
+    "noCasesTitle": "No case studies yet",
+    "noCasesText": "New case studies are on their way. Please check back soon.",
+    "partial": "Some of the latest items could not be loaded."
   }
 }

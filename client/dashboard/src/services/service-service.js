@@ -1,10 +1,14 @@
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 
-export const fetchServices = async (searchParams) => {
-  return await http().get(`${endpoints.services.getAll}?${searchParams}`);
+// The admin list also shows inactive services (and the /services index page).
+export const fetchServices = async (searchParams = "") => {
+  const params = new URLSearchParams(searchParams);
+  params.set("include_inactive", "true");
+  return await http().get(`${endpoints.services.getAll}?${params.toString()}`);
 };
 
+// { status, data: { ...service, translations: [...] } }
 export const fetchService = async (id) => {
   return await http().get(`${endpoints.services.getAll}/${id}`);
 };
@@ -19,4 +23,11 @@ export const updateService = async (id, data) => {
 
 export const deleteService = async (id) => {
   return await http().delete(`${endpoints.services.getAll}/${id}`);
+};
+
+// Removes one language version (the English version cannot be deleted).
+export const deleteServiceTranslation = async (id, locale) => {
+  return await http().delete(
+    `${endpoints.services.getAll}/${id}/translations/${locale}`,
+  );
 };

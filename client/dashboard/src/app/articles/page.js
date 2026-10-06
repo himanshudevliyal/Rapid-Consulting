@@ -18,7 +18,7 @@ export default async function ArticlesPage({ searchParams }) {
   return (
     <PageContainer
       pageTitle={"Articles"}
-      pageDescription={"Manage articles (Create, Update, Delete)."}
+      pageDescription={"Guides and articles shown on the website. Drafts stay hidden until published."}
       scrollable={false}
       pageHeaderAction={
         <Link
@@ -32,7 +32,7 @@ export default async function ArticlesPage({ searchParams }) {
       <ArticlesTableActions />
       <Suspense
         key={key}
-        fallback={<DataTableSkeleton columnCount={5} rowCount={10} />}
+        fallback={<DataTableSkeleton columnCount={6} rowCount={10} />}
       >
         <ArticlesListing />
       </Suspense>

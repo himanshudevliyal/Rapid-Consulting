@@ -1,5 +1,8 @@
 import { defaultLocale, locales, localeTags } from "@/i18n/routing";
+import config from "@/config";
 import { fetchServices } from "@/services/service-service";
+import { fetchAllArticles } from "@/services/article-service";
+import { fetchAllCaseStudies } from "@/services/case-study-service";
 import { ALLOW_INDEXING, absoluteUrl } from "@/lib/site";
 import { pageRoutes } from "@/lib/page-routes";
 import { getAllPages } from "@/lib/pages/content";
@@ -12,6 +15,11 @@ export default async function sitemap() {
   if (!ALLOW_INDEXING) return [];
 
   const services = await fetchServices(defaultLocale).catch(() => []);
+  const empty = { items: [] };
+  const [articles, caseStudies] = await Promise.all([
+    fetchAllArticles().catch(() => empty),
+    fetchAllCaseStudies().catch(() => empty),
+  ]);
   const alternates = (path, available) => ({
     languages: Object.fromEntries(available.map((locale) => [localeTags[locale], absoluteUrl(`/${locale}${path}`)])),
   });
@@ -40,6 +48,8 @@ export default async function sitemap() {
   // Home, industries, schemes, articles, guides, case studies, about, contact…
   for (const page of getAllPages()) {
     if (page.locale !== defaultLocale || SERVICE_TYPES.includes(page.type) || pageRoutes[page.id] === undefined) continue;
+    // Built-in articles / case studies are listed only while they are still a fallback.
+    if (!config.content_static_fallback && ["article", "case-study"].includes(page.type)) continue;
     const path = pageRoutes[page.id];
     const available = page.hasHindi ? locales : [defaultLocale];
     for (const locale of available) {
@@ -51,5 +61,25 @@ export default async function sitemap() {
       });
     }
   }
+
+  // Published articles and case studies from the API (English only).
+  const listed = new Set(entries.map((entry) => entry.url));
+  const addRecords = (records, segment) => {
+    for (const record of records) {
+      const path = `/${segment}/${record.slug}`;
+      const url = absoluteUrl(`/${defaultLocale}${path}`);
+      if (listed.has(url)) continue;
+      listed.add(url);
+      entries.push({
+        url,
+        lastModified: record.updated_at,
+        alternates: alternates(path, [defaultLocale]),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
+  };
+  addRecords(articles.items, "articles");
+  addRecords(caseStudies.items, "case-studies");
   return entries;
 }

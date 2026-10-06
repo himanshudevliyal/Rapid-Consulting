@@ -16,13 +16,20 @@ export default function SchemesListing() {
   const deleteMutation = useDeleteScheme(id, () => setIsModal(false));
   const openModal = () => setIsModal(true);
 
-  if (isLoading) return <DataTableSkeleton columnCount={4} rowCount={10} />;
+  if (isLoading) return <DataTableSkeleton columnCount={6} rowCount={10} />;
   if (isError) return <ErrorMessage error={error} />;
 
   return (
     <>
-      <DataTable columns={columns(openModal, setId)} data={data?.data ?? data?.schemes ?? []} totalItems={data?.total ?? 0} />
-      <DeleteDialog deleteMutation={deleteMutation} isOpen={isModal} setIsOpen={setIsModal} id={id} />
+      <DataTable columns={columns(openModal, setId)} data={data?.data ?? []} totalItems={data?.total ?? 0} />
+      <DeleteDialog
+        deleteMutation={deleteMutation}
+        isOpen={isModal}
+        setIsOpen={setIsModal}
+        id={id}
+        title="Delete this scheme?"
+        description="The scheme is deleted for good. To hide it from the website instead, edit it and untick Published."
+      />
     </>
   );
 }

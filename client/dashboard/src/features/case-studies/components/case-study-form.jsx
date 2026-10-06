@@ -1,96 +1,180 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import Loader from "@/components/loader";
+import TextEditor from "@/components/editor";
+import FileUploaderServer from "@/components/file-uploader-server";
+import { FieldError, FormCard as Card, FormColumns } from "@/components/form-layout";
 import { Button } from "@/components/ui/button";
 import ErrorMessage from "@/components/ui/error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import Loader from "@/components/loader";
 import { useCaseStudy, useCreateCaseStudy, useUpdateCaseStudy } from "@/hooks/use-case-studies";
-import { Loader2 } from "lucide-react";
-import { z } from "zod";
-import TextEditor from "@/components/editor";
+import { buildPayload, emptyCaseStudy, RICH_FIELDS, toFormValues } from "@/lib/case-study-form";
+import { slugify } from "@/lib/service-form";
+import { cn } from "@/lib/utils";
+import { caseStudyFormSchema } from "@/schemas/case-study";
 
-const caseStudySchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  client_name: z.string().optional(),
-  industry: z.string().optional(),
-  challenge: z.string().optional(),
-  solution: z.string().optional(),
-  result: z.string().optional(),
-  is_published: z.boolean().default(false),
-});
+const LIST_URL = "/case-studies?page=1&limit=10";
 
 export default function CaseStudyForm({ id, type = "create" }) {
-  const { register, handleSubmit, formState: { errors }, reset, control } = useForm({
-    resolver: zodResolver(caseStudySchema),
-    defaultValues: { is_published: false },
-  });
+  const isEdit = type === "edit";
   const router = useRouter();
-  const handleSuccess = () => { reset(); router.replace("/case-studies?page=1&limit=10"); };
-  const createMutation = useCreateCaseStudy(handleSuccess);
-  const updateMutation = useUpdateCaseStudy(id, handleSuccess);
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors, dirtyFields },
+  } = useForm({
+    resolver: zodResolver(caseStudyFormSchema),
+    defaultValues: emptyCaseStudy,
+  });
+
+  const done = (message) => () => {
+    toast.success(message);
+    router.replace(LIST_URL);
+  };
+  const createMutation = useCreateCaseStudy(done("Case study created"));
+  const updateMutation = useUpdateCaseStudy(id, done("Case study updated"));
   const { data, isLoading, isError, error } = useCaseStudy(id);
 
-  const onSubmit = (formData) => {
-    type === "create" ? createMutation.mutate(formData) : updateMutation.mutate(formData);
+  // Load the saved case study into the form (edit only).
+  useEffect(() => {
+    if (isEdit && data) reset(toFormValues(data));
+  }, [isEdit, data?.id, data?.updated_at, reset]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // On a new case study, suggest the slug while the title is typed, until the
+  // slug is edited by hand.
+  const titleField = register("title");
+  const suggestSlug = (event) => {
+    titleField.onChange(event);
+    if (!isEdit && !dirtyFields.slug) {
+      setValue("slug", slugify(event.target.value), { shouldValidate: false });
+    }
   };
 
-  useEffect(() => {
-    if (!data) return;
-    reset({
-      title: data.title ?? "",
-      client_name: data.client_name ?? "",
-      industry: data.industry ?? "",
-      challenge: data.challenge ?? "",
-      solution: data.solution ?? "",
-      result: data.result ?? "",
-      is_published: data.is_published ?? false,
-    });
-  }, [data, reset]);
+  const submit = (values) => {
+    const payload = buildPayload(values);
+    if (isEdit) updateMutation.mutate(payload);
+    else createMutation.mutate(payload);
+  };
+  const invalid = () => toast.error("Please fix the highlighted fields");
 
-  if (type === "edit" && isLoading) return <Loader />;
-  if (type === "edit" && isError) return <ErrorMessage error={error} />;
-  const isFormPending = (type === "create" && createMutation.isPending) || (type === "edit" && updateMutation.isPending);
+  if (isEdit && isLoading) return <Loader />;
+  if (isEdit && isError) return <ErrorMessage error={error} />;
+
+  const loading = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
-        <div className="space-y-1">
-          <Label htmlFor="title">Title</Label>
-          <Input id="title" className={cn({ "border-red-500": errors.title })} {...register("title")} placeholder="Enter title" />
-          {errors.title && <p className="mt-1 text-sm text-red-500">{errors.title.message}</p>}
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="client_name">Client Name</Label>
-          <Input id="client_name" {...register("client_name")} placeholder="Enter client name" />
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="industry">Industry</Label>
-          <Input id="industry" {...register("industry")} placeholder="Enter industry" />
-        </div>
-        <div className="flex items-center gap-2 pt-6">
-          <input id="is_published" type="checkbox" className="h-4 w-4" {...register("is_published")} />
-          <Label htmlFor="is_published">Published</Label>
-        </div>
-      </div>
+    <form onSubmit={handleSubmit(submit, invalid)} className="space-y-6">
+      <FormColumns
+        main={
+          <>
+            <Card title="Basics" description="The title, client and industry of the case study.">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-4">
+                <div className="space-y-1">
+                  <Label htmlFor="title">Title *</Label>
+                  <Input
+                    id="title"
+                    className={cn({ "border-red-500": errors.title })}
+                    {...titleField}
+                    onChange={suggestSlug}
+                    placeholder="Case study title"
+                  />
+                  <FieldError error={errors.title} />
+                </div>
 
-      {[["challenge", "Challenge"], ["solution", "Solution"], ["result", "Result"]].map(([field, label]) => (
-        <div key={field} className="space-y-1">
-          <Label>{label}</Label>
-          <Controller control={control} name={field}
-            render={({ field: f }) => <TextEditor value={f.value} onChange={f.onChange} />}
-          />
-        </div>
-      ))}
+                <div className="space-y-1">
+                  <Label htmlFor="slug">Slug (page address)</Label>
+                  <Input
+                    id="slug"
+                    className={cn("font-mono text-sm", { "border-red-500": errors.slug })}
+                    {...register("slug")}
+                    placeholder="made-from-the-title"
+                  />
+                  <FieldError error={errors.slug} />
+                  <p className="text-xs text-muted-foreground">
+                    {isEdit
+                      ? "Changing it changes the public link of this case study."
+                      : "Filled in from the title; leave it as it is or edit it."}
+                  </p>
+                </div>
 
-      <div className="text-end">
-        <Button type="submit" disabled={isFormPending}>
-          {isFormPending && <Loader2 className="animate-spin" />} Submit
+                <div className="space-y-1">
+                  <Label htmlFor="client_name">Client</Label>
+                  <Input id="client_name" {...register("client_name")} placeholder="Client or company name" />
+                  <FieldError error={errors.client_name} />
+                </div>
+
+                <div className="space-y-1">
+                  <Label htmlFor="industry">Industry</Label>
+                  <Input id="industry" {...register("industry")} placeholder="e.g. Textiles" />
+                  <FieldError error={errors.industry} />
+                </div>
+
+              </div>
+            </Card>
+
+            <Card title="Story" description="Shown on the case study page.">
+              {RICH_FIELDS.map(([name, label, hint]) => (
+                <div key={name} className="space-y-1">
+                  <Label>{label}</Label>
+                  <p className="text-xs text-muted-foreground">{hint}</p>
+                  <Controller
+                    control={control}
+                    name={name}
+                    render={({ field }) => <TextEditor value={field.value ?? ""} onChange={field.onChange} />}
+                  />
+                </div>
+              ))}
+            </Card>
+          </>
+        }
+        side={
+          <>
+            <Card title="Status">
+              <label htmlFor="is_published" className="flex items-start gap-2 text-sm">
+                <input id="is_published" type="checkbox" className="mt-0.5 h-4 w-4" {...register("is_published")} />
+                <span>
+                  Published
+                  <span className="block text-xs text-muted-foreground">Unticked case studies stay hidden on the website. The publish date is set the first time it is published.</span>
+                </span>
+              </label>
+            </Card>
+
+            <Card title="Image" description="Shown on cards and at the top of the page.">
+              <Controller
+                control={control}
+                name="cover_image"
+                render={({ field }) => (
+                  <FileUploaderServer value={field.value} onFileChange={(path) => field.onChange(path ?? "")} />
+                )}
+              />
+              <FieldError error={errors.cover_image} />
+            </Card>
+
+            <Card title="Tags">
+              <Input id="tags" {...register("tags")} placeholder="subsidy, MSME" />
+              <p className="text-xs text-muted-foreground">Separate with commas.</p>
+            </Card>
+          </>
+        }
+      />
+
+      <div className="sticky bottom-0 z-10 -mx-4 flex items-center justify-end gap-3 border-t bg-background/95 px-4 py-3 backdrop-blur">
+        <Button type="button" variant="outline" asChild>
+          <Link href={LIST_URL}>Cancel</Link>
+        </Button>
+        <Button type="submit" disabled={loading}>
+          {loading && <Loader2 className="mr-2 animate-spin" />} {isEdit ? "Save changes" : "Create case study"}
         </Button>
       </div>
     </form>

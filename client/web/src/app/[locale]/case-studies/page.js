@@ -7,6 +7,7 @@ import { contentPageMetadata, robots } from "@/lib/seo";
 import { PageAlternates } from "@/components/layout/page-alternates";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { resolveContentPath } from "@/lib/pages/resolve";
+import { loadInitialList, loadStaticSummaries } from "@/lib/content/loaders";
 import { CaseStudiesPage } from "./_components/CaseStudiesPage";
 
 const PATH = "/case-studies";
@@ -28,6 +29,8 @@ export default async function CaseStudiesRoute({ params }) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const has = hasTranslation(t);
+  const initialData = await loadInitialList("case-study");
+  const staticItems = loadStaticSummaries("case-study", locale);
   return (
     <>
       <PageAlternates
@@ -48,6 +51,8 @@ export default async function CaseStudiesRoute({ params }) {
           t={t}
           has={has}
           image="/assets/case-studies.png"
+          initialData={initialData}
+          staticItems={staticItems}
         />
       </main>
     </>

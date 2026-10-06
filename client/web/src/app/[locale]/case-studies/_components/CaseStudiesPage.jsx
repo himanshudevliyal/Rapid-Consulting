@@ -10,31 +10,29 @@
 
 import Image from "next/image";
 
-import {
-  getSummaries,
-  pageHref,
-} from "@/lib/pages/content";
+import { pageHref } from "@/lib/pages/content";
 import { cardCopy, linkedContentIds } from "@/lib/pages/card-copy";
 import { ClientTicker } from "@/components/common/client-ticker";
 import { ContactExperience } from "@/components/form/contact-experience";
-import { Directory } from "./directory";
+import { CaseStudiesDirectory } from "./CaseStudiesDirectory";
 import { Html } from "@/components/pages/content-primitives";
 import Heading from "@/components/layout/heading";
 import Section from "@/components/layout/section";
 
-const CASE_TYPES = ["case-study"];
-
+/**
+ * Case studies come from the API (CaseStudiesDirectory); `initialData` is the
+ * list the server already fetched and `staticItems` the built-in case studies
+ * kept while they are being moved into the admin panel.
+ */
 export function CaseStudiesPage({
   page,
   t,
   has,
   image = "/assets/case-studies.png",
+  initialData,
+  staticItems = [],
 }) {
   // ── Data ────────────────────────────────────────────────────────────────────
-  const items = getSummaries(page.locale).filter((p) =>
-    CASE_TYPES.includes(p.type),
-  );
-
   // Sections that embed a specific case-study link → used as rich card overrides
   const caseSections = page.sections.filter((s) =>
     linkedContentIds(s.html).some((id) => id.startsWith("RC-CS")),
@@ -92,7 +90,11 @@ export function CaseStudiesPage({
       </Section>
 
       {/* ── Searchable directory (rich card overrides from copyById) ──────── */}
-      <Directory items={items} kind="cases" copyById={copyById} industry="" />
+      <CaseStudiesDirectory
+        initialData={initialData}
+        staticItems={staticItems}
+        copyById={copyById}
+      />
 
       {/* ── Guidance accordion ────────────────────────────────────────────── */}
       <Section className="collection-guidance">

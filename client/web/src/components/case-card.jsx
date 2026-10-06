@@ -60,6 +60,8 @@ export function CaseCard({
           src={image}
           alt=""
           fill
+          // Pictures saved by the API are served from another origin as-is.
+          unoptimized={/^https?:\/\//i.test(image)}
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           className="-z-20 object-cover transition-transform duration-500 group-hover:scale-105"
         />

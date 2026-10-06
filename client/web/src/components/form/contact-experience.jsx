@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { WhatsAppButton } from "../contact/whatsapp";
+import { useSubmitEnquiry } from "@/hooks/use-enquiry";
 import { EMAIL, PHONE_LABEL, PHONE_HREF } from "@/lib/site";
 
 // Shared Tailwind classes for the "section" variant fields
@@ -33,7 +34,12 @@ const AREA =
   "!block !w-full !resize-none !rounded-2xl !border !border-solid !border-slate-300 !bg-white !px-5 !py-4 !text-[15px] !text-[#09263e] !shadow-none focus-visible:!border-[#1f5d57] focus-visible:!outline-none focus-visible:!ring-2 focus-visible:!ring-[#1f5d57]/25";
 
 
-// Contextual expert-callback form
+const EMPTY_FIELDS = { name: "", phone: "", location: "", requirement: "", subject: "" };
+
+// The API column limits; longer text is cut instead of failing the request.
+const clip = (value, max) => (value ?? "").trim().slice(0, max) || undefined;
+
+// Contextual expert-callback form. Submits to POST /enquiries.
 export function ContactExperience({
   pageTitle,
   pageId,
@@ -46,16 +52,10 @@ export function ContactExperience({
   const t = useTranslations();
   const uid = useId();
 
-  const [fields, setFields] = useState({
-    name: "",
-    phone: "",
-    location: "",
-    requirement: "",
-    subject: "",
-  });
+  const [fields, setFields] = useState(EMPTY_FIELDS);
+  const enquiry = useSubmitEnquiry();
 
   const [attempted, setAttempted] = useState(false);
-  const [previewed, setPreviewed] = useState(false);
   const [mobile, setMobile] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -126,7 +126,8 @@ export function ContactExperience({
       [key]: event.target.value,
     });
 
-    setPreviewed(false);
+    // Typing again after a result clears the old "sent" / "failed" message.
+    if (!enquiry.isIdle && !enquiry.isPending) enquiry.reset();
   };
 
   const submit = (event) => {
@@ -149,8 +150,38 @@ export function ContactExperience({
       return;
     }
 
-    setPreviewed(true);
+    if (enquiry.isPending) return;
+
+    enquiry.mutate(
+      {
+        name: clip(fields.name, 120),
+        phone: clip(fields.phone, 20),
+        location: clip(fields.location, 200),
+        requirement: clip(fields.requirement, 2000),
+        subject: clip(fields.subject, 255),
+        page_title: clip(pageTitle, 255),
+        page_id: clip(pageId, 100),
+        source: variant === "section" ? "contact-section" : "callback-rail",
+      },
+      { onSuccess: () => setFields(EMPTY_FIELDS) },
+    );
   };
+
+  const pending = enquiry.isPending;
+  const status = (
+    <>
+      {enquiry.isSuccess && (
+        <p className="contact-status text-sm text-green-700" role="status">
+          {t("contact.sent")}
+        </p>
+      )}
+      {enquiry.isError && (
+        <p className="contact-status text-sm text-red-600" role="alert">
+          {t("contact.sendError")}
+        </p>
+      )}
+    </>
+  );
 
   const TitleTag = modal ? DialogTitle : "h2";
 
@@ -287,9 +318,11 @@ export function ContactExperience({
         variant="brand"
         className="callback-submit"
         type="submit"
+        disabled={pending}
+        aria-busy={pending}
       >
-        {t("contact.submit")}
-        <span aria-hidden="true">↗</span>
+        {pending ? t("contact.sending") : t("contact.submit")}
+        {!pending && <span aria-hidden="true">↗</span>}
       </Button>
 
       <WhatsAppButton />
@@ -298,14 +331,7 @@ export function ContactExperience({
         {t("contact.demoNote")}
       </p>
 
-      {previewed && (
-        <p
-          className="contact-status"
-          role="status"
-        >
-          {t("contact.previewDone")}
-        </p>
-      )}
+      {status}
     </form>
   );
 
@@ -593,9 +619,11 @@ export function ContactExperience({
               <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
                 <Button
                   type="submit"
+                  disabled={pending}
+                  aria-busy={pending}
                   className="h-14 rounded-full bg-[#1f5d57] px-10 text-base font-medium text-white! shadow-none transition-colors hover:bg-[#09263e]"
                 >
-                  Send Message
+                  {pending ? t("contact.sending") : "Send Message"}
                 </Button>
 
                 <a
@@ -611,14 +639,7 @@ export function ContactExperience({
                 </a>
               </div>
 
-              {previewed && (
-                <p
-                  className="text-sm text-green-700"
-                  role="status"
-                >
-                  {t("contact.previewDone")}
-                </p>
-              )}
+              {status}
 
               <p className="text-[11px] text-slate-400">
                 {t("contact.demoNote")}

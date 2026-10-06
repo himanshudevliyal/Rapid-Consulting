@@ -18,7 +18,7 @@ export default async function ServicesPage({ searchParams }) {
   return (
     <PageContainer
       pageTitle="Services"
-      pageDescription="Manage services (Create, Update, Delete)."
+      pageDescription="Manage service pages and their content (Create, Update, Delete)."
       scrollable={false}
       pageHeaderAction={
         <Link

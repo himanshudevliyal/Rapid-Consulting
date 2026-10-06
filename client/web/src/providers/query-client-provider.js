@@ -19,7 +19,11 @@ export default function QueryProvider({ children }) {
           onError: (error) => handleError(error, "Failed to fetch data."),
         }),
         mutationCache: new MutationCache({
-          onError: (error) => handleError(error, "Failed to perform action."),
+          // Forms that show their own error (meta.silent) skip the toast.
+          onError: (error, _variables, _context, mutation) => {
+            if (mutation?.meta?.silent) return;
+            handleError(error, "Failed to perform action.");
+          },
         }),
       }),
   );

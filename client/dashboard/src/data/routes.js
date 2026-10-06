@@ -87,6 +87,42 @@ export const sidebarData = [
       roles: [ROLES.ADMIN],
       isVisible: false,
     },
+    {
+      title: "Formats",
+      url: "/services/format?page=1&limit=10",
+      roles: [ROLES.ADMIN],
+      isVisible: true,
+    },
+    {
+      title: "Create format",
+      url: "/services/format/create",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
+    {
+      title: "Edit format",
+      url: "/services/format/:id/edit",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
+    {
+      title: "Family / topics",
+      url: "/services/family-topic?page=1&limit=10",
+      roles: [ROLES.ADMIN],
+      isVisible: true,
+    },
+    {
+      title: "Create family / topic",
+      url: "/services/family-topic/create",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
+    {
+      title: "Edit family / topic",
+      url: "/services/family-topic/:id/edit",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
   ],
 },
 

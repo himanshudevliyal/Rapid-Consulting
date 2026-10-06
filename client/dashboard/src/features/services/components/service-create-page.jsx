@@ -10,42 +10,17 @@ export default function ServiceCreatePage() {
 
   const createMutation = useCreateService(() => {
     toast.success("Service created successfully");
-    router.push("/services");
+    router.push("/services?page=1&limit=10");
   });
-
-  const onSubmit = (data) => {
-    // Wrap into API shape: service fields + en translation
-    const payload = {
-      code: data.code,
-      slug: data.slug || undefined,
-      type: data.type,
-      family_code: data.family_code || null,
-      icon: data.icon || undefined,
-      sort_order: data.sort_order,
-      is_active: data.is_active,
-      translations: [
-        {
-          locale: "en",
-          title: data.title,
-          short_description: data.short_description || undefined,
-          status: data.status,
-        },
-      ],
-    };
-    createMutation.mutate(payload);
-  };
 
   return (
     <PageContainer
       pageTitle="Create Service"
-      pageDescription="Add a new service"
+      pageDescription="Add a new service page. Only the Format and English title are required; add the rest now or later."
       scrollable
     >
-      <div className="max-w-2xl">
-        <ServiceForm
-          onSubmit={onSubmit}
-          loading={createMutation.isPending}
-        />
+      <div className="max-w-5xl">
+        <ServiceForm onSubmit={(payload) => createMutation.mutate(payload)} loading={createMutation.isPending} />
       </div>
     </PageContainer>
   );

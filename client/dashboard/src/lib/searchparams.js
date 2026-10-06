@@ -12,6 +12,9 @@ export const searchParams = {
   q: parseAsString,
   categories: parseAsString,
   role: parseAsString,
+  type: parseAsString,
+  family: parseAsString,
+  is_published: parseAsString,
   start_date: parseAsString,
   end_date: parseAsString,
 };

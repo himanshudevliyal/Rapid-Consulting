@@ -1,6 +1,7 @@
 "use strict";
 import table from "../../db/models.js";
 import { removeReplacedImage } from "../../helpers/image-files.js";
+import { notifyWebsite } from "../../helpers/notify-website.js";
 import { StatusCodes } from "http-status-codes";
 import {
   caseStudyCreateSchema,
@@ -22,6 +23,7 @@ const create = async (req, res) => {
     return slugConflict(res);
   }
   const item = await table.CaseStudyModel.create(data);
+  notifyWebsite("case-studies", [item.slug]);
   return res.code(StatusCodes.CREATED).send({ status: true, data: item });
 };
 
@@ -73,6 +75,7 @@ const update = async (req, res) => {
   const item = await table.CaseStudyModel.updateById(req.params.id, data);
   if (!item) return res.code(StatusCodes.NOT_FOUND).send({ error: "Not found" });
   if ("cover_image" in data) await removeReplacedImage(previous?.cover_image, data.cover_image);
+  notifyWebsite("case-studies", [previous?.slug, item.slug]);
   return res.send({ status: true, data: item });
 };
 
@@ -81,6 +84,7 @@ const destroy = async (req, res) => {
   const ok = await table.CaseStudyModel.deleteById(req.params.id);
   if (!ok) return res.code(StatusCodes.NOT_FOUND).send({ error: "Not found" });
   await removeReplacedImage(previous?.cover_image, null);
+  notifyWebsite("case-studies", [previous?.slug]);
   return res.code(StatusCodes.NO_CONTENT).send();
 };
 

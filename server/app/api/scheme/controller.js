@@ -2,6 +2,7 @@
 import table from "../../db/models.js";
 import { assertCategory, categoryFilter, withCategory } from "../../helpers/category-link.js";
 import { removeReplacedImage } from "../../helpers/image-files.js";
+import { notifyWebsite } from "../../helpers/notify-website.js";
 import { StatusCodes } from "http-status-codes";
 import {
   schemeCreateSchema,
@@ -24,6 +25,7 @@ const create = async (req, res) => {
   }
   await assertCategory(data.category_id);
   const item = await table.SchemeModel.create(data);
+  notifyWebsite("schemes", [item.slug]);
   return res.code(StatusCodes.CREATED).send({ status: true, data: await withCategory(item) });
 };
 
@@ -78,6 +80,7 @@ const update = async (req, res) => {
   const item = await table.SchemeModel.updateById(req.params.id, data);
   if (!item) return res.code(StatusCodes.NOT_FOUND).send({ error: "Not found" });
   if ("cover_image" in data) await removeReplacedImage(previous?.cover_image, data.cover_image);
+  notifyWebsite("schemes", [previous?.slug, item.slug]);
   return res.send({ status: true, data: await withCategory(item) });
 };
 
@@ -86,6 +89,7 @@ const destroy = async (req, res) => {
   const ok = await table.SchemeModel.deleteById(req.params.id);
   if (!ok) return res.code(StatusCodes.NOT_FOUND).send({ error: "Not found" });
   await removeReplacedImage(previous?.cover_image, null);
+  notifyWebsite("schemes", [previous?.slug]);
   return res.code(StatusCodes.NO_CONTENT).send();
 };
 

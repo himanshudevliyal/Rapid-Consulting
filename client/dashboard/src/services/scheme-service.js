@@ -1,17 +1,18 @@
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 
+// Admin list: every scheme, drafts included.
 export const fetchSchemes = async (searchParams) => {
-  return await http().get(`${endpoints.schemes.getAll}?${searchParams}`);
+  return await http().get(`${endpoints.schemes.list}?${searchParams}`);
 };
+
+// One scheme (the record itself).
 export const fetchScheme = async (id) => {
-return await http().get(`${endpoints.schemes.getAll}/${id}`);
-  // return data;
+  return await http().get(`${endpoints.schemes.getAll}/${id}`);
 };
 
 export const createScheme = async (data) => {
-  const response = await http().post(endpoints.schemes.getAll, data);
-   response.data;
+  return await http().post(endpoints.schemes.getAll, data);
 };
 
 export const updateScheme = async (id, data) => {

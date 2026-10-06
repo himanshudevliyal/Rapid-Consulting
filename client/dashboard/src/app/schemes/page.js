@@ -18,7 +18,7 @@ export default async function SchemesPage({ searchParams }) {
   return (
     <PageContainer
       pageTitle={"Schemes"}
-      pageDescription={"Manage schemes (Create, Update, Delete)."}
+      pageDescription={"Government schemes shown on the website. Drafts stay hidden until published."}
       scrollable={false}
       pageHeaderAction={
         <Link
@@ -32,7 +32,7 @@ export default async function SchemesPage({ searchParams }) {
       <SchemesTableActions />
       <Suspense
         key={key}
-        fallback={<DataTableSkeleton columnCount={4} rowCount={10} />}
+        fallback={<DataTableSkeleton columnCount={6} rowCount={10} />}
       >
         <SchemesListing />
       </Suspense>

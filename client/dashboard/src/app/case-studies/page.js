@@ -18,7 +18,7 @@ export default async function CaseStudiesPage({ searchParams }) {
   return (
     <PageContainer
       pageTitle={"Case Studies"}
-      pageDescription={"Manage case studies (Create, Update, Delete)."}
+      pageDescription={"Client stories shown on the website. Drafts stay hidden until published."}
       scrollable={false}
       pageHeaderAction={
         <Link
@@ -32,7 +32,7 @@ export default async function CaseStudiesPage({ searchParams }) {
       <CaseStudiesTableActions />
       <Suspense
         key={key}
-        fallback={<DataTableSkeleton columnCount={6} rowCount={10} />}
+        fallback={<DataTableSkeleton columnCount={7} rowCount={10} />}
       >
         <CaseStudiesListing />
       </Suspense>
