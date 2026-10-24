@@ -1,112 +1,196 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import Loader from "@/components/loader";
+import TextEditor from "@/components/editor";
+import { FieldError, FormCard as Card, FormColumns } from "@/components/form-layout";
 import { Button } from "@/components/ui/button";
 import ErrorMessage from "@/components/ui/error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import Loader from "@/components/loader";
-import { useJob, useCreateJob, useUpdateJob } from "@/hooks/use-jobs";
-import { Loader2 } from "lucide-react";
-import { z } from "zod";
-import TextEditor from "@/components/editor";
+import { useCreateJob, useJob, useUpdateJob } from "@/hooks/use-jobs";
+import { buildPayload, emptyJob, toFormValues } from "@/lib/job-form";
+import { slugify } from "@/lib/service-form";
+import { cn } from "@/lib/utils";
+import { JOB_TYPES, jobFormSchema } from "@/schemas/job";
 
-const jobSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  job_type: z.enum(["full-time", "part-time", "contract", "internship", "remote"]).default("full-time"),
-  location: z.string().optional(),
-  experience: z.string().optional(),
-  responsibilities: z.string().optional(),
-  requirements: z.string().optional(),
-  closing_date: z.string().optional(),
-  is_active: z.boolean().default(true),
-});
+const LIST_URL = "/jobs?page=1&limit=10";
 
 export default function JobForm({ id, type = "create" }) {
-  const { register, handleSubmit, formState: { errors }, reset, control } = useForm({
-    resolver: zodResolver(jobSchema),
-    defaultValues: { is_active: true, job_type: "full-time" },
-  });
+  const isEdit = type === "edit";
   const router = useRouter();
-  const handleSuccess = () => { reset(); router.replace("/jobs?page=1&limit=10"); };
-  const createMutation = useCreateJob(handleSuccess);
-  const updateMutation = useUpdateJob(id, handleSuccess);
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors, dirtyFields },
+  } = useForm({
+    resolver: zodResolver(jobFormSchema),
+    defaultValues: emptyJob,
+  });
+
+  const done = (message) => () => {
+    toast.success(message);
+    router.replace(LIST_URL);
+  };
+  const createMutation = useCreateJob(done("Job created"));
+  const updateMutation = useUpdateJob(id, done("Job updated"));
   const { data, isLoading, isError, error } = useJob(id);
 
-  const onSubmit = (formData) => {
-    type === "create" ? createMutation.mutate(formData) : updateMutation.mutate(formData);
+  // Load the saved job into the form (edit only).
+  useEffect(() => {
+    if (isEdit && data) reset(toFormValues(data));
+  }, [isEdit, data?.id, data?.updated_at, reset]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // On a new job, suggest the slug while the title is typed, until the slug
+  // is edited by hand.
+  const titleField = register("title");
+  const suggestSlug = (event) => {
+    titleField.onChange(event);
+    if (!isEdit && !dirtyFields.slug) {
+      setValue("slug", slugify(event.target.value), { shouldValidate: false });
+    }
   };
 
-  useEffect(() => {
-    if (!data) return;
-    reset({
-      title: data.title ?? "",
-      job_type: data.job_type ?? "full-time",
-      location: data.location ?? "",
-      experience: data.experience ?? "",
-      responsibilities: data.responsibilities ?? "",
-      requirements: data.requirements ?? "",
-      closing_date: data.closing_date ? data.closing_date.split("T")[0] : "",
-      is_active: data.is_active ?? true,
-    });
-  }, [data, reset]);
+  const submit = (values) => {
+    const payload = buildPayload(values);
+    if (isEdit) updateMutation.mutate(payload);
+    else createMutation.mutate(payload);
+  };
+  const invalid = () => toast.error("Please fix the highlighted fields");
 
-  if (type === "edit" && isLoading) return <Loader />;
-  if (type === "edit" && isError) return <ErrorMessage error={error} />;
-  const isFormPending = (type === "create" && createMutation.isPending) || (type === "edit" && updateMutation.isPending);
+  if (isEdit && isLoading) return <Loader />;
+  if (isEdit && isError) return <ErrorMessage error={error} />;
+
+  const loading = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
-        <div className="space-y-1">
-          <Label htmlFor="title">Title</Label>
-          <Input id="title" className={cn({ "border-red-500": errors.title })} {...register("title")} placeholder="Job title" />
-          {errors.title && <p className="mt-1 text-sm text-red-500">{errors.title.message}</p>}
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="job_type">Job Type</Label>
-          <select id="job_type" className="border-input bg-background flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm" {...register("job_type")}>
-            <option value="full-time">Full-time</option>
-            <option value="part-time">Part-time</option>
-            <option value="contract">Contract</option>
-            <option value="internship">Internship</option>
-            <option value="remote">Remote</option>
-          </select>
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="location">Location</Label>
-          <Input id="location" {...register("location")} placeholder="Enter location" />
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="experience">Experience</Label>
-          <Input id="experience" {...register("experience")} placeholder="e.g. 2-3 years" />
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="closing_date">Closing Date</Label>
-          <Input id="closing_date" type="date" {...register("closing_date")} />
-        </div>
-        <div className="flex items-center gap-2 pt-6">
-          <input id="is_active" type="checkbox" className="h-4 w-4" {...register("is_active")} />
-          <Label htmlFor="is_active">Active</Label>
-        </div>
-      </div>
+    <form onSubmit={handleSubmit(submit, invalid)} className="space-y-6">
+      <FormColumns
+        main={
+          <>
+            <Card title="Basics" description="The role and the public address of its page (/careers/<slug>).">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-4">
+                <div className="space-y-1">
+                  <Label htmlFor="title">Title *</Label>
+                  <Input
+                    id="title"
+                    className={cn({ "border-red-500": errors.title })}
+                    {...titleField}
+                    onChange={suggestSlug}
+                    placeholder="Accountant"
+                  />
+                  <FieldError error={errors.title} />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="slug">Slug (page address)</Label>
+                  <Input
+                    id="slug"
+                    className={cn("font-mono text-sm", { "border-red-500": errors.slug })}
+                    {...register("slug")}
+                    placeholder="made-from-the-title"
+                  />
+                  <FieldError error={errors.slug} />
+                  <p className="text-xs text-muted-foreground">
+                    {isEdit
+                      ? "Changing it changes the public link of this job."
+                      : "Filled in from the title; leave it as it is or edit it."}
+                  </p>
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="location">Location</Label>
+                  <Input id="location" {...register("location")} placeholder="Hisar" />
+                  <FieldError error={errors.location} />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="experience">Experience</Label>
+                  <Input id="experience" {...register("experience")} placeholder="e.g. 2-3 years" />
+                  <FieldError error={errors.experience} />
+                </div>
+              </div>
+            </Card>
 
-      {[["responsibilities", "Responsibilities"], ["requirements", "Requirements"]].map(([field, label]) => (
-        <div key={field} className="space-y-1">
-          <Label>{label}</Label>
-          <Controller control={control} name={field}
-            render={({ field: f }) => <TextEditor value={f.value} onChange={f.onChange} />}
-          />
-        </div>
-      ))}
+            <Card title="Job details" description="Shown on the job page. Each box becomes its own section.">
+              <div className="space-y-1">
+                <Label>About the role</Label>
+                <Controller
+                  control={control}
+                  name="description"
+                  render={({ field }) => <TextEditor value={field.value ?? ""} onChange={field.onChange} />}
+                />
+              </div>
+              <div className="space-y-1">
+                <Label>Responsibilities (the work)</Label>
+                <Controller
+                  control={control}
+                  name="responsibilities"
+                  render={({ field }) => <TextEditor value={field.value ?? ""} onChange={field.onChange} />}
+                />
+              </div>
+              <div className="space-y-1">
+                <Label>Requirements (relevant skills)</Label>
+                <Controller
+                  control={control}
+                  name="requirements"
+                  render={({ field }) => <TextEditor value={field.value ?? ""} onChange={field.onChange} />}
+                />
+              </div>
+            </Card>
+          </>
+        }
+        side={
+          <>
+            <Card title="Status">
+              <label htmlFor="is_active" className="flex items-start gap-2 text-sm">
+                <input id="is_active" type="checkbox" className="mt-0.5 h-4 w-4" {...register("is_active")} />
+                <span>
+                  Active
+                  <span className="block text-xs text-muted-foreground">
+                    Unticked jobs are hidden from the website (closed).
+                  </span>
+                </span>
+              </label>
+              <div className="space-y-1">
+                <Label htmlFor="closing_date">Closing date</Label>
+                <Input id="closing_date" type="date" {...register("closing_date")} />
+                <FieldError error={errors.closing_date} />
+                <p className="text-xs text-muted-foreground">
+                  Optional. The job leaves the website after this date.
+                </p>
+              </div>
+            </Card>
 
-      <div className="text-end">
-        <Button type="submit" disabled={isFormPending}>
-          {isFormPending && <Loader2 className="animate-spin" />} Submit
+            <Card title="Job type">
+              <select
+                id="job_type"
+                className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
+                {...register("job_type")}
+              >
+                {JOB_TYPES.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </Card>
+          </>
+        }
+      />
+
+      <div className="sticky bottom-0 z-10 -mx-4 flex items-center justify-end gap-3 border-t bg-background/95 px-4 py-3 backdrop-blur">
+        <Button type="button" variant="outline" asChild>
+          <Link href={LIST_URL}>Cancel</Link>
+        </Button>
+        <Button type="submit" disabled={loading}>
+          {loading && <Loader2 className="mr-2 animate-spin" />} {isEdit ? "Save changes" : "Create job"}
         </Button>
       </div>
     </form>

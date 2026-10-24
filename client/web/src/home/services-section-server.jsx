@@ -1,50 +1,46 @@
-// Server Component — calls t(), getSummaries(), etc., then passes
+// Server Component — loads the service categories from the API, then passes
 // only plain serialisable data to the Client Component.
-import { getSummaries } from "@/lib/pages/content";
 import { linkedContentIds } from "@/lib/pages/card-copy";
+import { pageRoutes } from "@/lib/page-routes";
+import { loadCategoryGroups } from "@/lib/content/site-data";
+import { serviceHref } from "@/lib/site";
 import { paragraphs } from "./utils";
 import { ServicesTabUI } from "./services-section";
 
-const FAMILY_IDS = ["S01", "S02", "S03", "S04", "S05"];
 const SERVICE_PLACEHOLDER = "/assets/hero-section.jpg";
-const FAMILY_IMAGES = {
-  S01: SERVICE_PLACEHOLDER,
-  S02: SERVICE_PLACEHOLDER,
-  S03: SERVICE_PLACEHOLDER,
-  S04: SERVICE_PLACEHOLDER,
-  S05: SERVICE_PLACEHOLDER,
-};
 
-export function ServicesSection({ section, page, t, eyebrow }) {
+// Paragraphs of the home copy that introduce a service (they link to service
+// pages) are replaced by the live list; the rest stay as footer notes.
+const linksService = (html) =>
+  linkedContentIds(html).some((id) => (pageRoutes[id] ?? "").startsWith("/services"));
+
+export async function ServicesSection({ section, page, t, eyebrow }) {
   const locale = page.locale;
-  const pages = getSummaries(locale);
-  const parts = paragraphs(section.html);
+  const groups = await loadCategoryGroups(locale);
 
-  // Build serialisable family data
-  const families = FAMILY_IDS.map((id) => {
-    const family = pages.find((p) => p.id === id);
-    if (!family) return null;
-
-    const children = (
-      id === "S01"
-        ? pages.filter((p) => p.id === "R02")
-        : pages.filter((p) => p.type === "service" && p.family === id)
-    ).map(({ id: cid, title, href, locale: cloc }) => ({ id: cid, title, href, locale: cloc }));
-
-    const descHtml = parts.find((p) => linkedContentIds(p).includes(id)) || "";
-
+  // A category tab: its overview (family) page first, then its services.
+  const families = groups.map((group) => {
+    const items = [...(group.family ? [group.family] : []), ...group.services];
     return {
-      id,
-      family: { id: family.id, title: family.title, icon: family.icon, href: family.href },
-      children,
-      descHtml,
-      image: FAMILY_IMAGES[id] || SERVICE_PLACEHOLDER,
+      id: group.slug,
+      family: {
+        id: group.slug,
+        title: group.title,
+        icon: group.family?.icon,
+        href: group.family ? serviceHref(group.family, locale) : `/${locale}/services`,
+      },
+      children: items.map((service) => ({
+        id: service.slug,
+        title: service.title,
+        href: serviceHref(service, locale),
+        locale: service.has_locale ? locale : "en",
+      })),
+      descHtml: "",
+      image: SERVICE_PLACEHOLDER,
     };
-  }).filter(Boolean);
+  });
 
-  const footerParts = parts.filter(
-    (p) => !linkedContentIds(p).some((id) => FAMILY_IDS.includes(id))
-  );
+  const footerParts = paragraphs(section.html).filter((p) => !linksService(p));
 
   // Resolve all translated strings here (Server side) — never pass t() itself
   return (

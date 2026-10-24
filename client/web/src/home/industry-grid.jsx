@@ -4,23 +4,12 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-/* Industry background images */
-const INDUSTRY_BG = {
-  I01: "/assets/download.jpg",
-  I02: "/assets/hero-section.jpg",
-  I03: "/assets/download.jpg",
-  I04: "/assets/download.jpg",
-};
+// Picture used when an industry has no image of its own.
+const FALLBACK_IMAGE = "/assets/hero-section.jpg";
 
-/* Industry labels */
-const INDUSTRY_LABEL = {
-  I01: "Food & Agro",
-  I02: "Manufacturing",
-  I03: "Recycling",
-  I04: "Logistics",
-};
+const isRemote = (src) => /^https?:\/\//i.test(src);
 
-export function IndustryGrid({ pages, ctaLabel = "Learn more" }) {
+export function IndustryGrid({ pages, ctaLabel = "Explore", tagLabel = "Industry" }) {
   const [activeId, setActiveId] = useState(pages?.[0]?.id);
 
   if (!pages?.length) return null;
@@ -38,9 +27,7 @@ export function IndustryGrid({ pages, ctaLabel = "Learn more" }) {
     >
       {/* Background images */}
       {pages.map((page) => {
-        const src = INDUSTRY_BG[page.id];
-
-        if (!src) return null;
+        const src = page.image || FALLBACK_IMAGE;
 
         const isActive = page.id === activeId;
 
@@ -51,6 +38,7 @@ export function IndustryGrid({ pages, ctaLabel = "Learn more" }) {
             alt=""
             aria-hidden="true"
             fill
+            unoptimized={isRemote(src)}
             priority={page.id === pages[0]?.id}
             sizes="(min-width: 1024px) 1200px, 100vw"
             className={[
@@ -81,7 +69,7 @@ export function IndustryGrid({ pages, ctaLabel = "Learn more" }) {
       {/* Industry Cards */}
       {pages.map((page, i) => {
         const isActive = page.id === activeId;
-        const label = INDUSTRY_LABEL[page.id] || page.type;
+        const label = tagLabel;
 
         return (
           <Link

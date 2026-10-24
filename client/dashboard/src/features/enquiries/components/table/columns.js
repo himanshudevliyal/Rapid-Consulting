@@ -9,46 +9,68 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import moment from "moment";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
+import { ENQUIRY_KINDS, sourceLabel } from "../enquiry-kinds";
 
-export const columns = (openModal, setId) => [
+const STATUS_VARIANT = { new: "default", "in-progress": "secondary", resolved: "outline", spam: "destructive" };
+const STATUS_LABEL = { new: "New", "in-progress": "In progress", resolved: "Resolved", spam: "Spam" };
+
+// Cell with a main line and a small muted line underneath.
+const Stack = ({ main, sub }) => (
+  <div className="max-w-[260px]">
+    <div className="truncate font-medium">{main || "-"}</div>
+    {sub && <div className="truncate text-xs text-muted-foreground">{sub}</div>}
+  </div>
+);
+
+export const columns = (kind, openModal, setId) => [
   {
     accessorKey: "name",
     header: "Name",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
+    cell: ({ row }) => (
+      <Stack
+        main={row.original.name}
+        sub={[row.original.phone, kind === "contact" && row.original.email].filter(Boolean).join(" · ")}
+      />
+    ),
   },
+  kind === "contact"
+    ? {
+        accessorKey: "subject",
+        header: "Subject / message",
+        cell: ({ row }) => <Stack main={row.original.subject || row.original.message} sub={row.original.subject ? row.original.message : ""} />,
+      }
+    : {
+        accessorKey: "service_name",
+        header: "Service / requirement",
+        cell: ({ row }) => (
+          <Stack main={row.original.service_name || row.original.subject} sub={row.original.requirement} />
+        ),
+      },
   {
-    accessorKey: "email",
-    header: "Email",
-    cell: ({ row }) => row.getValue("email") || "-",
-  },
-  {
-    accessorKey: "phone",
-    header: "Phone",
-    cell: ({ row }) => row.getValue("phone") || "-",
-  },
-  {
-    accessorKey: "subject",
-    header: "Subject",
-    cell: ({ row }) => row.getValue("subject") || "-",
+    accessorKey: "page_title",
+    header: "Source page",
+    cell: ({ row }) => (
+      <Stack
+        main={row.original.page_title}
+        sub={sourceLabel(kind, row.original.source)}
+      />
+    ),
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
       const status = row.getValue("status");
-      const variant = status === "new" ? "default" : status === "contacted" ? "secondary" : "outline";
-      return <Badge variant={variant}>{status}</Badge>;
+      return <Badge variant={STATUS_VARIANT[status] ?? "outline"}>{STATUS_LABEL[status] ?? status}</Badge>;
     },
   },
   {
     accessorKey: "created_at",
-    header: "Created on",
-    cell: ({ row }) => (
-      <div>{moment(row.getValue("created_at")).format("DD/MM/YYYY")}</div>
-    ),
+    header: "Received",
+    cell: ({ row }) => <div className="whitespace-nowrap">{moment(row.getValue("created_at")).format("DD/MM/YYYY HH:mm")}</div>,
   },
   {
     id: "actions",
@@ -67,8 +89,8 @@ export const columns = (openModal, setId) => [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href={`/enquiries/${id}/edit`} className="w-full">
-                Edit
+              <Link href={ENQUIRY_KINDS[kind].editUrl(id)} className="w-full">
+                View / update
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />

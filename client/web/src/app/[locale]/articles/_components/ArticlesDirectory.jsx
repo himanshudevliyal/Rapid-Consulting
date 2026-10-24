@@ -6,19 +6,15 @@ import { useTranslations } from "next-intl";
 import { Directory } from "@/components/pages/directory";
 import { QueryState } from "@/components/common/async-state";
 import { useAllArticles } from "@/hooks/use-articles";
-import { articleToSummary, mergeBySlug } from "@/lib/content/adapters";
+import { articleToSummary } from "@/lib/content/adapters";
 
-// Searchable article list fed by the API (initialData comes from the server
-// render, so it is in the HTML; the hook then keeps it fresh). Built-in guides
-// (and, during the migration, built-in articles) are listed with them.
-export function ArticlesDirectory({ initialData, staticItems = [] }) {
+// Searchable list of articles and guides fed by the API (initialData comes
+// from the server render, so it is in the HTML; the hook then keeps it fresh).
+export function ArticlesDirectory({ initialData }) {
   const t = useTranslations("state");
   const query = useAllArticles({}, { initialData });
 
-  const items = useMemo(
-    () => mergeBySlug(query.items.map(articleToSummary), staticItems),
-    [query.items, staticItems],
-  );
+  const items = useMemo(() => query.items.map(articleToSummary), [query.items]);
   const list = { ...query, items, isEmpty: !query.isPending && !query.isError && items.length === 0 };
 
   return (

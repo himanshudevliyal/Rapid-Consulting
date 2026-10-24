@@ -1,8 +1,10 @@
 import { defaultLocale, locales, localeTags } from "@/i18n/routing";
-import config from "@/config";
 import { fetchServices } from "@/services/service-service";
 import { fetchAllArticles } from "@/services/article-service";
 import { fetchAllCaseStudies } from "@/services/case-study-service";
+import { fetchAllSchemes } from "@/services/scheme-service";
+import { fetchAllIndustries } from "@/services/industry-service";
+import { fetchAllJobs } from "@/services/job-service";
 import { ALLOW_INDEXING, absoluteUrl } from "@/lib/site";
 import { pageRoutes } from "@/lib/page-routes";
 import { getAllPages } from "@/lib/pages/content";
@@ -16,9 +18,12 @@ export default async function sitemap() {
 
   const services = await fetchServices(defaultLocale).catch(() => []);
   const empty = { items: [] };
-  const [articles, caseStudies] = await Promise.all([
+  const [articles, caseStudies, schemes, industries, jobs] = await Promise.all([
     fetchAllArticles().catch(() => empty),
     fetchAllCaseStudies().catch(() => empty),
+    fetchAllSchemes().catch(() => empty),
+    fetchAllIndustries().catch(() => empty),
+    fetchAllJobs().catch(() => empty),
   ]);
   const alternates = (path, available) => ({
     languages: Object.fromEntries(available.map((locale) => [localeTags[locale], absoluteUrl(`/${locale}${path}`)])),
@@ -45,11 +50,9 @@ export default async function sitemap() {
       });
     }
   }
-  // Home, industries, schemes, articles, guides, case studies, about, contact…
+  // Home, the index pages, about, contact, team, careers… (written in the website).
   for (const page of getAllPages()) {
     if (page.locale !== defaultLocale || SERVICE_TYPES.includes(page.type) || pageRoutes[page.id] === undefined) continue;
-    // Built-in articles / case studies are listed only while they are still a fallback.
-    if (!config.content_static_fallback && ["article", "case-study"].includes(page.type)) continue;
     const path = pageRoutes[page.id];
     const available = page.hasHindi ? locales : [defaultLocale];
     for (const locale of available) {
@@ -62,7 +65,8 @@ export default async function sitemap() {
     }
   }
 
-  // Published articles and case studies from the API (English only).
+  // Published articles, guides, schemes, case studies, industries and open jobs from the
+  // API (English only).
   const listed = new Set(entries.map((entry) => entry.url));
   const addRecords = (records, segment) => {
     for (const record of records) {
@@ -79,7 +83,11 @@ export default async function sitemap() {
       });
     }
   };
-  addRecords(articles.items, "articles");
+  addRecords(articles.items.filter((record) => record.type !== "guide"), "articles");
+  addRecords(articles.items.filter((record) => record.type === "guide"), "guides");
+  addRecords(schemes.items, "schemes");
   addRecords(caseStudies.items, "case-studies");
+  addRecords(industries.items, "industries");
+  addRecords(jobs.items, "careers");
   return entries;
 }

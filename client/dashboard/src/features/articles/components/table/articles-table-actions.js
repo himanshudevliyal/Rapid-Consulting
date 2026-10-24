@@ -9,8 +9,13 @@ const STATUS_OPTIONS = [
   { value: "false", label: "Draft" },
 ];
 
+const TYPE_OPTIONS = [
+  { value: "article", label: "Articles" },
+  { value: "guide", label: "Guides" },
+];
+
 export default function ArticlesTableActions() {
-  const { resetFilters, searchQuery, setPage, setSearchQuery, statusFilter, setStatusFilter, isAnyFilterActive } =
+  const { resetFilters, searchQuery, setPage, setSearchQuery, statusFilter, setStatusFilter, typeFilter, setTypeFilter, isAnyFilterActive } =
     useArticlesTableFilters();
 
   return (
@@ -25,6 +30,16 @@ export default function ArticlesTableActions() {
         filterValue={statusFilter}
         setFilterValue={(value) => {
           setStatusFilter(value);
+          setPage(1);
+        }}
+      />
+      <DataTableFilterBox
+        filterKey="type"
+        title="Type"
+        options={TYPE_OPTIONS}
+        filterValue={typeFilter}
+        setFilterValue={(value) => {
+          setTypeFilter(value);
           setPage(1);
         }}
       />

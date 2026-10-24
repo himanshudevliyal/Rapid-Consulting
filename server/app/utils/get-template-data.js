@@ -26,6 +26,17 @@ const templates = {
     name: "Test User",
     phone: "9999999999",
   },
+  "contact-enquiry-notification": {
+    name: "Test User",
+    email: "test@example.com",
+    phone: "9999999999",
+    message: "Hello",
+    admin_url: "http://localhost:3001",
+  },
+  "contact-enquiry-confirmation": {
+    name: "Test User",
+    message: "Hello",
+  },
 };
 
 /**

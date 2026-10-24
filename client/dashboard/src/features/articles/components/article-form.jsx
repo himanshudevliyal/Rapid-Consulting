@@ -165,6 +165,17 @@ export default function ArticleForm({ id, type = "create" }) {
               </label>
             </Card>
 
+            <Card title="Type" description="Guides get their own section on the website.">
+              <select
+                id="type"
+                className="h-9 w-full rounded-md border bg-transparent px-3 text-sm"
+                {...register("type")}
+              >
+                <option value="article">Article</option>
+                <option value="guide">Guide</option>
+              </select>
+            </Card>
+
             <Card title="Category">
               <Controller
                 control={control}

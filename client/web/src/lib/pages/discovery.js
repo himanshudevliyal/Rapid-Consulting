@@ -48,23 +48,7 @@ export function formatLabel(type, locale = 'en') {
 export function filterDirectory(items, query, format, family) {
     return items.filter(item => matchesSearch(item, query) && (!format || item.type === format) && (!family || (item.family || item.group) === family));
 }
-export function familyLabel(family, fallback, locale) {
-    const labels = { S01: ['Subsidies & Incentives', 'सब्सिडी और प्रोत्साहन'], S02: ['Statutory Approvals', 'वैधानिक अनुमतियाँ'], S03: ['Licences & Certifications', 'लाइसेंस और प्रमाणन'], S04: ['Industrial Insurance', 'औद्योगिक बीमा'], S05: ['Finance & Other Services', 'वित्त और अन्य सेवाएँ'] };
-    return labels[family]?.[locale === 'hi' ? 1 : 0] || fallback || family;
-}
+// The topic comes from the scheme's tags (see adapters.schemeToSummary).
 export function schemeTopic(page) {
-    const text = `${page.title} ${(page.aliases || []).join(' ')}`.toLowerCase();
-    if (/export|freight|apeda|market|trade|fair/.test(text))
-        return 'Exports & market access';
-    if (/energy|solar|water|environment|pollution|waste|green|efficien/.test(text))
-        return 'Energy & environment';
-    if (/quality|patent|testing|certif|technology|research|intellectual/.test(text))
-        return 'Quality, technology & research';
-    if (/employ|skill|training|apprentice/.test(text))
-        return 'Skills & employment';
-    if (/cluster|infrastructure|park|cold|logistic/.test(text))
-        return 'Infrastructure & clusters';
-    if (/capital|investment|interest|loan|credit|finance|sgst|stamp/.test(text))
-        return 'Investment & finance';
-    return 'Other programme support';
+    return page.topic || 'Other programme support';
 }

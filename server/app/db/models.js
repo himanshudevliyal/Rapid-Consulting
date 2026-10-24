@@ -17,6 +17,7 @@ import serviceFormatModel from "./models/service-format.model.js";
 import serviceFamilyTopicModel from "./models/service-family-topic.model.js";
 // ── Rapid Consulting additions ────────────────────────────────────
 import enquiryModel from "./models/enquiry.model.js";
+import contactEnquiryModel from "./models/contact-enquiry.model.js";
 import articleModel from "./models/article.model.js";
 import caseStudyModel from "./models/case-study.model.js";
 import adviserModel from "./models/adviser.model.js";
@@ -44,6 +45,7 @@ export default {
   ServiceFamilyTopicModel: serviceFamilyTopicModel,
   // ── Rapid Consulting ──────────────────────────────────────────
   EnquiryModel: enquiryModel,
+  ContactEnquiryModel: contactEnquiryModel,
   ArticleModel: articleModel,
   CaseStudyModel: caseStudyModel,
   AdviserModel: adviserModel,

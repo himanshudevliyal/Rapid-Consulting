@@ -1,5 +1,5 @@
 
-import { getPage, getSummaries } from "@/lib/pages/content";
+import { getPage } from "@/lib/pages/content";
 import { homeSectionRole } from "@/lib/pages/presentation";
 import { ApproachSection } from "./approach-section";
 import { ServicesSection } from "./services-section-server";
@@ -11,16 +11,17 @@ import { ContactSection } from "./contact-section";
 import { DefaultSection } from "./default-section";
 import { paragraphs } from "./utils";
 
+// Server component: the industries, services, project experience and
+// resources sections load their records from the API themselves.
 export function HomeSections({ page, t, has }) {
   const hi = page.locale === "hi";
-  const records = getSummaries(page.locale);
 
   return (
     <div className="home-sections">
       {page.sections.map((section) => {
         const kind = homeSectionRole(section);
         const eyebrow = kind ? t(`site.homeLabels.${kind}`) : undefined;
-        const shared = { section, page, t, has, eyebrow, records };
+        const shared = { section, page, t, has, eyebrow };
 
         switch (kind) {
           case "approach": {

@@ -1,6 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  createEnquiry,
   deleteEnquiry,
   fetchEnquiries,
   fetchEnquiry,
@@ -19,17 +18,6 @@ export const useEnquiry = (id) => {
     queryKey: ["enquiries", id],
     queryFn: () => fetchEnquiry(id),
     enabled: !!id,
-  });
-};
-
-export const useCreateEnquiry = (callback) => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: createEnquiry,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["enquiries"] });
-      callback?.();
-    },
   });
 };
 

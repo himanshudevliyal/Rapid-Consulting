@@ -45,23 +45,53 @@ const init = async (sequelize) => {
   await JobModel.sync({ alter: false, force: false });
 };
 
-const create = async (data) => {
-  if (!data.slug) data.slug = makeSlug(data.title);
-  return JobModel.create(data);
+const slugBase = (title) => makeSlug(title) || `job-${Date.now()}`;
+
+// A slug typed by the editor is used as is (the caller checks it is free);
+// otherwise one is made from the title: "title", "title-2", "title-3"...
+const uniqueSlug = async (title, wanted) => {
+  if (wanted) return wanted;
+  const base = slugBase(title);
+  let slug = base;
+  for (let n = 2; await JobModel.findOne({ where: { slug }, attributes: ["id"] }); n++) {
+    slug = `${base}-${n}`;
+  }
+  return slug;
 };
 
-const getAll = async ({ active_only = false, q, page = 1, limit = 20 } = {}) => {
-  const where = {};
-  if (active_only) where.is_active = true;
+const slugTaken = async (slug, excludeId) => {
+  const where = { slug };
+  if (excludeId) where.id = { [Op.ne]: excludeId };
+  return !!(await JobModel.findOne({ where, attributes: ["id"] }));
+};
+
+const create = async (data) => {
+  const slug = await uniqueSlug(data.title, data.slug);
+  return JobModel.create({ ...data, slug });
+};
+
+// active_only: the public site - active jobs whose closing date has not passed.
+// is_active ("true" | "false"): admin filter.
+const getAll = async ({ active_only = false, is_active, q, page = 1, limit = 20 } = {}) => {
+  const clauses = [];
+  if (active_only) {
+    const today = new Date().toISOString().slice(0, 10);
+    clauses.push({ is_active: true });
+    clauses.push({ [Op.or]: [{ closing_date: null }, { closing_date: { [Op.gte]: today } }] });
+  } else if (is_active === true || is_active === false) {
+    clauses.push({ is_active });
+  }
   if (q) {
-    where[Op.or] = [
-      { title: { [Op.iLike]: `%${q}%` } },
-      { location: { [Op.iLike]: `%${q}%` } },
-    ];
+    clauses.push({
+      [Op.or]: [
+        { title: { [Op.iLike]: `%${q}%` } },
+        { location: { [Op.iLike]: `%${q}%` } },
+      ],
+    });
   }
   const offset = (page - 1) * limit;
   const { count, rows } = await JobModel.findAndCountAll({
-    where,
+    where: clauses.length ? { [Op.and]: clauses } : {},
     order: [["created_at", "DESC"]],
     limit,
     offset,
@@ -77,4 +107,4 @@ const updateById = async (id, data) => {
 };
 const deleteById = async (id) => JobModel.destroy({ where: { id } });
 
-export default { init, create, getAll, getBySlug, getById, updateById, deleteById };
+export default { init, create, getAll, getBySlug, getById, updateById, deleteById, slugTaken };

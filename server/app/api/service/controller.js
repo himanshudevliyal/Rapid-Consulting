@@ -256,6 +256,15 @@ const get = async (req, res) => {
   res.code(StatusCodes.OK).send({ status: true, data: data });
 };
 
+// Public: categories with their services (website menu, services section).
+const getCategories = async (req, res) => {
+  const locale = constants.locales.includes(req.query.locale)
+    ? req.query.locale
+    : constants.defaultLocale;
+  const data = await table.ServiceModel.getCategoryGroups(locale);
+  res.code(StatusCodes.OK).send({ status: true, data });
+};
+
 const deleteTranslation = async (req, res) => {
   const { locale } = req.params;
   if (locale === constants.defaultLocale) {
@@ -312,6 +321,7 @@ export default {
   getByCode: getByCode,
   getRelated: getRelated,
   get: get,
+  getCategories: getCategories,
   deleteTranslation: deleteTranslation,
   deleteById: deleteById,
 };

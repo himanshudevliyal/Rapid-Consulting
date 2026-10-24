@@ -7,7 +7,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { matchesSearch } from "@/lib/search";
 import { serviceHref } from "@/lib/site";
 import { ContentCard } from "@/components/common/content-card";
-import { industryCatalogue, industryOptions, normalizeIndustry } from "@/lib/pages/industry-catalogue";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,9 +36,11 @@ function SelectField({ id, label, value, onChange, children }) {
   );
 }
 
-// Searchable, filterable list of every published service. `industry`
-// (?industry=I01, from an industry page) narrows it to that industry's services.
-export function ServicesDirectory({ items, industry = "" }) {
+// Searchable, filterable list of every published service. `industries` come
+// from the API (each lists the services chosen for it); `industry`
+// (?industry=<slug>, from an industry page) narrows the list to that industry's
+// services. The group filter is the service category set in the admin panel.
+export function ServicesDirectory({ items, industries = [], industry = "" }) {
   const locale = useLocale();
   const t = useTranslations();
   const id = useId();
@@ -47,6 +48,8 @@ export function ServicesDirectory({ items, industry = "" }) {
   const [format, setFormat] = useState("");
   const [family, setFamily] = useState("");
   const [limit, setLimit] = useState(PAGE_SIZE);
+  const normalizeIndustry = (value) =>
+    industries.some((entry) => entry.id === value) ? value : "";
   const [selectedIndustry, setIndustry] = useState(normalizeIndustry(industry));
   const input = useRef(null);
   const section = useRef(null);
@@ -62,24 +65,24 @@ export function ServicesDirectory({ items, industry = "" }) {
     }
   }, [limit]);
 
-  // A family page belongs to its own group; services to their family.
-  const groupOf = (item) => item.family_code || (item.type === "service-family" ? item.code : "");
+  // A service belongs to the category chosen for it in the admin panel.
+  const groupOf = (item) => item.category?.slug || "";
 
-  const industryCodes = useMemo(() => {
-    const record = industryCatalogue.find((entry) => entry.id === selectedIndustry);
-    return record ? new Set(record.services) : null;
-  }, [selectedIndustry]);
+  const industrySlugs = useMemo(() => {
+    const record = industries.find((entry) => entry.id === selectedIndustry);
+    return record ? new Set(record.serviceSlugs) : null;
+  }, [industries, selectedIndustry]);
 
   const filtered = useMemo(
     () =>
       items.filter(
         (item) =>
-          (!industryCodes || industryCodes.has(item.code)) &&
+          (!industrySlugs || industrySlugs.has(item.slug)) &&
           matchesSearch(item, query) &&
           (!format || item.type === format) &&
           (!family || groupOf(item) === family),
       ),
-    [items, query, format, family, industryCodes],
+    [items, query, format, family, industrySlugs],
   );
 
   const changeIndustry = (next) => {
@@ -92,8 +95,11 @@ export function ServicesDirectory({ items, industry = "" }) {
   };
 
   const formats = [...new Set(items.map((item) => item.type))];
-  const groups = [...new Set(items.map(groupOf).filter(Boolean))].sort();
-  const industries = industryOptions(locale);
+  const groupTitles = new Map(
+    items.filter((item) => item.category?.slug).map((item) => [item.category.slug, item.category.title]),
+  );
+  const groups = [...groupTitles.keys()].sort((a, b) => groupTitles.get(a).localeCompare(groupTitles.get(b)));
+  const industryOptions = industries.map((entry) => ({ id: entry.id, label: entry.title }));
 
   const reset = () => {
     setQuery("");
@@ -110,11 +116,11 @@ export function ServicesDirectory({ items, industry = "" }) {
     query && { key: "q", label: `“${query}”`, clear: () => setQuery("") },
     selectedIndustry && {
       key: "i",
-      label: industries.find((o) => o.id === selectedIndustry)?.label || selectedIndustry,
+      label: industryOptions.find((o) => o.id === selectedIndustry)?.label || selectedIndustry,
       clear: () => changeIndustry(""),
     },
     format && { key: "f", label: t(`card.types.${format}`), clear: () => setFormat("") },
-    family && { key: "g", label: t(`families.${family}`), clear: () => setFamily("") },
+    family && { key: "g", label: groupTitles.get(family) || family, clear: () => setFamily("") },
   ].filter(Boolean);
 
   return (
@@ -144,6 +150,7 @@ export function ServicesDirectory({ items, industry = "" }) {
 
         {/* filters */}
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(3,minmax(0,1fr))_auto] lg:items-end">
+          {industryOptions.length > 0 && (
           <SelectField
             id={`${id}-industry`}
             label={t("site.directory.industry")}
@@ -151,12 +158,13 @@ export function ServicesDirectory({ items, industry = "" }) {
             onChange={(event) => changeIndustry(event.target.value)}
           >
             <option value="">{t("site.directory.allIndustries")}</option>
-            {industries.map((option) => (
+            {industryOptions.map((option) => (
               <option key={option.id} value={option.id}>
                 {option.label}
               </option>
             ))}
           </SelectField>
+          )}
 
           {formats.length > 1 && (
             <SelectField
@@ -188,9 +196,9 @@ export function ServicesDirectory({ items, industry = "" }) {
               }}
             >
               <option value="">{t("directory.allGroups")}</option>
-              {groups.map((code) => (
-                <option key={code} value={code}>
-                  {t(`families.${code}`)}
+              {groups.map((slug) => (
+                <option key={slug} value={slug}>
+                  {groupTitles.get(slug)}
                 </option>
               ))}
             </SelectField>

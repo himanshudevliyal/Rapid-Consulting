@@ -20,8 +20,12 @@ const init = async (sequelize) => {
       location: { type: DataTypes.STRING(200), allowNull: true },
       requirement: { type: DataTypes.TEXT, allowNull: true },
       subject: { type: DataTypes.STRING(255), allowNull: true },
+      // Where the form was submitted from: page title, page address, page /
+      // service code, and the service or product the enquiry was about.
       page_title: { type: DataTypes.STRING(255), allowNull: true },
+      page_url: { type: DataTypes.STRING(500), allowNull: true },
       page_id: { type: DataTypes.STRING(100), allowNull: true },
+      service_name: { type: DataTypes.STRING(255), allowNull: true },
       source: {
         type: DataTypes.STRING(60),
         allowNull: false,
@@ -61,6 +65,9 @@ const getAll = async ({ status, source, q, page = 1, limit = 50, from, to } = {}
       { phone: { [Op.iLike]: `%${q}%` } },
       { email: { [Op.iLike]: `%${q}%` } },
       { requirement: { [Op.iLike]: `%${q}%` } },
+      { subject: { [Op.iLike]: `%${q}%` } },
+      { page_title: { [Op.iLike]: `%${q}%` } },
+      { service_name: { [Op.iLike]: `%${q}%` } },
     ];
   }
   if (from || to) {

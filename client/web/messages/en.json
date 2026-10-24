@@ -62,12 +62,6 @@
       "The people, approach and ways to work with us."
     ],
     "chooseIndustry": "Choose your industry",
-    "industryDescriptions": {
-      "I01": "Processing units, mills and food investments",
-      "I02": "Manufacturing plants and equipment",
-      "I03": "Recycling, resource recovery and biofuel",
-      "I04": "Warehouses and commercial facilities"
-    },
     "selectedProjects": "Selected projects",
     "guidesArticles": "Guides & articles",
     "schemeInformation": "Scheme information",
@@ -114,7 +108,16 @@
     "closeForm": "Close callback form",
     "sending": "Sending…",
     "sent": "Thank you. Your request has been received and an expert will call you back.",
-    "sendError": "We could not send your request. Please try again or choose WhatsApp."
+    "sendError": "We could not send your request. Please try again or choose WhatsApp.",
+    "email": "Email address",
+    "emailError": "Enter a valid email address.",
+    "subject": "Subject",
+    "message": "Message",
+    "messageError": "Enter your message.",
+    "sendMessage": "Send Message",
+    "tooLong": "This is too long. Please shorten it.",
+    "contactSent": "Thank you. Your message has been received and our team will get back to you soon.",
+    "contactSendError": "We could not send your message. Please try again or choose WhatsApp."
   },
   "chat": {
     "eyebrow": "CHAT PREVIEW",
@@ -195,13 +198,6 @@
     "remaining": "({count} remaining)",
     "findNextStep": "Find your next step"
   },
-  "families": {
-    "S01": "Subsidies & Incentives",
-    "S02": "Statutory Approvals",
-    "S03": "Licences & Certifications",
-    "S04": "Industrial Insurance",
-    "S05": "Finance & Other Services"
-  },
   "notFound": {
     "eyebrow": "Rapid Consulting",
     "title": "We couldn’t find that page.",
@@ -217,15 +213,10 @@
   "pages": {
     "H01": "Home",
     "I00": "Industries",
-    "I01": "Food & Agro Processing",
-    "I02": "Engineering & Materials Manufacturing",
-    "I03": "Recycling & Biofuel",
-    "I04": "Commercial & Logistics Facilities",
     "W00": "All Case Studies",
     "R00": "Resources",
     "R01": "Guides & Articles",
     "R02": "Scheme Directory",
-    "G01": "Preparing for a manufacturing-subsidy discussion",
     "A01": "About Rapid",
     "A02": "How We Work",
     "A03": "About us",
@@ -233,10 +224,7 @@
     "U02": "Careers",
     "U03": "How We Hire",
     "C01": "Discuss Your Project",
-    "P02": "Privacy notice",
-    "RC-CS05": "Capital-subsidy support for a manufacturing investment in Hisar",
-    "RC-CS06": "Testing-equipment subsidy support for an agro processor in Sirsa",
-    "RC-CS03": "Safety-equipment subsidy support for an agro processor in Hisar"
+    "P02": "Privacy notice"
   },
   "site": {
     "eyebrowHome": "Hisar based. Haryana focused.",
@@ -334,7 +322,9 @@
     },
     "home": {
       "schemeDirectory": "Scheme directory",
-      "servicesCount": "{count} services"
+      "servicesCount": "{count} services",
+      "viewAllGuides": "View all guides & articles",
+      "viewAllSchemes": "View All Schemes"
     },
     "team": {
       "nameToBeAdded": "Name to be added",
@@ -398,6 +388,17 @@
     },
     "hero": {
       "watchOverview": "About Us"
+    },
+    "careers": {
+      "eyebrow": "Careers",
+      "openings": "Current openings",
+      "noOpeningsTitle": "No openings right now",
+      "noOpeningsText": "There are no open roles at the moment. You can still share your CV through the recruitment contact below.",
+      "closes": "Applications close",
+      "viewRole": "View role",
+      "applyEyebrow": "Apply",
+      "applyHeading": "Apply for this role",
+      "applyHint": "Tell us a little about your education, experience and the role you are applying for."
     }
   },
   "state": {
@@ -412,6 +413,10 @@
     "noArticlesText": "New articles are on their way. Please check back soon.",
     "noCasesTitle": "No case studies yet",
     "noCasesText": "New case studies are on their way. Please check back soon.",
-    "partial": "Some of the latest items could not be loaded."
+    "partial": "Some of the latest items could not be loaded.",
+    "noIndustriesTitle": "No industries yet",
+    "noIndustriesText": "Industries will be added soon. Please check back.",
+    "noSchemesTitle": "No schemes yet",
+    "noSchemesText": "New schemes are on their way. Please check back soon."
   }
 }

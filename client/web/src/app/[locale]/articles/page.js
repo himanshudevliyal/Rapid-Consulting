@@ -7,7 +7,7 @@ import { contentPageMetadata, robots } from "@/lib/seo";
 import { PageAlternates } from "@/components/layout/page-alternates";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { resolveContentPath } from "@/lib/pages/resolve";
-import { loadInitialList, loadStaticSummaries } from "@/lib/content/loaders";
+import { loadInitialList } from "@/lib/content/loaders";
 import { ArticlesPage } from "./_components/ArticlesPage";
 
 const PATH = "/articles";
@@ -29,10 +29,9 @@ export default async function ArticlesRoute({ params }) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const has = hasTranslation(t);
-  // Published articles from the API (cached, refreshed when an editor saves);
-  // guides stay built in.
+  // Published articles and guides from the API (cached, refreshed when an
+  // editor saves). Both kinds are listed here.
   const initialData = await loadInitialList("article");
-  const staticItems = loadStaticSummaries("article", locale, ["guide"]);
   return (
     <>
       <PageAlternates
@@ -54,7 +53,6 @@ export default async function ArticlesRoute({ params }) {
           has={has}
           image="/assets/articles.jpg"
           initialData={initialData}
-          staticItems={staticItems}
         />
       </main>
     </>

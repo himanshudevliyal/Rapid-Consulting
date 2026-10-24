@@ -26,12 +26,9 @@ const CARDS = [
   {
     icon: BookOpen,
     title: "Experience you can examine",
-    desc: "See the location, investment scale and work undertaken in our manufacturing capital-subsidy, testing-equipment subsidy and safety-equipment subsidy case studies. The stated investment figures describe the project or equipment, not company turnover or subsidy received.",
-    links: [
-      { label: "manufacturing capital-subsidy", href: "/p/RC-CS05" },
-      { label: "testing-equipment subsidy",      href: "/p/RC-CS06" },
-      { label: "safety-equipment subsidy",       href: "/p/RC-CS03" },
-    ],
+    desc: "See the location, investment scale and work undertaken in our case studies. The stated investment figures describe the project or equipment, not company turnover or subsidy received.",
+    // The individual case studies come from the API; this links to all of them.
+    links: [{ label: "case studies", href: "/case-studies" }],
   },
 ];
 

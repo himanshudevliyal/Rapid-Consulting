@@ -108,6 +108,7 @@ export function ContactPage({
           pageTitle={page.h1}
           pageId={page.id}
           variant="section"
+          kind="contact"
         />
       </Section>
 

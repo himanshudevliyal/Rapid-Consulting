@@ -244,6 +244,61 @@ const getSummariesByCodes = async (codes, locale) => {
   );
 };
 
+// Active services by slug, in the order the slugs are given (industry pages).
+const getSummariesBySlugs = async (slugs, locale) => {
+  if (!slugs?.length) return [];
+  const rows = await ServiceModel.sequelize.query(
+    summaryQuery(
+      "WHERE srv.is_active = true AND srv.slug = ANY(:slugs) AND srv.type <> :indexType",
+    ),
+    {
+      replacements: {
+        slugs: toPgArray(slugs),
+        indexType: INDEX_TYPE,
+        locale,
+        defaultLocale: constants.defaultLocale,
+      },
+      type: QueryTypes.SELECT,
+      raw: true,
+    },
+  );
+  const order = new Map(slugs.map((slug, index) => [slug, index]));
+  return rows.sort((a, b) => order.get(a.slug) - order.get(b.slug));
+};
+
+// Service categories (the `categories` table) that hold at least one active
+// service, each with its services. This is what builds the website menu and
+// the services section: assign a service to a category and it shows up there.
+// Categories keep the order they were created in; services their sort_order.
+const getCategoryGroups = async (locale) => {
+  const categories = await ServiceModel.sequelize.query(
+    `SELECT cat.id, cat.title, cat.slug
+       FROM ${constants.models.CATEGORY_TABLE} cat
+      WHERE EXISTS (
+        SELECT 1 FROM ${SERVICE} srv
+         WHERE srv.category_id = cat.id AND srv.is_active = true AND srv.type <> :indexType
+      )
+      ORDER BY cat.created_at ASC, cat.title ASC`,
+    { replacements: { indexType: INDEX_TYPE }, type: QueryTypes.SELECT },
+  );
+  if (!categories.length) return [];
+
+  const services = await ServiceModel.sequelize.query(
+    summaryQuery(
+      "WHERE srv.is_active = true AND srv.category_id IS NOT NULL AND srv.type <> :indexType",
+    ),
+    {
+      replacements: { indexType: INDEX_TYPE, locale, defaultLocale: constants.defaultLocale },
+      type: QueryTypes.SELECT,
+      raw: true,
+    },
+  );
+  return categories.map((category) => ({
+    ...category,
+    services: services.filter((service) => service.category_id === category.id),
+  }));
+};
+
 // Related services = the other active services of the same Family / topic.
 // A service in family S05 gets its S05 siblings plus the S05 family page; a
 // family page gets the services inside it. Services without a family get none.
@@ -391,6 +446,8 @@ export default {
   getBySlug: getBySlug,
   getByCode: getByCode,
   getRelated: getRelated,
+  getSummariesBySlugs: getSummariesBySlugs,
+  getCategoryGroups: getCategoryGroups,
   findConflict: findConflict,
   nextCode: nextCode,
   deleteById: deleteById,

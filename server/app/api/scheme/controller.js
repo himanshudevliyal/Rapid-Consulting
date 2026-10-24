@@ -45,11 +45,12 @@ const getAll = async (req, res) => {
 
 // Public: published schemes only.
 const getAllPublic = async (req, res) => {
-  const { q, page, limit, tag, category_id } = req.query;
+  const { q, page, limit, tag, category_id, featured } = req.query;
   const result = await table.SchemeModel.getAll({
     published_only: true,
     q,
     tag,
+    featured,
     category_id: categoryFilter(category_id),
     page: Number(page) || 1,
     limit: Number(limit) || 20,

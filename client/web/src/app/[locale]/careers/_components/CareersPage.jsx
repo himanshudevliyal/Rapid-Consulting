@@ -3,7 +3,8 @@
  *
  * Layout (top → bottom):
  *   1. Hero split  — LEFT: image   RIGHT: eyebrow + h1 + introHtml
- *   2. Body        — page.sections rendered as styled accordion details
+ *   2. Openings    — open jobs from the API (links to /careers/<slug>)
+ *   3. Body        — page.sections rendered as styled accordion details
  *
  * Tailwind CSS utility classes only — NO new CSS in globals.css.
  */
@@ -13,10 +14,14 @@ import Image from "next/image";
 import { Html } from "@/components/pages/content-primitives";
 import Section from "@/components/layout/section";
 import Heading from "@/components/layout/heading";
+import { JobOpenings } from "@/components/pages/job-openings";
+
+const DEFAULT_IMAGE = "/assets/hero-section.jpg";
 
 
-export function CareersPage({ page, t, has, image = DEFAULT_IMAGE }) {
-  const bodySections = page.sections ?? [];
+export function CareersPage({ page, t, has, image = DEFAULT_IMAGE, jobs = [], locale = "en" }) {
+  // The roles come from the API (JobOpenings), so the written list of roles is left out.
+  const bodySections = (page.sections ?? []).filter((section) => section.id !== "explore-the-roles");
 
   return (
     <main id="main">
@@ -60,7 +65,10 @@ export function CareersPage({ page, t, has, image = DEFAULT_IMAGE }) {
          
       </Section>
 
-      {/* ── 2. Body sections — accordions ────────────────────────────────── */}
+      {/* ── 2. Open roles (API) ──────────────────────────────────────────── */}
+      <JobOpenings jobs={jobs} locale={locale} t={t} />
+
+      {/* ── 3. Body sections — accordions ────────────────────────────────── */}
       {bodySections.length > 0 && (
         <Section className="pt-0 pb-16 lg:pb-24">
           <div className="grid gap-6">

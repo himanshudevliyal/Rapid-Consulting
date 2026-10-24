@@ -171,6 +171,13 @@ export default function SchemeForm({ id, type = "create" }) {
                   <span className="block text-xs text-muted-foreground">Unticked schemes stay hidden on the website.</span>
                 </span>
               </label>
+              <label htmlFor="is_featured" className="flex items-start gap-2 text-sm">
+                <input id="is_featured" type="checkbox" className="mt-0.5 h-4 w-4" {...register("is_featured")} />
+                <span>
+                  Show on the home page
+                  <span className="block text-xs text-muted-foreground">Featured, published schemes appear in the home page Schemes section.</span>
+                </span>
+              </label>
             </Card>
 
             <Card title="Family / topic">

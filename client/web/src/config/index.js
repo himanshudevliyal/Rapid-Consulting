@@ -14,11 +14,6 @@ const config = {
   // Seconds cached articles / case studies / schemes are kept before they are
   // refreshed from the API (the admin panel also refreshes them on save).
   content_revalidate_seconds: Number(process.env.CONTENT_REVALIDATE_SECONDS ?? 300),
-  // While articles / case studies are being moved into the admin panel, pages
-  // the API does not have yet still show their built-in version. Set
-  // CONTENT_STATIC_FALLBACK=false once the API holds everything: then the API
-  // is the only source and a deleted / unpublished record disappears.
-  content_static_fallback: process.env.CONTENT_STATIC_FALLBACK !== "false",
   // Server only: shared secret for POST /api/revalidate.
   revalidate_secret: process.env.REVALIDATE_SECRET,
 };

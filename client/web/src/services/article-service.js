@@ -10,3 +10,7 @@ const api = createContentApi(endpoints.articles);
 export const fetchArticles = api.list;
 export const fetchAllArticles = api.all;
 export const fetchArticleBySlug = api.bySlug;
+
+// Guides are articles of type "guide" (own section / URLs on the website).
+export const fetchAllGuides = (params = {}, options) => api.all({ ...params, type: "guide" }, options);
+export const fetchAllWritings = (params = {}, options) => api.all(params, options);

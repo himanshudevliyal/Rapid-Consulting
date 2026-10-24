@@ -6,6 +6,7 @@ import { sequelize } from "../../db/postgres.js";
 import { categorySchema } from "../../validation-schema/category.schema.js";
 import { cleanupFiles } from "../../helpers/cleanup-files.js";
 import { getItemsToDelete } from "../../helpers/filter.js";
+import { notifyWebsite } from "../../helpers/notify-website.js";
 
 const create = async (req, res) => {
   const transaction = await sequelize.transaction();
@@ -17,6 +18,7 @@ const create = async (req, res) => {
 
     await table.CategoryModel.create(req, transaction);
     await transaction.commit();
+    notifyWebsite("services");
     res
       .code(StatusCodes.CREATED)
       .send({ status: true, message: "Category created." });
@@ -54,6 +56,7 @@ const updateById = async (req, res) => {
     await cleanupFiles(documentsToDelete);
 
     await transaction.commit();
+    notifyWebsite("services");
 
     res
       .code(StatusCodes.OK)
@@ -109,6 +112,7 @@ const deleteById = async (req, res) => {
     await table.CategoryModel.deleteById(req, 0, transaction);
 
     await transaction.commit();
+    notifyWebsite("services");
     res.status(StatusCodes.OK).send(record);
   } catch (error) {
     await transaction.rollback();

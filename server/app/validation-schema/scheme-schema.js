@@ -51,6 +51,7 @@ const schemeFields = {
       [...new Set(list.map((tag) => tag.trim()).filter(Boolean))],
     ),
   is_published: z.boolean(),
+  is_featured: z.boolean(),
 };
 
 const base = z.object(schemeFields);

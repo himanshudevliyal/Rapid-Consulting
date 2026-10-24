@@ -10,6 +10,7 @@ import { blogPublicRoutes } from "../../api/blog/routes.js";
 import { servicePublicRoutes } from "../../api/service/routes.js";
 // ── Rapid Consulting additions ────────────────────────────────────
 import { enquiryPublicRoutes } from "../../api/enquiry/routes.js";
+import { contactEnquiryPublicRoutes } from "../../api/contact-enquiry/routes.js";
 import { articlePublicRoutes } from "../../api/article/routes.js";
 import { caseStudyPublicRoutes } from "../../api/case-study/routes.js";
 import { adviserPublicRoutes } from "../../api/adviser/routes.js";
@@ -28,6 +29,7 @@ export default async function routes(fastify, options) {
   fastify.register(servicePublicRoutes, { prefix: "services" });
   // ── Rapid Consulting ──────────────────────────────────────────
   fastify.register(enquiryPublicRoutes, { prefix: "enquiries" });
+  fastify.register(contactEnquiryPublicRoutes, { prefix: "contact-enquiries" });
   fastify.register(articlePublicRoutes, { prefix: "articles" });
   fastify.register(caseStudyPublicRoutes, { prefix: "case-studies" });
   fastify.register(adviserPublicRoutes, { prefix: "advisers" });

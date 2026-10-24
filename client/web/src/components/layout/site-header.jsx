@@ -45,9 +45,11 @@ const MEGA_SPACING = [
   "[&_.nav-tile>div]:flex! [&_.nav-tile>div]:flex-col! [&_.nav-tile>div]:gap-1!",
 ].join(" ");
 
-const PAGE_ICONS = { I01: "leaf", I02: "gear", I03: "recycle", I04: "warehouse" };
-
-export function SiteHeader({ services }) {
+// Everything in the menu comes from the API (see lib/content/site-data.js):
+// service categories with their services, industries, case studies, guides
+// and schemes. Add or edit them in the admin panel and the menu follows.
+export function SiteHeader({ navigation: menu }) {
+  const { services = [], categories = [], industries = [], cases = [], guides = [], schemes = [] } = menu ?? {};
   const locale = useLocale();
   const t = useTranslations();
   const has = hasTranslation(t);
@@ -68,8 +70,6 @@ export function SiteHeader({ services }) {
     };
   };
 
-  const byCode = (code) => services.find((s) => s.code === code);
-
   const serviceLink = (service) => ({
     code: service.code,
     title: `${service.title}${service.has_locale ? "" : t("common.englishSuffix")}`,
@@ -79,11 +79,20 @@ export function SiteHeader({ services }) {
 
   const navs = ["services", "industries", "work", "resources", "about"];
 
+  // A recordLink points at a record from the API (English pages).
+  const recordLink = (record) => ({ code: record.id, title: record.title, href: record.href, local: true });
+
   const announcements = [
     { text: t("header.announcements.services"), href: servicesHref(locale), local: true },
     { text: t("header.announcements.schemes"), ...page("R02") },
     { text: t("header.announcements.guides"), ...page("R01") },
+    ...guides.slice(0, 2).map((guide) => ({ text: guide.title, href: guide.href, local: true })),
+    ...schemes.slice(0, 2).map((scheme) => ({ text: scheme.title, href: scheme.href, local: true })),
   ];
+
+  // Services that belong to no category still get a place in the menu.
+  const categorised = new Set(categories.flatMap((group) => [group.family, ...group.services]).filter(Boolean).map((s) => s.code));
+  const uncategorised = services.filter((service) => service.type !== "service-family" && service.type !== "service-index" && !categorised.has(service.code));
 
   useEffect(() => {
     const el = header.current;
@@ -163,27 +172,35 @@ export function SiteHeader({ services }) {
 
   function menuContent() {
     if (active === "services") {
-      const families = services.filter((s) => s.type === "service-family");
       return (
         <>
           <div className="mega-grid services-grid">
-            {families.map((family) => (
-              <section key={family.code}>
+            {categories.map((group) => (
+              <section key={group.id}>
                 <h3>
-                  <Link href={serviceHref(family, locale)} onClick={() => setActive(null)}>
-                    {family.h1 || family.title}
-                    {family.has_locale ? "" : t("common.englishSuffix")}
-                  </Link>
+                  {group.family ? (
+                    <Link href={serviceHref(group.family, locale)} onClick={() => setActive(null)}>
+                      {group.title}
+                      {group.family.has_locale ? "" : t("common.englishSuffix")}
+                    </Link>
+                  ) : (
+                    group.title
+                  )}
                 </h3>
-                {services
-                  .filter((s) => s.type === "service" && s.family_code === family.code)
-                  .map((s) => (
-                    <NavLink key={s.code} item={serviceLink(s)} />
-                  ))}
-                {family.code === "S01" && <NavLink item={page("R02")} />}
+                {group.services.map((s) => (
+                  <NavLink key={s.code} item={serviceLink(s)} />
+                ))}
               </section>
             ))}
           </div>
+          {uncategorised.length > 0 && (
+            <div className="nav-additional">
+              <span>{t("header.additionalServices")}</span>
+              {uncategorised.map((s) => (
+                <NavLink key={s.code} item={serviceLink(s)} />
+              ))}
+            </div>
+          )}
         </>
       );
     }
@@ -192,22 +209,23 @@ export function SiteHeader({ services }) {
     const overview = page(overviewCode);
     const intro = raw(`header.${active}Intro`) ?? [];
 
-    const tile = (code, description) => {
-      const item = page(code);
-      return (
-        <a key={code} href={item.href} className="nav-tile">
-        
-          <Image src={`/assets/icons/${PAGE_ICONS[code]}.svg`} alt="" width="26" height="26" />
-          <div>
-            <strong>{item.title}</strong>
-            {description && <span>{description}</span>}
-          </div>
-          <span className="nav-tile-arrow" aria-hidden="true">
-            ↗
-          </span>
-        </a>
-      );
-    };
+    const tile = (industry) => (
+      <Link key={industry.id} href={industry.href} className="nav-tile" onClick={() => setActive(null)}>
+        {industry.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={industry.image} alt="" width="26" height="26" className="size-[26px] rounded object-cover" />
+        ) : (
+          <Image src="/assets/icons/factory.svg" alt="" width="26" height="26" />
+        )}
+        <div>
+          <strong>{industry.title}</strong>
+          {industry.description && <span className="line-clamp-2">{industry.description}</span>}
+        </div>
+        <span className="nav-tile-arrow" aria-hidden="true">
+          ↗
+        </span>
+      </Link>
+    );
 
     return (
       <div className={`structured-menu menu-${active}`}>
@@ -222,43 +240,21 @@ export function SiteHeader({ services }) {
           {active === "industries" ? (
             <>
               <h3 className="nav-group-label">{t("header.chooseIndustry")}</h3>
-              <div className="nav-tile-grid">
-                {["I01", "I02", "I03", "I04"].map((code) =>
-                  tile(
-                    code,
-                    has(`header.industryDescriptions.${code}`)
-                      ? t(`header.industryDescriptions.${code}`)
-                      : undefined
-                  )
-                )}
-              </div>
+              <div className="nav-tile-grid">{industries.map(tile)}</div>
             </>
           ) : active === "work" ? (
-            <div className="nav-groups">
-              {group(t("header.selectedProjects"), ["RC-CS05", "RC-CS06", "RC-CS03"].map(page))}
-            </div>
+            <div className="nav-groups">{group(t("header.selectedProjects"), cases.map(recordLink))}</div>
           ) : active === "resources" ? (
             <div className="nav-groups">
-              {group(t("header.guidesArticles"), [page("R01"), page("G01")])}
-              {group(t("header.schemeInformation"), [page("R02")])}
+              {group(t("header.guidesArticles"), [page("R01"), ...guides.map(recordLink)])}
+              {group(t("header.schemeInformation"), [page("R02"), ...schemes.map(recordLink)])}
             </div>
           ) : (
-            <>
-              <div className="nav-groups">
-                {group(t("header.peopleApproach"), [page("A03"), page("A02")])}
-                {group(t("header.workWithRapid"), [page("C01"), page("U01")])}
-                {group(t("header.careers"), [page("U02"), page("U03")])}
-              </div>
-              <div className="nav-additional">
-                <span>{t("header.additionalServices")}</span>
-                {["X01", "X02"]
-                  .map(byCode)
-                  .filter(Boolean)
-                  .map((s) => (
-                    <NavLink key={s.code} item={serviceLink(s)} />
-                  ))}
-              </div>
-            </>
+            <div className="nav-groups">
+              {group(t("header.peopleApproach"), [page("A03"), page("A02")])}
+              {group(t("header.workWithRapid"), [page("C01"), page("U01")])}
+              {group(t("header.careers"), [page("U02"), page("U03")])}
+            </div>
           )}
         </div>
       </div>

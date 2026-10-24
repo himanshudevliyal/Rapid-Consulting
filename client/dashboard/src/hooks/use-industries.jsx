@@ -4,6 +4,8 @@ import {
   deleteIndustry,
   fetchIndustries,
   fetchIndustry,
+  fetchSchemeOptions,
+  fetchServiceOptions,
   updateIndustry,
 } from "@/services/industry-service";
 
@@ -56,3 +58,10 @@ export const useDeleteIndustry = (id, callback) => {
     },
   });
 };
+
+// Services and schemes that can be linked from an industry page.
+export const useServiceOptions = () =>
+  useQuery({ queryKey: ["industry-options", "services"], queryFn: fetchServiceOptions, staleTime: 60_000 });
+
+export const useSchemeOptions = () =>
+  useQuery({ queryKey: ["industry-options", "schemes"], queryFn: fetchSchemeOptions, staleTime: 60_000 });

@@ -36,6 +36,12 @@ const init = async (sequelize) => {
         allowNull: false,
         defaultValue: false,
       },
+      // Featured schemes are the ones shown on the home page.
+      is_featured: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
     },
     {
       tableName: TABLE,
@@ -80,6 +86,7 @@ const getAll = async ({
   is_published,
   tag,
   category_id,
+  featured,
   q,
   page = 1,
   limit = 20,
@@ -90,6 +97,7 @@ const getAll = async ({
   else if (is_published === "false") where.is_published = false;
   if (tag) where.tags = { [Op.contains]: [tag] };
   if (category_id) where.category_id = category_id;
+  if (featured === "true" || featured === true) where.is_featured = true;
   if (q) {
     where[Op.or] = [
       { title: { [Op.iLike]: `%${q}%` } },
@@ -108,6 +116,17 @@ const getAll = async ({
 };
 
 const getBySlug = async (slug) => SchemeModel.findOne({ where: { slug } });
+
+// Published schemes by slug, in the order the slugs are given (industry pages).
+const getPublishedBySlugs = async (slugs) => {
+  if (!slugs?.length) return [];
+  const rows = await SchemeModel.findAll({
+    where: { slug: { [Op.in]: slugs }, is_published: true },
+    attributes: ["id", "title", "slug", "ministry", "description", "cover_image", "tags"],
+  });
+  const order = new Map(slugs.map((slug, index) => [slug, index]));
+  return rows.sort((a, b) => order.get(a.slug) - order.get(b.slug));
+};
 const getById = async (id) => SchemeModel.findByPk(id);
 const updateById = async (id, data) => {
   const [updated, rows] = await SchemeModel.update(data, { where: { id }, returning: true });
@@ -115,4 +134,4 @@ const updateById = async (id, data) => {
 };
 const deleteById = async (id) => SchemeModel.destroy({ where: { id } });
 
-export default { init, create, getAll, getBySlug, getById, updateById, deleteById, slugTaken };
+export default { init, create, getAll, getBySlug, getPublishedBySlugs, getById, updateById, deleteById, slugTaken };

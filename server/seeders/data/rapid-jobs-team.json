@@ -1,0 +1,55 @@
+{
+  "jobs": [
+    {
+      "slug": "rapid-consulting-hiring-ca-inter-dropout-job",
+      "title": "CA Inter and Finance Support",
+      "location": "Hisar",
+      "job_type": "full-time",
+      "experience": null,
+      "description": "<p>This role supports finance, accounting, audit-related and taxation work, with attention to the records and documentation behind each task.</p>\n<p>Rapid&#39;s published role description invites candidates with CA Intermediate study or a background in the CA course who can demonstrate relevant knowledge and practical ability.</p>",
+      "responsibilities": "<p>Support financial and accounting tasks, prepare and organise records, assist with audit and control-related work within the assigned responsibility, and use Excel and Word for analysis and documentation.</p>\n<p>The ability to explain a figure, check an input and maintain a clear record is important. Work should be understandable to the colleague or professional reviewing it.</p>",
+      "requirements": "<p>A grounding in accounting, finance and taxation, confidence with spreadsheets and documents, careful organisation and the ability to solve a practical information problem.</p>\n<p>Be ready to explain the work you have performed yourself and where it was supervised or reviewed.</p>",
+      "closing_date": null,
+      "is_active": true,
+      "display_order": 0
+    },
+    {
+      "slug": "rapid-consulting-hiring-executive-assistant-job",
+      "title": "Executive Assistant",
+      "location": "Hisar",
+      "job_type": "full-time",
+      "experience": null,
+      "description": "<p>Help keep daily work organised and moving. The Executive Assistant role supports administrative tasks, document handling, data entry and communication within Rapid&#39;s team.</p>",
+      "responsibilities": "<p>Prepare and maintain documents, support reporting in Excel and Word, organise information needed for tasks and communicate clearly with colleagues and clients within the assigned role.</p>\n<p>Good coordination means knowing what has been requested, what has been received and what needs a follow-up. It also means making records easy for someone else to locate and understand.</p>",
+      "requirements": "<p>A commerce background, practical Excel and Word skills, accurate typing, clear communication and good organisation. Rapid&#39;s published description identifies a bachelor&#39;s degree as preferred.</p>\n<p>Bring examples of how you have handled records, coordinated a task or resolved an information gap. Explain your own contribution and how you checked the result.</p>",
+      "closing_date": null,
+      "is_active": true,
+      "display_order": 1
+    },
+    {
+      "slug": "rapid-consulting-hiring-accountant-job",
+      "title": "Accountant",
+      "location": "Hisar",
+      "job_type": "full-time",
+      "experience": null,
+      "description": "<p>Support reliable financial work through accurate records and clear documentation. The Accountant role involves maintaining financial information, preparing statements and assisting with the accounting tasks assigned to the team.</p>",
+      "responsibilities": "<p>Organise and update financial records, support preparation of statements including balance sheets, work with income-tax-related information and use Excel and Word for analysis and reporting.</p>\n<p>Every figure should have a clear basis. The role calls for checking records, identifying discrepancies and making the work usable by the person reviewing it.</p>",
+      "requirements": "<p>Rapid&#39;s published description specifies a commerce degree, knowledge of accounting and income tax, familiarity with financial statements and practical Excel and Word ability.</p>\n<p>Attention to detail and organisation matter throughout the work. Be ready to discuss a financial record or statement you have prepared and explain how you checked it.</p>",
+      "closing_date": null,
+      "is_active": true,
+      "display_order": 2
+    }
+  ],
+  "advisers": [
+    {
+      "name": "Atul Goyal",
+      "designation": "Founder, Rapid Consulting",
+      "team_group": "Leadership",
+      "bio": "Atul Goyal is the founder of Rapid Consulting, a Hisar-based firm supporting businesses across Haryana with subsidies, statutory approvals and related project requirements.",
+      "photo": null,
+      "linkedin_url": "https://www.linkedin.com/in/atul-goyal-rapidconsulting/",
+      "display_order": 0,
+      "is_active": true
+    }
+  ]
+}

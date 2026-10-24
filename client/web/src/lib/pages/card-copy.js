@@ -1,5 +1,5 @@
 /** Contextual copy remains source-owned; card structure and its footer action are shared. */
-import { toSlugHref } from '@/lib/page-routes';
+import { isApiContentId, toSlugHref } from '@/lib/page-routes';
 export function cardCopy(html, href) {
     const heading = html.match(/^\s*<h3[^>]*>([\s\S]*?)<\/h3>/);
     const strong = html.match(/^\s*<p><strong>([\s\S]*?)<\/strong><br>/);
@@ -23,3 +23,8 @@ export function cardCopy(html, href) {
     return copy;
 }
 export function linkedContentIds(html) { return [...new Set([...html.matchAll(/href="\/(?:en|hi)\/p\/([^"#?]+)(?:[^"]*)"/g)].map(m => m[1]))]; }
+
+// True when the HTML links to a guide, article, scheme, case study or industry.
+// Those come from the API now, so index-page sections that only list them are
+// replaced by the live directory.
+export function linksApiContent(html) { return linkedContentIds(html).some(isApiContentId); }

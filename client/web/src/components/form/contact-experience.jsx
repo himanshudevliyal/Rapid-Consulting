@@ -2,9 +2,16 @@
 
 import { useEffect, useId, useState } from "react";
 import { Clock, Mail, Phone, Send } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useTranslations } from "next-intl";
-import { validContactName, validIndianPhone } from "@/lib/contact-validation";
+import {
+  CONTACT_DEFAULTS,
+  createContactSchema,
+  createEnquirySchema,
+  ENQUIRY_DEFAULTS,
+} from "@/lib/enquiry-schemas";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,38 +19,27 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { WhatsAppButton } from "../contact/whatsapp";
-import { useSubmitEnquiry } from "@/hooks/use-enquiry";
+import { FormStatus, HoneypotField, TextAreaField, TextField } from "./form-field";
+import { useSubmitContactEnquiry, useSubmitEnquiry } from "@/hooks/use-enquiry";
 import { EMAIL, PHONE_LABEL, PHONE_HREF } from "@/lib/site";
 
-// Shared Tailwind classes for the "section" variant fields
+// Empty text is left out of the request; the API column limits are enforced
+// by the validation schema, so nothing is cut silently.
+const clean = (value) => (value ?? "").trim() || undefined;
 
-const LABEL = "text-[13px] font-medium text-[#09263e]";
-const ERROR = "text-xs text-red-600";
-
-
-
-
-const FIELD =
-  "!block !h-14 !w-full !rounded-2xl !border !border-solid !border-slate-300 !bg-white !px-5 !text-[15px] !text-[#09263e] !shadow-none placeholder:!text-slate-400 focus-visible:!border-[#1f5d57] focus-visible:!outline-none focus-visible:!ring-2 focus-visible:!ring-[#1f5d57]/25";
-
-const AREA =
-  "!block !w-full !resize-none !rounded-2xl !border !border-solid !border-slate-300 !bg-white !px-5 !py-4 !text-[15px] !text-[#09263e] !shadow-none focus-visible:!border-[#1f5d57] focus-visible:!outline-none focus-visible:!ring-2 focus-visible:!ring-[#1f5d57]/25";
-
-
-const EMPTY_FIELDS = { name: "", phone: "", location: "", requirement: "", subject: "" };
-
-// The API column limits; longer text is cut instead of failing the request.
-const clip = (value, max) => (value ?? "").trim().slice(0, max) || undefined;
-
-// Contextual expert-callback form. Submits to POST /enquiries.
+// Contextual expert-callback / contact form (React Hook Form).
+//   kind="enquiry" (default) -> POST /enquiries          (service & page enquiries)
+//   kind="contact"           -> POST /contact-enquiries  (Contact Us page: also asks email)
+// The page title, URL and service name are captured on submit so the admin
+// can see where every enquiry came from.
 export function ContactExperience({
   pageTitle,
   pageId,
   variant = "rail",
+  kind = "enquiry",
+  serviceName,
+  source,
   requirementHint,
   heading,
   eyebrow,
@@ -51,11 +47,27 @@ export function ContactExperience({
 }) {
   const t = useTranslations();
   const uid = useId();
+  const isContact = kind === "contact";
+  // The message box is "message" on the contact form, "requirement" on the enquiry form.
+  const messageName = isContact ? "message" : "requirement";
 
-  const [fields, setFields] = useState(EMPTY_FIELDS);
-  const enquiry = useSubmitEnquiry();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    setFocus,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(isContact ? createContactSchema(t) : createEnquirySchema(t)),
+    defaultValues: isContact ? CONTACT_DEFAULTS : ENQUIRY_DEFAULTS,
+  });
 
-  const [attempted, setAttempted] = useState(false);
+  const enquiryMutation = useSubmitEnquiry();
+  const contactMutation = useSubmitContactEnquiry();
+  const mutation = isContact ? contactMutation : enquiryMutation;
+
   const [mobile, setMobile] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -114,73 +126,78 @@ export function ContactExperience({
     };
   }, [modal]);
 
-  const nameInvalid =
-    attempted && !validContactName(fields.name);
-
-  const phoneInvalid =
-    attempted && !validIndianPhone(fields.phone);
-
-  const update = (key) => (event) => {
-    setFields({
-      ...fields,
-      [key]: event.target.value,
+  // Typing again after a result clears the old "sent" / "failed" message.
+  const { isIdle, isPending, reset: resetMutation } = mutation;
+  useEffect(() => {
+    const subscription = watch((_values, info) => {
+      if (info.type === "change" && !isIdle && !isPending) resetMutation();
     });
+    return () => subscription.unsubscribe();
+  }, [watch, isIdle, isPending, resetMutation]);
 
-    // Typing again after a result clears the old "sent" / "failed" message.
-    if (!enquiry.isIdle && !enquiry.isPending) enquiry.reset();
-  };
+  const submit = (values) => {
+    if (mutation.isPending) return;
 
-  const submit = (event) => {
-    event.preventDefault();
+    const payload = {
+      name: clean(values.name),
+      phone: clean(values.phone),
+      location: clean(values.location),
+      subject: clean(values.subject),
+      [messageName]: clean(values[messageName]),
+      // Where the visitor was: captured automatically, nothing to type.
+      page_title: clean(pageTitle) || clean(document.title),
+      page_url: window.location.href,
+      page_id: clean(pageId),
+      source: source || (isContact ? "contact-page" : variant === "section" ? "contact-section" : "callback-rail"),
+      website: values.website || undefined,
+    };
+    if (isContact) payload.email = clean(values.email);
+    else if (serviceName) payload.service_name = clean(serviceName);
 
-    setAttempted(true);
-
-    if (
-      !validContactName(fields.name) ||
-      !validIndianPhone(fields.phone)
-    ) {
-      const key = !validContactName(fields.name)
-        ? "name"
-        : "phone";
-
-      event.currentTarget
-        .querySelector(`[name="${key}"]`)
-        ?.focus();
-
-      return;
-    }
-
-    if (enquiry.isPending) return;
-
-    enquiry.mutate(
-      {
-        name: clip(fields.name, 120),
-        phone: clip(fields.phone, 20),
-        location: clip(fields.location, 200),
-        requirement: clip(fields.requirement, 2000),
-        subject: clip(fields.subject, 255),
-        page_title: clip(pageTitle, 255),
-        page_id: clip(pageId, 100),
-        source: variant === "section" ? "contact-section" : "callback-rail",
+    mutation.mutate(payload, {
+      onSuccess: () => reset(),
+      onError: (error) => {
+        // The API names the fields it rejected: show each under its own input.
+        const fieldErrors = error?.response?.data?.errors;
+        if (fieldErrors && typeof fieldErrors === "object") {
+          Object.entries(fieldErrors).forEach(([field, message], index) =>
+            setError(field, { type: "server", message: String(message) }, { shouldFocus: index === 0 }),
+          );
+        }
       },
-      { onSuccess: () => setFields(EMPTY_FIELDS) },
-    );
+    });
   };
 
-  const pending = enquiry.isPending;
+  // Focus the first invalid field (the order of the form).
+  const invalid = (formErrors) => {
+    const order = ["name", "email", "phone", "location", "subject", messageName];
+    const first = order.find((key) => formErrors[key]);
+    if (first) setFocus(first);
+  };
+
+  const pending = mutation.isPending;
+  const hasFieldErrors = Object.keys(errors).length > 0;
   const status = (
-    <>
-      {enquiry.isSuccess && (
-        <p className="contact-status text-sm text-green-700" role="status">
-          {t("contact.sent")}
-        </p>
-      )}
-      {enquiry.isError && (
-        <p className="contact-status text-sm text-red-600" role="alert">
-          {t("contact.sendError")}
-        </p>
-      )}
-    </>
+    <FormStatus
+      variant={variant === "section" ? "section" : "rail"}
+      success={mutation.isSuccess ? t(isContact ? "contact.contactSent" : "contact.sent") : ""}
+      error={mutation.isError && !hasFieldErrors ? t(isContact ? "contact.contactSendError" : "contact.sendError") : ""}
+    />
+  );
+
+  // The visible fields, shared by the rail and the section layout.
+  const fieldProps = (suffix, fieldVariant) => ({ register, variant: fieldVariant, id: `${uid}${suffix}` });
+  const emailField = (suffix, fieldVariant) => (
+    <TextField
+      {...fieldProps(`${suffix}-email`, fieldVariant)}
+      name="email"
+      type="email"
+      inputMode="email"
+      autoComplete="email"
+      label={t("contact.email")}
+      required
+      error={errors.email?.message}
+    />
   );
 
   const TitleTag = modal ? DialogTitle : "h2";
@@ -189,7 +206,7 @@ export function ContactExperience({
     <form
       id="enquiry"
       className="callback-form"
-      onSubmit={submit}
+      onSubmit={handleSubmit(submit, invalid)}
       noValidate
       aria-labelledby={`${uid}-title`}
     >
@@ -207,112 +224,48 @@ export function ContactExperience({
         {pageTitle} <span>· {pageId}</span>
       </p>
 
-      <div className="contact-field">
-        <Label htmlFor={`${uid}-name`}>
-          {t("contact.name")}{" "}
-          <span aria-hidden="true">*</span>
-        </Label>
+      <HoneypotField register={register} />
 
-        <Input
-          id={`${uid}-name`}
-          name="name"
-          autoComplete="name"
-          required
-          value={fields.name}
-          onChange={update("name")}
-          aria-invalid={nameInvalid}
-          aria-describedby={
-            nameInvalid
-              ? `${uid}-name-error`
-              : undefined
-          }
-        />
+      <TextField
+        {...fieldProps("-name", "rail")}
+        name="name"
+        autoComplete="name"
+        label={t("contact.name")}
+        required
+        error={errors.name?.message}
+      />
 
-        {nameInvalid && (
-          <small
-            id={`${uid}-name-error`}
-            className="field-error"
-          >
-            {t("contact.nameError")}
-          </small>
-        )}
-      </div>
+      {isContact && emailField("", "rail")}
 
-      <div className="contact-field">
-        <Label htmlFor={`${uid}-phone`}>
-          {t("contact.phone")}{" "}
-          <span aria-hidden="true">*</span>
-        </Label>
+      <TextField
+        {...fieldProps("-phone", "rail")}
+        name="phone"
+        type="tel"
+        inputMode="tel"
+        autoComplete="tel"
+        placeholder="+91"
+        label={t("contact.phone")}
+        required
+        error={errors.phone?.message}
+      />
 
-        <Input
-          id={`${uid}-phone`}
-          name="phone"
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel"
-          required
-          placeholder="+91"
-          value={fields.phone}
-          onChange={update("phone")}
-          aria-invalid={phoneInvalid}
-          aria-describedby={
-            phoneInvalid
-              ? `${uid}-phone-error`
-              : undefined
-          }
-        />
+      <TextField
+        {...fieldProps("-location", "rail")}
+        name="location"
+        autoComplete="address-level2"
+        label={t("contact.location")}
+        error={errors.location?.message}
+      />
 
-        {phoneInvalid && (
-          <small
-            id={`${uid}-phone-error`}
-            className="field-error"
-          >
-            {t("contact.phoneError")}
-          </small>
-        )}
-      </div>
-
-      <div className="contact-field">
-        <Label htmlFor={`${uid}-location`}>
-          {t("contact.location")}
-        </Label>
-
-        <Input
-          id={`${uid}-location`}
-          name="location"
-          autoComplete="address-level2"
-          value={fields.location}
-          onChange={update("location")}
-        />
-      </div>
-
-      <div className="contact-field">
-        <Label htmlFor={`${uid}-requirement`}>
-          {t("contact.requirement")}
-        </Label>
-
-        <Textarea
-          id={`${uid}-requirement`}
-          name="requirement"
-          rows={variant === "rail" ? 2 : 3}
-          aria-describedby={
-            requirementHint
-              ? `${uid}-requirement-hint`
-              : undefined
-          }
-          value={fields.requirement}
-          onChange={update("requirement")}
-        />
-
-        {requirementHint && (
-          <small
-            id={`${uid}-requirement-hint`}
-            className="contact-demo-note"
-          >
-            {requirementHint}
-          </small>
-        )}
-      </div>
+      <TextAreaField
+        {...fieldProps("-requirement", "rail")}
+        name={messageName}
+        rows={variant === "rail" ? 2 : 3}
+        label={isContact ? t("contact.message") : t("contact.requirement")}
+        required={isContact}
+        hint={requirementHint}
+        error={errors[messageName]?.message}
+      />
 
       <Button
         variant="brand"
@@ -476,143 +429,82 @@ export function ContactExperience({
 
             <form
               id="enquiry-section"
-              onSubmit={submit}
+              onSubmit={handleSubmit(submit, invalid)}
               noValidate
               className="grid gap-4"
             >
+              <HoneypotField register={register} />
+
               {/* Row 1: Name + Phone */}
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="flex flex-col gap-1.5">
-                  <Label
-                    htmlFor={`${uid}-s-name`}
-                    className={LABEL}
-                  >
-                    {t("contact.name")}{" "}
-                    <span aria-hidden="true">*</span>
-                  </Label>
+                <TextField
+                  {...fieldProps("-s-name", "section")}
+                  name="name"
+                  autoComplete="name"
+                  label={t("contact.name")}
+                  required
+                  error={errors.name?.message}
+                />
 
-                  <Input
-                    id={`${uid}-s-name`}
-                    name="name"
-                    autoComplete="name"
-                    required
-                    value={fields.name}
-                    onChange={update("name")}
-                    aria-invalid={nameInvalid}
-                    className={FIELD}
-                  />
-
-                  {nameInvalid && (
-                    <small className={ERROR}>
-                      {t("contact.nameError")}
-                    </small>
-                  )}
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <Label
-                    htmlFor={`${uid}-s-phone`}
-                    className={LABEL}
-                  >
-                    {t("contact.phone")}{" "}
-                    <span aria-hidden="true">*</span>
-                  </Label>
-
-                  <Input
-                    id={`${uid}-s-phone`}
-                    name="phone"
-                    type="tel"
-                    inputMode="tel"
-                    autoComplete="tel"
-                    required
-                    placeholder="+91"
-                    value={fields.phone}
-                    onChange={update("phone")}
-                    aria-invalid={phoneInvalid}
-                    className={FIELD}
-                  />
-
-                  {phoneInvalid && (
-                    <small className={ERROR}>
-                      {t("contact.phoneError")}
-                    </small>
-                  )}
-                </div>
+                <TextField
+                  {...fieldProps("-s-phone", "section")}
+                  name="phone"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  placeholder="+91"
+                  label={t("contact.phone")}
+                  required
+                  error={errors.phone?.message}
+                />
               </div>
 
-              {/* Row 2: Location + Subject */}
+              {/* Row 2: Email (contact form) + Location */}
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="flex flex-col gap-1.5">
-                  <Label
-                    htmlFor={`${uid}-s-location`}
-                    className={LABEL}
-                  >
-                    {t("contact.location")}
-                  </Label>
+                {isContact && emailField("-s", "section")}
 
-                  <Input
-                    id={`${uid}-s-location`}
-                    name="location"
-                    autoComplete="address-level2"
-                    value={fields.location}
-                    onChange={update("location")}
-                    className={FIELD}
-                  />
-                </div>
+                <TextField
+                  {...fieldProps("-s-location", "section")}
+                  name="location"
+                  autoComplete="address-level2"
+                  label={t("contact.location")}
+                  error={errors.location?.message}
+                />
 
-                <div className="flex flex-col gap-1.5">
-                  <Label
-                    htmlFor={`${uid}-s-subject`}
-                    className={LABEL}
-                  >
-                    Subject
-                  </Label>
-
-                  <Input
-                    id={`${uid}-s-subject`}
+                {!isContact && (
+                  <TextField
+                    {...fieldProps("-s-subject", "section")}
                     name="subject"
-                    value={fields.subject || ""}
-                    onChange={update("subject")}
-                    className={FIELD}
+                    label={t("contact.subject")}
+                    error={errors.subject?.message}
                   />
-                </div>
+                )}
               </div>
+
+              {/* Row 2b: Subject (contact form) */}
+
+              {isContact && (
+                <TextField
+                  {...fieldProps("-s-subject", "section")}
+                  name="subject"
+                  label={t("contact.subject")}
+                  error={errors.subject?.message}
+                />
+              )}
 
               {/* Row 3: Message */}
 
-              <div className="flex flex-col gap-1.5">
-                <Label
-                  htmlFor={`${uid}-s-req`}
-                  className={LABEL}
-                >
-                  Message
-                </Label>
-
-                <Textarea
-                  id={`${uid}-s-req`}
-                  name="requirement"
-                  rows={4}
-                  value={fields.requirement}
-                  onChange={update("requirement")}
-                  aria-describedby={
-                    requirementHint
-                      ? `${uid}-s-hint`
-                      : undefined
-                  }
-                  className={AREA}
-                />
-
-                {requirementHint && (
-                  <small
-                    id={`${uid}-s-hint`}
-                    className="text-xs text-slate-500"
-                  >
-                    {requirementHint}
-                  </small>
-                )}
-              </div>
+              <TextAreaField
+                {...fieldProps("-s-req", "section")}
+                name={messageName}
+                rows={4}
+                label={t("contact.message")}
+                required={isContact}
+                hint={requirementHint}
+                error={errors[messageName]?.message}
+              />
 
               {/* Footer */}
 
@@ -623,7 +515,7 @@ export function ContactExperience({
                   aria-busy={pending}
                   className="h-14 rounded-full bg-[#1f5d57] px-10 text-base font-medium text-white! shadow-none transition-colors hover:bg-[#09263e]"
                 >
-                  {pending ? t("contact.sending") : "Send Message"}
+                  {pending ? t("contact.sending") : t("contact.sendMessage")}
                 </Button>
 
                 <a

@@ -11,35 +11,19 @@
 
 import Image from "next/image";
 
-import {
-  getSummaries,
-  pageHref,
-} from "@/lib/pages/content";
-import { linkedContentIds } from "@/lib/pages/card-copy";
+import { linksApiContent } from "@/lib/pages/card-copy";
 import { ClientTicker } from "@/components/common/client-ticker";
-import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { ContactExperience } from "@/components/form/contact-experience";
-import { Directory } from "@/components/pages/directory";
 import { Html } from "@/components/pages/content-primitives";
 import Heading from "@/components/layout/heading";
 import Section from "@/components/layout/section";
+import { SchemesDirectory } from "./SchemesDirectory";
 
-/** Schemes are the only type served by this collection page. */
-const SCHEME_TYPES = ["scheme"];
-
-export function SchemesPage({ page, t, has, image = "/assets/scheme.jpg" }) {
+export function SchemesPage({ page, t, has, image = "/assets/scheme.jpg", initialData, initialIndustries }) {
   // ── Data ────────────────────────────────────────────────────────────────────
-  const items = getSummaries(page.locale).filter((p) =>
-    SCHEME_TYPES.includes(p.type),
-  );
-
-  // Guidance sections — all page sections that are not linked to specific content
-  const guidanceSections = page.sections.filter(
-    (section) =>
-      !linkedContentIds(section.html).some((id) =>
-        items.some((item) => item.id === id),
-      ),
-  );
+  // Schemes come from the API (SchemesDirectory). Sections of the index copy
+  // that only list individual schemes are replaced by it; the rest is guidance.
+  const guidanceSections = page.sections.filter((section) => !linksApiContent(section.html));
 
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
@@ -73,7 +57,7 @@ export function SchemesPage({ page, t, has, image = "/assets/scheme.jpg" }) {
       </Section>
 
       {/* ── Searchable directory ───────────────────────────────────────────── */}
-      <Directory items={items} kind="schemes" copyById={{}} industry="" />
+      <SchemesDirectory initialData={initialData} initialIndustries={initialIndustries} />
 
       {/* ── Guidance / FAQ accordion ───────────────────────────────────────── */}
       <Section className="collection-guidance">

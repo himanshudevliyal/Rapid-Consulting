@@ -24,6 +24,8 @@ const init = async (sequelize) => {
       content: { type: DataTypes.TEXT, allowNull: true },
       cover_image: { type: DataTypes.STRING(500), allowNull: true },
       category_id: { type: DataTypes.UUID, allowNull: true },
+      // "article" or "guide" (guides live under /guides on the website).
+      type: { type: DataTypes.STRING(20), allowNull: false, defaultValue: "article" },
       tags: {
         type: DataTypes.ARRAY(DataTypes.TEXT),
         allowNull: false,
@@ -82,6 +84,7 @@ const getAll = async ({
   is_published,
   tag,
   category_id,
+  type,
   q,
   page = 1,
   limit = 20,
@@ -92,6 +95,7 @@ const getAll = async ({
   else if (is_published === "false") where.is_published = false;
   if (tag) where.tags = { [Op.contains]: [tag] };
   if (category_id) where.category_id = category_id;
+  if (type) where.type = type;
   if (q) {
     where[Op.or] = [
       { title: { [Op.iLike]: `%${q}%` } },

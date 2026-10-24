@@ -19,7 +19,7 @@ import "../globals.css";
 
 import { routing } from "@/i18n/routing";
 import QueryProvider from "@/providers/query-client-provider";
-import { fetchServices } from "@/services/service-service";
+import { loadNavigation } from "@/lib/content/site-data";
 import { SITE_URL } from "@/lib/site";
 import { robots } from "@/lib/seo";
 
@@ -74,10 +74,11 @@ export default async function LocaleLayout({ children, params }) {
   ]);
 
   /*
-   * The header menu and search list services from the API.
-   * If the API is down, pages still render with an empty menu.
+   * The header menu, the search and the language links are built from the API
+   * (service categories, industries, case studies, guides, schemes). If the API
+   * is down, pages still render with an empty menu.
    */
-  const services = await fetchServices(locale).catch(() => []);
+  const navigation = await loadNavigation(locale);
 
   return (
     <html lang={locale}>
@@ -95,7 +96,7 @@ export default async function LocaleLayout({ children, params }) {
                 {t("common.skipToContent")}
               </a>
 
-              <SiteHeader services={services} />
+              <SiteHeader navigation={navigation} />
 
               <Suspense fallback={null}>
                 <LanguageFallbackNotice />

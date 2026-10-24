@@ -63,7 +63,12 @@ export function ServicePage({ service, services, locale, t, has }) {
             <ServiceRelated service={service} locale={locale} t={t} />
           </main>
           <aside className="detail-rail">
-            <ContactExperience pageTitle={service.h1 || service.title} pageId={service.code} variant="rail" />
+            <ContactExperience
+              pageTitle={service.h1 || service.title}
+              pageId={service.code}
+              serviceName={service.h1 || service.title}
+              variant="rail"
+            />
           </aside>
         </div>
       </Section>

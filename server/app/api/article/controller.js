@@ -13,6 +13,9 @@ import {
 const sent = (data) =>
   Object.fromEntries(Object.entries(data).filter(([, v]) => v !== undefined));
 
+// ?type=article|guide; anything else means "both".
+const typeFilter = (type) => (["article", "guide"].includes(type) ? type : undefined);
+
 const slugConflict = (res) =>
   res
     .code(StatusCodes.CONFLICT)
@@ -31,11 +34,12 @@ const create = async (req, res) => {
 
 // Admin: every article, drafts included. ?q=&is_published=true|false&tag=&page=&limit=
 const getAll = async (req, res) => {
-  const { q, page, limit, is_published, tag, category_id } = req.query;
+  const { q, page, limit, is_published, tag, category_id, type } = req.query;
   const result = await table.ArticleModel.getAll({
     q,
     is_published,
     tag,
+    type: typeFilter(type),
     category_id: categoryFilter(category_id),
     page: Number(page) || 1,
     limit: Number(limit) || 20,
@@ -45,11 +49,12 @@ const getAll = async (req, res) => {
 
 // Public: published articles only.
 const getAllPublic = async (req, res) => {
-  const { q, page, limit, tag, category_id } = req.query;
+  const { q, page, limit, tag, category_id, type } = req.query;
   const result = await table.ArticleModel.getAll({
     published_only: true,
     q,
     tag,
+    type: typeFilter(type),
     category_id: categoryFilter(category_id),
     page: Number(page) || 1,
     limit: Number(limit) || 20,

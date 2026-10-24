@@ -1,0 +1,1093 @@
+{
+  "categories": [
+    {
+      "family_code": "S01",
+      "title": "Subsidies and Incentives Advisory in Haryana",
+      "slug": "subsidies-and-incentives-advisory-in-haryana"
+    },
+    {
+      "family_code": "S02",
+      "title": "Statutory Approval Support in Haryana",
+      "slug": "statutory-approval-support-in-haryana"
+    },
+    {
+      "family_code": "S03",
+      "title": "Business Licences and Certifications in Haryana",
+      "slug": "business-licences-and-certifications-in-haryana"
+    },
+    {
+      "family_code": "S04",
+      "title": "Industrial Insurance and Claim Support",
+      "slug": "industrial-insurance-and-claim-support"
+    },
+    {
+      "family_code": "S05",
+      "title": "Business Finance and Project Advisory in Haryana",
+      "slug": "business-finance-and-project-advisory-in-haryana"
+    }
+  ],
+  "schemes": [
+    {
+      "code": "D001",
+      "title": "Prime Minister’s Employment Generation Programme",
+      "seed_slug": "prime-ministers-employment-generation-programme",
+      "slug": "pmegp-kvic-scheme",
+      "topic": "Skills & employment",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": true
+    },
+    {
+      "code": "D002",
+      "title": "Haryana Gramin Udyogik Vikas Yojna (HGUVY)",
+      "seed_slug": "haryana-gramin-udyogik-vikas-yojna-hguvy",
+      "slug": "hguvy-scheme",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D003",
+      "title": "Generator Set Subsidy Scheme in Haryana",
+      "seed_slug": "generator-set-subsidy-scheme-in-haryana",
+      "slug": "generator-set-subsidy-scheme-in-haryana",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D004",
+      "title": "Testing Equipment Assistance in Haryana",
+      "seed_slug": "testing-equipment-assistance-in-haryana",
+      "slug": "testing-machine-subsidy",
+      "topic": "Quality, technology & research",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": true
+    },
+    {
+      "code": "D005",
+      "title": "Electricity Duty Exemption in Haryana",
+      "seed_slug": "electricity-duty-exemption-in-haryana",
+      "slug": "electricity-duty-exemption",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": true
+    },
+    {
+      "code": "D006",
+      "title": "Haryana Investment Subsidy in Lieu of Net SGST",
+      "seed_slug": "haryana-investment-subsidy-in-lieu-of-net-sgst",
+      "slug": "sgst-refund-subsidy",
+      "topic": "Investment & finance",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": true
+    },
+    {
+      "code": "D007",
+      "title": "Fire Equipment and Safety Compliance Assistance",
+      "seed_slug": "fire-equipment-and-safety-compliance-assistance",
+      "slug": "fire-equipment-subsidy",
+      "topic": "Other programme support",
+      "family_code": "S02",
+      "category": "statutory-approval-support-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D008",
+      "title": "Stamp Duty Reimbursement in Haryana",
+      "seed_slug": "stamp-duty-reimbursement-in-haryana",
+      "slug": "stamp-duty-reimbursement",
+      "topic": "Investment & finance",
+      "family_code": "S02",
+      "category": "statutory-approval-support-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D009",
+      "title": "CGTMSE Fee Reimbursement in Haryana",
+      "seed_slug": "cgtmse-fee-reimbursement-in-haryana",
+      "slug": "cgtsme-fee-refund-scheme",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D010",
+      "title": "Animal Husbandry Infrastructure Development Fund",
+      "seed_slug": "animal-husbandry-infrastructure-development-fund",
+      "slug": "animal-husbandry-infrastructure-development-fund-ahidf",
+      "topic": "Infrastructure & clusters",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D011",
+      "title": "Agriculture Infrastructure Fund (AIF)",
+      "seed_slug": "agriculture-infrastructure-fund-aif",
+      "slug": "agricultural-infrastructure-fund-aif",
+      "topic": "Infrastructure & clusters",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": true
+    },
+    {
+      "code": "D012",
+      "title": "Interest Subsidy for Textile Units",
+      "seed_slug": "interest-subsidy-for-textile-units",
+      "slug": "interst-subsidy-for-textile",
+      "topic": "Investment & finance",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D013",
+      "title": "ATUFS: Textile Machinery Support and Legacy Claims",
+      "seed_slug": "atufs-textile-machinery-support-and-legacy-claims",
+      "slug": "textile-subsidy-scheme-atufs",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D014",
+      "title": "Capital Investment Subsidy for Textile Units",
+      "seed_slug": "capital-investment-subsidy-for-textile-units",
+      "slug": "capital-investment-subsidy-for-textile-units",
+      "topic": "Investment & finance",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D015",
+      "title": "Haryana Textile Park Scheme",
+      "seed_slug": "haryana-textile-park-scheme",
+      "slug": "textile-park-scheme",
+      "topic": "Infrastructure & clusters",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D016",
+      "title": "Haryana Textile Cluster Development Scheme",
+      "seed_slug": "haryana-textile-cluster-development-scheme",
+      "slug": "textile-cluster-development-scheme",
+      "topic": "Infrastructure & clusters",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D017",
+      "title": "Warehousing Capital Subsidy in Haryana",
+      "seed_slug": "warehousing-capital-subsidy-in-haryana",
+      "slug": "warehousing-capital-subsidy",
+      "topic": "Investment & finance",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D018",
+      "title": "CEFPPC: Food Processing and Preservation Capacity Support",
+      "seed_slug": "cefppc-food-processing-and-preservation-capacity-support",
+      "slug": "food-industries-cefppc-scheme",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": true
+    },
+    {
+      "code": "D019",
+      "title": "Haryana Food Processing Unit Assistance under the 2018 Policy",
+      "seed_slug": "haryana-food-processing-unit-assistance-under-the-2018-policy",
+      "slug": "food-processing-industries-scheme",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D020",
+      "title": "Agro-Processing Cluster Infrastructure Scheme",
+      "seed_slug": "agro-processing-cluster-infrastructure-scheme",
+      "slug": "agro-processing-cluster-apc",
+      "topic": "Infrastructure & clusters",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D021",
+      "title": "Agricultural Marketing Infrastructure Scheme",
+      "seed_slug": "agricultural-marketing-infrastructure-scheme",
+      "slug": "ami-warehousing-subsidy-scheme",
+      "topic": "Exports & market access",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D022",
+      "title": "APEDA Financial Assistance for Agri-Food Exports",
+      "seed_slug": "apeda-financial-assistance-for-agri-food-exports",
+      "slug": "apeda-subsidy-scheme",
+      "topic": "Exports & market access",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D023",
+      "title": "Haryana Boiler Conversion Assistance",
+      "seed_slug": "haryana-boiler-conversion-assistance",
+      "slug": "assistance-in-conversion-of-boiler-to-run-on-cleaner-fuels",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D024",
+      "title": "Haryana Backward and Forward Linkages: 2018 Policy Route",
+      "seed_slug": "haryana-backward-and-forward-linkages-2018-policy-route",
+      "slug": "backward-and-forward-linkage-scheme",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D025",
+      "title": "Haryana Pharmaceutical Capital Subsidy: 2019 Scheme Scope",
+      "seed_slug": "haryana-pharmaceutical-capital-subsidy-2019-scheme-scope",
+      "slug": "capital-subsidy-incentive-under-the-pharmaceutical-policy",
+      "topic": "Investment & finance",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D026",
+      "title": "Capital Subsidy for Electric Vehicle Manufacturing",
+      "seed_slug": "capital-subsidy-for-electric-vehicle-manufacturing",
+      "slug": "capital-subsidy-scheme",
+      "topic": "Investment & finance",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D027",
+      "title": "MoFPI Integrated Cold Chain and Value Addition Infrastructure",
+      "seed_slug": "mofpi-integrated-cold-chain-and-value-addition-infrastructure",
+      "slug": "cold-chain-scheme-sampada-yojna",
+      "topic": "Infrastructure & clusters",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D028",
+      "title": "MoFPI Backward and Forward Linkages: Discontinued Scheme",
+      "seed_slug": "mofpi-backward-and-forward-linkages-discontinued-scheme",
+      "slug": "creation-of-backward-forward-linkage",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D029",
+      "title": "Haryana Employment Generation Subsidy under HEEP 2020",
+      "seed_slug": "haryana-employment-generation-subsidy-under-heep-2020",
+      "slug": "employment-generation-scheme",
+      "topic": "Skills & employment",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D030",
+      "title": "Employment Generation Subsidy for EV Manufacturing",
+      "seed_slug": "employment-generation-subsidy-for-ev-manufacturing",
+      "slug": "employment-generation-subsidy-scheme",
+      "topic": "Skills & employment",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D031",
+      "title": "Export Promotion Capital Goods Scheme",
+      "seed_slug": "export-promotion-capital-goods-scheme",
+      "slug": "epcg-scheme",
+      "topic": "Exports & market access",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D032",
+      "title": "Haryana Freight Assistance for Exporting MSMEs",
+      "seed_slug": "haryana-freight-assistance-for-exporting-msmes",
+      "slug": "freight-assistance-scheme",
+      "topic": "Exports & market access",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D033",
+      "title": "Human Capacity Building: EV Centres of Excellence",
+      "seed_slug": "human-capacity-building-ev-centres-of-excellence",
+      "slug": "human-capacity-building-of-excellence-scheme",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D034",
+      "title": "Net SGST Investment Subsidy for Haryana Textile Units",
+      "seed_slug": "net-sgst-investment-subsidy-for-haryana-textile-units",
+      "slug": "investment-subsidy-in-lieu-of-net-sgst",
+      "topic": "Investment & finance",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D035",
+      "title": "Haryana Market Development Assistance",
+      "seed_slug": "haryana-market-development-assistance",
+      "slug": "marketing-development-scheme",
+      "topic": "Exports & market access",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D036",
+      "title": "Micro and Small Enterprises Cluster Development Programme",
+      "seed_slug": "micro-and-small-enterprises-cluster-development-programme",
+      "slug": "mse-cdp-scheme",
+      "topic": "Infrastructure & clusters",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D037",
+      "title": "Net SGST Reimbursement for EV Manufacturing",
+      "seed_slug": "net-sgst-reimbursement-for-ev-manufacturing",
+      "slug": "net-sgst-reimbursement-scheme",
+      "topic": "Investment & finance",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D038",
+      "title": "National Horticulture Board Project Assistance",
+      "seed_slug": "national-horticulture-board-project-assistance",
+      "slug": "nhb-scheme",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D039",
+      "title": "National Horticulture Mission under MIDH",
+      "seed_slug": "national-horticulture-mission-under-midh",
+      "slug": "nhm-scheme",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D040",
+      "title": "PADMA Capital Investment Subsidy Scheme",
+      "seed_slug": "padma-capital-investment-subsidy-scheme",
+      "slug": "padma-capital-investment-subsidy-scheme",
+      "topic": "Investment & finance",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D041",
+      "title": "PADMA Cluster Infrastructure Development Scheme",
+      "seed_slug": "padma-cluster-infrastructure-development-scheme",
+      "slug": "padma-cluster-infrastructure-development-scheme",
+      "topic": "Infrastructure & clusters",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D042",
+      "title": "PADMA Designing, Branding, Marketing & Exports Promotion Scheme",
+      "seed_slug": "padma-designing-branding-marketing-exports-promotion-scheme",
+      "slug": "padma-design-scheme",
+      "topic": "Exports & market access",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D043",
+      "title": "PADMA Entrepreneurship Acceleration Scheme",
+      "seed_slug": "padma-entrepreneurship-acceleration-scheme",
+      "slug": "padma-entrepreneurship-acceleration-scheme",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D044",
+      "title": "PADMA Interest Subsidy Scheme",
+      "seed_slug": "padma-interest-subsidy-scheme",
+      "slug": "padma-interest-subsidy-scheme",
+      "topic": "Investment & finance",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D045",
+      "title": "Patent Fee Reimbursement under Haryana’s EV Policy",
+      "seed_slug": "patent-fee-reimbursement-under-haryanas-ev-policy",
+      "slug": "patent-fee-reimbursement-scheme",
+      "topic": "Quality, technology & research",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D046",
+      "title": "Haryana Patent Registration Assistance",
+      "seed_slug": "haryana-patent-registration-assistance",
+      "slug": "patent-free-scheme",
+      "topic": "Quality, technology & research",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D047",
+      "title": "Haryana Cluster Plug and Play Scheme",
+      "seed_slug": "haryana-cluster-plug-and-play-scheme",
+      "slug": "plug-play",
+      "topic": "Infrastructure & clusters",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D048",
+      "title": "Primary Processing Centre: Identifying the Right Support Route",
+      "seed_slug": "primary-processing-centre-identifying-the-right-support-route",
+      "slug": "primary-processing-center-capital-subsidy",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D049",
+      "title": "Purchase Incentives for Electric Vehicle Buyers in Haryana",
+      "seed_slug": "purchase-incentives-for-electric-vehicle-buyers-in-haryana",
+      "slug": "purchase-incentives-to-buyers-of-electric-vehicles",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D050",
+      "title": "Haryana Quality Certification Assistance",
+      "seed_slug": "haryana-quality-certification-assistance",
+      "slug": "quality-certification-assistance-scheme",
+      "topic": "Quality, technology & research",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D051",
+      "title": "R&D Incentives in Haryana’s EV Sector",
+      "seed_slug": "rd-incentives-in-haryanas-ev-sector",
+      "slug": "r-d-incentives-under-ev-segment",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D052",
+      "title": "Haryana Renewable Energy Support: Choosing the Applicable Scheme",
+      "seed_slug": "haryana-renewable-energy-support-choosing-the-applicable-scheme",
+      "slug": "renewable-energy-scheme",
+      "topic": "Energy & environment",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D053",
+      "title": "Haryana Research and Development Centre Assistance",
+      "seed_slug": "haryana-research-and-development-centre-assistance",
+      "slug": "research-development-center-scheme",
+      "topic": "Quality, technology & research",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D054",
+      "title": "Seed and Conversion Fund for EV Manufacturing",
+      "seed_slug": "seed-and-conversion-fund-for-ev-manufacturing",
+      "slug": "seed-and-conversion-fund",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D055",
+      "title": "Haryana Textile Skill Training Centre Support",
+      "seed_slug": "haryana-textile-skill-training-centre-support",
+      "slug": "skill-training-scheme",
+      "topic": "Skills & employment",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D056",
+      "title": "Haryana Mini Cluster Development Scheme",
+      "seed_slug": "haryana-mini-cluster-development-scheme",
+      "slug": "state-mini-cluster-scheme",
+      "topic": "Infrastructure & clusters",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D057",
+      "title": "Haryana VAT Assistance for Industries Using Cleaner Fuels",
+      "seed_slug": "haryana-vat-assistance-for-industries-using-cleaner-fuels",
+      "slug": "vat-assistance-in-operating-industries-on-cleaner-fuels",
+      "topic": "Other programme support",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D058",
+      "title": "Haryana Assistance for Electronic Waste Management",
+      "seed_slug": "haryana-assistance-for-electronic-waste-management",
+      "slug": "waste-management-scheme",
+      "topic": "Energy & environment",
+      "family_code": "S01",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "featured": false
+    },
+    {
+      "code": "D059",
+      "title": "Water Treatment Incentives for EV Manufacturing",
+      "seed_slug": "water-treatment-incentives-for-ev-manufacturing",
+      "slug": "water-tretment-incentives",
+      "topic": "Energy & environment",
+      "family_code": "S02",
+      "category": "statutory-approval-support-in-haryana",
+      "featured": false
+    }
+  ],
+  "article_updates": [
+    {
+      "slug": "udyam-registration-for-small-business-haryana",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Udyam for Small Haryana Businesses: What It Means | Rapid Consulting"
+    },
+    {
+      "slug": "trade-license-consultant-in-haryana",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Trade Licence in Haryana: Find the Right Authority | Rapid Consulting"
+    },
+    {
+      "slug": "msme-registration-haryana-online",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Online Udyam Registration: The Official Route | Rapid Consulting"
+    },
+    {
+      "slug": "fire-noc",
+      "category": "statutory-approval-support-in-haryana",
+      "meta_title": "Fire NOC or Fire Licence in Haryana? | Rapid Consulting"
+    },
+    {
+      "slug": "best-business-consulting-service-in-haryana",
+      "category": null,
+      "meta_title": "Choosing a Business Adviser in Haryana | Rapid Consulting"
+    },
+    {
+      "slug": "business-growth-consultant-in-haryana-for-startups",
+      "category": "statutory-approval-support-in-haryana",
+      "meta_title": "Planning Your First Business Facility | Rapid Consulting"
+    },
+    {
+      "slug": "best-trade-license-consultant-in-india",
+      "category": null,
+      "meta_title": "Choosing Trade-Licence Support: Five Checks | Rapid Consulting"
+    },
+    {
+      "slug": "msme-registration-for-startups-in-haryana",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Udyam and Startup India Recognition Compared | Rapid Consulting"
+    },
+    {
+      "slug": "trade-license-consultant-rapid-consulting",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Checking an Existing Business Trade Licence | Rapid Consulting"
+    },
+    {
+      "slug": "msme-registration-haryana-complete-guide",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Udyam Registration: Information to Prepare | Rapid Consulting"
+    },
+    {
+      "slug": "benefits-of-business-subsidy-consultant",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "meta_title": "Subsidy Advisory Scope: Assessment to Claim | Rapid Consulting"
+    },
+    {
+      "slug": "udyam-registration-haryana",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "meta_title": "Does Udyam Registration Qualify You for Subsidy? | Rapid Consulting"
+    },
+    {
+      "slug": "msme-registration-haryana",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "After Udyam Registration: Keep Records Accurate | Rapid Consulting"
+    },
+    {
+      "slug": "best-trade-license-consultant",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Opening a Second Premises: Registration Checks | Rapid Consulting"
+    },
+    {
+      "slug": "business-subsidy-consultant",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "meta_title": "Subsidy for a New Unit or Expansion | Rapid Consulting"
+    },
+    {
+      "slug": "business-growth-consultant-in-india",
+      "category": "business-finance-and-project-advisory-in-haryana",
+      "meta_title": "Expansion Planning: Capacity, Cash and Approvals | Rapid Consulting"
+    },
+    {
+      "slug": "trademark-registration-services",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Company Name, Domain and Trademark Compared | Rapid Consulting"
+    },
+    {
+      "slug": "subsidy-consultant-in-haryana",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "meta_title": "Subsidy Consultant in Haryana: How to Choose | Rapid Consulting"
+    },
+    {
+      "slug": "udhyam-registration-haryana",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Udyam or Udhyam? Find the Official Registration | Rapid Consulting"
+    },
+    {
+      "slug": "capital-investment-subsidy-for-textile",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "meta_title": "Textile Capital Subsidy in Haryana: Cost Review | Rapid Consulting"
+    },
+    {
+      "slug": "change-of-land-use-clu-consultant-in-haryana",
+      "category": "statutory-approval-support-in-haryana",
+      "meta_title": "What Should a Haryana CLU Consultant Coordinate? | Rapid Consulting"
+    },
+    {
+      "slug": "nhb-subsidy",
+      "category": "business-finance-and-project-advisory-in-haryana",
+      "meta_title": "NHB Horticulture Projects: Preparation Guide | Rapid Consulting"
+    },
+    {
+      "slug": "trademark-registration-services-in-india",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Indian Trademarks and Overseas Markets | Rapid Consulting"
+    },
+    {
+      "slug": "business-growth-consultant",
+      "category": null,
+      "meta_title": "How to Write a Useful Consultant Brief | Rapid Consulting"
+    },
+    {
+      "slug": "subsidy-consultant-benefits",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "meta_title": "Already Invested? Check Your Subsidy Claim Options | Rapid Consulting"
+    },
+    {
+      "slug": "best-business-growth-consultant-in-india",
+      "category": null,
+      "meta_title": "Which Adviser Does Your Investment Need? | Rapid Consulting"
+    },
+    {
+      "slug": "subsidy-consultant",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "meta_title": "Subsidy Calculations: Check Eligible Expenditure | Rapid Consulting"
+    },
+    {
+      "slug": "expert-trademark-registration-services",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "What Should a Trademark Quotation Include? | Rapid Consulting"
+    },
+    {
+      "slug": "ami-scheme-agricultural-marketing-infrastructure",
+      "category": "statutory-approval-support-in-haryana",
+      "meta_title": "AMI Subsidy: Availability and Project Planning | Rapid Consulting"
+    },
+    {
+      "slug": "zero-collateral-loan-apply-loans-under-cgtmse",
+      "category": "business-finance-and-project-advisory-in-haryana",
+      "meta_title": "CGTMSE Loans: Collateral-Free Finance Explained | Rapid Consulting"
+    },
+    {
+      "slug": "msme-loans-guide-for-small-businesses",
+      "category": "business-finance-and-project-advisory-in-haryana",
+      "meta_title": "MSME Finance: Loans, Guarantees and Subsidies | Rapid Consulting"
+    },
+    {
+      "slug": "business-loan",
+      "category": "business-finance-and-project-advisory-in-haryana",
+      "meta_title": "Planning a Business Loan up to ₹10 Lakh | Rapid Consulting"
+    },
+    {
+      "slug": "professional-tax-and-tds",
+      "category": null,
+      "meta_title": "Profession Tax and TDS: Key Differences | Rapid Consulting"
+    },
+    {
+      "slug": "government-grants-for-business-development-in-2025",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "meta_title": "Grant, Subsidy or Reimbursement: Read the Terms | Rapid Consulting"
+    },
+    {
+      "slug": "digital-signature-certificate",
+      "category": "business-licences-and-certifications-in-haryana",
+      "meta_title": "Digital Signature Certificates: Use and Control | Rapid Consulting"
+    },
+    {
+      "slug": "what-is-business-growth-consultant",
+      "category": null,
+      "meta_title": "How to Assess Consulting Progress | Rapid Consulting"
+    },
+    {
+      "slug": "private-limited-company-documents",
+      "category": "statutory-approval-support-in-haryana",
+      "meta_title": "Private Limited Company Documents | Rapid Consulting"
+    },
+    {
+      "slug": "select-right-business-structure-in-india",
+      "category": null,
+      "meta_title": "Choosing a Business Structure in India | Rapid Consulting"
+    },
+    {
+      "slug": "llp-vs-private-limited-company",
+      "category": null,
+      "meta_title": "LLP vs Private Limited Company: Key Decisions | Rapid Consulting"
+    },
+    {
+      "slug": "reverse-charge-mechanism-under-gst",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "meta_title": "GST Reverse Charge: Check the Supply First | Rapid Consulting"
+    },
+    {
+      "slug": "interest-subsidy-scheme-for-textile-msmes",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "meta_title": "Haryana Textile Interest Subsidy: Loan Evidence | Rapid Consulting"
+    }
+  ],
+  "guides": [
+    {
+      "code": "B005",
+      "title": "Before trademark registration: prepare the right brand brief",
+      "slug": "trademark-registration-services-in-haryana",
+      "excerpt": "Prepare the owner, mark, goods and services, use history and search questions before seeking trademark registration for your brand.",
+      "content": "<p>Before applying for a trademark, decide precisely what the business wants to protect. The applicant, the mark and the goods or services described in the application shape the protection being sought. A hurried filing based only on a logo image can miss those decisions.</p>\n<p>For a Haryana business, the starting framework is India&#39;s trademark system. IP India explains the preparation and filing stages, including searching, choosing classes, identifying the applicant and assembling information. <a href=\"https://ipindia.gov.in/trade-marks-learn-filing-process-step-by-step\">IP India filing process</a>.</p>\n\n<h2 id=\"decide-who-owns-the-brand\">Decide who owns the brand</h2>\n<p>Write down the intended proprietor before choosing the applicant. Is the brand owned by the operating company, a partnership or an individual? If a designer, distributor or related entity has been using it, explain the arrangement to the trademark professional.</p>\n<p>The company that pays for packaging is not necessarily the owner identified by every existing agreement. Resolve genuine ownership questions before filing. A spelling correction is easier to recognise than a filing made for the wrong legal person.</p>\n\n<h2 id=\"identify-the-mark-you-actually-use\">Identify the mark you actually use</h2>\n<p>Provide the word, logo or other representation in its intended form. Show how it appears on packaging, invoices, signage and digital channels. If the business uses a word independently from its logo, that is worth discussing when deciding the filing approach.</p>\n<p>Do not assume one logo application gives the same practical coverage as every possible word, design or variant. Ask the professional to explain the proposed mark and the risk the filing addresses.</p>\n\n<h2 id=\"describe-the-goods-and-services\">Describe the goods and services</h2>\n<p>The trademark classes organise goods and services. Start with a plain-language description of what the business sells and any credible planned expansion. The classification should follow the business, not a copied list from an unrelated applicant.</p>\n<p><strong>Illustrative example:</strong> a company selling packaged food and separately operating a restaurant needs to discuss both activities. It should not assume that a class selected for one automatically addresses the other. The appropriate specifications require a particular assessment.</p>\n\n<h2 id=\"assemble-the-use-history\">Assemble the use history</h2>\n<p>If the mark is already used, collect dated records that show the relevant use. Examples to discuss include invoices, packaging, catalogues and advertisements. Distinguish the business&#39;s incorporation date from the date the particular mark was first used.</p>\n<p>IP India distinguishes proposed-use applications from prior-use applications and explains that claimed prior use requires an affidavit and supporting documents. Do not choose an earlier date simply because it appears commercially stronger. <a href=\"https://ipindia.gov.in/basics-of-trademarks\">Trademark basics</a>.</p>\n\n<h2 id=\"make-the-search-useful\">Make the search useful</h2>\n<p>Ask what was searched, which similar marks were considered and what the result means for the intended goods or services. A database search is evidence for a risk assessment, not a guarantee that no objection or dispute will arise.</p>\n<p>If a concern appears, discuss alternatives before committing to a large packaging order or public launch. The owner needs a commercially usable explanation of the risk, not only a screenshot saying “available”.</p>\n\n<h2 id=\"keep-the-filing-and-follow-up-scope-clear\">Keep the filing and follow-up scope clear</h2>\n<p>An application may progress through examination, publication and possible opposition. Establish who monitors notices and what work is included if a response is needed. Our <a href=\"/en/guides/procedure-for-trademark-registration-in-india\">trademark procedure article</a> explains those stages.</p>\n<h3 id=\"must-i-register-a-logo-and-word-separately\">Must I register a logo and word separately?</h3>\n<p>The appropriate strategy depends on how the mark is used and what protection is sought. Present both versions and ask for a specific recommendation.</p>\n<h3 id=\"does-company-incorporation-protect-the-brand\">Does company incorporation protect the brand?</h3>\n<p>It is a different process. Read <a href=\"/en/articles/trademark-registration-services\">company names and trademarks</a> before relying on a name approval as brand protection.</p>\n<p>For trademark filing or a dispute, use an appropriately qualified trademark professional. For related Haryana investment registrations, explore Rapid&#39;s <a href=\"/en/services/trade-license-consultant\">Registrations &amp; Certifications</a>. <a href=\"/en/contact\">Discuss your project</a> and an expert consultant from Rapid will call you about the wider project requirement.</p>\n<p><a href=\"https://wa.me/919467248028\">+91 94672 48028</a></p>\n\n<h2 id=\"references\">References</h2>\n<ul>\n<li><a href=\"https://ipindia.gov.in/trade-marks-learn-filing-process-step-by-step\" target=\"_blank\" rel=\"noreferrer\">ipindia.gov.in</a></li>\n<li><a href=\"https://ipindia.gov.in/basics-of-trademarks\" target=\"_blank\" rel=\"noreferrer\">ipindia.gov.in</a></li>\n</ul>",
+      "meta_title": "Trademark Registration: Prepare Your Brand Brief | Rapid Consulting",
+      "meta_description": "Prepare the owner, mark, goods and services, use history and search questions before seeking trademark registration for your brand.",
+      "category": "business-licences-and-certifications-in-haryana",
+      "tags": [
+        "Licences & Certifications"
+      ]
+    },
+    {
+      "code": "B022",
+      "title": "Seven subsidy application mistakes and how to avoid them",
+      "slug": "7-mistakes-while-applying-for-msme-subsidy",
+      "excerpt": "A practical guide to subsidy timing, eligible costs, evidence, overlapping assistance and follow-through for Haryana investment projects.",
+      "content": "<p>A subsidy application is strongest when the investment, project dates and supporting records tell the same story. The main risks are an inflated benefit estimate, missed project dates, an outdated rule, incomplete payment evidence, overlapping assistance, unreported project changes and mistaking sanction for payment. A promising scheme name is only the starting point. The amount that can be claimed, the expenditure that counts and the stage at which an application must be made belong to the specific programme.</p>\n<p>For a Haryana manufacturer or facility owner, the useful question is: what can we control now so that an otherwise suitable claim is not weakened later? These seven checks help your project, finance and advisory teams work from one record.</p>\n\n<h2 id=\"1-treating-a-headline-benefit-as-the-project-entitlement\">1. Treating a headline benefit as the project entitlement</h2>\n<p>“Up to” describes an upper limit. It does not establish your eligible cost or final assistance. Separate total investment, potentially eligible expenditure, the applicable calculation and any ceiling. Land, working capital, taxes, used machinery or expenditure outside a qualifying period may receive different treatment under different programmes.</p>\n<p>Create a cost schedule with one row for each asset or expenditure category. Record the proposed amount, supporting quotation, relevant rule and whether eligibility is established or still being checked. Keep uncertain amounts out of the confirmed benefit total.</p>\n<p><strong>Illustrative example:</strong> an owner plans a ₹2 crore expansion. If a particular programme accepts only ₹80 lakh of its expenditure, a percentage applied to ₹2 crore would materially overstate the possible claim. The example explains the calculation problem; it is not a rate or eligibility ruling.</p>\n\n<h2 id=\"2-checking-eligibility-after-the-decisive-project-date\">2. Checking eligibility after the decisive project date</h2>\n<p>Some schemes connect eligibility to application, investment, loan, production or completion dates. A purchase order, machine delivery and commercial production are different events. Reconstruct all of them before assuming an application can be made retrospectively.</p>\n<p>Keep a dated project chronology, with evidence beside each event. Ask which action must occur before the next commercial commitment. A general article cannot establish a universal “apply before purchase” rule, because programme sequences differ.</p>\n\n<h2 id=\"3-using-the-wrong-policy-version\">3. Using the wrong policy version</h2>\n<p>A familiar policy name may have amendments, extensions or a successor. Haryana&#39;s textile policy, for example, received an official extension to 18 December 2026. That extension is a dated rule, not evidence that every project or fresh application is accepted. Read the original scheme with its amendments and relevant instructions. <a href=\"https://cdnbbsr.s3waas.gov.in/s3f48c04ffab49ff0e5d1176244fdfb65c/uploads/2025/05/202505071229341788.pdf\">Haryana textile extension notification</a>.</p>\n<p>Put the exact scheme name, notification date and version in the working file. Preserve the source used for the eligibility calculation. A screenshot of a promotional headline is not a reliable substitute.</p>\n\n<h2 id=\"4-keeping-invoices-without-the-payment-and-asset-trail\">4. Keeping invoices without the payment and asset trail</h2>\n<p>An invoice explains what a supplier billed. A claim may also need to establish who paid, when payment occurred, what arrived at the site and how the asset relates to the project. Start organising these records during implementation.</p>\n<p>Connect purchase orders, invoices, payment references, delivery records, installation information and the asset register. Explain split payments, advances, credit notes and changes in supplier description. Where the scheme requires a professional certificate, the underlying records should support the certificate rather than being reconstructed around it.</p>\n\n<h2 id=\"5-assuming-two-schemes-can-fund-the-same-cost\">5. Assuming two schemes can fund the same cost</h2>\n<p>Central and state assistance can have different purposes and combination rules. Do not add their headline amounts together before checking the conditions for the same project, asset or expenditure. A credit guarantee, interest subsidy and capital subsidy also operate differently.</p>\n<p>Use an assistance register showing applications, sanctions, receipts and the expenditure to which each relates. Disclose existing assistance accurately. Route the exact programme questions to the <a href=\"/en/schemes\">Scheme Directory</a>, rather than treating “MSME subsidy” as one uniform benefit.</p>\n\n<h2 id=\"6-letting-the-project-change-without-updating-the-claim\">6. Letting the project change without updating the claim</h2>\n<p>A different machine, revised capacity, changed entity, relocated site or delayed implementation can affect the case originally assessed. A sensible commercial change still needs a scheme review before the team assumes the old application remains accurate.</p>\n<p>Make changes visible in a short register: what changed, why, the financial effect, the date and which application documents depend on it. Ask whether the authority or lender needs prior consent or a revised submission. Do not silently edit figures in one document while leaving the others unchanged.</p>\n\n<h2 id=\"7-treating-submission-or-sanction-as-payment\">7. Treating submission or sanction as payment</h2>\n<p>Submission establishes that an application was lodged. Sanction records a decision subject to its conditions. Release, adjustment or reimbursement is a further event. The business needs cash to implement the project while those stages run their course.</p>\n<p>Assign responsibility for portal queries, conditions, certificates, inspections and claim follow-ups. Preserve acknowledgements and reply references. Build the funding plan around committed resources, with subsidy timing modelled separately. The <a href=\"/en/guides/documents-required-for-business-loans\">loan documents guide</a> helps connect that funding plan to evidence.</p>\n\n<h2 id=\"a-useful-final-review-before-submission\">A useful final review before submission</h2>\n<p>Read the application as an independent reviewer would. Can the entity, site, activity, project dates and expenditure be reconciled across the proposal, registrations, approvals, bank records and certificates? Are estimates labelled as estimates? Is each declaration supportable? Has the team listed pending items with an owner and next action?</p>\n<p>A second reader should be able to follow the file without needing the person who prepared every spreadsheet. This is a practical quality check, not proof that the authority will approve the claim.</p>\n\n<h2 id=\"common-questions\">Common questions</h2>\n<h3 id=\"can-a-mistake-always-be-corrected-after-submission\">Can a mistake always be corrected after submission?</h3>\n<p>No. A clarification or correction route may exist, but a missed eligibility event or an unsupported declaration cannot be assumed repairable. Check the specific requirement before making the next commitment.</p>\n<h3 id=\"does-udyam-registration-establish-subsidy-eligibility\">Does Udyam registration establish subsidy eligibility?</h3>\n<p>Udyam establishes MSME registration and classification under its framework. The programme still has its own conditions. See <a href=\"/en/articles/udyam-registration-haryana\">Udyam and scheme eligibility</a>.</p>\n<h3 id=\"where-should-an-owner-start\">Where should an owner start?</h3>\n<p>Use the <a href=\"/en/guides/preparing-for-a-manufacturing-subsidy-discussion\">manufacturing subsidy preparation guide</a> to assemble the first discussion pack. Use this guide to challenge the application before it moves forward.</p>\n\n<h2 id=\"put-the-next-stage-in-responsible-hands\">Put the next stage in responsible hands</h2>\n<p>Rapid&#39;s <a href=\"/en/services/msmes-subsidy-consultant\">Subsidy Advisory</a> connects the project assessment, documentation and agreed follow-through. Share the investment stage and the records you already have. <a href=\"/en/contact\">Discuss your project</a> and an expert consultant from Rapid will call you about the next step.</p>\n<p><a href=\"https://wa.me/919467248028\">+91 94672 48028</a></p>\n\n<h2 id=\"references\">References</h2>\n<ul>\n<li><a href=\"https://cdnbbsr.s3waas.gov.in/s3f48c04ffab49ff0e5d1176244fdfb65c/uploads/2025/05/202505071229341788.pdf\" target=\"_blank\" rel=\"noreferrer\">cdnbbsr.s3waas.gov.in</a></li>\n<li><a href=\"https://udyamregistration.gov.in/\" target=\"_blank\" rel=\"noreferrer\">udyamregistration.gov.in</a></li>\n</ul>",
+      "meta_title": "Seven Subsidy Application Mistakes to Avoid | Rapid Consulting",
+      "meta_description": "A practical guide to subsidy timing, eligible costs, evidence, overlapping assistance and follow-through for Haryana investment projects.",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "tags": [
+        "Subsidies & Incentives"
+      ]
+    },
+    {
+      "code": "B023",
+      "title": "Fire NOC in Haryana: a practical guide for industrial buildings",
+      "slug": "fire-noc-in-haryana",
+      "excerpt": "Understand Haryana fire scheme approval, fire safety certification, site preparation and renewal before constructing or changing an industrial building.",
+      "content": "<p>For an industrial building in Haryana, the first fire-approval question is which stage the premises have reached. Approval of the Fire Fighting Scheme addresses the proposed arrangements. The fire safety certificate addresses the completed building and installed measures. An existing certificate also needs to be checked when the building or use changes.</p>\n<p>Owners and advisers often use “Fire NOC” as a general term. For an application, use the document name and process required by the competent authority. Haryana&#39;s 2022 fire legislation provides the foundation for the distinctions below. <a href=\"https://ulbharyana.gov.in/Website/DirectorateofUrbanLocalBodies/Images/2602b04f-cba9-4fef-b3be-32c9c2629d1a.pdf\">Haryana Fire and Emergency Services Act, 2022, sections 18 to 20</a>.</p>\n<p>Have a new building, an upcoming renewal or a change to the premises? See Rapid’s <a href=\"/en/services/fire-department-noc\">Fire Department Permission service</a> for the work we can coordinate. Start the conversation with the building’s location, use and current stage.</p>\n\n<h2 id=\"start-with-the-building-and-its-actual-use\">Start with the building and its actual use</h2>\n<p>An industrial address alone does not determine the fire requirements. Assemble the building&#39;s use, height, floor areas, basements, access and proposed storage or process. Mixed use matters: an office, production hall, storage area and assembly space may create different questions within the same premises.</p>\n<p>Section 18 identifies categories requiring scheme approval, including specified high-rise and special buildings. Industrial, storage and hazardous occupancies appear in that framework. The detailed thresholds and building-code provisions need to be applied together. Being below one quoted threshold is not enough to conclude that no fire-safety duty applies.</p>\n<p>Give your architect or fire specialist the actual process and materials. “General warehouse” is an inadequate description if the stored goods or storage arrangement carry particular hazards. For <a href=\"/en/industries/recycling-and-biofuel\">Recycling &amp; Biofuel</a>, describe inputs and outputs precisely. For <a href=\"/en/industries/commercial-and-logistics-facilities\">Commercial &amp; Logistics</a>, describe the goods, storage layout and intended movement through the building.</p>\n\n<h2 id=\"understand-the-approval-stages\">Understand the approval stages</h2>\n<table>\n<thead>\n<tr>\n<th>Stage</th>\n<th>Question to resolve</th>\n<th>Working evidence to organise</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>Planning</td>\n<td>What measures are required for this building and occupancy?</td>\n<td>Site facts, building plans, intended use and technical design</td>\n</tr>\n<tr>\n<td>Fire Fighting Scheme approval</td>\n<td>Has the proposed arrangement received the required approval?</td>\n<td>Application, submitted drawings, authority decision and conditions</td>\n</tr>\n<tr>\n<td>Completion and certification</td>\n<td>Does the completed premises comply with the approved scheme?</td>\n<td>Installed-system records, current drawings and inspection responses</td>\n</tr>\n<tr>\n<td>Continued use or alteration</td>\n<td>Are the system, certificate and actual premises still aligned?</td>\n<td>Certificate, maintenance records, changes and renewal requirements</td>\n</tr>\n</tbody></table>\n<p>The Act sets out application and inspection for the fire safety certificate after construction and installation. Scheme approval by itself should therefore not be treated as the completed-building certificate.</p>\n\n<h2 id=\"prepare-a-file-that-reflects-the-site\">Prepare a file that reflects the site</h2>\n<p>Keep the existing building approval, Fire Fighting Scheme approval, certificate and correspondence together. Label drawings by revision and date. Ask the site team to identify any change since the last approved drawing, including internal partitions, mezzanines, exits, storage height or equipment layout.</p>\n<p>For a new project, agree how the building designer and fire-system specialist will coordinate access, escape routes, water arrangements and installation space. Procurement should follow the applicable design rather than a generic equipment list. The number and specification of extinguishers, pumps, hydrants or detection devices cannot be decided safely from a blog checklist.</p>\n<p>For an operating facility, organise evidence of inspection, testing and maintenance alongside the approval papers. A certificate on file does not make a non-working installation usable in an emergency. The owner and occupier retain responsibilities for the premises under the legislation.</p>\n\n<h2 id=\"what-happens-if-the-site-has-changed\">What happens if the site has changed?</h2>\n<p><strong>Illustrative situation:</strong> a warehouse obtained its certificate, then added an internal floor and changed its storage layout. The owner should compare those changes with the approved plans and fire arrangements before relying on the earlier certificate for the revised premises. This is a preparation example, not a legal determination about a particular warehouse.</p>\n<p>The Act provides for annual self-declarations and addresses alterations that require a revised scheme. Ask for a specific assessment of the change and required route. Do not describe every alteration as a routine renewal.</p>\n\n<h2 id=\"fees-validity-and-timing\">Fees, validity and timing</h2>\n<p>The relevant certificate, building category, current rules and authority instructions govern validity and renewal. Read the dates and conditions on the issued document. Do not assume that a colleague&#39;s certificate for another building has the same period or requirements.</p>\n<p>Separate authority charges from design, equipment, installation and advisory costs. A quoted processing period should also be separated from the time required to complete drawings, carry out works, resolve deficiencies or provide access for inspection. No adviser controls the authority&#39;s decision.</p>\n\n<h2 id=\"common-questions\">Common questions</h2>\n<h3 id=\"is-fire-noc-the-same-as-a-fire-licence\">Is Fire NOC the same as a fire licence?</h3>\n<p>The words alone do not establish two separate approvals. Ask which document the requesting party means. Our <a href=\"/en/articles/fire-noc\">Fire NOC and fire licence explanation</a> shows how to identify the actual requirement.</p>\n<h3 id=\"does-a-small-industrial-unit-automatically-qualify-for-an-exemption\">Does a small industrial unit automatically qualify for an exemption?</h3>\n<p>No automatic conclusion follows from “small” or from MSME registration. The building&#39;s occupancy, dimensions, hazards and applicable provisions need to be checked.</p>\n<h3 id=\"can-i-use-the-landlords-certificate\">Can I use the landlord&#39;s certificate?</h3>\n<p>First check the certificate&#39;s premises, covered use, validity and approved layout against your intended occupation. Establish which documents and actions the owner and occupier must provide. A lease does not answer those technical questions.</p>\n<h3 id=\"is-fire-approval-the-only-permission-needed-before-occupation\">Is fire approval the only permission needed before occupation?</h3>\n<p>Other applicable building, occupation, environmental or activity requirements remain separate. See <a href=\"/en/services/building-plans-approval-from-dtp-and-stp-haryana\">Building Plan Approval</a> and <a href=\"/en/services/occupation-certificate-oc-haryana\">Occupation Certificate</a> for those service routes.</p>\n\n<h2 id=\"planning-safety-equipment-investment-as-well\">Planning safety-equipment investment as well?</h2>\n<p>Keep the approval work and any financial-assistance assessment separate. If your project includes new safety equipment, our <a href=\"/en/schemes/fire-equipment-subsidy\">Safety Compliance Assistance explanation</a> sets out the scheme context and the policy-period checks an investment needs. Do not delay required safety work while waiting for an incentive assessment.</p>\n\n<h2 id=\"coordinate-the-requirement-around-your-facility\">Coordinate the requirement around your facility</h2>\n<p>Rapid&#39;s <a href=\"/en/services/fire-department-noc\">Fire Department Permission (NOC)</a> service provides the route for discussing the agreed documentation and coordination work. Share the location, use, project stage and any existing approval. <a href=\"/en/contact\">Discuss your project</a> and an expert consultant from Rapid will call you.</p>\n<p><a href=\"https://wa.me/919467248028\">+91 94672 48028</a></p>\n\n<h2 id=\"references\">References</h2>\n<ul>\n<li><a href=\"https://ulbharyana.gov.in/Website/DirectorateofUrbanLocalBodies/Images/2602b04f-cba9-4fef-b3be-32c9c2629d1a.pdf\" target=\"_blank\" rel=\"noreferrer\">ulbharyana.gov.in</a></li>\n</ul>",
+      "meta_title": "Fire NOC in Haryana: Industrial Building Guide | Rapid Consulting",
+      "meta_description": "Understand Haryana fire scheme approval, fire safety certification, site preparation and renewal before constructing or changing an industrial building.",
+      "category": "statutory-approval-support-in-haryana",
+      "tags": [
+        "Statutory Approvals"
+      ]
+    },
+    {
+      "code": "B035",
+      "title": "Change of Land Use in Haryana: approval and preparation guide",
+      "slug": "change-of-land-use-clu-haryana",
+      "excerpt": "A practical CLU guide for Haryana projects covering land records, jurisdiction, intended use, application stages and related permissions.",
+      "content": "<p>Change of Land Use, commonly called CLU, concerns permission to use land for a proposed purpose under the applicable planning framework. For a factory, warehouse or commercial project in Haryana, begin by checking the site&#39;s location, planning status and intended use. Ownership of land does not by itself establish that the proposed development is permitted.</p>\n<p>A useful CLU enquiry begins with the exact parcel and a clear project description. The authority and application route depend on jurisdiction. Haryana&#39;s Urban Local Bodies department publishes a CLU procedure for specified controlled-area sites within municipal limits; that procedure should not be applied automatically to every parcel in the state. <a href=\"https://ulbharyana.gov.in/Website/DirectorateofUrbanLocalBodies/Images/a3d8d6d9-4ad8-47ed-b1ae-6256d7357bfd.pdf\">Official ULB CLU procedure</a>.</p>\n<p>Need help taking a specific site forward? Rapid’s <a href=\"/en/services/change-in-land-use-clu\">CLU approval service</a> explains the documentation, coordination and follow-up we can handle. The guide below helps you prepare for that discussion.</p>\n\n<h2 id=\"what-should-you-check-before-buying-or-committing-to-a-site\">What should you check before buying or committing to a site?</h2>\n<p>Bring together the revenue identification of the parcel, title or proposed lease, map and access details. Ask the planning professional to locate the land against the applicable development plan and planning controls. A nearby factory or a broker&#39;s description of “industrial potential” is useful context, but it is not evidence of permission for your project.</p>\n<p>Describe what will happen on the land. Manufacturing, storage, retail, a plotted development and a mixed-use facility raise different planning questions. A change in activity can matter even when the plot boundaries stay the same.</p>\n<p>For an expansion, identify whether the new work lies inside the land and use already covered by existing approvals. For a rented facility, obtain the landlord&#39;s approvals early and compare them with your intended occupation. The <a href=\"/en/guides/change-in-land-use\">site due-diligence article</a> explains this pre-commitment check in more detail.</p>\n\n<h2 id=\"which-authority-handles-clu-in-haryana\">Which authority handles CLU in Haryana?</h2>\n<p>The Department of Town and Country Planning and Urban Local Bodies have relevant responsibilities under their respective jurisdictions and delegations. Do not select an application portal from the district name alone. Municipal boundaries, controlled-area status, land category and proposal type can affect the route.</p>\n<p>The official <a href=\"https://ulbharyana.gov.in/Home/RightToService\">ULB Right to Service list</a> identifies a CLU service for specified sites and links its procedure. Confirm that the parcel falls within the stated service before relying on the document checklist or processing standard. Keep the jurisdiction finding in the project file so later design and approval work use the same starting point.</p>\n\n<h2 id=\"organise-the-information-in-four-groups\">Organise the information in four groups</h2>\n<table>\n<thead>\n<tr>\n<th>Information</th>\n<th>Why it matters</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>Applicant and land relationship</td>\n<td>Establishes who is applying and the basis on which they control or propose to use the site</td>\n</tr>\n<tr>\n<td>Revenue and parcel records</td>\n<td>Allows the land description, area and location to be matched across records</td>\n</tr>\n<tr>\n<td>Intended use and site plan</td>\n<td>Allows the authority to assess the actual proposal against planning requirements</td>\n</tr>\n<tr>\n<td>Access and related permissions</td>\n<td>Identifies requirements that depend on the site&#39;s location and activity</td>\n</tr>\n</tbody></table>\n<p>The published ULB procedure refers to CLU Form I, identity and ownership records, site material and applicable NOCs. Use its detailed list only after checking the current route. Prepare readable scans and a document index. Flag a name, parcel-number or area discrepancy for resolution instead of silently choosing whichever version is easiest to upload.</p>\n\n<h2 id=\"how-does-the-application-generally-progress\">How does the application generally progress?</h2>\n<p>The practical sequence is site and jurisdiction review, preparation of the required application and plans, submission, scrutiny and responses, followed by the authority&#39;s decision and compliance with its conditions. In the ULB procedure, an approved proposal moves through a Letter of Intent and compliance before the CLU permission letter is issued. A submission acknowledgement or Letter of Intent should not be described as final permission.</p>\n<p>Assign someone to monitor requests for clarification and retain the submitted version of every document. If the project changes during scrutiny, review the effect on plans, costs and other applications before replying. Your architect, land adviser, finance team and project owner should be working from the same intended use and site area.</p>\n\n<h2 id=\"clu-building-plans-and-access-are-different-questions\">CLU, building plans and access are different questions</h2>\n<p>CLU addresses land-use permission. <a href=\"/en/services/building-plans-approval-from-dtp-and-stp-haryana\">Building Plan Approval</a> addresses the building proposal. <a href=\"/en/services/occupation-certificate-oc-haryana\">Occupation Certificate</a> concerns the relevant completion or occupation stage. Depending on the site and activity, <a href=\"/en/services/nhai-entry-and-exit-permission-noc\">NHAI access permission</a>, <a href=\"/en/services/pwd-entry-exit-permission-noc\">PWD entry and exit permission</a>, <a href=\"/en/services/fire-department-noc\">Fire Department Permission</a> or <a href=\"/en/services/consent-to-establish-cte-pollution-noc\">Consent to Establish</a> may also need review.</p>\n<p>These links are possible dependencies, not a universal checklist. A site adjoining a highway does not necessarily have authorised direct access. A pollution consent does not establish land-use permission. Each decision should come from its proper authority.</p>\n\n<h2 id=\"what-determines-clu-cost-and-time\">What determines CLU cost and time?</h2>\n<p>The cost assessment can include scrutiny, conversion and development-related charges where applicable, together with plans, surveys and professional work. The official procedure itself distinguishes different charges. A single statewide package price would hide important site differences.</p>\n<p>Authority service standards should be read with their conditions, including receipt of complete documents. The overall project period also includes resolving title or plan issues, obtaining relevant inputs and complying with conditions. Seek a staged estimate with dependencies rather than treating the advertised processing period as a guaranteed construction date.</p>\n\n<h2 id=\"common-questions\">Common questions</h2>\n<h3 id=\"is-clu-required-for-every-industrial-plot\">Is CLU required for every industrial plot?</h3>\n<p>The answer depends on the land&#39;s approved status and the proposed use. An existing industrial allotment or permission needs to be read, not assumed to cover every activity or expansion.</p>\n<h3 id=\"can-an-old-clu-letter-be-used-for-a-new-proposal\">Can an old CLU letter be used for a new proposal?</h3>\n<p>Compare its land description, approved use, validity and conditions with the new proposal. A different applicant, layout or activity may require further action.</p>\n<h3 id=\"what-should-i-share-for-the-first-discussion\">What should I share for the first discussion?</h3>\n<p>Start with the site location, available land documents, proposed activity and project stage. Share existing permissions if you have them. Missing records can be identified during the discussion.</p>\n\n<h2 id=\"connect-the-site-decision-to-the-investment\">Connect the site decision to the investment</h2>\n<p>A factory or warehouse project brings land, building, equipment and funding decisions together. Our <a href=\"/en/industries/engineering-and-materials-manufacturing\">Manufacturing</a> and <a href=\"/en/industries/commercial-and-logistics-facilities\">Commercial &amp; Logistics</a> pages explain how Rapid coordinates those requirements around the project.</p>\n<p>If you are also considering incentives for the investment, <a href=\"/en/services/msmes-subsidy-consultant\">Subsidy Advisory</a> is a separate assessment of the activity, expenditure and dates. A CLU permission does not establish subsidy eligibility.</p>\n\n<h2 id=\"move-the-site-decision-forward\">Move the site decision forward</h2>\n<p>If you are comparing support for the application, read <a href=\"/en/articles/change-of-land-use-clu-consultant-in-haryana\">what a Haryana CLU consultant should coordinate</a> to define the work and specialist responsibilities.</p>\n<p>Rapid&#39;s <a href=\"/en/services/change-in-land-use-clu\">Change in Land Use (CLU) Approval</a> service is the route for project-specific documentation and coordination support in Haryana. <a href=\"/en/contact\">Discuss your project</a> and an expert consultant from Rapid will call you about the site and next stage.</p>\n<p><a href=\"https://wa.me/919467248028\">+91 94672 48028</a></p>\n\n<h2 id=\"references\">References</h2>\n<ul>\n<li><a href=\"https://ulbharyana.gov.in/Website/DirectorateofUrbanLocalBodies/Images/a3d8d6d9-4ad8-47ed-b1ae-6256d7357bfd.pdf\" target=\"_blank\" rel=\"noreferrer\">ulbharyana.gov.in</a></li>\n<li><a href=\"https://ulbharyana.gov.in/Home/RightToService\" target=\"_blank\" rel=\"noreferrer\">ulbharyana.gov.in</a></li>\n</ul>",
+      "meta_title": "CLU in Haryana: Land-Use Approval Guide | Rapid Consulting",
+      "meta_description": "A practical CLU guide for Haryana projects covering land records, jurisdiction, intended use, application stages and related permissions.",
+      "category": "statutory-approval-support-in-haryana",
+      "tags": [
+        "Statutory Approvals"
+      ]
+    },
+    {
+      "code": "B039",
+      "title": "Trademark registration in India: understand each application stage",
+      "slug": "procedure-for-trademark-registration-in-india",
+      "excerpt": "Follow a trademark application from preparation and filing through examination, publication, opposition and the final registration decision.",
+      "content": "<p>A trademark application is not a registration certificate. It begins a process in which the proposed mark, applicant and goods or services are examined, and third parties may have an opportunity to oppose. Understanding the stages helps an owner know what has actually been achieved and what action may still be needed.</p>\n<p>IP India publishes a step-by-step process covering preparation, filing, status tracking, examination and publication. Use the official record for the particular application rather than a general delivery promise. <a href=\"https://ipindia.gov.in/trade-marks-learn-filing-process-step-by-step\">IP India filing process</a>.</p>\n\n<h2 id=\"preparation-decide-what-is-being-claimed\">Preparation: decide what is being claimed</h2>\n<p>The applicant should identify the mark, its proprietor, the goods or services and the basis of use. A search helps assess potential conflicts before filing. The <a href=\"/en/guides/trademark-registration-services-in-haryana\">brand brief guide</a> explains the information to assemble.</p>\n<p>This stage deserves attention because the filing represents a defined claim. It should reflect the business&#39;s real ownership and activity, rather than the quickest set of fields to complete.</p>\n\n<h2 id=\"filing-retain-the-submitted-version\">Filing: retain the submitted version</h2>\n<p>After submission, keep the application number, acknowledgement and complete filed specification. Check the owner details and mark against the intended filing. Store the record where the authorised business team can retrieve it.</p>\n<p>A filing acknowledgement is useful evidence that the application was lodged. It should not be described on a sales document as completed registration. Ask the professional what wording and symbols are appropriate for the actual status.</p>\n\n<h2 id=\"examination-read-the-issue-not-just-the-status-label\">Examination: read the issue, not just the status label</h2>\n<p>An examination report may require a response. The precise objection and its basis matter. A status saying “objected” does not explain what evidence or argument is needed, nor should it be treated as an automatic final refusal.</p>\n<p>Record the notice date, the response requirement and who owns the work. Supply factual evidence promptly and review declarations before signing. If a hearing is scheduled, confirm representation and any additional scope. Avoid assuming the initial filing fee includes every later proceeding.</p>\n\n<h2 id=\"publication-and-possible-opposition\">Publication and possible opposition</h2>\n<p>IP India&#39;s process includes publication in the Trade Marks Journal and an opportunity for third-party opposition. Publication therefore needs to be understood as a stage in the process. It is not a guarantee that no further issue will arise.</p>\n<p>If opposition occurs, have the notice assessed by a qualified trademark professional and identify the required response. Commercial discussions with another business do not replace formal action required in the proceeding.</p>\n\n<h2 id=\"registration-check-what-was-actually-registered\">Registration: check what was actually registered</h2>\n<p>When registration is granted, review the proprietor, mark, goods or services and relevant dates. The resulting protection has a defined scope. Keep the certificate together with the application and any conditions or limitations that matter.</p>\n<p>IP India&#39;s guidance explains that registration is renewable and that maintaining the record requires timely action. Assign responsibility for renewal and changes in owner or address. A completed registration is a business asset that still needs administration. <a href=\"https://ipindia.gov.in/basics-of-trademarks\">Trademark basics</a>.</p>\n\n<h2 id=\"an-illustrative-status-misunderstanding\">An illustrative status misunderstanding</h2>\n<p>A manufacturer has a filing receipt and plans to tell a distributor that the brand is registered. The file is still under examination. The accurate commercial statement must reflect the pending application, while the business follows up on the examination stage. This is an illustration of status accuracy, not advice on a particular mark.</p>\n<h3 id=\"how-long-will-registration-take\">How long will registration take?</h3>\n<p>The actual process depends on examination, responses, hearings and any opposition. Do not plan a launch around an unqualified fixed completion date.</p>\n<h3 id=\"can-a-filing-be-guaranteed-to-succeed\">Can a filing be guaranteed to succeed?</h3>\n<p>No. Preparation and professional handling support the application, but the Registry and any relevant proceeding determine the result.</p>\n<h3 id=\"where-can-i-see-the-status\">Where can I see the status?</h3>\n<p>Use the official status-tracking service linked from IP India and retain the application number. Ask the representative to explain notices in context.</p>\n<p>For trademark proceedings, engage an appropriate professional. For related Haryana business-project registrations, see Rapid&#39;s <a href=\"/en/services/trade-license-consultant\">Registrations &amp; Certifications</a>. <a href=\"/en/contact\">Discuss your project</a> and an expert consultant from Rapid will call you about the wider requirement.</p>\n<p><a href=\"https://wa.me/919467248028\">+91 94672 48028</a></p>\n\n<h2 id=\"references\">References</h2>\n<ul>\n<li><a href=\"https://ipindia.gov.in/trade-marks-learn-filing-process-step-by-step\" target=\"_blank\" rel=\"noreferrer\">ipindia.gov.in</a></li>\n<li><a href=\"https://ipindia.gov.in/basics-of-trademarks\" target=\"_blank\" rel=\"noreferrer\">ipindia.gov.in</a></li>\n</ul>",
+      "meta_title": "Trademark Registration in India: Filing Stages | Rapid Consulting",
+      "meta_description": "Follow a trademark application from preparation and filing through examination, publication, opposition and the final registration decision.",
+      "category": "business-licences-and-certifications-in-haryana",
+      "tags": [
+        "Licences & Certifications"
+      ]
+    },
+    {
+      "code": "B040",
+      "title": "Documents required for a business loan: build a lender-ready file",
+      "slug": "documents-required-for-business-loans",
+      "excerpt": "Prepare a business loan file that connects identity, financial records, project cost, repayment capacity and the lender’s specific requirements.",
+      "content": "<p>A business loan file brings together borrower identity, financial records, the use of funds, repayment evidence, existing debt and contribution, and relevant security or site documents. The exact documents depend on the borrower, purpose, lender and proposed security. A new processing plant, replacement machine and seasonal working-capital limit will not need identical evidence. Begin with the lender&#39;s current checklist, then organise the file so each document supports a clear answer: who is borrowing, what the money will fund and how it will be repaid.</p>\n<p>RBI&#39;s published MSME lending directions require banks to give borrowers an indicative document checklist when they apply. Treat the lender&#39;s list as the starting point for that application, with further information possible during appraisal. <a href=\"https://www.rbi.org.in/commonman/Upload/English/Notification/PDFs/56MD24072017E50D0ED63F9B4414AA756FF0FC72FB66.pdf\">RBI directions on lending to the MSME sector</a>.</p>\n\n<h2 id=\"1-identity-and-authority-to-borrow\">1. Identity and authority to borrow</h2>\n<p>Prepare the borrower&#39;s constitution documents, PAN, relevant business registrations and the identity/address information requested for the persons concerned. The exact set differs for a proprietor, partnership, LLP or company. Establish who can sign the application and borrowing documents, with the relevant authorisation where required.</p>\n<p>Check that the name on financial statements, bank accounts, registrations and the application refers to the same borrower. If the operating business, property owner and proposed borrower are different entities, explain that relationship openly. Do not present group financials as if they belong to the applicant.</p>\n\n<h2 id=\"2-financial-history-and-the-present-position\">2. Financial history and the present position</h2>\n<p>An existing business should organise the financial statements, income-tax records, bank statements and tax returns for the periods requested by the lender. Add current provisional figures when the latest completed accounts no longer describe the operating position.</p>\n<p>Explain material movements in sales, profit, receivables and debt. A falling bank balance may have a different explanation from a trading loss: stock may have increased, a customer may be paying late or funds may have been invested in machinery. Provide a reconciliation supported by records.</p>\n<p>For a new business, distinguish projections from historical results. Do not invent a turnover history to make the file look more established. The lender may instead assess promoter resources, experience, orders, project feasibility and the proposed funding structure.</p>\n\n<h2 id=\"3-purpose-and-project-cost\">3. Purpose and project cost</h2>\n<table>\n<thead>\n<tr>\n<th>Loan purpose</th>\n<th>Useful evidence to discuss with the lender</th>\n<th>What it helps establish</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>Machinery or equipment</td>\n<td>Supplier quotation, technical specification, cost breakup and implementation schedule</td>\n<td>What will be bought and when funds are needed</td>\n</tr>\n<tr>\n<td>New facility or expansion</td>\n<td>Project report, estimates, site records and applicable approval status</td>\n<td>The full project and dependencies beyond the equipment</td>\n</tr>\n<tr>\n<td>Working capital</td>\n<td>Stock, debtors, creditors, order and cash-cycle information</td>\n<td>How much cash is tied up in day-to-day operations</td>\n</tr>\n<tr>\n<td>Refinance or top-up</td>\n<td>Existing sanction letters, statements and proposed additional use</td>\n<td>What debt changes and whether the new borrowing fits</td>\n</tr>\n</tbody></table>\n<p>Include the expenditure outside the requested loan. Freight, installation, site work, taxes, contingencies and working capital can affect total funding even when a lender treats them differently. State your assumptions and obtain the applicable treatment from the lender.</p>\n\n<h2 id=\"4-repayment-capacity\">4. Repayment capacity</h2>\n<p>Show when the investment is expected to generate cash and how that cash supports repayments. Connect projected sales to capacity, customers, pricing and realistic utilisation. Explain the period between commissioning, invoicing and collection.</p>\n<p><strong>Illustrative example:</strong> a machine is commissioned in April, but customer payments arrive several weeks after dispatch. The first loan instalment may fall before the new sales have converted to cash. The plan needs to show how that gap is funded. This example illustrates cash timing, not an approved repayment schedule.</p>\n<p>A useful sensitivity check asks what happens if commissioning is delayed, utilisation rises more slowly or collections take longer. The purpose is to make the borrowing decision more robust, not to produce a forecast that guarantees approval.</p>\n\n<h2 id=\"5-existing-debt-contribution-and-security\">5. Existing debt, contribution and security</h2>\n<p>List existing loans, limits, repayment commitments and material guarantees requested in the lender&#39;s disclosure. Separate sanctioned limits from actual outstanding balances. Explain the source and availability of the promoter contribution.</p>\n<p>If security is proposed, the lender will specify title, valuation and other requirements. If a collateral-free route is being considered, ask about its eligibility, primary security, guarantee arrangements, fees and appraisal. “Collateral-free” does not mean that financial or project documents are unnecessary. See <a href=\"/en/articles/zero-collateral-loan-apply-loans-under-cgtmse\">CGTMSE and collateral-free lending</a>.</p>\n\n<h2 id=\"6-site-and-approval-evidence\">6. Site and approval evidence</h2>\n<p>An industrial project may depend on permissions associated with land use, the building, environment or its activity. Prepare a status table identifying each applicable requirement, its authority, evidence held and next step. Mark an application as submitted only when there is an acknowledgement, and a permission as granted only when the decision exists.</p>\n<p>A lender&#39;s willingness to appraise a proposal does not establish that the site can lawfully support the planned use. Our <a href=\"/en/guides/change-of-land-use-clu-haryana\">Haryana CLU guide</a> explains the land-use preparation boundary.</p>\n\n<h2 id=\"reconcile-the-file-before-sending-it\">Reconcile the file before sending it</h2>\n<p>Use a single document index. Record the covered period and date for each statement. Check that project cost, loan requirement and promoter contribution agree across the application, project report and financial model. Explain genuine differences between GST, accounts and banking figures instead of hiding them.</p>\n<p>Keep original files and submitted copies separately. Share sensitive records through the channel agreed with the lender or adviser. Never hand over account passwords or signing credentials merely because someone is helping assemble an application.</p>\n\n<h2 id=\"after-submission-maintain-the-evidence-trail\">After submission, maintain the evidence trail</h2>\n<p>Save the acknowledgement, query list, replies and revised calculations. Record the purpose of each revision. If the lender issues a sanction, review its conditions, pricing, fees, security and disbursement requirements before treating funds as available.</p>\n<p>Submission, sanction and disbursement are different stages. Some conditions can require further documents or actions before payment. A strong initial file reduces avoidable uncertainty, but it does not replace the lender&#39;s credit decision.</p>\n\n<h2 id=\"common-questions\">Common questions</h2>\n<h3 id=\"is-there-one-minimum-document-list-for-every-business-loan\">Is there one minimum document list for every business loan?</h3>\n<p>No. Borrower type, product, amount and lender policy matter. This guide organises preparation; the lender confirms the required documents and periods.</p>\n<h3 id=\"can-a-new-business-apply-without-past-business-accounts\">Can a new business apply without past business accounts?</h3>\n<p>A new business should use a product that accommodates its stage and provide the evidence that lender requires. Missing trading history should be stated accurately, with projections and promoter information clearly distinguished.</p>\n<h3 id=\"does-an-expected-subsidy-count-as-my-contribution\">Does an expected subsidy count as my contribution?</h3>\n<p>Do not assume so. Scheme treatment, sanction status, release timing and lender acceptance must be checked. Build the funding plan with the <a href=\"/en/guides/7-mistakes-while-applying-for-msme-subsidy\">seven subsidy application checks</a>.</p>\n\n<h2 id=\"prepare-the-finance-discussion-around-the-investment\">Prepare the finance discussion around the investment</h2>\n<p>Choose <a href=\"/en/services/project-finance\">Project Finance Services</a>, <a href=\"/en/services/equipments-loan-services\">Equipment Loan Services</a> or <a href=\"/en/services/working-capital-finance\">Working Capital Finance</a> according to the requirement. Share the purpose, investment stage and records you already have. <a href=\"/en/contact\">Discuss your project</a> and an expert consultant from Rapid will call you.</p>\n<p><a href=\"https://wa.me/919467248028\">+91 94672 48028</a></p>\n\n<h2 id=\"references\">References</h2>\n<ul>\n<li><a href=\"https://www.rbi.org.in/commonman/Upload/English/Notification/PDFs/56MD24072017E50D0ED63F9B4414AA756FF0FC72FB66.pdf\" target=\"_blank\" rel=\"noreferrer\">rbi.org.in</a></li>\n<li><a href=\"https://www.cgtmse.in/Home/VS/96\" target=\"_blank\" rel=\"noreferrer\">cgtmse.in</a></li>\n</ul>",
+      "meta_title": "Documents Required for a Business Loan | Rapid Consulting",
+      "meta_description": "Prepare a business loan file that connects identity, financial records, project cost, repayment capacity and the lender’s specific requirements.",
+      "category": "business-finance-and-project-advisory-in-haryana",
+      "tags": [
+        "Finance & Other Services"
+      ]
+    },
+    {
+      "code": "B047",
+      "title": "Before buying or leasing land: check the proposed use",
+      "slug": "change-in-land-use",
+      "excerpt": "Assess the site’s identity, planning position, access and intended activity before committing to a Haryana industrial or commercial premises.",
+      "content": "<p>Before buying or leasing a site for a Haryana project, establish whether the land and building can support the intended use. A clear title, available electricity and a nearby factory answer different questions. None alone confirms the proposed factory, warehouse or commercial activity can proceed.</p>\n<p>The practical goal is a documented site decision: what is established, what needs permission and what remains unresolved before the commitment.</p>\n\n<h2 id=\"describe-the-project-before-assessing-the-site\">Describe the project before assessing the site</h2>\n<p>Write a short statement of the activity, process, storage, building needs and likely movement of people and vehicles. Separate today&#39;s operation from future expansion. The planning review should assess that proposal rather than a vague label such as “commercial purpose”.</p>\n<p>For a recycling project, inputs and process can materially affect the requirements. For a warehouse, goods and access may matter as much as area. Company turnover does not describe either site&#39;s technical complexity.</p>\n\n<h2 id=\"match-the-physical-land-to-the-records\">Match the physical land to the records</h2>\n<p>Obtain the available ownership or lease documents, revenue identification, maps and existing permissions. Have the appropriate professionals check the parcel, area and boundaries against the land being offered. Do not rely on a location pin alone to identify the legal parcel.</p>\n<p>If the proposal uses only part of a larger holding, show that clearly. Access, shared services and the right to carry out work may need specific arrangements with the owner or other occupiers.</p>\n\n<h2 id=\"establish-the-planning-position\">Establish the planning position</h2>\n<p>Identify the relevant authority, development-plan position and existing approved use. Check whether CLU or another route is needed for the proposal. Haryana ULB&#39;s published procedure illustrates the importance of ownership, site information and applicable permissions within its jurisdiction. <a href=\"https://ulbharyana.gov.in/Website/DirectorateofUrbanLocalBodies/Images/a3d8d6d9-4ad8-47ed-b1ae-6256d7357bfd.pdf\">Official ULB CLU procedure</a>.</p>\n<p>A site may already have an approval, but its conditions, land coverage and use need to be read. The word “approved” in a sales brochure does not tell you whether the approval is relevant to your project.</p>\n\n<h2 id=\"inspect-access-and-the-building-assumptions\">Inspect access and the building assumptions</h2>\n<p>A road beside the site does not automatically permit the desired entry and exit arrangement. Review the road authority and any required access permission. Existing access for one use may not settle the requirements of a changed development.</p>\n<p>For a built premises, compare approved and actual layouts. Ask for the relevant building, occupation and fire records. Identify alterations rather than assuming the landlord&#39;s latest photograph matches an approved plan.</p>\n\n<h2 id=\"use-a-conditional-decision-record\">Use a conditional decision record</h2>\n<table>\n<thead>\n<tr>\n<th>Finding</th>\n<th>Decision consequence</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>Intended use is established as permitted</td>\n<td>Retain the supporting approval and conditions</td>\n</tr>\n<tr>\n<td>A permission route is identified</td>\n<td>Plan the application, dependencies and costs</td>\n</tr>\n<tr>\n<td>A material fact is missing</td>\n<td>Resolve it before treating the site as ready</td>\n</tr>\n<tr>\n<td>The proposal conflicts with a requirement</td>\n<td>Reconsider the site or proposal through the proper route</td>\n</tr>\n</tbody></table>\n<p><strong>Illustrative situation:</strong> a business can afford the lease but cannot yet establish lawful access for heavy vehicles. The site decision should recognise that dependency before the machinery delivery date is fixed.</p>\n\n<h2 id=\"connect-the-checks-to-the-commercial-commitment\">Connect the checks to the commercial commitment</h2>\n<p>Ask the relevant legal professional how unresolved findings should be reflected in the purchase or lease documentation. Planning support does not replace title or contract advice. Put an owner and next action against each material gap so the decision can progress.</p>\n<h3 id=\"does-an-industrial-neighbour-prove-this-plot-can-be-industrial\">Does an industrial neighbour prove this plot can be industrial?</h3>\n<p>No. Review the exact parcel and proposed use under the relevant framework.</p>\n<h3 id=\"can-a-lease-remove-the-need-for-clu-review\">Can a lease remove the need for CLU review?</h3>\n<p>No automatic conclusion follows from leasing. The land&#39;s approved position and intended activity still matter.</p>\n<h3 id=\"where-does-the-application-process-begin\">Where does the application process begin?</h3>\n<p>Read <a href=\"/en/guides/change-of-land-use-clu-haryana\">Change of Land Use in Haryana</a> once the proposal and site have been identified.</p>\n<p>Rapid&#39;s <a href=\"/en/services/land-planning-and-value-unlocking-services\">Land Planning &amp; Value Unlocking</a> and <a href=\"/en/services/change-in-land-use-clu\">CLU Approval</a> pages provide relevant service routes. <a href=\"/en/contact\">Discuss your project</a> and an expert consultant from Rapid will call you about the site decision.</p>\n<p><a href=\"https://wa.me/919467248028\">+91 94672 48028</a></p>\n\n<h2 id=\"references\">References</h2>\n<ul>\n<li><a href=\"https://ulbharyana.gov.in/Website/DirectorateofUrbanLocalBodies/Images/a3d8d6d9-4ad8-47ed-b1ae-6256d7357bfd.pdf\" target=\"_blank\" rel=\"noreferrer\">ulbharyana.gov.in</a></li>\n<li><a href=\"https://ulbharyana.gov.in/Home/RightToService\" target=\"_blank\" rel=\"noreferrer\">ulbharyana.gov.in</a></li>\n</ul>",
+      "meta_title": "Buying or Leasing Land in Haryana: Use Checks | Rapid Consulting",
+      "meta_description": "Assess the site’s identity, planning position, access and intended activity before committing to a Haryana industrial or commercial premises.",
+      "category": "business-finance-and-project-advisory-in-haryana",
+      "tags": [
+        "Finance & Other Services"
+      ]
+    },
+    {
+      "code": "G01",
+      "title": "Preparing for a manufacturing-subsidy discussion",
+      "slug": "preparing-for-a-manufacturing-subsidy-discussion",
+      "excerpt": "Bring your activity, investment, site details and dates into one useful brief before discussing a manufacturing subsidy or incentive application.",
+      "content": "<p>Start with a short project brief: what the business does, where the investment is being made, what you are spending on and which commitments have already happened. Then bring the records available to support that account.</p>\n<p>You do not need a finished application file to have a useful first conversation. The purpose is to give the adviser a clear picture of the investment so the relevant programme and next step can be examined.</p>\n\n<h2 id=\"1-describe-the-activity-in-plain-language\"> Describe the activity in plain language</h2>\n<p>Explain what the unit makes or processes, the main raw material and the output. If the investment is an expansion, describe the existing operation and what will change.</p>\n<p>“Adding a production line at our existing unit” is a useful start. Add the type of line and how it changes the operation. “We need an MSME subsidy” identifies a broad interest but says little about the project behind it.</p>\n<p>For an equipment purchase, explain what the machine does. A testing instrument, a production machine and a safety installation have different purposes. The purpose should be clear before the programme is discussed.</p>\n\n<h2 id=\"2-identify-the-business-making-the-investment\"> Identify the business making the investment</h2>\n<p>Keep the applicant business name and constitution available. If more than one entity or site is involved, explain which one holds the assets and which one is making the application.</p>\n<p>A group turnover figure does not replace the records for the unit seeking assistance. Similarly, an owner&#39;s personal investment plan and expenditure already recorded in the business should not be presented as the same thing.</p>\n<p>You can raise any uncertainty in the discussion. The important point is to identify it rather than fill the gap with an assumption.</p>\n\n<h2 id=\"3-separate-the-expenditure-categories\"> Separate the expenditure categories</h2>\n<p>A single total can hide the parts that need to be examined. Put machinery, building, land and other costs in separate lines, using the records available.</p>\n<table>\n<thead>\n<tr>\n<th>Cost or figure</th>\n<th>How to describe it</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>Proposed machinery</td>\n<td>Quotation value and whether an order has been placed</td>\n</tr>\n<tr>\n<td>Purchased equipment</td>\n<td>Invoice value, purchase date and payment position</td>\n</tr>\n<tr>\n<td>Building work</td>\n<td>Recorded or proposed expenditure and construction stage</td>\n</tr>\n<tr>\n<td>Land or lease</td>\n<td>The arrangement and available documents</td>\n</tr>\n<tr>\n<td>Total project budget</td>\n<td>The categories included in the total</td>\n</tr>\n<tr>\n<td>Company turnover</td>\n<td>A separate business measure, with the relevant period</td>\n</tr>\n</tbody></table>\n<p>Do not call every cost an eligible cost before the programme conditions have been examined. Keeping the categories separate makes that review easier.</p>\n\n<h2 id=\"4-make-a-simple-timeline\"> Make a simple timeline</h2>\n<p>Write down the dates you know: order, invoice, payment, start of construction, installation and commercial production. Mark planned dates as planned and actual dates as actual.</p>\n<p>If an invoice has been issued but payment is incomplete, say so. If one part of an expansion is operating while another is still being installed, explain the difference.</p>\n<p>A timeline helps the adviser compare the project with the relevant programme&#39;s conditions. It also stops the application from relying on a date that describes a different milestone.</p>\n\n<h2 id=\"5-bring-the-site-and-existing-records\">5 Bring the site and existing records</h2>\n<p>Keep the district, site address and available ownership or lease information ready. Add the registrations, permissions and correspondence connected to the unit.</p>\n<p>You are not being asked to obtain every possible approval before the first discussion. The adviser needs to understand the documented position and identify what the actual assignment requires.</p>\n<p>If a document is held by your architect, CA or another colleague, note who has it. That is more useful than guessing its contents.</p>\n\n<h2 id=\"6-include-earlier-assistance-and-applications\">6. Include earlier assistance and applications</h2>\n<p>Tell the adviser about benefits already claimed or received and any application currently in progress. Bring the relevant references and communication if available.</p>\n<p>Different programmes can treat overlapping assistance differently. The review needs the history of the particular investment and applicant, not just the scheme you are considering today.</p>\n<p>If an earlier application has a query, keep the actual communication. A short verbal summary can leave out the detail that the next response needs to address.</p>\n\n<h2 id=\"an-example-of-a-useful-first-brief\">An example of a useful first brief</h2>\n<blockquote>\n<p>We operate a manufacturing unit in Haryana and are adding equipment at the same site. We have quotations for the new machines and invoices for part of the building work. One equipment order has been placed. Production on the new line has not started. Our CA holds the expenditure records, and our site consultant holds the land and approval documents. We want to understand the relevant incentive opportunity and the application work Rapid can manage.</p>\n</blockquote>\n<p>This is an illustrative brief, not a client case or an eligibility statement. Its value is that it separates the activity, investment, stage and people holding the records.</p>\n\n<h2 id=\"what-happens-in-the-first-discussion\">What happens in the first discussion?</h2>\n<p>Rapid uses the brief to understand the requirement and identify the information needed for the next step. A formal assessment, application or response assignment is then defined through its own scope.</p>\n<p>You should understand which work Rapid will manage, which inputs your team supplies and what the next milestone means. Application, sanction and release of funds remain separate stages.</p>\n<p><a href=\"/en/services/msmes-subsidy-consultant\">Read about subsidy advisory</a> · <a href=\"/en/how-we-work\">See how we work</a></p>\n\n<h2 id=\"questions-about-preparation\">Questions about preparation</h2>\n<h3 id=\"i-have-already-bought-machinery-is-it-too-late-to-speak\">I have already bought machinery. Is it too late to speak?</h3>\n<p>Share the actual dates and records. The conversation should start from your current position. Whether a programme remains relevant depends on its conditions and the facts of the investment.</p>\n<h3 id=\"do-i-need-a-scheme-name-first\">Do I need a scheme name first?</h3>\n<p>No. Explain the project. Identifying relevant programme questions is part of the advisory discussion.</p>\n<h3 id=\"should-my-ca-join\">Should my CA join?</h3>\n<p>It can help if they hold the expenditure or company records. A plant or site colleague may be useful for technical information. Bring the people relevant to the questions being discussed.</p>\n\n<h2 id=\"turn-your-brief-into-the-next-step\">Turn your brief into the next step</h2>\n<p>Share the activity, district and investment you want to discuss. An expert consultant from Rapid will call you to understand the project and explain how we can take the advisory work forward.</p>\n<p><a href=\"/en/guides/7-mistakes-while-applying-for-msme-subsidy\">Seven subsidy-application mistakes</a> · <a href=\"/en/case-studies/capital-subsidy-support-for-a-manufacturing-investment-in-hisar\">Manufacturing investment case</a> · <a href=\"/en/articles\">All guides and articles</a></p>",
+      "meta_title": "Prepare for a Manufacturing Subsidy Discussion | Rapid Consulting",
+      "meta_description": "Bring your activity, investment, site details and dates into one useful brief before discussing a manufacturing subsidy or incentive application.",
+      "category": "subsidies-and-incentives-advisory-in-haryana",
+      "tags": [
+        "Subsidies & Incentives"
+      ]
+    }
+  ],
+  "industries": [
+    {
+      "code": "I01",
+      "name": "Food & Agro Processing",
+      "slug": "food-and-agro-processing",
+      "description": "Plan a food-processing unit, mill expansion or equipment investment with coordinated subsidy, FSSAI, approval and finance support in Haryana.",
+      "icon": "leaf",
+      "display_order": 1,
+      "is_active": true,
+      "h1": "Food and Agro-Processing Project Support in Haryana",
+      "meta_title": "Food & Agro-Processing Consultant Haryana | Rapid",
+      "meta_description": "Plan a food-processing unit, mill expansion or equipment investment with coordinated subsidy, FSSAI, approval and finance support in Haryana.",
+      "intro": "<p>Build or expand your processing business with coordinated subsidy, approval and funding support. Rapid takes ownership of the agreed advisory work, from understanding the investment to preparing applications and managing follow-ups.</p>\n<p>Before construction or machinery commitments, establish the product and process, check the site and operating requirements, and examine the funding and incentive sequence. You can describe your mill or plant in familiar terms; we connect it to the services it needs.</p>",
+      "content": "<h2 id=\"support-for-the-investment-you-have-in-mind\">Support for the investment you have in mind</h2>\n<h3 id=\"a-new-processing-unit\">A new processing unit</h3>\n<p>You may be turning grain, oilseed or another agricultural input into a finished product. The plan needs to connect raw material, output, storage, utilities and the time required to start production.</p>\n<p>Rapid brings the site, cost and process records into an approval and funding brief, identifies the relevant advisory work and coordinates the agreed applications with your CA and technical team.</p>\n<h3 id=\"expansion-of-an-operating-mill-or-plant\">Expansion of an operating mill or plant</h3>\n<p>A new line or building changes an existing business. Separate today&#39;s capacity and permissions from the proposed addition, including machinery orders and spending already made.</p>\n<p>Rapid organises the investment trail, reviews relevant incentive questions and coordinates the selected approval or finance work around the change. Existing operations provide context, but do not automatically cover the expansion.</p>\n<h3 id=\"a-targeted-equipment-requirement\">A targeted equipment requirement</h3>\n<p>A testing instrument, safety installation or processing upgrade may need a focused engagement rather than a full new-project assignment.</p>\n<p>Rapid connects the asset&#39;s purpose, quotation or invoice and expenditure dates to the relevant service. The proposal makes the narrower scope and deliverables clear.</p>\n\n<h2 id=\"what-should-a-food-project-plan-explain\">What should a food-project plan explain?</h2>\n<table>\n<thead>\n<tr>\n<th>Project question</th>\n<th>Useful detail</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>What is being processed?</td>\n<td>Raw material, product and process flow.</td>\n</tr>\n<tr>\n<td>What is the scale?</td>\n<td>Existing and proposed output with units, machine capacity and storage.</td>\n</tr>\n<tr>\n<td>Where will it operate?</td>\n<td>Site, access, ownership/lease and available layout.</td>\n</tr>\n<tr>\n<td>What utilities are needed?</td>\n<td>Water, fuel, power and relevant waste streams.</td>\n</tr>\n<tr>\n<td>How will it earn and collect?</td>\n<td>Customers, seasonality, margins and collection assumptions.</td>\n</tr>\n<tr>\n<td>What has been committed?</td>\n<td>Orders, payments, construction and production dates.</td>\n</tr>\n</tbody></table>\n<p>A seasonal mustard processor and a year-round packaged-food operation may have different storage and cash-cycle needs. Use the actual business model rather than a generic “food factory” report.</p>\n\n<h2 id=\"connect-the-relevant-services\">Connect the relevant services</h2>\n<p>Start with these selected subsidy schemes and services for your industry. Use the two directories below to explore the full industry selection.</p>\n<p>Need help identifying the right programme? <a href=\"/en/services/msmes-subsidy-consultant\">Subsidy Advisory</a> explains how Rapid assesses the investment and takes the agreed application work forward.</p>\n\n<h2 id=\"which-subsidy-topics-may-be-worth-examining\">Which subsidy topics may be worth examining?</h2>\n<p>Food-processing and agri-infrastructure programmes can support different activities and cost categories. CEFPPC and AIF are distinct routes; one should not be described as a universal subsidy for every mill. The <a href=\"https://www.mofpi.gov.in/announcements/amendments-operational-guidelines-scheme-cefppc\">MoFPI programme material</a> and <a href=\"https://agriinfra.dac.gov.in/Content/DocAttachment/FINALSchemeGuidelinesAIF.pdf\">AIF guidelines</a> provide the official starting points.</p>\n<p>Use the <a href=\"/en/schemes\">Scheme Directory</a> to explore named programmes. Rapid&#39;s assessment examines current applicability, the applicant, asset, dates and any previous assistance before a benefit is built into the project plan.</p>\n\n<h2 id=\"how-rapid-takes-the-project-forward\">How Rapid takes the project forward</h2>\n<h3 id=\"1-define-the-investment-and-business-objective\">1. Define the investment and business objective</h3>\n<p>Agree whether the requirement concerns a new unit, expansion or specific equipment, and identify the records already available.</p>\n<h3 id=\"2-connect-the-relevant-workstreams\">2. Connect the relevant workstreams</h3>\n<p>Set out the selected applications, dependencies and inputs needed from the owner, CA, architect and plant team.</p>\n<h3 id=\"3-prepare-and-coordinate-the-work\">3. Prepare and coordinate the work</h3>\n<p>Rapid organises documents, follows the agreed submissions and routes technical or financial questions to the responsible person.</p>\n<h3 id=\"4-keep-the-next-action-clear\">4. Keep the next action clear</h3>\n<p>Maintain the application and query record and hand over issued conditions or further claim requirements within scope.</p>\n\n<h2 id=\"experience-tied-to-a-specific-investment\">Experience tied to a specific investment</h2>\n<p>An agro-processing business in Sirsa invested approximately ₹16.5 lakh in equipment used to test oil and moisture content in mustard seed. Rapid&#39;s assignment connected the equipment&#39;s purpose, cost and supporting records with the subsidy application work.</p>\n<p><a href=\"/en/case-studies/testing-equipment-subsidy-support-for-an-agro-processor-in-sirsa\">Read the testing-equipment case</a></p>\n<p>A separate Hisar assignment involved approximately ₹30 lakh in recorded safety-equipment expenditure. <a href=\"/en/case-studies/safety-equipment-subsidy-support-for-an-agro-processor-in-hisar\">Read the safety-equipment case</a>.</p>\n<p>These are specific equipment investments, not company turnover or subsidy receipts. A larger plant and a focused equipment assignment need different scopes even when both belong to the same industry.</p>\n\n<h2 id=\"what-affects-the-fee-and-programme\">What affects the fee and programme?</h2>\n<p>The number of applications, project stage, available records and required professional inputs determine the advisory scope. Official charges, testing, design and physical works are separate costs. Rapid explains the fee and responsibility for each agreed workstream before it begins.</p>\n\n<h2 id=\"questions-food-business-owners-ask\">Questions food-business owners ask</h2>\n<p><strong>Should we speak before ordering machinery?</strong> Yes. Early review makes it possible to examine the sequence before more expenditure is fixed. If you have already ordered, share the real dates.</p>\n<p><strong>Does every mill need the same FSSAI licence?</strong> No. Use the current kind-of-business criteria. The <a href=\"/en/services/fssai-registration-license-for-state-centre\">FSSAI page</a> explains the revised general bands and why activity-specific entries matter.</p>\n<p><strong>Can a small equipment investment be considered?</strong> Yes. The work can be scoped to a particular asset and service rather than the whole plant.</p>\n<p><strong>Can our CA and plant manager join?</strong> Yes. Their financial and process inputs help the assignment reflect the real unit.</p>\n<p><strong>Does being a food processor guarantee a grant?</strong> No. The programme and specific investment determine eligibility; we identify and prepare the relevant case.</p>\n\n<h2 id=\"discuss-your-requirement\">Discuss your requirement</h2>\n<p>Tell us the product, district, investment stage and approximate project or equipment cost. An expert consultant from Rapid will call you to understand the requirement and explain the proposed work, fee and next steps.</p>\n<p><a href=\"/en/industries\">All industries</a> · <a href=\"/en/guides/preparing-for-a-manufacturing-subsidy-discussion\">Prepare your investment brief</a></p>\n\n<h2 id=\"sources-and-review\">Sources and review</h2>\n<p>Official references are linked beside the relevant explanation. Research checked on 16 September 2026. <a href=\"/en/team/atul-goyal\">Atul Goyal</a> is the designated reviewer; substantive expert review is pending. Application-specific charges and current portal requirements are confirmed when the assignment is prepared.</p>\n\n<h2 id=\"related-services-and-reading\">Related services and reading</h2>\n<p><a href=\"/en/services/statutory-approvals-consultant\">Statutory Approvals</a> · <a href=\"/en/services/trade-license-consultant\">Licences &amp; Certifications</a> · <a href=\"/en/services/finance-and-other-services\">Finance &amp; Related Advisory</a></p>",
+      "image": "public/images/industry-food-and-agro-processing.jpg",
+      "image_file": "industry-food-and-agro-processing.jpg",
+      "note": "Processing, agriculture infrastructure and testing equipment are different investment needs. Check the individual scheme’s activity, policy period and application conditions.",
+      "service_slugs": [
+        "fssai-registration-license-for-state-centre",
+        "consent-to-establish-cte-pollution-noc",
+        "project-finance",
+        "consent-to-operate-cto-pollution-noc",
+        "building-plans-approval-from-dtp-and-stp-haryana",
+        "fire-department-noc",
+        "working-capital-finance",
+        "zed-certification"
+      ],
+      "scheme_slugs": [
+        "food-industries-cefppc-scheme",
+        "agricultural-infrastructure-fund-aif",
+        "testing-machine-subsidy",
+        "fire-equipment-subsidy",
+        "animal-husbandry-infrastructure-development-fund-ahidf",
+        "agro-processing-cluster-apc",
+        "ami-warehousing-subsidy-scheme",
+        "apeda-subsidy-scheme",
+        "cold-chain-scheme-sampada-yojna",
+        "nhb-scheme",
+        "nhm-scheme"
+      ]
+    },
+    {
+      "code": "I02",
+      "name": "Engineering & Materials Manufacturing",
+      "slug": "engineering-and-materials-manufacturing",
+      "description": "Support a new engineering plant, manufacturing expansion or equipment investment with coordinated subsidies, approvals, certification and finance work.",
+      "icon": "gear",
+      "display_order": 2,
+      "is_active": true,
+      "h1": "Manufacturing Project Support in Haryana",
+      "meta_title": "Manufacturing Project Consultant Haryana | Rapid",
+      "meta_description": "Support a new engineering plant, manufacturing expansion or equipment investment with coordinated subsidies, approvals, certification and finance work.",
+      "intro": "<p>Move your engineering or materials-manufacturing investment forward with coordinated approval, incentive and finance work. Rapid connects the machinery, process and site information, prepares the agreed applications and manages the follow-ups.</p>\n<p>Before construction or equipment commitments, define what will change in production, check the site and permission position, and separate the investment from the cash needed to operate it. That gives the owner and project team a common starting point.</p>",
+      "content": "<h2 id=\"a-clear-approach-to-new-and-existing-plants\">A clear approach to new and existing plants</h2>\n<h3 id=\"setting-up-another-facility\">Setting up another facility</h3>\n<p>A new location needs its own site, layout, utilities and permission review, even when the business already runs a successful plant elsewhere.</p>\n<p>Rapid coordinates the project brief and selected applications around the new facility, using your existing team&#39;s operating knowledge without assuming the old site&#39;s approvals transfer automatically.</p>\n<h3 id=\"adding-equipment-or-capacity\">Adding equipment or capacity</h3>\n<p>An additional machine, production line or shed should explain the change in output, process and investment. Keep current and proposed capacities separate.</p>\n<p>Rapid organises the cost trail and coordinates the relevant incentive, approval or financing work. Your CA supplies financial inputs while the plant and design teams address technical questions.</p>\n<h3 id=\"working-through-a-specific-requirement\">Working through a specific requirement</h3>\n<p>The immediate need may be a CTO renewal, testing equipment, an ISO requirement or lower-cost borrowing rather than a complete expansion programme.</p>\n<p>Rapid defines a focused assignment around that objective and identifies connected dependencies before unnecessary work is commissioned.</p>\n\n<h2 id=\"what-makes-the-process-description-important\">What makes the process description important?</h2>\n<table>\n<thead>\n<tr>\n<th>Detail</th>\n<th>Why it changes the discussion</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>Machining, fabrication, casting, treatment or another process</td>\n<td>Similar products may be made through different activities.</td>\n</tr>\n<tr>\n<td>Existing and proposed capacity</td>\n<td>Shows the scale of the change.</td>\n</tr>\n<tr>\n<td>Fuel, water and process residues</td>\n<td>Informs environmental and utility questions.</td>\n</tr>\n<tr>\n<td>Quality/customer requirements</td>\n<td>Identifies useful certification or testing work.</td>\n</tr>\n<tr>\n<td>Machine, building and operating costs</td>\n<td>Separates asset investment from working capital.</td>\n</tr>\n</tbody></table>\n<p>For example, a unit adding surface treatment should explain that process rather than describe only the final metal component. The application needs to reflect what happens inside the plant.</p>\n\n<h2 id=\"workstreams-that-fit-together\">Workstreams that fit together</h2>\n<p>Start with these selected subsidy schemes and services for your industry. Use the two directories below to explore the full industry selection.</p>\n<p>Need help identifying the right programme? <a href=\"/en/services/msmes-subsidy-consultant\">Subsidy Advisory</a> explains how Rapid assesses the investment and takes the agreed application work forward.</p>\n\n<h2 id=\"what-rapid-delivers-to-the-project-team\">What Rapid delivers to the project team</h2>\n<p>The agreed assignment provides a project-and-investment brief, selected workstream checklist and a shared record of submissions, observations and next actions. Rapid coordinates the preparation and follow-through, including inputs from the CA, architect, plant manager and other appointed professionals.</p>\n<p>The owner confirms business decisions; technical and financial certifications remain with their professionals. Authorities and lenders retain their decisions. Clear responsibility makes it possible to move the work forward without treating every question as the owner&#39;s administrative task.</p>\n\n<h2 id=\"how-the-manufacturing-assignment-works\">How the manufacturing assignment works</h2>\n<h3 id=\"1-define-the-current-plant-and-proposed-change\">1. Define the current plant and proposed change</h3>\n<p>Identify the process, capacities, site and money already committed.</p>\n<h3 id=\"2-agree-the-selected-workstreams\">2. Agree the selected workstreams</h3>\n<p>Connect permissions, incentives, certification and funding to the actual requirement.</p>\n<h3 id=\"3-coordinate-evidence-and-applications\">3. Coordinate evidence and applications</h3>\n<p>Rapid brings the documents together and follows the agreed files and responses.</p>\n<h3 id=\"4-hand-over-decisions-and-further-actions\">4. Hand over decisions and further actions</h3>\n<p>Keep conditions, outstanding inputs and future dates visible to the responsible team.</p>\n<p>HSPCB&#39;s current <a href=\"https://hspcb.gov.in/page/policy-orders\">categorisation and consent orders</a> should be used when identifying the environmental route. An old industry label should not determine a changed process&#39;s category.</p>\n\n<h2 id=\"see-a-manufacturing-assignment-in-context\">See a manufacturing assignment in context</h2>\n<p>A Hisar manufacturing unit had approximately ₹49 lakh in recorded machinery and building investment. Rapid brought the expenditure, production and site information together for capital-subsidy assessment and application work.</p>\n<p><a href=\"/en/case-studies/capital-subsidy-support-for-a-manufacturing-investment-in-hisar\">Read the manufacturing case</a></p>\n<p>The figure describes the recorded investment categories. It is not turnover, a complete company valuation or the subsidy amount. We match the scope to the actual project, from a focused machine requirement to a plant investment involving several advisers.</p>\n\n<h2 id=\"records-fee-and-timing\">Records, fee and timing</h2>\n<p>Bring the process flow, machinery and cost list, site records, existing approvals, quotations/invoices and key dates. Include the customer or lender request if it prompted the enquiry.</p>\n<p>The fee follows the workstreams and preparation needed. Design, testing, authority and lender costs remain distinguishable from Rapid&#39;s fee. The programme should show dependencies rather than assume every approval and funding stage completes together.</p>\n\n<h2 id=\"questions-manufacturers-ask\">Questions manufacturers ask</h2>\n<p><strong>Can existing permissions cover new machinery?</strong> Compare the proposed change with their actual scope and conditions before relying on them.</p>\n<p><strong>Does a quality certificate replace pollution approval?</strong> No. They address different requirements.</p>\n<p><strong>Should we provide total cost or machinery cost?</strong> Bring the total and its components. Different applications may examine different cost categories.</p>\n<p><strong>Can Rapid coordinate with our existing consultants?</strong> Yes. We define responsibilities around the professionals already appointed.</p>\n<p><strong>Can we explore incentives after an expansion?</strong> Share the expenditure and production dates. Eligibility depends on the relevant programme and actual investment history.</p>\n\n<h2 id=\"discuss-your-requirement\">Discuss your requirement</h2>\n<p>Tell us what the plant makes, what you are adding and the approximate investment. An expert consultant from Rapid will call you to understand the requirement and explain the proposed work, fee and next steps.</p>\n<p><a href=\"/en/industries\">All industries</a> · <a href=\"/en/services/project-finance\">Project finance</a></p>\n\n<h2 id=\"sources-and-review\">Sources and review</h2>\n<p>Official references are linked beside the relevant explanation. Research checked on 16 September 2026. <a href=\"/en/team/atul-goyal\">Atul Goyal</a> is the designated reviewer; substantive expert review is pending. Application-specific charges and current portal requirements are confirmed when the assignment is prepared.</p>\n\n<h2 id=\"related-services-and-reading\">Related services and reading</h2>\n<p><a href=\"/en/services/statutory-approvals-consultant\">Approval services</a> · <a href=\"/en/services/trade-license-consultant\">Licences and certifications</a></p>",
+      "image": "public/images/industry-engineering-and-materials-manufacturing.jpg",
+      "image_file": "industry-engineering-and-materials-manufacturing.jpg",
+      "note": "Testing equipment, quality certification and PADMA investment support have different conditions. A manufacturing activity alone does not establish eligibility.",
+      "service_slugs": [
+        "consent-to-establish-cte-pollution-noc",
+        "zed-certification",
+        "equipments-loan-services",
+        "consent-to-operate-cto-pollution-noc",
+        "hazardous-waste-management-noc",
+        "building-plans-approval-from-dtp-and-stp-haryana",
+        "iso-certification",
+        "working-capital-finance"
+      ],
+      "scheme_slugs": [
+        "testing-machine-subsidy",
+        "quality-certification-assistance-scheme",
+        "padma-capital-investment-subsidy-scheme",
+        "electricity-duty-exemption",
+        "sgst-refund-subsidy",
+        "fire-equipment-subsidy",
+        "stamp-duty-reimbursement",
+        "cgtsme-fee-refund-scheme",
+        "capital-subsidy-scheme",
+        "epcg-scheme",
+        "freight-assistance-scheme",
+        "mse-cdp-scheme",
+        "padma-cluster-infrastructure-development-scheme",
+        "padma-interest-subsidy-scheme",
+        "patent-free-scheme",
+        "research-development-center-scheme",
+        "state-mini-cluster-scheme"
+      ]
+    },
+    {
+      "code": "I03",
+      "name": "Recycling & Biofuel",
+      "slug": "recycling-and-biofuel",
+      "description": "Plan a recycling or biofuel investment around its feedstock, process and permissions. Rapid coordinates approvals, finance and incentive preparation.",
+      "icon": "recycle",
+      "display_order": 3,
+      "is_active": true,
+      "h1": "Recycling and Biofuel Project Support in Haryana",
+      "meta_title": "Recycling & Biofuel Project Consultant Haryana | Rapid",
+      "meta_description": "Plan a recycling or biofuel investment around its feedstock, process and permissions. Rapid coordinates approvals, finance and incentive preparation.",
+      "intro": "<p>Build the advisory work around your actual material, process and product. Rapid helps recycling and biofuel businesses coordinate the relevant approvals, investment records and financing preparation, with defined ownership of applications and follow-ups.</p>\n<p>Before buying equipment, establish what feedstock the plant will receive, how it will process it and who will use the output. Then connect that process to the site, permission and investment requirements.</p>",
+      "content": "<h2 id=\"start-with-the-plant-you-intend-to-operate\">Start with the plant you intend to operate</h2>\n<h3 id=\"a-recycling-or-recovery-facility\">A recycling or recovery facility</h3>\n<p>Identify the input material, its source, processing method and outputs or residues. Plastic processing, used-oil recovery and battery recycling should not be treated as one regulatory category.</p>\n<p>Rapid organises the process brief and coordinates the selected approval work, identifying where a specialised registration or technical input needs its own responsible provider.</p>\n<h3 id=\"a-biomass-or-biofuel-investment\">A biomass or biofuel investment</h3>\n<p>Explain the feedstock, storage, proposed output, capacity and intended buyer. A pellet plant and a compressed-biogas project have different equipment and operating assumptions.</p>\n<p>Rapid connects the cost and project records to the relevant approval, finance and incentive questions. We do not treat a broad “green project” description as proof of subsidy eligibility.</p>\n<h3 id=\"expansion-of-an-existing-operation\">Expansion of an existing operation</h3>\n<p>A change in feedstock, process or capacity may go beyond the earlier permission. Keep the current authorised activity separate from the proposed change.</p>\n<p>Rapid coordinates the review and selected applications around that change, using the existing consent, waste and operating records as the starting point.</p>\n\n<h2 id=\"what-should-the-project-brief-explain\">What should the project brief explain?</h2>\n<table>\n<thead>\n<tr>\n<th>Input</th>\n<th>Why it matters</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>Feedstock and source</td>\n<td>Defines what the plant will receive and its consistency.</td>\n</tr>\n<tr>\n<td>Process flow and capacity</td>\n<td>Explains what the machinery actually does.</td>\n</tr>\n<tr>\n<td>Outputs, residues and proposed buyers</td>\n<td>Connects operations with handling and revenue assumptions.</td>\n</tr>\n<tr>\n<td>Storage, transport and utilities</td>\n<td>Identifies site and operating requirements.</td>\n</tr>\n<tr>\n<td>Cost, contribution and working capital</td>\n<td>Shows the complete funding need.</td>\n</tr>\n<tr>\n<td>Existing permissions and proposed changes</td>\n<td>Prevents a new activity being hidden inside an old label.</td>\n</tr>\n</tbody></table>\n<p>These are planning questions, not Rapid&#39;s certification of technology performance or feedstock availability. Vendor guarantees and technical appraisal need their own evidence.</p>\n\n<h2 id=\"services-to-explore\">Services to explore</h2>\n<p>Start with these selected subsidy schemes and services for your industry. Use the two directories below to explore the full industry selection.</p>\n<p>Need help identifying the right programme? <a href=\"/en/services/msmes-subsidy-consultant\">Subsidy Advisory</a> explains how Rapid assesses the investment and takes the agreed application work forward.</p>\n\n<h2 id=\"which-regulatory-and-incentive-routes-need-care\">Which regulatory and incentive routes need care?</h2>\n<p>HSPCB distinguishes hazardous-waste authorisation from newer product-specific waste frameworks. Its service guidance notes separate treatment for e-waste and plastic EPR processes. <a href=\"https://hspcb.gov.in/eodb\">HSPCB service guidance</a>. Identify whether the business is a producer, processor, recycler or another participant before selecting a route.</p>\n<p>For bioenergy, examine the named programme and live notice rather than assuming a historical capital-assistance rate is available. MNRE&#39;s BioUrja portal currently carries a notice concerning consideration of specified biomass proposals after Phase II budget approval. <a href=\"https://biourja.mnre.gov.in/\">MNRE BioUrja notice</a>. This is a reason to check the current application position before including assistance in a project budget.</p>\n\n<h2 id=\"how-rapid-takes-the-assignment-forward\">How Rapid takes the assignment forward</h2>\n<h3 id=\"1-define-feedstock-process-and-output\">1. Define feedstock, process and output</h3>\n<p>Establish the actual project and the evidence available from suppliers and the operating team.</p>\n<h3 id=\"2-map-the-selected-workstreams\">2. Map the selected workstreams</h3>\n<p>Identify approval, finance and incentive questions and the professionals responsible for technical inputs.</p>\n<h3 id=\"3-coordinate-documents-and-responses\">3. Coordinate documents and responses</h3>\n<p>Rapid organises the application record and follows the agreed submissions and observations.</p>\n<h3 id=\"4-keep-the-project-conditions-visible\">4. Keep the project conditions visible</h3>\n<p>Hand over decisions and next actions to the team responsible for construction, commissioning and operation.</p>\n\n<h2 id=\"scale-fees-and-project-evidence\">Scale, fees and project evidence</h2>\n<p>Share capacity with units, feedstock assumptions, equipment and site cost, and whether the project is new or an expansion. We scope the work around those facts. No recycling or biofuel success figure is claimed here without a verified project record.</p>\n<p>Rapid&#39;s fee is separate from technical feasibility, testing, vendor equipment, authority charges and physical controls. These can be substantial parts of the project and should be visible before the investment is committed.</p>\n\n<h2 id=\"questions-recycling-and-biofuel-promoters-ask\">Questions recycling and biofuel promoters ask</h2>\n<p><strong>Does every recycling plant follow the same approval route?</strong> No. Input, process, output and the business&#39;s role determine which requirements to examine.</p>\n<p><strong>Does a “green” project automatically receive a subsidy?</strong> No. The named programme, current status and project conditions govern assistance.</p>\n<p><strong>Can an existing consent cover a different feedstock?</strong> Check the issued scope and the proposed change before receiving or processing new material.</p>\n<p><strong>Will Rapid select or guarantee the technology?</strong> This page covers advisory coordination. Technology performance and design need a separately defined technical owner.</p>\n<p><strong>Can we start with a vendor proposal?</strong> Yes. Bring it with the feedstock, capacity, site and investment assumptions so the gaps can be identified.</p>\n\n<h2 id=\"discuss-your-requirement\">Discuss your requirement</h2>\n<p>Share the feedstock, proposed product, capacity and district. An expert consultant from Rapid will call you to understand the requirement and explain the proposed work, fee and next steps.</p>\n<p><a href=\"/en/industries\">All industries</a> · <a href=\"/en/schemes\">Scheme Directory</a></p>\n\n<h2 id=\"sources-and-review\">Sources and review</h2>\n<p>Official references are linked beside the relevant explanation. Research checked on 16 September 2026. <a href=\"/en/team/atul-goyal\">Atul Goyal</a> is the designated reviewer; substantive expert review is pending. Application-specific charges and current portal requirements are confirmed when the assignment is prepared.</p>\n\n<h2 id=\"related-services-and-reading\">Related services and reading</h2>\n<p><a href=\"/en/services/statutory-approvals-consultant\">Site, building and access approvals</a> · <a href=\"/en/how-we-work\">See how we work</a></p>",
+      "image": "public/images/industry-recycling-and-biofuel.jpg",
+      "image_file": "industry-recycling-and-biofuel.jpg",
+      "note": "E-waste assistance has a specific ESDM-sector scope; it is not a general recycling or biofuel subsidy. Safety-equipment assistance concerns a separate investment. Both pages explain their policy-period limits.",
+      "service_slugs": [
+        "consent-to-establish-cte-pollution-noc",
+        "consent-to-operate-cto-pollution-noc",
+        "hazardous-waste-management-noc",
+        "building-plans-approval-from-dtp-and-stp-haryana",
+        "fire-department-noc",
+        "project-finance",
+        "working-capital-finance"
+      ],
+      "scheme_slugs": [
+        "waste-management-scheme",
+        "fire-equipment-subsidy"
+      ]
+    },
+    {
+      "code": "I04",
+      "name": "Commercial & Logistics Facilities",
+      "slug": "commercial-and-logistics-facilities",
+      "description": "Plan a warehouse or commercial facility with coordinated land, access, building, fire and funding support for owners, developers and operators.",
+      "icon": "warehouse",
+      "display_order": 4,
+      "is_active": true,
+      "h1": "Commercial and Logistics Project Support in Haryana",
+      "meta_title": "Warehouse & Commercial Project Consultant Haryana | Rapid",
+      "meta_description": "Plan a warehouse or commercial facility with coordinated land, access, building, fire and funding support for owners, developers and operators.",
+      "intro": "<p>Bring your warehouse or commercial project closer to operation with coordinated site, approval and funding support. Rapid manages the agreed documentation and follow-ups around the facility you intend to develop or occupy.</p>\n<p>Before construction or a lease commitment, establish the permitted use, road access and building position. Then connect the operating model, safety requirements and funding plan. We help your team turn those connected questions into defined work.</p>",
+      "content": "<h2 id=\"advice-for-the-facility-and-the-people-behind-it\">Advice for the facility and the people behind it</h2>\n<h3 id=\"a-landowner-choosing-a-development\">A landowner choosing a development</h3>\n<p>A warehouse, commercial building or another use can require different capital, permissions and management effort. The comparison starts with the actual parcel and your investment objective.</p>\n<p>Rapid coordinates a planning and project brief, identifies the evidence needed and connects the selected option to the relevant approval and finance work.</p>\n<h3 id=\"a-developer-building-a-facility\">A developer building a facility</h3>\n<p>The layout needs to serve access, loading, parking and the proposed activity. Land, building and common works should be considered together in the programme.</p>\n<p>Rapid organises the selected application records and follows the agreed files with your architect, engineer and finance team.</p>\n<h3 id=\"an-operator-taking-an-existing-building\">An operator taking an existing building</h3>\n<p>An existing shell may still need review against the goods, storage arrangement or business use you propose. Landlord and operator responsibilities need to be clear before the commitment.</p>\n<p>Rapid helps bring the lease, building approvals and operating brief together, then scopes the particular permission or registration work needed.</p>\n\n<h2 id=\"define-the-operating-model-before-choosing-services\">Define the operating model before choosing services</h2>\n<table>\n<thead>\n<tr>\n<th>Facility model</th>\n<th>Questions to answer</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>Own-stock warehouse</td>\n<td>What is stored, in what quantity and under which premises arrangements?</td>\n</tr>\n<tr>\n<td>Third-party warehousing</td>\n<td>Who operates the facility and is responsible for customers&#39; stock?</td>\n</tr>\n<tr>\n<td>eNWR-based warehouse</td>\n<td>Does the WDRA registration route fit the receipt model?</td>\n</tr>\n<tr>\n<td>Commercial development</td>\n<td>What uses, access, common works and development permissions apply?</td>\n</tr>\n<tr>\n<td>Cold/specialised storage</td>\n<td>Which technical and activity-specific requirements need separate review?</td>\n</tr>\n</tbody></table>\n<p>WDRA registration and building development permissions serve different purposes. The <a href=\"https://dfpd.gov.in/warehousing-development-regulatory-authority/en\">official WDRA overview</a> explains its role in negotiable warehouse receipts; it does not replace the site&#39;s approval process.</p>\n\n<h2 id=\"where-we-can-help\">Where we can help</h2>\n<p>Start with these selected subsidy schemes and services for your industry. Use the two directories below to explore the full industry selection.</p>\n<p>Need help identifying the right programme? <a href=\"/en/services/msmes-subsidy-consultant\">Subsidy Advisory</a> explains how Rapid assesses the investment and takes the agreed application work forward.</p>\n\n<h2 id=\"what-rapid-delivers\">What Rapid delivers</h2>\n<p>The agreed assignment gives the owner, developer and operator a clear account of the selected applications, required records and next actions. Rapid coordinates preparation and follow-ups while your architect, technical advisers and legal team retain responsibility for their professional inputs.</p>\n<p>This matters when the records are held by different parties. The landowner may hold title and approvals, while the operator understands storage and vehicle movements. The application needs the relevant facts from both.</p>\n\n<h2 id=\"put-the-site-brief-together\">Put the site brief together</h2>\n<table>\n<thead>\n<tr>\n<th>Bring</th>\n<th>Why it matters</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>District, location, area and frontage</td>\n<td>Identifies the parcel and access.</td>\n</tr>\n<tr>\n<td>Goods/use and capacity with units</td>\n<td>Defines the operation and scale.</td>\n</tr>\n<tr>\n<td>Owner, developer and operator details</td>\n<td>Clarifies responsibility and authority.</td>\n</tr>\n<tr>\n<td>Lease/title, plans and existing approvals</td>\n<td>Establishes the recorded position.</td>\n</tr>\n<tr>\n<td>Budget, contribution and expected income</td>\n<td>Supports the development/funding decision.</td>\n</tr>\n<tr>\n<td>Construction, lease and opening dates</td>\n<td>Shows the decisions and deadlines already fixed.</td>\n</tr>\n</tbody></table>\n<p>Use figures for the facility itself. A group&#39;s turnover does not describe this warehouse&#39;s capacity or project cost.</p>\n\n<h2 id=\"how-the-facility-assignment-works\">How the facility assignment works</h2>\n<h3 id=\"1-establish-the-site-and-operating-proposal\">1. Establish the site and operating proposal</h3>\n<p>Identify the role of each party and what the building will actually be used for.</p>\n<h3 id=\"2-agree-the-workstreams-and-dependencies\">2. Agree the workstreams and dependencies</h3>\n<p>Connect land, access, building, registration and finance questions to the project stage.</p>\n<h3 id=\"3-coordinate-records-and-applications\">3. Coordinate records and applications</h3>\n<p>Rapid manages the agreed preparation and follow-ups with the responsible team.</p>\n<h3 id=\"4-hand-over-the-decision-record\">4. Hand over the decision record</h3>\n<p>Keep conditions and next actions visible before construction, occupation or the relevant operating step.</p>\n\n<h2 id=\"fees-and-programme\">Fees and programme</h2>\n<p>The scope depends on the facility, number of applications and records available. Authority charges, design, legal work, safety installation and Rapid&#39;s fee remain separate. A ready building can still have an incomplete approval file, so a physical completion date alone does not establish the advisory timetable.</p>\n\n<h2 id=\"questions-from-facility-owners\">Questions from facility owners</h2>\n<p><strong>Does owning the land mean we can build the intended warehouse?</strong> Ownership and planning permission are separate. Review the use, access and applicable building route.</p>\n<p><strong>Can a tenant engage Rapid?</strong> Yes. Establish which records and authorisations are needed from the owner.</p>\n<p><strong>Does every warehouse need WDRA?</strong> The receipt and operating model determines that discussion; it is not a substitute for development approvals.</p>\n<p><strong>Are warehouse assistance and AIF the same thing?</strong> No. Programmes have different mechanisms and conditions. Use the <a href=\"/en/schemes\">Scheme Directory</a> to examine the named route.</p>\n<p><strong>Can Rapid guarantee occupancy or rental yield?</strong> No. Those are commercial assumptions, which should be supported independently in the investment plan.</p>\n\n<h2 id=\"discuss-your-requirement\">Discuss your requirement</h2>\n<p>Share the location, facility use, capacity and whether you own, develop or operate the premises. An expert consultant from Rapid will call you to understand the requirement and explain the proposed work, fee and next steps.</p>\n<p><a href=\"/en/industries\">All industries</a> · <a href=\"/en/services/statutory-approvals-consultant\">Statutory approvals</a></p>\n\n<h2 id=\"sources-and-review\">Sources and review</h2>\n<p>Official references are linked beside the relevant explanation. Research checked on 16 September 2026. <a href=\"/en/team/atul-goyal\">Atul Goyal</a> is the designated reviewer; substantive expert review is pending. Application-specific charges and current portal requirements are confirmed when the assignment is prepared.</p>\n\n<h2 id=\"related-services-and-reading\">Related services and reading</h2>\n<p><a href=\"/en/how-we-work\">Understand the engagement process</a></p>",
+      "image": "public/images/industry-commercial-and-logistics-facilities.jpg",
+      "image_file": "industry-commercial-and-logistics-facilities.jpg",
+      "note": "Agricultural storage, cold-chain facilities and general commercial buildings need different assessments. These schemes do not apply to every warehouse or property project.",
+      "service_slugs": [
+        "warehousing-development-registration-and-approval",
+        "change-in-land-use-clu",
+        "nhai-entry-and-exit-permission-noc",
+        "land-planning-and-value-unlocking-services",
+        "building-plans-approval-from-dtp-and-stp-haryana",
+        "pwd-entry-exit-permission-noc",
+        "fire-department-noc",
+        "occupation-certificate-oc-haryana",
+        "project-finance"
+      ],
+      "scheme_slugs": [
+        "warehousing-capital-subsidy",
+        "ami-warehousing-subsidy-scheme",
+        "agricultural-infrastructure-fund-aif",
+        "cold-chain-scheme-sampada-yojna",
+        "nhb-scheme",
+        "plug-play"
+      ]
+    }
+  ],
+  "case_study_slugs": [
+    "safety-equipment-subsidy-support-for-an-agro-processor-in-hisar",
+    "capital-subsidy-support-for-a-manufacturing-investment-in-hisar",
+    "testing-equipment-subsidy-support-for-an-agro-processor-in-sirsa"
+  ]
+}

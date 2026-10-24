@@ -1,11 +1,35 @@
-import { searchParams } from "@/lib/searchparams";
+"use client";
 import { useQueryState } from "nuqs";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
 export function useJobsTableFilters() {
-  const [searchQuery, setSearchQuery] = useQueryState("q", searchParams.q.withOptions({ shallow: false, throttleMs: 1000 }).withDefault(""));
-  const [page, setPage] = useQueryState("page", searchParams.page.withDefault(1));
-  const resetFilters = useCallback(() => { setSearchQuery(null); setPage(1); }, [setSearchQuery, setPage]);
-  const isAnyFilterActive = useMemo(() => !!searchQuery, [searchQuery]);
-  return { searchQuery, setSearchQuery, page, setPage, resetFilters, isAnyFilterActive };
+  const [searchQuery, setSearchQuery] = useQueryState("q", {
+    defaultValue: "",
+    shallow: false,
+    clearOnDefault: true,
+  });
+
+  // is_active=true | false (both selected = no filter)
+  const [statusFilter, setStatusFilter] = useQueryState("is_active", {
+    defaultValue: "",
+    shallow: false,
+    clearOnDefault: true,
+  });
+
+  const [page, setPage] = useQueryState("page", {
+    defaultValue: 1,
+    parse: Number,
+    shallow: false,
+    clearOnDefault: true,
+  });
+
+  const resetFilters = useCallback(() => {
+    setSearchQuery(null);
+    setStatusFilter(null);
+    setPage(1);
+  }, [setSearchQuery, setStatusFilter, setPage]);
+
+  const isAnyFilterActive = !!(searchQuery || statusFilter);
+
+  return { searchQuery, setSearchQuery, statusFilter, setStatusFilter, page, setPage, resetFilters, isAnyFilterActive };
 }

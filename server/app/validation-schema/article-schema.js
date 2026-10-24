@@ -38,6 +38,8 @@ const articleFields = {
     .union([z.literal(""), z.uuid("Pick a valid category")])
     .nullish()
     .transform(blankToNull),
+  // "article" (default) or "guide".
+  type: z.enum(["article", "guide"], "Type must be article or guide"),
   tags: z
     .array(z.string())
     .transform((list) =>

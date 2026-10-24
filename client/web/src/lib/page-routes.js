@@ -28,3 +28,14 @@ export function toSlugHref(href) {
   if (!m) return href;
   return (pathFor(m[2], m[1]) ?? href) + m[3];
 }
+
+// Sections of the site whose records live in the API. The legacy identities
+// above are kept so old /{locale}/p/{ID} links and bookmarks still redirect.
+const API_SEGMENTS = new Set(["articles", "guides", "schemes", "case-studies", "industries", "careers"]);
+// Pages inside those sections that are written in the website, not in the API.
+const WRITTEN_PAGES = new Set(["/careers/how-we-hire"]);
+export function isApiContentId(id) {
+  const path = routes[id] ?? "";
+  const parts = path.split("/").filter(Boolean);
+  return parts.length > 1 && API_SEGMENTS.has(parts[0]) && !WRITTEN_PAGES.has(path);
+}

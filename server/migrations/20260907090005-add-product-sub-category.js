@@ -31,3 +31,5 @@ export async function down({ context: queryInterface }) {
     "sub_category_id",
   );
 }
+
+

@@ -7,10 +7,9 @@ import { contentPageMetadata, robots } from "@/lib/seo";
 import { PageAlternates } from "@/components/layout/page-alternates";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { resolveContentPath } from "@/lib/pages/resolve";
-// Guides share the Articles index page (R01) — no separate guides index exists.
+import { loadInitialList } from "@/lib/content/loaders";
 import { ArticlesPage } from "../articles/_components/ArticlesPage";
 
-// /guides resolves via the same /articles R01 page in CMS
 const PATH = "/articles";
 
 export async function generateMetadata({ params }) {
@@ -30,6 +29,9 @@ export default async function GuidesIndexRoute({ params }) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const has = hasTranslation(t);
+  // Published articles and guides from the API (cached, refreshed when an
+  // editor saves). Both kinds are listed here.
+  const initialData = await loadInitialList("article");
   return (
     <>
       <PageAlternates
@@ -45,7 +47,13 @@ export default async function GuidesIndexRoute({ params }) {
         backgroundImage="/assets/articles.jpg"
       />
       <main id="main">
-        <ArticlesPage page={found.page} t={t} has={has} />
+        <ArticlesPage
+          page={found.page}
+          t={t}
+          has={has}
+          image="/assets/articles.jpg"
+          initialData={initialData}
+        />
       </main>
     </>
   );

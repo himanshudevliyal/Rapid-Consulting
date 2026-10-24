@@ -65,7 +65,7 @@ export function SearchDialog({ open, onOpenChange, services }) {
                 <Link key={service.code} href={serviceHref(service, locale)} onClick={() => onOpenChange(false)}>
                   <small>
                     {t(`card.types.${service.type}`)}
-                    {service.family_code ? ` · ${t(`families.${service.family_code}`)}` : ""}
+                    {service.category?.title ? ` · ${service.category.title}` : ""}
                   </small>
                   <strong>
                     {service.h1 || service.title}

@@ -87,6 +87,50 @@ export async function sendEnquiryConfirmation(enquiry) {
   }
 }
 
+// ── Contact Us emails ─────────────────────────────────────────────
+
+/**
+ * Admin notification: new Contact Us message received.
+ */
+export async function sendContactEnquiryEmail(item) {
+  try {
+    const html = await renderEmail("contact-enquiry-notification", {
+      ...item,
+      admin_url: config.admin_url,
+    });
+
+    await getTransporter().sendMail({
+      from: FROM,
+      to: config.email_enquiry_to,
+      subject: `New Contact Message from ${item.name} — Rapid Consulting`,
+      html,
+    });
+  } catch (err) {
+    console.error("[Mailer] Failed to send contact notification:", err.message);
+    // Non-fatal — the message is already saved to the DB
+  }
+}
+
+/**
+ * Auto-reply to the person who used the Contact Us form.
+ */
+export async function sendContactEnquiryConfirmation(item) {
+  if (!item.email) return;
+
+  try {
+    const html = await renderEmail("contact-enquiry-confirmation", item);
+
+    await getTransporter().sendMail({
+      from: FROM,
+      to: item.email,
+      subject: "We received your message — Rapid Consulting",
+      html,
+    });
+  } catch (err) {
+    console.error("[Mailer] Failed to send contact confirmation:", err.message);
+  }
+}
+
 // ── Auth emails ───────────────────────────────────────────────────
 
 export async function sendResetPasswordEmail(userEmail, token) {

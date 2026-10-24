@@ -2,8 +2,8 @@ import { getFileUrl } from "@/utils/file-url";
 
 // The API stores plain records (title, slug, HTML body, cover image, category).
 // The page components read "page records" (h1, sections, introHtml, href,
-// type…). These pure functions convert one into the other so the screens look
-// and behave exactly as before. Records from the API are English only.
+// type…). These pure functions convert one into the other. Records from the
+// API are English only.
 
 const LOCALE = "en";
 
@@ -76,9 +76,13 @@ const common = (record, { type, segment, icon, group }) => ({
 // ── Articles ────────────────────────────────────────────────────────────────
 
 const ARTICLE = { type: "article", segment: "articles", icon: "file-text", group: "Articles & guides" };
+const GUIDE = { type: "guide", segment: "guides", icon: "book-open", group: "Articles & guides" };
+
+// An article record is a guide when its type says so (own section and URLs).
+const writingKind = (record) => (record.type === "guide" ? GUIDE : ARTICLE);
 
 export const articleToSummary = (article) => ({
-  ...common(article, ARTICLE),
+  ...common(article, writingKind(article)),
   description: article.meta_description || article.excerpt || excerptOf(article.content),
 });
 
@@ -185,20 +189,28 @@ export const caseStudyToPage = (record) => {
   };
 };
 
-// ── Schemes (adapters ready; scheme pages still read the built-in data) ─────
+// ── Schemes ──────────────────────────────────────────────────────────────────
 
 const SCHEME = { type: "scheme", segment: "schemes", icon: "hand-coins", group: "Schemes" };
+
+// The topic a scheme is filed under is its first tag that is not a service
+// family code (S01…): editors set it in the admin panel as a tag.
+export const schemeTopic = (scheme) =>
+  (scheme.tags ?? []).find((tag) => tag && !/^S\d{2}$/.test(tag)) || "Other programme support";
 
 export const schemeToSummary = (scheme) => ({
   ...common(scheme, SCHEME),
   description: stripTags(scheme.description) ? excerptOf(scheme.description) : "",
   ministry: scheme.ministry ?? "",
+  topic: schemeTopic(scheme),
+  featured: !!scheme.is_featured,
 });
 
 const schemeSection = (id, title, html) => (html?.trim() ? [{ id, title, html }] : []);
 
 export const schemeToPage = (scheme) => ({
   ...schemeToSummary(scheme),
+  metaTitle: undefined,
   introHtml: scheme.description || "",
   sections: [
     ...schemeSection("eligibility", "Eligibility", scheme.eligibility),
@@ -210,11 +222,109 @@ export const schemeToPage = (scheme) => ({
   reviewLabel: "Draft",
 });
 
-// Last path segment of a built-in page's URL ("/en/articles/fire-noc" -> "fire-noc").
-export const slugFromHref = (href = "") => href.split("?")[0].split("/").filter(Boolean).pop() ?? "";
+// ── Industries ───────────────────────────────────────────────────────────────
 
-// API records first; a built-in page is dropped when the API has one at the same slug.
-export const mergeBySlug = (apiItems, staticItems = []) => {
-  const seen = new Set(apiItems.map((item) => item.slug));
-  return [...apiItems, ...staticItems.filter((item) => !seen.has(item.slug))];
+const INDUSTRY = { type: "industry", segment: "industries", icon: "factory", group: "Industries" };
+
+export const industryToSummary = (industry) => ({
+  id: industry.slug,
+  slug: industry.slug,
+  locale: LOCALE,
+  type: INDUSTRY.type,
+  title: industry.name,
+  h1: industry.h1 || industry.name,
+  href: `/${LOCALE}/${INDUSTRY.segment}/${industry.slug}`,
+  icon: industry.icon || INDUSTRY.icon,
+  group: INDUSTRY.group,
+  family: "",
+  hasHindi: false,
+  status: "published",
+  aliases: [],
+  tags: [],
+  description: industry.description || excerptOf(industry.intro),
+  image: getFileUrl(industry.image) ?? undefined,
+  serviceSlugs: industry.service_slugs ?? [],
+  schemeSlugs: industry.scheme_slugs ?? [],
+});
+
+// The industry page: opening copy, the body split at its <h2> headings, and
+// (from the single-industry endpoint) the services and schemes chosen for it.
+export const industryToPage = (industry) => {
+  const { intro, sections } = splitSections(industry.content);
+  const lead = industry.description ? `<p>${escapeHtml(industry.description)}</p>` : "";
+  return {
+    ...industryToSummary(industry),
+    metaTitle: industry.meta_title || undefined,
+    description: industry.meta_description || industry.description || excerptOf(industry.intro),
+    introHtml: industry.intro || intro || lead,
+    sections,
+    sourceUrls: [],
+    relatedIds: [],
+    reviewLabel: "Draft",
+    discovery: {
+      services: industry.services ?? [],
+      schemes: (industry.schemes ?? []).map(schemeToSummary),
+      note: industry.note || "",
+    },
+  };
+};
+
+// ── Careers ──────────────────────────────────────────────────────────────────
+
+const JOB_TYPES = {
+  "full-time": "Full-time",
+  "part-time": "Part-time",
+  contract: "Contract",
+  internship: "Internship",
+  remote: "Remote",
+};
+
+// Card in the list of open roles.
+export const jobToSummary = (job) => ({
+  id: job.slug,
+  slug: job.slug,
+  locale: LOCALE,
+  type: "job",
+  title: job.title,
+  h1: job.title,
+  href: `/${LOCALE}/careers/${job.slug}`,
+  description: excerptOf(job.description || job.responsibilities, 200),
+  location: job.location ?? "",
+  jobType: JOB_TYPES[job.job_type] ?? "",
+  experience: job.experience ?? "",
+  closingDate: job.closing_date ?? "",
+});
+
+// The job page: the three text blocks of the record, each its own section.
+export const jobToPage = (job) => ({
+  ...jobToSummary(job),
+  introHtml: job.description || "",
+  sections: [
+    ...(job.responsibilities?.trim() ? [{ id: "the-work", title: "The work", html: job.responsibilities }] : []),
+    ...(job.requirements?.trim() ? [{ id: "relevant-skills", title: "Relevant skills", html: job.requirements }] : []),
+  ],
+});
+
+// ── Team (advisers) ──────────────────────────────────────────────────────────
+
+export const adviserToMember = (adviser) => ({
+  id: adviser.id,
+  name: adviser.name,
+  designation: adviser.designation ?? "",
+  group: adviser.team_group ?? "",
+  bio: adviser.bio ?? "",
+  photo: getFileUrl(adviser.photo) ?? undefined,
+  linkedin: adviser.linkedin_url ?? "",
+});
+
+// Members under their group heading, in the order the admin panel lists them
+// (groups appear in the order their first member does).
+export const groupMembers = (members) => {
+  const groups = [];
+  for (const member of members) {
+    let group = groups.find((entry) => entry.title === member.group);
+    if (!group) groups.push((group = { title: member.group, members: [] }));
+    group.members.push(member);
+  }
+  return groups;
 };

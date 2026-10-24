@@ -17,7 +17,6 @@ import { WhatsAppButton } from "@/components/contact/whatsapp";
 import { ArrowRight } from "lucide-react";
 
 import { cardCopy, linkedContentIds } from "@/lib/pages/card-copy";
-import { isIndustryServiceSection } from "@/lib/pages/industry-services";
 import { ClientTicker } from "@/components/common/client-ticker";
 import { ShareActions } from "@/components/common/share-actions";
 import { ContactExperience } from "../form/contact-experience";
@@ -34,16 +33,14 @@ import { Button } from "@/components/ui/button";
 
 import { ContentCard, InvestmentMetric } from "./content-card";
 import {
-  DownloadButton,
   Html,
   Icon,
   PhotoPlaceholder,
   SectionNav,
 } from "./content-primitives";
-import { Directory } from "./directory";
 import { FaqContent } from "./faq-content";
 import { HomeSections } from "@/home/home-sections";
-import { IndustryServices } from "./industry-services";
+import { IndustryDiscovery } from "./industry-discovery";
 import {
   InvestmentScenarios,
   isInvestmentScenarios,
@@ -56,6 +53,7 @@ import {
 import { TeamSection, isTeamSection } from "./team-section";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
+import { loadCaseStudies } from "@/lib/content/site-data";
 import Link from "next/link";
 
 // Detail templates (hero + "on this page" + numbered sections + contact rail).
@@ -108,8 +106,6 @@ function BodySection({ section, page, index, t, has }) {
         <TeamSection section={section} locale={page.locale} t={t} />
       ) : isInvestmentScenarios(page, section) ? (
         <InvestmentScenarios section={section} t={t} />
-      ) : isIndustryServiceSection(page, section) ? (
-        <IndustryServices section={section} page={page} t={t} has={has} />
       ) : faq ? (
         <FaqContent html={section.html} />
       ) : (
@@ -383,8 +379,6 @@ function Hero({ page, t, detail = false }) {
     /<p>On this page:[\s\S]*?<\/p>/g,
     "",
   );
-  const downloadable =
-    page.locale === "en" && ["guide", "scheme"].includes(page.type);
 
   // Industry pages get the Heading component treatment
   if (page.type === "industry") {
@@ -422,19 +416,6 @@ function Hero({ page, t, detail = false }) {
         <Html html={intro} className="hero-copy" />
       )}
       <ContextActions t={t} />
-      {downloadable && (
-        <div className="download-row">
-          <DownloadButton
-            href={`/downloads/${page.id}.pdf`}
-            label={
-              page.type === "guide"
-                ? t("site.download.guide")
-                : t("site.download.scheme")
-            }
-          />
-          <span>{t("site.download.note")}</span>
-        </div>
-      )}
       <ReviewNote page={page} t={t} />
     </header>
   );
@@ -580,6 +561,7 @@ export function IndustryView({ page, t, has }) {
             has={has}
           />
         ))}
+        <IndustryDiscovery page={page} t={t} has={has} />
         <Related page={page} t={t} has={has} compact />
       </DetailLayout>
       <ClientTicker />
@@ -674,7 +656,7 @@ export function AboutUsView({ page, t, has }) {
   );
 }
 
-export function StandardView({ page, t, has }) {
+export async function StandardView({ page, t, has }) {
   if (page.id === "U01")
     return (
       <AdviserPage
@@ -682,6 +664,7 @@ export function StandardView({ page, t, has }) {
         breadcrumbs={<Breadcrumbs page={page} t={t} />}
         t={t}
         has={has}
+        cases={await loadCaseStudies({ limit: 6 })}
       />
     );
   if (page.id === "A03") return <AboutUsView page={page} t={t} has={has} />;

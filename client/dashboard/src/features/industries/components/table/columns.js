@@ -7,11 +7,36 @@ import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { imageSrc } from "@/lib/image-src";
 
 export const columns = (openModal, setId) => [
-  { accessorKey: "name", header: "Name", cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div> },
-  { accessorKey: "slug", header: "Slug", cell: ({ row }) => <div className="text-muted-foreground text-xs">{row.getValue("slug")}</div> },
-  { accessorKey: "icon", header: "Icon", cell: ({ row }) => row.getValue("icon") || "-" },
+  {
+    accessorKey: "name",
+    header: "Name",
+    cell: ({ row }) => (
+      <div className="flex items-center gap-3">
+        {row.original.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={imageSrc(row.original.image)} alt="" className="size-10 shrink-0 rounded object-cover" />
+        ) : (
+          <div className="size-10 shrink-0 rounded bg-muted" aria-hidden="true" />
+        )}
+        <div>
+          <div className="font-medium">{row.original.name}</div>
+          <div className="font-mono text-xs text-muted-foreground">{row.original.slug}</div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "links",
+    header: "Services / Schemes",
+    cell: ({ row }) => (
+      <span className="text-sm text-muted-foreground">
+        {(row.original.service_slugs ?? []).length} / {(row.original.scheme_slugs ?? []).length}
+      </span>
+    ),
+  },
   { accessorKey: "display_order", header: "Order", cell: ({ row }) => row.getValue("display_order") ?? "-" },
   {
     accessorKey: "is_active",

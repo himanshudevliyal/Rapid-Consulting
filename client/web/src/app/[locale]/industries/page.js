@@ -7,6 +7,7 @@ import { contentPageMetadata, robots } from "@/lib/seo";
 import { PageAlternates } from "@/components/layout/page-alternates";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { resolveContentPath } from "@/lib/pages/resolve";
+import { loadInitialList } from "@/lib/content/loaders";
 import { IndustriesPage } from "./_components/IndustriesPage";
 
 const PATH = "/industries";
@@ -28,6 +29,7 @@ export default async function IndustriesRoute({ params }) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const has = hasTranslation(t);
+  const initialData = await loadInitialList("industry");
   return (
     <>
       <PageAlternates
@@ -48,6 +50,7 @@ export default async function IndustriesRoute({ params }) {
           t={t}
           has={has}
           image="/assets/hero-section.jpg"
+          initialData={initialData}
         />
       </main>
     </>

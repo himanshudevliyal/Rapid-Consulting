@@ -9,9 +9,8 @@ import { PageView } from "@/components/pages/page-view";
 import { loadDetail, loadStaticParams } from "@/lib/content/loaders";
 
 // Article pages: the published record from the API (cached; the admin panel
-// refreshes it on save), rendered with the same template as before.
-// Slugs the API does not know yet fall back to the built-in page (see
-// CONTENT_STATIC_FALLBACK); unknown ones are a 404.
+// refreshes the page the moment it is saved). Nothing is built into the
+// website: an unknown or unpublished slug is a 404.
 export const dynamicParams = true;
 
 export async function generateStaticParams({ params }) {
@@ -41,7 +40,7 @@ export default async function ArticleDetailRoute({ params }) {
   const path = `/articles/${slug}`;
   return (
     <>
-      <PageAlternates en={`/en${path}`} hi={found.page.hasHindi ? `/hi${path}` : null} />
+      <PageAlternates en={`/en${path}`} hi={null} />
       <PageView page={found.page} t={t} has={has} />
     </>
   );

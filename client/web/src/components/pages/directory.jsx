@@ -8,18 +8,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ContentCard } from "./content-card";
 import { filterDirectory, schemeTopic } from "@/lib/pages/discovery";
-import {
-  industryItems,
-  industryOptions,
-  normalizeIndustry,
-} from "@/lib/pages/industry-catalogue";
 import Section from "../layout/section";
 import { CaseCard } from "../case-card";
 
 const PAGE_SIZE = 12;
 
 // Searchable archive for schemes, guides & articles, case studies and industries.
-export function Directory({ items, kind, copyById = {}, industry = "" }) {
+// `industries` (schemes / services) are the API's industry summaries: each one
+// lists the scheme and service slugs chosen for it in the admin panel.
+export function Directory({ items, kind, copyById = {}, industry = "", industries = [] }) {
   const locale = useLocale();
   const t = useTranslations();
   const has = hasTranslation(t);
@@ -28,7 +25,22 @@ export function Directory({ items, kind, copyById = {}, industry = "" }) {
   const [format, setFormat] = useState("");
   const [family, setFamily] = useState("");
   const [limit, setLimit] = useState(PAGE_SIZE);
-  const supportsIndustry = kind === "services" || kind === "schemes";
+  const supportsIndustry =
+    (kind === "services" || kind === "schemes") && industries.length > 0;
+  const normalizeIndustry = (value) =>
+    typeof value === "string" && industries.some((entry) => entry.id === value)
+      ? value
+      : "";
+  const industryOptions = () =>
+    industries.map((entry) => ({ id: entry.id, label: entry.title }));
+  // The industry's own list of schemes / services, in the order set in the admin panel.
+  const industryItems = (pool, industryId) => {
+    const record = industries.find((entry) => entry.id === industryId);
+    if (!record) return pool;
+    const slugs = new Set(kind === "schemes" ? record.schemeSlugs : record.serviceSlugs);
+    return pool.filter((item) => slugs.has(item.slug));
+  };
+  const industryKey = industries.map((entry) => entry.id).join(",");
   const [selectedIndustry, setIndustry] = useState(
     supportsIndustry ? normalizeIndustry(industry) : "",
   );
@@ -36,7 +48,8 @@ export function Directory({ items, kind, copyById = {}, industry = "" }) {
   const section = useRef(null);
   const focusIndex = useRef(null);
 
-  // Back/forward restores the industry filter kept in the URL.
+  // The industry filter lives in the URL (?industry=<slug>): read it when the
+  // list is ready and again on back/forward.
   useEffect(() => {
     if (!supportsIndustry) return;
     const restore = () => {
@@ -46,9 +59,10 @@ export function Directory({ items, kind, copyById = {}, industry = "" }) {
       setIndustry(normalizeIndustry(values.length === 1 ? values[0] : ""));
       setLimit(PAGE_SIZE);
     };
+    restore();
     window.addEventListener("popstate", restore);
     return () => window.removeEventListener("popstate", restore);
-  }, [supportsIndustry]);
+  }, [supportsIndustry, industryKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (focusIndex.current !== null) {
@@ -71,7 +85,7 @@ export function Directory({ items, kind, copyById = {}, industry = "" }) {
 
   const filtered = useMemo(() => {
     const pool = supportsIndustry
-      ? industryItems(items, selectedIndustry, kind)
+      ? industryItems(items, selectedIndustry)
       : items;
     return filterDirectory(
       pool,
@@ -81,20 +95,22 @@ export function Directory({ items, kind, copyById = {}, industry = "" }) {
     ).filter(
       (item) => kind !== "schemes" || !family || schemeTopic(item) === family,
     );
-  }, [items, query, format, family, kind, selectedIndustry, supportsIndustry]);
+    }, [items, query, format, family, kind, selectedIndustry, supportsIndustry, industryKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const typeLabel = (type) =>
     has(`site.types.${type}`)
       ? t(`site.types.${type}`)
       : type.replaceAll("-", " ");
-  const groupLabel = (value, group) =>
-    has(`families.${value}`) ? t(`families.${value}`) : group || value;
+  const groupLabel = (value, group) => group || value;
   const formats = Array.from(new Set(items.map((p) => p.type)));
   const groups =
     kind === "schemes"
       ? Array.from(new Set(items.map(schemeTopic)))
           .sort()
-          .map((topic) => [topic, t(`site.topics.${topic}`)])
+          .map((topic) => [
+            topic,
+            has(`site.topics.${topic}`) ? t(`site.topics.${topic}`) : topic,
+          ])
       : Array.from(
           new Map(
             items
@@ -129,7 +145,7 @@ export function Directory({ items, kind, copyById = {}, industry = "" }) {
           {t("site.directory.for")}{" "}
           <strong>
             {
-              industryOptions(locale).find((r) => r.id === selectedIndustry)
+              industryOptions().find((r) => r.id === selectedIndustry)
                 ?.label
             }
           </strong>
@@ -163,7 +179,7 @@ export function Directory({ items, kind, copyById = {}, industry = "" }) {
               onChange={(event) => changeIndustry(event.target.value)}
             >
               <option value="">{t("site.directory.allIndustries")}</option>
-              {industryOptions(locale).map((option) => (
+              {industryOptions().map((option) => (
                 <option key={option.id} value={option.id}>
                   {option.label}
                 </option>

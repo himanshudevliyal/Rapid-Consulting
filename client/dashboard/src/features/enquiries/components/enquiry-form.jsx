@@ -1,138 +1,151 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import moment from "moment";
+import Loader from "@/components/loader";
+import { FieldError, FormCard as Card, FormColumns } from "@/components/form-layout";
 import { Button } from "@/components/ui/button";
 import ErrorMessage from "@/components/ui/error";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import Loader from "@/components/loader";
-import { useEnquiry, useCreateEnquiry, useUpdateEnquiry } from "@/hooks/use-enquiries";
-import { Loader2 } from "lucide-react";
-import { z } from "zod";
+import { ENQUIRY_STATUSES, enquiryUpdateSchema } from "@/schemas/enquiry";
+import { ENQUIRY_KINDS, sourceLabel } from "./enquiry-kinds";
 
-const enquirySchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email").optional().or(z.literal("")),
-  phone: z.string().optional(),
-  location: z.string().optional(),
-  requirement: z.string().optional(),
-  subject: z.string().optional(),
-  status: z.enum(["new", "contacted", "closed"]).default("new"),
-  notes: z.string().optional(),
-});
+const isWebLink = (value) => /^https?:\/\//i.test(value ?? "");
 
-export default function EnquiryForm({ id, type = "create" }) {
+// One row of the "submitted details" list; empty values are left out.
+function Detail({ label, children }) {
+  if (children === null || children === undefined || children === "") return null;
+  return (
+    <div className="grid gap-1 border-b py-3 last:border-b-0 sm:grid-cols-[170px_minmax(0,1fr)]">
+      <dt className="text-sm text-muted-foreground">{label}</dt>
+      <dd className="m-0 break-words text-sm whitespace-pre-wrap">{children}</dd>
+    </div>
+  );
+}
+
+// An enquiry as the website visitor submitted it (read-only) with the admin's
+// status and internal notes. Used for service enquiries and contact enquiries.
+export default function EnquiryForm({ id, kind = "enquiry" }) {
+  const config = ENQUIRY_KINDS[kind];
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
     reset,
-  } = useForm({ resolver: zodResolver(enquirySchema) });
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(enquiryUpdateSchema),
+    defaultValues: { status: "new", notes: "" },
+  });
 
-  const router = useRouter();
-  const handleSuccess = () => {
-    reset();
-    router.replace("/enquiries?page=1&limit=10");
-  };
-
-  const createMutation = useCreateEnquiry(handleSuccess);
-  const updateMutation = useUpdateEnquiry(id, handleSuccess);
-  const { data, isLoading, isError, error } = useEnquiry(id);
-
-  const onSubmit = (formData) => {
-    type === "create"
-      ? createMutation.mutate(formData)
-      : updateMutation.mutate(formData);
-  };
+  const updateMutation = config.useUpdate(id, () => {
+    toast.success(`${config.singular} updated`);
+    router.replace(config.listUrl);
+  });
+  const { data, isLoading, isError, error } = config.useItem(id);
 
   useEffect(() => {
-    if (!data) return;
-    reset({
-      name: data.name ?? "",
-      email: data.email ?? "",
-      phone: data.phone ?? "",
-      location: data.location ?? "",
-      requirement: data.requirement ?? "",
-      subject: data.subject ?? "",
-      status: data.status ?? "new",
-      notes: data.notes ?? "",
-    });
-  }, [data, reset]);
+    if (data) reset({ status: data.status ?? "new", notes: data.notes ?? "" });
+  }, [data?.id, data?.updated_at, reset]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (type === "edit" && isLoading) return <Loader />;
-  if (type === "edit" && isError) return <ErrorMessage error={error} />;
+  if (isLoading) return <Loader />;
+  if (isError) return <ErrorMessage error={error} />;
 
-  const isFormPending =
-    (type === "create" && createMutation.isPending) ||
-    (type === "edit" && updateMutation.isPending);
+  const submit = (values) => updateMutation.mutate({ status: values.status, notes: values.notes.trim() });
+  const isContact = kind === "contact";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
-        <div className="space-y-1">
-          <Label htmlFor="name">Name</Label>
-          <Input
-            id="name"
-            type="text"
-            className={cn({ "border-red-500": errors.name })}
-            {...register("name")}
-            placeholder="Enter name"
-          />
-          {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>}
-        </div>
+    <form onSubmit={handleSubmit(submit)} className="space-y-6">
+      <FormColumns
+        main={
+          <>
+            <Card title="Submitted details" description="Exactly what the visitor sent.">
+              <dl className="m-0">
+                <Detail label="Name">{data.name}</Detail>
+                <Detail label="Phone">
+                  <a href={`tel:${data.phone}`} className="text-primary underline-offset-2 hover:underline">
+                    {data.phone}
+                  </a>
+                </Detail>
+                <Detail label="Email">
+                  {data.email && (
+                    <a href={`mailto:${data.email}`} className="text-primary underline-offset-2 hover:underline">
+                      {data.email}
+                    </a>
+                  )}
+                </Detail>
+                <Detail label="Location">{data.location}</Detail>
+                <Detail label="Subject">{data.subject}</Detail>
+                <Detail label={isContact ? "Message" : "Requirement"}>
+                  {isContact ? data.message : data.requirement}
+                </Detail>
+              </dl>
+            </Card>
 
-        <div className="space-y-1">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" {...register("email")} placeholder="Enter email" />
-          {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
-        </div>
+            <Card title="Where it came from" description="The page the form was submitted on.">
+              <dl className="m-0">
+                <Detail label="Service / product">{data.service_name}</Detail>
+                <Detail label="Page title">{data.page_title}</Detail>
+                <Detail label="Page URL">
+                  {isWebLink(data.page_url) ? (
+                    <a
+                      href={data.page_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary underline-offset-2 hover:underline"
+                    >
+                      {data.page_url}
+                    </a>
+                  ) : (
+                    data.page_url
+                  )}
+                </Detail>
+                <Detail label="Page / service code">{data.page_id}</Detail>
+                <Detail label="Form">{sourceLabel(kind, data.source)}</Detail>
+                <Detail label="Received">{moment(data.created_at).format("DD MMM YYYY, HH:mm")}</Detail>
+              </dl>
+            </Card>
+          </>
+        }
+        side={
+          <Card title="Follow-up" description="Only visible here, never to the visitor.">
+            <div className="space-y-1">
+              <Label htmlFor="status">Status</Label>
+              <select
+                id="status"
+                className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
+                {...register("status")}
+              >
+                {ENQUIRY_STATUSES.map((status) => (
+                  <option key={status.value} value={status.value}>
+                    {status.label}
+                  </option>
+                ))}
+              </select>
+              <FieldError error={errors.status} />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="notes">Internal notes</Label>
+              <Textarea id="notes" rows={6} {...register("notes")} placeholder="Call details, next steps…" />
+              <FieldError error={errors.notes} />
+            </div>
+          </Card>
+        }
+      />
 
-        <div className="space-y-1">
-          <Label htmlFor="phone">Phone</Label>
-          <Input id="phone" type="text" {...register("phone")} placeholder="Enter phone" />
-        </div>
-
-        <div className="space-y-1">
-          <Label htmlFor="location">Location</Label>
-          <Input id="location" type="text" {...register("location")} placeholder="Enter location" />
-        </div>
-
-        <div className="space-y-1">
-          <Label htmlFor="subject">Subject</Label>
-          <Input id="subject" type="text" {...register("subject")} placeholder="Enter subject" />
-        </div>
-
-        <div className="space-y-1">
-          <Label htmlFor="status">Status</Label>
-          <select
-            id="status"
-            className="border-input bg-background flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm"
-            {...register("status")}
-          >
-            <option value="new">New</option>
-            <option value="contacted">Contacted</option>
-            <option value="closed">Closed</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="space-y-1">
-        <Label htmlFor="requirement">Requirement</Label>
-        <Textarea id="requirement" rows={3} {...register("requirement")} placeholder="Enter requirement details" />
-      </div>
-
-      <div className="space-y-1">
-        <Label htmlFor="notes">Notes</Label>
-        <Textarea id="notes" rows={3} {...register("notes")} placeholder="Internal notes" />
-      </div>
-
-      <div className="text-end">
-        <Button type="submit" disabled={isFormPending}>
-          {isFormPending && <Loader2 className="animate-spin" />} Submit
+      <div className="sticky bottom-0 z-10 -mx-4 flex items-center justify-end gap-3 border-t bg-background/95 px-4 py-3 backdrop-blur">
+        <Button type="button" variant="outline" asChild>
+          <Link href={config.listUrl}>Back to list</Link>
+        </Button>
+        <Button type="submit" disabled={updateMutation.isPending}>
+          {updateMutation.isPending && <Loader2 className="mr-2 animate-spin" />} Save changes
         </Button>
       </div>
     </form>

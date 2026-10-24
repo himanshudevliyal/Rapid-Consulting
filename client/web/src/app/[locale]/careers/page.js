@@ -7,6 +7,7 @@ import { contentPageMetadata, robots } from "@/lib/seo";
 import { PageAlternates } from "@/components/layout/page-alternates";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { resolveContentPath } from "@/lib/pages/resolve";
+import { loadJobs } from "@/lib/content/site-data";
 import { CareersPage } from "./_components/CareersPage";
 
 const PATH = "/careers";
@@ -29,6 +30,7 @@ export default async function CareersRoute({ params }) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const has = hasTranslation(t);
+  const jobs = await loadJobs();
 
   return (
     <>
@@ -47,6 +49,8 @@ export default async function CareersRoute({ params }) {
         t={t}
         has={has}
         image={HERO_IMAGE}
+        jobs={jobs}
+        locale={locale}
       />
     </>
   );

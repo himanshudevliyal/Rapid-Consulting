@@ -14,6 +14,7 @@ export const articleFormSchema = z.object({
   cover_image: z.string().trim().max(500, "Max 500 characters"),
   category_id: z.string(),
   tags: z.string(),
+  type: z.enum(["article", "guide"]),
   is_published: z.boolean(),
   content: z.string(),
   meta_title: z.string().trim().max(255, "Max 255 characters"),

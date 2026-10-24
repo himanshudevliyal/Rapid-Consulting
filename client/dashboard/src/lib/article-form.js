@@ -7,6 +7,7 @@ export const emptyArticle = {
   cover_image: "",
   category_id: "",
   tags: "",
+  type: "article",
   is_published: false,
   content: "",
   meta_title: "",
@@ -23,6 +24,7 @@ export const toFormValues = (article) => {
     cover_image: article.cover_image ?? "",
     category_id: article.category_id ?? "",
     tags: Array.isArray(article.tags) ? article.tags.join(", ") : "",
+    type: article.type === "guide" ? "guide" : "article",
     is_published: !!article.is_published,
     content: article.content ?? "",
     meta_title: article.meta_title ?? "",
@@ -42,6 +44,7 @@ export const buildPayload = (values) => {
       .split(",")
       .map((tag) => tag.trim())
       .filter(Boolean),
+    type: values.type,
     is_published: values.is_published,
     content: values.content,
     meta_title: values.meta_title.trim(),

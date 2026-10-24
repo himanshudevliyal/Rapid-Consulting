@@ -7,6 +7,9 @@ import { contentPageMetadata, robots } from "@/lib/seo";
 import { PageAlternates } from "@/components/layout/page-alternates";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { resolveContentPath } from "@/lib/pages/resolve";
+import { loadInitialList } from "@/lib/content/loaders";
+import { fetchAllIndustries, INDUSTRIES_TAG } from "@/services/industry-service";
+import { cachedFor } from "@/utils/api-helpers";
 import { SchemesPage } from "./_components/SchemesPage";
 
 const PATH = "/schemes";
@@ -28,6 +31,11 @@ export default async function SchemesRoute({ params }) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const has = hasTranslation(t);
+  // Published schemes and the industries (for the industry filter) from the API.
+  const [initialData, initialIndustries] = await Promise.all([
+    loadInitialList("scheme"),
+    fetchAllIndustries({}, cachedFor(INDUSTRIES_TAG)).catch(() => undefined),
+  ]);
   return (
     <>
       <PageAlternates
@@ -43,7 +51,14 @@ export default async function SchemesRoute({ params }) {
         backgroundImage="/assets/scheme.jpg"
       />
       <main id="main">
-        <SchemesPage page={found.page} t={t} has={has} image="/assets/scheme.jpg" />
+        <SchemesPage
+          page={found.page}
+          t={t}
+          has={has}
+          image="/assets/scheme.jpg"
+          initialData={initialData}
+          initialIndustries={initialIndustries}
+        />
       </main>
     </>
   );

@@ -1,10 +1,13 @@
 import Section from "@/components/layout/section";
 import Heading from "@/components/layout/heading";
+import { loadIndustries } from "@/lib/content/site-data";
 import { IndustryGrid } from "./industry-grid";
-import { INDUSTRY_IDS } from "./utils";
 
-export function IndustriesSection({ section, page, t, eyebrow, records }) {
-  const industryPages = INDUSTRY_IDS.map((id) => records.find((p) => p.id === id)).filter(Boolean);
+// The industries come from the API (admin panel -> Industries): add one and it
+// appears here with its image.
+export async function IndustriesSection({ section, t, eyebrow }) {
+  const industries = await loadIndustries();
+  if (!industries.length) return null;
 
   return (
     <Section
@@ -23,7 +26,7 @@ export function IndustriesSection({ section, page, t, eyebrow, records }) {
       </div>
 
       <div className="mt-10">
-        <IndustryGrid pages={industryPages} fullBleed={false} />
+        <IndustryGrid pages={industries} ctaLabel={t("site.card.explore")} tagLabel={t("site.types.industry")} />
       </div>
     </Section>
   );

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { submitEnquiry, submitQuery } from "@/services/enquiry-service";
+import { submitContactEnquiry, submitEnquiry, submitQuery } from "@/services/enquiry-service";
 import { apiErrorMessage } from "@/utils/api-helpers";
 
 // Both hooks return the React Query mutation (mutate / mutateAsync, isPending,
@@ -13,5 +13,8 @@ const formMutation = (mutationFn) => () => {
 // "Request a callback" -> POST /enquiries
 export const useSubmitEnquiry = formMutation(submitEnquiry);
 
-// Contact-us -> POST /queries
+// Contact Us page -> POST /contact-enquiries
+export const useSubmitContactEnquiry = formMutation(submitContactEnquiry);
+
+// Older contact-us -> POST /queries
 export const useSubmitQuery = formMutation(submitQuery);

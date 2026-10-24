@@ -52,6 +52,7 @@ export function CaseCard({
   return (
     <Link
       href={item.href}
+      data-case-card
       className="group   text-white!  relative isolate flex min-h-[460px] flex-col overflow-hidden rounded-[1.75rem] bg-[#1f5d57] p-4 shadow-[0_18px_40px_-20px_rgba(9,38,62,0.45)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-20px_rgba(9,38,62,0.55)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#eaff6b]"
     >
       {/* background photo / pattern */}

@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { defaultLocale, isLocale } from "@/i18n/routing";
 import { fetchServiceByCode, fetchServices } from "@/services/service-service";
+import { loadIndustries } from "@/lib/content/site-data";
 import { localizeService } from "@/lib/content";
 import { mainSiteHref, servicesHref } from "@/lib/site";
 import { servicesIndexMetadata } from "@/lib/seo";
@@ -33,7 +34,12 @@ export default async function ServicesIndex({ params, searchParams }) {
   if (!isLocale(locale)) notFound();
   setRequestLocale(locale);
 
-  const [page, services, t] = await Promise.all([getIndexPage(locale), getServices(locale), getTranslations({ locale })]);
+  const [page, services, industries, t] = await Promise.all([
+    getIndexPage(locale),
+    getServices(locale),
+    loadIndustries(),
+    getTranslations({ locale }),
+  ]);
 
   if (page?.is_fallback) redirect(`${servicesHref(defaultLocale)}?language=${locale}-unavailable`);
 
@@ -60,7 +66,7 @@ export default async function ServicesIndex({ params, searchParams }) {
       />
       
        
-        <ServicesDirectory items={services} industry={typeof industry === "string" ? industry : ""} />
+        <ServicesDirectory items={services} industries={industries} industry={typeof industry === "string" ? industry : ""} />
         {content && <ServiceGuidance sections={content.sections} />}
        
         <ClientTicker />

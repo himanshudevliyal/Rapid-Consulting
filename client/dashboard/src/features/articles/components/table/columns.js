@@ -41,6 +41,15 @@ export const columns = (openModal, setId) => [
     ),
   },
   {
+    accessorKey: "type",
+    header: "Type",
+    cell: ({ row }) => (
+      <Badge variant={row.original.type === "guide" ? "default" : "outline"}>
+        {row.original.type === "guide" ? "Guide" : "Article"}
+      </Badge>
+    ),
+  },
+  {
     accessorKey: "category",
     header: "Category",
     cell: ({ row }) =>

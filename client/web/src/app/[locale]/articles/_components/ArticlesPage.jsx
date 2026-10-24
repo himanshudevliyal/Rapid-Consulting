@@ -10,8 +10,7 @@
 
 import Image from "next/image";
 
-import { getSummaries } from "@/lib/pages/content";
-import { linkedContentIds } from "@/lib/pages/card-copy";
+import { linksApiContent } from "@/lib/pages/card-copy";
 import { ClientTicker } from "@/components/common/client-ticker";
 import { ContactExperience } from "@/components/form/contact-experience";
 import { ArticlesDirectory } from "./ArticlesDirectory";
@@ -20,24 +19,14 @@ import Heading from "@/components/layout/heading";
 import Section from "@/components/layout/section";
 
 /**
- * Articles come from the API (ArticlesDirectory); `initialData` is the list the
- * server already fetched and `staticItems` the built-in guides (plus built-in
- * articles while they are being moved into the admin panel).
+ * Articles and guides come from the API (ArticlesDirectory); `initialData` is
+ * the list the server already fetched.
  */
-export function ArticlesPage({ page, t, has, image = "/assets/articles.jpg", initialData, staticItems = [] }) {
+export function ArticlesPage({ page, t, has, image = "/assets/articles.jpg", initialData }) {
   // ── Data ────────────────────────────────────────────────────────────────────
-  // Sections that only list built-in articles / guides are replaced by the
-  // directory below, whatever the API holds.
-  const items = getSummaries(page.locale).filter((p) =>
-    ["article", "guide"].includes(p.type),
-  );
-
-  const guidanceSections = page.sections.filter(
-    (section) =>
-      !linkedContentIds(section.html).some((id) =>
-        items.some((item) => item.id === id),
-      ),
-  );
+  // Sections of the index copy that only list individual guides / articles are
+  // replaced by the live directory below; the rest is guidance.
+  const guidanceSections = page.sections.filter((section) => !linksApiContent(section.html));
 
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
@@ -69,7 +58,7 @@ export function ArticlesPage({ page, t, has, image = "/assets/articles.jpg", ini
       </Section>
 
       {/* ── Searchable directory ───────────────────────────────────────────── */}
-      <ArticlesDirectory initialData={initialData} staticItems={staticItems} />
+      <ArticlesDirectory initialData={initialData} />
 
       {/* ── Guidance accordion ────────────────────────────────────────────── */}
       <Section className="collection-guidance">

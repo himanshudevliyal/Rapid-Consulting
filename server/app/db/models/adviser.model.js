@@ -1,5 +1,5 @@
 "use strict";
-import { DataTypes } from "sequelize";
+import { DataTypes, Op } from "sequelize";
 
 let AdviserModel = null;
 
@@ -19,6 +19,8 @@ const init = async (sequelize) => {
       bio: { type: DataTypes.TEXT, allowNull: true },
       photo: { type: DataTypes.STRING(500), allowNull: true },
       linkedin_url: { type: DataTypes.STRING(500), allowNull: true },
+      // Heading the person is listed under on the website (e.g. "Leadership").
+      team_group: { type: DataTypes.STRING(100), allowNull: true },
       display_order: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -42,9 +44,18 @@ const init = async (sequelize) => {
 
 const create = async (data) => AdviserModel.create(data);
 
-const getAll = async ({ active_only = false } = {}) => {
+// Admin: every adviser (q filters by name / designation / group).
+// Public: active_only. Ordered the way the website lists them.
+const getAll = async ({ active_only = false, q } = {}) => {
   const where = {};
   if (active_only) where.is_active = true;
+  if (q) {
+    where[Op.or] = [
+      { name: { [Op.iLike]: `%${q}%` } },
+      { designation: { [Op.iLike]: `%${q}%` } },
+      { team_group: { [Op.iLike]: `%${q}%` } },
+    ];
+  }
   return AdviserModel.findAll({ where, order: [["display_order", "ASC"], ["name", "ASC"]] });
 };
 

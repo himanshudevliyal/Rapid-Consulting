@@ -16,6 +16,13 @@ export function useArticlesTableFilters() {
     clearOnDefault: true,
   });
 
+  // type=article | guide
+  const [typeFilter, setTypeFilter] = useQueryState("type", {
+    defaultValue: "",
+    shallow: false,
+    clearOnDefault: true,
+  });
+
   const [page, setPage] = useQueryState("page", {
     defaultValue: 1,
     parse: Number,
@@ -26,16 +33,19 @@ export function useArticlesTableFilters() {
   const resetFilters = useCallback(() => {
     setSearchQuery(null);
     setStatusFilter(null);
+    setTypeFilter(null);
     setPage(1);
-  }, [setSearchQuery, setStatusFilter, setPage]);
+  }, [setSearchQuery, setStatusFilter, setTypeFilter, setPage]);
 
-  const isAnyFilterActive = !!(searchQuery || statusFilter);
+  const isAnyFilterActive = !!(searchQuery || statusFilter || typeFilter);
 
   return {
     searchQuery,
     setSearchQuery,
     statusFilter,
     setStatusFilter,
+    typeFilter,
+    setTypeFilter,
     page,
     setPage,
     resetFilters,

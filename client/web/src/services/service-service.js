@@ -45,3 +45,11 @@ export const fetchServiceByCode = async (code, locale) => {
   );
   return body?.data ?? null;
 };
+
+// Service categories with their services: [{ id, title, slug, services: [...] }].
+// Built in the admin panel (Categories + the category of each service); the
+// menu, the home page and the services page all read this one list.
+export const fetchServiceCategories = async (locale) => {
+  const body = await http().get(`${endpoints.services.categories}${query({ locale })}`, cached("service-categories"));
+  return body?.data ?? [];
+};

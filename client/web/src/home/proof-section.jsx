@@ -4,17 +4,21 @@ import Section from "@/components/layout/section";
 import Heading from "@/components/layout/heading";
 import { Html } from "@/components/pages/content-primitives";
 import { linkedContentIds } from "@/lib/pages/card-copy";
-import { pageHref } from "@/lib/pages/content";
+import { pageRoutes } from "@/lib/page-routes";
+import { loadCaseStudies } from "@/lib/content/site-data";
+import { mainSiteHref } from "@/lib/site";
 import { paragraphs } from "./utils";
 import { CaseCard } from "@/components/case-card";
 
-export function ProofSection({ section, page, t, has, eyebrow, records }) {
-  const parts = paragraphs(section.html);
-  const isCase = (html) =>
-    linkedContentIds(html).some((id) => records.some((p) => p.id === id && p.type === "case-study"));
+const linksCase = (html) =>
+  linkedContentIds(html).some((id) => (pageRoutes[id] ?? "").startsWith("/case-studies/"));
 
-  const cards = parts.filter(isCase);
-  const notes = parts.filter((p) => !isCase(p));
+// Project experience: every published case study from the API, newest as the
+// API orders them. Add one in the admin panel and it shows up here.
+export async function ProofSection({ section, page, t, eyebrow }) {
+  const cases = await loadCaseStudies();
+  // Notes of the home copy that are not a case card stay as the callout.
+  const notes = paragraphs(section.html).filter((p) => !linksCase(p));
 
   return (
     <Section id={section.id} className="relative overflow-hidden bg-[#eef3f1] py-16 lg:py-24">
@@ -32,7 +36,7 @@ export function ProofSection({ section, page, t, has, eyebrow, records }) {
             headingClassName="text-3xl font-semibold leading-tight tracking-tight text-[#071f33] md:text-4xl lg:text-[2.75rem]"
           />
           <a
-            href={pageHref("W00", page.locale)}
+            href={mainSiteHref("W00", page.locale, false)}
             className="group inline-flex w-fit items-center gap-3 rounded-full bg-[#09263e] py-2 pl-6 pr-2 text-sm font-medium text-white! transition-colors hover:bg-[#1f5d57]"
           >
             {t("common.viewAll")}
@@ -44,23 +48,17 @@ export function ProofSection({ section, page, t, has, eyebrow, records }) {
 
         {/* Case cards */}
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {cards.map((html, i) => {
-            const id = linkedContentIds(html)[0];
-            const item = records.find((p) => p.id === id);
-            return item ? (
-              <CaseCard
-                key={id}
-                item={item}
-                html={html}
-                index={i}
-                label={page.locale === "hi" ? "केस स्टडी" : "Case Study"}
-                amountLabel={page.locale === "hi" ? "लगभग" : "Approximately"}
-                cta={page.locale === "hi" ? "केस देखें" : "Read the case"}
-              />
-            ) : (
-              <Html key={i} html={html} />
-            );
-          })}
+          {cases.map((item, index) => (
+            <CaseCard
+              key={item.id}
+              item={item}
+              html={item.description}
+              index={index}
+              label={page.locale === "hi" ? "केस स्टडी" : "Case Study"}
+              amountLabel={page.locale === "hi" ? "लगभग" : "Approximately"}
+              cta={page.locale === "hi" ? "केस देखें" : "Read the case"}
+            />
+          ))}
         </div>
 
         {/* Notes callout */}

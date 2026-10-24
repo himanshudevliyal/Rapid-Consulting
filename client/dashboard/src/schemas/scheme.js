@@ -21,6 +21,7 @@ export const schemeFormSchema = z.object({
   family_code: z.string(),
   tags: z.string(),
   is_published: z.boolean(),
+  is_featured: z.boolean(),
   description: z.string(),
   eligibility: z.string(),
   benefits: z.string(),

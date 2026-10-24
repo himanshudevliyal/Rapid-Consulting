@@ -1,21 +1,20 @@
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 
-export const fetchEnquiries = async (searchParams) => {
-  const { data } = await http().get(`${endpoints.enquiries.getAll}?${searchParams}`);
-  return data;
+// Service / callback enquiries (table `enquiries`). Submitted from the website;
+// the admin only reads them and updates status / notes, or deletes them.
+
+// List -> { total, page, limit, totalPages, data: [...] }
+export const fetchEnquiries = async (searchParams = "") => {
+  return await http().get(`${endpoints.enquiries.getAll}?${searchParams}`);
 };
 
+// One enquiry (the record itself).
 export const fetchEnquiry = async (id) => {
-  const { data } = await http().get(`${endpoints.enquiries.getAll}/${id}`);
-  return data;
+  return await http().get(`${endpoints.enquiries.getAll}/${id}`);
 };
 
-export const createEnquiry = async (data) => {
-  const response = await http().post(endpoints.enquiries.getAll, data);
-  return response.data;
-};
-
+// data: { status, notes }
 export const updateEnquiry = async (id, data) => {
   return await http().patch(`${endpoints.enquiries.getAll}/${id}`, data);
 };

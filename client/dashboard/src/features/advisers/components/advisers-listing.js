@@ -12,17 +12,28 @@ export default function AdvisersListing() {
   const [id, setId] = useState(null);
   const [isModal, setIsModal] = useState(false);
   const searchParams = useSearchParams();
-  const { data, isLoading, isError, error } = useAdvisers(searchParams.toString());
+  // The API returns every adviser (a short list) - search is done by the API, paging here.
+  const q = (searchParams.get("q") ?? "").trim();
+  const { data, isLoading, isError, error } = useAdvisers(q ? `q=${encodeURIComponent(q)}` : "");
   const deleteMutation = useDeleteAdviser(id, () => setIsModal(false));
   const openModal = () => setIsModal(true);
 
   if (isLoading) return <DataTableSkeleton columnCount={5} rowCount={10} />;
   if (isError) return <ErrorMessage error={error} />;
 
+  const rows = Array.isArray(data) ? data : (data?.data ?? []);
+
   return (
     <>
-      <DataTable columns={columns(openModal, setId)} data={data?.data ?? data?.advisers ?? []} totalItems={data?.total ?? 0} />
-      <DeleteDialog deleteMutation={deleteMutation} isOpen={isModal} setIsOpen={setIsModal} id={id} />
+      <DataTable columns={columns(openModal, setId)} data={rows} totalItems={rows.length} />
+      <DeleteDialog
+        deleteMutation={deleteMutation}
+        isOpen={isModal}
+        setIsOpen={setIsModal}
+        id={id}
+        title="Delete this person?"
+        description="The person is deleted for good. To hide them from the website instead, edit and untick Active."
+      />
     </>
   );
 }

@@ -1,19 +1,18 @@
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 
-export const fetchJobs = async (searchParams) => {
-  const { data } = await http().get(`${endpoints.jobs.getAll}?${searchParams}`);
-  return data;
+// Admin list: every job, closed ones included -> { total, page, limit, totalPages, data: [...] }
+export const fetchJobs = async (searchParams = "") => {
+  return await http().get(`${endpoints.jobs.list}?${searchParams}`);
 };
 
+// One job (the record itself).
 export const fetchJob = async (id) => {
-  const { data } = await http().get(`${endpoints.jobs.getAll}/${id}`);
-  return data;
+  return await http().get(`${endpoints.jobs.getAll}/${id}`);
 };
 
 export const createJob = async (data) => {
-  const response = await http().post(endpoints.jobs.getAll, data);
-  return response.data;
+  return await http().post(endpoints.jobs.getAll, data);
 };
 
 export const updateJob = async (id, data) => {

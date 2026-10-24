@@ -1,22 +1,22 @@
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 
-export const fetchAdvisers = async (searchParams) => {
-return await http().get(`${endpoints.advisers.getAll}?${searchParams}`);
+// Admin list: every adviser, hidden ones included -> [...]
+export const fetchAdvisers = async (searchParams = "") => {
+  return await http().get(`${endpoints.advisers.list}?${searchParams}`);
 };
 
+// One adviser (the record itself).
 export const fetchAdviser = async (id) => {
-  const { data } = await http().get(`${endpoints.advisers.getAll}/${id}`);
-  return data;
+  return await http().get(`${endpoints.advisers.getAll}/${id}`);
 };
 
 export const createAdviser = async (data) => {
-  const response = await http().post(endpoints.advisers.getAll, data, true);
-  return response.data;
+  return await http().post(endpoints.advisers.getAll, data);
 };
 
 export const updateAdviser = async (id, data) => {
-  return await http().put(`${endpoints.advisers.getAll}/${id}`, data, true);
+  return await http().put(`${endpoints.advisers.getAll}/${id}`, data);
 };
 
 export const deleteAdviser = async (id) => {

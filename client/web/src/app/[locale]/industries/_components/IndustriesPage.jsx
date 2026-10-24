@@ -10,39 +10,26 @@
 
 import Image from "next/image";
 
-import { getSummaries } from "@/lib/pages/content";
-import { linkedContentIds } from "@/lib/pages/card-copy";
+import { linksApiContent } from "@/lib/pages/card-copy";
 import { ClientTicker } from "@/components/common/client-ticker";
-import { Directory } from "@/components/pages/directory";
 import { Html } from "@/components/pages/content-primitives";
 import Heading from "@/components/layout/heading";
 import Section from "@/components/layout/section";
-
-const INDUSTRY_TYPES = ["industry"];
+import { IndustriesDirectory } from "./IndustriesDirectory";
 
 export function IndustriesPage({
   page,
   t,
   has,
-  industry = "",
   image = "/assets/hero-section.jpg",
+  initialData,
 }) {
   // ── Data ────────────────────────────────────────────────────────────────────
-  const items = getSummaries(page.locale).filter((p) =>
-    INDUSTRY_TYPES.includes(p.type),
-  );
-
-  // Sections that link to a specific industry item → shown in the "other
-  // industries" expandable details below the directory.
-  const industrySections = page.sections.filter((section) =>
-    linkedContentIds(section.html).some((id) =>
-      items.some((item) => item.type === "industry" && item.id === id),
-    ),
-  );
-
-  // Remaining sections go into the generic guidance accordion
+  // The industries come from the API (IndustriesDirectory). Sections of the
+  // index copy that only describe individual industries are replaced by it;
+  // the rest is guidance.
   const guidanceSections = page.sections.filter(
-    (s) => !industrySections.includes(s),
+    (section) => !linksApiContent(section.html),
   );
 
   // ── Render ──────────────────────────────────────────────────────────────────
@@ -74,36 +61,8 @@ export function IndustriesPage({
         </div>
       </Section>
 
-      {/* ── Searchable directory ───────────────────────────────────────────── */}
-      <Directory
-        items={items}
-        kind="industries"
-        copyById={{}}
-        industry={industry}
-      />
-
-      {/* ── Other industries accordion (Industries-specific) ──────────────── */}
-      {industrySections.length > 0 && (
-        <Section
-          className="collection-guidance industry-directory-details"
-          aria-labelledby="industry-details-heading"
-        >
-          <Heading
-            heading={t("site.collection.otherIndustries")}
-            headingClassName="text-2xl sm:text-3xl mb-6 text-left"
-            className="text-left mb-0"
-          />
-          {industrySections.map((s) => (
-            <details key={s.id} id={s.id}>
-              <summary>
-                {s.title}
-                <span aria-hidden="true">+</span>
-              </summary>
-              <Html html={s.html} />
-            </details>
-          ))}
-        </Section>
-      )}
+      {/* ── Industries (from the API) ─────────────────────────────────────── */}
+      <IndustriesDirectory initialData={initialData} />
 
       {/* ── Generic guidance accordion ────────────────────────────────────── */}
       {guidanceSections.length > 0 && (

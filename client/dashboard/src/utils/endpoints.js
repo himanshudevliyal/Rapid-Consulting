@@ -27,13 +27,14 @@ export const endpoints = {
   blogs: { getAll: "/blogs" },
   // RC modules
   enquiries: { getAll: "/enquiries" },
+  contactEnquiries: { getAll: "/contact-enquiries" },
   // getAll = base path for create / update / delete / by id; list = admin list incl. drafts
   articles: { getAll: "/articles", list: "/articles/all" },
   // getAll = base path for create / update / delete / by id; list = admin list incl. drafts
   caseStudies: { getAll: "/case-studies", list: "/case-studies/all" },
-  advisers: { getAll: "/advisers" },
-  jobs: { getAll: "/jobs" },
-  industries: { getAll: "/industries" },
+  advisers: { getAll: "/advisers", list: "/advisers/all" },
+  jobs: { getAll: "/jobs", list: "/jobs/all" },
+  industries: { getAll: "/industries", list: "/industries/all" },
   // getAll = base path for create / update / delete / by id; list = admin list incl. drafts
   schemes: { getAll: "/schemes", list: "/schemes/all" },
   services: { getAll: "/services" },

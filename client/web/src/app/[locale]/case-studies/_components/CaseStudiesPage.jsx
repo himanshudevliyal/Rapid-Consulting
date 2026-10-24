@@ -10,8 +10,7 @@
 
 import Image from "next/image";
 
-import { pageHref } from "@/lib/pages/content";
-import { cardCopy, linkedContentIds } from "@/lib/pages/card-copy";
+import { linksApiContent } from "@/lib/pages/card-copy";
 import { ClientTicker } from "@/components/common/client-ticker";
 import { ContactExperience } from "@/components/form/contact-experience";
 import { CaseStudiesDirectory } from "./CaseStudiesDirectory";
@@ -21,8 +20,7 @@ import Section from "@/components/layout/section";
 
 /**
  * Case studies come from the API (CaseStudiesDirectory); `initialData` is the
- * list the server already fetched and `staticItems` the built-in case studies
- * kept while they are being moved into the admin panel.
+ * list the server already fetched.
  */
 export function CaseStudiesPage({
   page,
@@ -30,35 +28,11 @@ export function CaseStudiesPage({
   has,
   image = "/assets/case-studies.png",
   initialData,
-  staticItems = [],
 }) {
   // ── Data ────────────────────────────────────────────────────────────────────
-  // Sections that embed a specific case-study link → used as rich card overrides
-  const caseSections = page.sections.filter((s) =>
-    linkedContentIds(s.html).some((id) => id.startsWith("RC-CS")),
-  );
-
-  // Build per-case-study card copy from those sections
-  const copyById = Object.fromEntries(
-    caseSections.map((s) => {
-      const id = linkedContentIds(s.html).find((id) => id.startsWith("RC-CS"));
-      return [
-        id,
-        {
-          ...cardCopy(
-            s.html.replace(/<p><strong>[^<]*₹[\s\S]*?<\/strong><\/p>/g, ""),
-            pageHref(id, page.locale),
-          ),
-          sectionId: s.id,
-        },
-      ];
-    }),
-  );
-
-  // Guidance/FAQ sections — everything that isn't a case-specific section
-  const guidanceSections = page.sections.filter(
-    (s) => !caseSections.includes(s),
-  );
+  // Sections of the index copy that only list individual case studies are
+  // replaced by the live directory; the rest is guidance.
+  const guidanceSections = page.sections.filter((s) => !linksApiContent(s.html));
 
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
@@ -89,12 +63,8 @@ export function CaseStudiesPage({
         </div>
       </Section>
 
-      {/* ── Searchable directory (rich card overrides from copyById) ──────── */}
-      <CaseStudiesDirectory
-        initialData={initialData}
-        staticItems={staticItems}
-        copyById={copyById}
-      />
+      {/* ── Searchable directory ───────────────────────────────────────────── */}
+      <CaseStudiesDirectory initialData={initialData} />
 
       {/* ── Guidance accordion ────────────────────────────────────────────── */}
       <Section className="collection-guidance">
