@@ -1,38 +1,33 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SidebarHeader, useSidebar } from "./ui/sidebar";
-import { useTheme } from "next-themes";
 import Image from "next/image";
+
+// The logo is dark on a transparent background: in the dark theme it is drawn
+// white (brightness-0 + invert), in the light theme as it is.
+const LOGO_THEME = "dark:brightness-0 dark:invert";
 
 export default function SideHeader() {
   const { state } = useSidebar();
-  const [isClient, setIsClient] = useState(false);
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) return;
 
   return (
     <SidebarHeader className={""}>
       <div className="flex pl-2">
         {state === "collapsed" ? (
           <Image
-            src={theme === "light" ? "/logo-icon.png" : "/logo-icon.png"}
+            src="/logo-icon.png"
             width={50}
             height={50}
-            alt="Radhayu herbals"
-            className="shrink-0 mx-auto"
+            alt="Rapid Consulting"
+            className={`shrink-0 mx-auto ${LOGO_THEME}`}
           />
         ) : (
           <Image
-            src={theme === "light" ? "/logo.png" : "/logo.png"}
+            src="/logo.png"
             width={130}
             height={130}
-            alt="Radhayu herbals"
-            className="shrink-0  rounded-sm"
+            alt="Rapid Consulting"
+            className={`shrink-0 rounded-sm ${LOGO_THEME}`}
           />
         )}
       </div>
