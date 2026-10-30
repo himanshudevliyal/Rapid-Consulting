@@ -1,0 +1,47 @@
+{
+  "wb": {
+    "nav": {
+      "approvals": "Approvals",
+      "subsidies": "Subsidies",
+      "yourProject": "Your Project",
+      "industries": "Industries",
+      "work": "Work",
+      "resources": "Resources",
+      "about": "About"
+    },
+    "stages": {
+      "buying-land": "Buying land",
+      "setting-up": "Setting up",
+      "running": "Running",
+      "expanding": "Expanding",
+      "file-stuck": "A file stuck at any stage"
+    },
+    "stageText": {
+      "buying-land": "Check the land and its use before you commit to the plot.",
+      "setting-up": "Approvals, registrations and subsidies for a new unit.",
+      "running": "Renewals, compliance and support for a unit already working.",
+      "expanding": "Approvals and support when you add capacity or land.",
+      "file-stuck": "Talk to Rapid about where it is waiting and the next step."
+    },
+    "menu": {
+      "more": "More",
+      "approvalsOverview": "Approvals overview",
+      "otherSupport": "Other business support",
+      "financeInsurance": "Finance and insurance",
+      "licences": "Licences and certifications",
+      "allServices": "All services",
+      "faqGroup": "Questions",
+      "yourProject": {
+        "title": "Start from where your project is",
+        "text": "Choose the stage you are at. Each one leads to the right place on the Your Project page.",
+        "overview": "See all stages",
+        "choose": "Choose your stage"
+      }
+    },
+    "footer": {
+      "allServices": "All services",
+      "financeInsurance": "Finance and insurance",
+      "faqs": "FAQs"
+    }
+  }
+}

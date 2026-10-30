@@ -1,0 +1,20 @@
+/* Batch 2, agent b2d: scheme directory, case archive, Resources hub, FAQ hub,
+   articles index. Almost everything is Tailwind in the components; this file
+   holds the few rules that need a name.
+
+   Import once, after globals.css and wc2.css:  import "@/styles/b2d.css";
+   (app/[locale]/layout.js, next to the other style imports). */
+
+/* The sticky sub-menu of the Resources hub ("Find answers:") and the FAQ hub ("Jump to:") uses
+   the shared SectionNav look, the same as every other page. */
+
+/* The scheme rows: a whole row is one link; keep the arrow from shrinking. */
+#scheme-directory [data-directory-item] > a svg {
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #scheme-directory [data-directory-item] > a {
+    transition: none;
+  }
+}

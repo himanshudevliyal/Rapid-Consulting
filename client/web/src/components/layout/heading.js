@@ -16,7 +16,7 @@ export default function Heading({
       {eyebrow && (
         <span
           className={cn(
-            "mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]",
+            "mb-2 inline-block text-xs font-semibold uppercase tracking-[0.14em] text-[#1f5d57]",
             eyebrowClassName
           )}
         >

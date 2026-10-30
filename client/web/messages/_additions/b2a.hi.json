@@ -1,0 +1,45 @@
+{
+  "sitePages": {
+    "videoCardLabel": "पढ़ने की जगह देखें",
+    "videoPlaceholderLabel": "प्लेसहोल्डर - वीडियो रैपिड उपलब्ध कराएगा",
+    "videoPlaceholderCaption": "पूरा विवरण नीचे पढ़ें।",
+    "freeSeal": "पहली समीक्षा निःशुल्क",
+    "railChoose": "एक चुनें",
+    "railSubmit": "मेरे अगले कदम बताएँ",
+    "railName": "आपका नाम",
+    "railPhone": "मोबाइल नंबर",
+    "railDistrict": "ज़िला",
+    "railActivity": "आप किस पर काम कर रहे हैं?",
+    "railOptional": "वैकल्पिक",
+    "railConsent": "रैपिड इस पूछताछ के बारे में मुझे फ़ोन या व्हाट्सऐप पर संपर्क कर सकता है।",
+    "railConsentHelp": "कृपया बॉक्स पर टिक करें ताकि हम आपसे संपर्क कर सकें।",
+    "railChoiceError": "कृपया एक विकल्प चुनें",
+    "railAnother": "एक और अनुरोध भेजें",
+    "railWhatsapp": "व्हाट्सऐप पर रैपिड से बात करें",
+    "closingPhotoNote": "प्लेसहोल्डर - अंतिम फ़ोटो रैपिड उपलब्ध कराएगा",
+    "claimStuck": "क्लेम अटका है?",
+    "schemeSearchLabel": "सब्सिडी, योजना या खर्च के नाम से खोजें",
+    "schemeSearchButton": "खोजें",
+    "schemeSearchChips": "शॉर्टकट",
+    "qaSummary": "सारांश",
+    "sampleCase": "नमूना केस",
+    "caseLabel": "केस स्टडी",
+    "tileLocation": "स्थान",
+    "tileSector": "क्षेत्र",
+    "tileRole": "रैपिड की भूमिका",
+    "tilesRegion": "केस टाइल",
+    "tilesPrev": "पिछले केस",
+    "tilesNext": "अगले केस",
+    "sampleCasesNote": "नमूना केस: ये टाइल केवल लेआउट दिखाती हैं। ये असली क्लाइंट केस नहीं हैं।",
+    "quotesRegion": "आप क्या सुन सकते हैं",
+    "quotesPrev": "पिछला",
+    "quotesNext": "अगला",
+    "casesPrev": "पिछली केस स्टडी",
+    "casesNext": "अगली केस स्टडी"
+  },
+  "wb": {
+    "menu": {
+      "subsidiesOverview": "सब्सिडी का परिचय"
+    }
+  }
+}

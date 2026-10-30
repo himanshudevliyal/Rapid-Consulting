@@ -1,0 +1,88 @@
+/* Round 3, section C: stage sections and the hub hero (components/site-pages/
+   stage-section.jsx, stage-carousel.jsx, hub-hero.jsx). Most of the styling is
+   Tailwind in the components; this file holds what needs a name: the rust
+   eyebrow, the side card title and the round seal.
+
+   Import once, after globals.css:  import "@/styles/wc2.css";
+   (app/[locale]/layout.js, next to the other style imports). */
+
+:root {
+  --wc2-rust: #b3472d; /* small-caps eyebrows on light bands */
+  --wc2-lime: #eaff6b; /* the same eyebrows on the navy band, and action buttons */
+  --wc2-navy: #09263e;
+  --wc2-sage: #eef3f0; /* hero band */
+}
+
+.wc2-eyebrow {
+  display: inline-block;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wc2-rust);
+}
+
+.wc2-eyebrow--on-navy {
+  color: var(--wc2-lime);
+}
+
+/* "COMMON MISTAKES" / "YOU'LL NEED THESE IF" */
+.wc2-side-title {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wc2-navy);
+}
+
+/* The round seal on the hero card: a figure and a short label. */
+.wc2-seal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 5.25rem;
+  height: 5.25rem;
+  border-radius: 9999px;
+  background: var(--wc2-navy);
+  box-shadow:
+    inset 0 0 0 3px var(--wc2-lime),
+    0 10px 24px -14px rgba(9, 38, 62, 0.7);
+  text-align: center;
+  color: #fff;
+}
+
+.wc2-seal__value {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--wc2-lime);
+}
+
+.wc2-seal__label {
+  margin-top: 0.2rem;
+  max-width: 4rem;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Service cards row: keep the focus ring of a card visible inside the scroller. */
+.wc2-carousel ul {
+  scroll-padding-inline: 0.25rem;
+  padding-inline: 0.25rem;
+  margin-inline: -0.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wc2-carousel ul {
+    scroll-behavior: auto;
+  }
+}

@@ -4,7 +4,7 @@ import authorize from "../../helpers/authorize.js";
 import controller from "./controller.js";
 
 export default async function routes(fastify, options) {
-  fastify.post("/", {  }, controller.create);
+  fastify.post("/", { preHandler: [authorize("admin")] }, controller.create);
   fastify.post(
     "/:id/change-password",
     { preHandler: [authorize("admin")] },

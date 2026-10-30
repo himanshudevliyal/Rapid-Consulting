@@ -24,6 +24,11 @@ import adviserModel from "./models/adviser.model.js";
 import jobModel from "./models/job.model.js";
 import industryModel from "./models/industry.model.js";
 import schemeModel from "./models/scheme.model.js";
+import sessionModel from "./models/session.model.js";
+import communityGroupModel from "./models/community-group.model.js";
+import sitePageModel from "./models/site-page.model.js";
+import sitePageRevisionModel from "./models/site-page-revision.model.js";
+import siteSettingModel from "./models/site-setting.model.js";
 
 
 export default {
@@ -52,4 +57,10 @@ export default {
   JobModel: jobModel,
   IndustryModel: industryModel,
   SchemeModel: schemeModel,
+  SessionModel: sessionModel,
+  CommunityGroupModel: communityGroupModel,
+  // Round 2 (order matters: revisions reference site_pages).
+  SitePageModel: sitePageModel,
+  SitePageRevisionModel: sitePageRevisionModel,
+  SiteSettingModel: siteSettingModel,
 };

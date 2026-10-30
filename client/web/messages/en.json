@@ -38,7 +38,8 @@
       "industries": "Industries",
       "work": "Work",
       "resources": "Resources",
-      "about": "About"
+      "about": "About",
+      "subsidies": "Subsidies & Incentives"
     },
     "searchWebsite": "Search website",
     "openMenu": "Open menu",
@@ -68,7 +69,25 @@
     "peopleApproach": "People & approach",
     "workWithRapid": "Work with Rapid",
     "careers": "Careers",
-    "additionalServices": "Additional services"
+    "additionalServices": "Additional services",
+    "contactPage": "Contact us",
+    "callbackCta": "Request a callback",
+    "callbackShort": "Callback",
+    "pauseAnnouncements": "Pause announcements",
+    "playAnnouncements": "Play announcements",
+    "viewAllServices": "See every service",
+    "searchServices": "Search services",
+    "subsidies": {
+      "title": "Find the support your project may qualify for",
+      "text": "Explore scheme conditions and sources yourself, or have Rapid assess your project and carry the application forward.",
+      "advisory": "Subsidy & incentive advisory",
+      "advisoryGroup": "Rapid advisory",
+      "advisoryDetail": "Assessment, application and follow-up",
+      "discoveryGroup": "Scheme discovery",
+      "directory": "Browse the scheme directory",
+      "directoryDetail": "Every scheme with its status, conditions and official sources",
+      "featuredGroup": "Featured schemes"
+    }
   },
   "search": {
     "dialogTitle": "Search Rapid",
@@ -117,7 +136,15 @@
     "sendMessage": "Send Message",
     "tooLong": "This is too long. Please shorten it.",
     "contactSent": "Thank you. Your message has been received and our team will get back to you soon.",
-    "contactSendError": "We could not send your message. Please try again or choose WhatsApp."
+    "contactSendError": "We could not send your message. Please try again or choose WhatsApp.",
+    "callbackHeading": "Request a callback",
+    "mobileCallback": "Request a callback",
+    "emailLabel": "Email address",
+    "callLabel": "Call us",
+    "hoursLabel": "Working hours",
+    "hoursValue": "Mon–Sat, 09am–07pm",
+    "callPrefix": "Call",
+    "contactIntro": "Write to us and our team will get back to you."
   },
   "chat": {
     "eyebrow": "CHAT PREVIEW",
@@ -175,10 +202,15 @@
     "placeholderNote": "Client logo placeholders · Approved logos will be added here.",
     "note": "Businesses Rapid has worked with.",
     "logo": "Client logo {number}",
-    "pause": "Pause client logos"
+    "pause": "Pause client logos",
+    "play": "Play client logos"
   },
   "breadcrumb": {
-    "label": "Breadcrumb"
+    "label": "Breadcrumb",
+    "subsidies": "Subsidies & Incentives",
+    "schemes": "Schemes",
+    "about": "About",
+    "team": "Team"
   },
   "directory": {
     "aria": "Browse services",
@@ -380,7 +412,10 @@
       "services": "Our services",
       "proof": "Project experience",
       "resources": "Guides & schemes",
-      "contact": "Let’s talk"
+      "contact": "Let’s talk",
+      "clients": "Clients",
+      "faq": "Questions answered",
+      "updates": "Updates"
     },
     "allIndustries": "All industries",
     "directoryCount": {
@@ -418,5 +453,1493 @@
     "noIndustriesText": "Industries will be added soon. Please check back.",
     "noSchemesTitle": "No schemes yet",
     "noSchemesText": "New schemes are on their way. Please check back soon."
+  },
+  "enquiryDrawer": {
+    "heading": "Request a callback",
+    "eyebrow": "Discuss your project"
+  },
+  "homePage": {
+    "hero": {
+      "region": "Featured themes",
+      "previous": "Previous slide",
+      "next": "Next slide",
+      "selectorGroup": "Choose a slide",
+      "selector": "Slide {n} of {total}: {theme}",
+      "slideOf": "Slide {n} of {total}",
+      "discuss": "Discuss your project",
+      "slides": {
+        "subsidies": {
+          "theme": "Subsidies",
+          "headline": "Unlock subsidy opportunities for your next investment.",
+          "sub": "Relevant incentives and ownership of the agreed application work.",
+          "image": "Placeholder - subsidy application documents. Final photography to be supplied by Rapid."
+        },
+        "newUnit": {
+          "theme": "New unit",
+          "headline": "Get your new business unit moving.",
+          "sub": "Approvals, registrations and the documentation your project needs.",
+          "image": "Placeholder - new unit under construction. Final photography to be supplied by Rapid."
+        },
+        "expansion": {
+          "theme": "Expansion",
+          "headline": "Turn expansion plans into a funding-ready proposal.",
+          "sub": "Project preparation, finance documentation and relevant incentives.",
+          "image": "Placeholder - plant expansion and machinery. Final photography to be supplied by Rapid."
+        }
+      }
+    },
+    "labels": {
+      "clients": "Clients",
+      "faq": "Questions answered",
+      "updates": "Updates"
+    },
+    "approach": {
+      "cta": "Discuss your project"
+    },
+    "services": {
+      "subsidyGroup": "Named subsidies and incentives",
+      "otherGroup": "Rapid’s subsidy advisory",
+      "overview": "Rapid’s subsidy advisory overview",
+      "allSchemes": "All schemes",
+      "report": "Subsidy Viability Report",
+      "note": "A directory listing shows that a scheme is relevant to a type of project. It does not confirm that your project is eligible."
+    },
+    "cases": {
+      "investment": "Investment",
+      "projectInvestment": "Project investment",
+      "expenditure": "Expenditure",
+      "approximately": "Approximately",
+      "location": "Location",
+      "sector": "Sector",
+      "role": "Rapid’s role",
+      "noteInvestment": "Investment figure, not subsidy received.",
+      "noteExpenditure": "Recorded expenditure, not subsidy received.",
+      "image": "Placeholder - project photograph. Final photography to be supplied by Rapid."
+    },
+    "industries": {
+      "image": "Placeholder - {industry} photograph. Final photography to be supplied by Rapid."
+    }
+  },
+  "detail": {
+    "people": {
+      "writtenBy": "Written by",
+      "reviewedBy": "Reviewed by",
+      "reviewedOn": "Reviewed on {date}",
+      "reviewDatePending": "Review date to be confirmed",
+      "placeholderProfile": "Placeholder profile"
+    },
+    "sources": {
+      "navLabel": "References",
+      "reviewNote": "A source or drafting date is not a completed expert-review date."
+    },
+    "scheme": {
+      "factsTitle": "Scheme at a glance",
+      "assistanceType": "Type of assistance",
+      "activity": "Relevant activity",
+      "authority": "Administering authority",
+      "statusTitle": "Status and dates",
+      "status": {
+        "open": "Open",
+        "upcoming": "Upcoming",
+        "closed": "Closed",
+        "historical": "Historical"
+      },
+      "statusUnspecified": "Check the official source for current status.",
+      "officialSource": "Official source",
+      "closedNote": "Shown for reference. Do not assume applications are being accepted.",
+      "historicalNote": "Shown for reference as a past programme. Do not assume it is available now.",
+      "policyPeriod": "Policy period",
+      "applicationWindow": "Application window",
+      "reviewedOn": "Reviewed on"
+    },
+    "case": {
+      "location": "Location",
+      "sector": "Sector",
+      "rapidRole": "Rapid's role",
+      "investmentLabel": "Investment",
+      "evidenceEyebrow": "Evidence",
+      "evidenceTitle": "Evidence of the outcome",
+      "documentAlt": "Redacted supporting document",
+      "milestone": "Milestone",
+      "navEvidence": "Evidence"
+    },
+    "industry": {
+      "schemesEyebrow": "Subsidies & Incentives",
+      "servicesEyebrow": "Services",
+      "navSchemes": "Schemes",
+      "navServices": "Services",
+      "photoPlaceholder": "Placeholder - industry photography to be supplied by Rapid"
+    },
+    "nextSteps": {
+      "title": "Useful next steps",
+      "schemes": "Browse subsidies & incentives",
+      "services": "Find the service you need"
+    },
+    "team": {
+      "eyebrow": "Rapid Consulting team",
+      "photoPlaceholder": "Placeholder - photo to be supplied by Rapid",
+      "placeholderNote": "Placeholder profile - biography and photo to be supplied.",
+      "expertise": "Areas of expertise",
+      "linkedin": "LinkedIn profile",
+      "backToTeam": "Back to the team"
+    }
+  },
+  "svr": {
+    "name": "Subsidy Viability Report",
+    "teaser": {
+      "eyebrow": "Before you apply",
+      "body": "The {name} sets out the questions it answers, the information it needs from you and what the report contains.",
+      "cta": "See what the report covers",
+      "heading": {
+        "schemes": "Check how a scheme fits your project before you apply",
+        "scheme": "Considering this scheme for your project?",
+        "industry": "Planning an investment in this sector?",
+        "resources": "From general guidance to a view of your own project",
+        "home": "A clearer view of subsidy options for your project"
+      }
+    },
+    "meta": {
+      "description": "What the Subsidy Viability Report covers: the questions it answers, the project information it needs and how it connects to execution support."
+    },
+    "hero": {
+      "intro": "A structured look at how subsidy and incentive options relate to your project, set out in a report you can review with your team and advisers."
+    },
+    "questions": {
+      "eyebrow": "The questions",
+      "heading": "Questions the report answers",
+      "items": {
+        "1": "Which subsidy or incentive schemes are relevant to this project's activity, location and stage?",
+        "2": "How do the project facts compare with each scheme's published conditions?",
+        "3": "Which parts of the investment or activity need particular attention?",
+        "4": "What information and documents are needed before an application can be prepared?",
+        "5": "What are the sensible next steps, and which of them need professional support?"
+      }
+    },
+    "inputs": {
+      "eyebrow": "What we need",
+      "heading": "What we need from you",
+      "intro": "The more clearly the project is described, the more specific the report can be.",
+      "items": {
+        "1": "What the business does and where the unit is, or will be, located",
+        "2": "The stage of the project: planned, under construction or operating",
+        "3": "The planned investment, such as land, building, plant and machinery",
+        "4": "Existing registrations, approvals and any applications already made",
+        "5": "Any scheme you are already considering"
+      }
+    },
+    "contents": {
+      "eyebrow": "The report",
+      "heading": "What the report contains",
+      "items": {
+        "1": "The schemes considered and why each is, or is not, relevant",
+        "2": "A comparison of the project facts with the scheme conditions",
+        "3": "A checklist of information and documents to gather",
+        "4": "Points to confirm and risks to watch",
+        "5": "Suggested next steps, with the official sources used"
+      }
+    },
+    "sample": {
+      "eyebrow": "A closer look",
+      "heading": "See what the report looks like",
+      "label": "Sample report - to be supplied by Rapid",
+      "caption": "A sample of the report will be shown here."
+    },
+    "execution": {
+      "eyebrow": "What comes next",
+      "heading": "From report to execution",
+      "body": "The report is a starting point. If you decide to go ahead, Rapid can support the application, documents and follow-up for the scheme you choose, within an agreed scope.",
+      "schemes": "Subsidies and incentives",
+      "services": "Our services",
+      "cta": "Discuss your project",
+      "note": "Scheme conditions are set by the issuing authority. Always check the official source."
+    }
+  },
+  "community": {
+    "eyebrow": "WhatsApp updates",
+    "heading": "Get relevant updates in a Rapid group",
+    "intro": "Choose the group that matches your work. Each group lists the kinds of updates its members receive.",
+    "audience": "Who it is for",
+    "updates": "Useful updates",
+    "cadence": "How often: {cadence}",
+    "join": "Join the group",
+    "pending": "Invite link coming soon",
+    "groupLabel": "Join the WhatsApp group: {name}",
+    "separate": "Joining a group does not create a channel partnership, and the adviser partnership journey has its own terms. Private WhatsApp contact with Rapid is separate:",
+    "whatsapp": "message Rapid on WhatsApp",
+    "usefulHeading": "A useful update answers:",
+    "usefulText": "What changed? Who does it affect? What should the reader do, and by when? Include an official source."
+  },
+  "sessions": {
+    "meta": {
+      "title": "Live sessions",
+      "description": "Expert sessions from Rapid, with recordings and related resources kept here after the event where available."
+    },
+    "eyebrow": "Learn from the experts",
+    "heading": "Live sessions",
+    "intro": "Expert sessions from Rapid, with recordings and related resources kept here after the event where available.",
+    "upcoming": "Upcoming sessions",
+    "past": "Past sessions and recordings",
+    "emptyTitle": "No sessions scheduled yet",
+    "emptyBody": "New sessions will appear here once Rapid schedules them.",
+    "topic": "Topic",
+    "audience": "Who it is for",
+    "speaker": "Speaker",
+    "date": "Date",
+    "time": "Time",
+    "duration": "Duration",
+    "minutes": "{count} minutes",
+    "states": {
+      "upcoming": "Upcoming",
+      "closed": "Registration closed",
+      "recording": "Recording available"
+    },
+    "register": "Register for this session",
+    "registrationSoon": "Registration opens soon",
+    "closedNote": "Registration for this session has closed.",
+    "watch": "Watch the recording",
+    "viewDetails": "View details",
+    "about": "About this session",
+    "related": "Related resources and questions",
+    "askQuestion": "Ask a related question",
+    "allSessions": "All sessions",
+    "registrationHeading": "Registration",
+    "recordingHeading": "Recording",
+    "schedule": "Session details"
+  },
+  "aboutUs": {
+    "story": {
+      "eyebrow": "Rapid Consulting",
+      "photo": "Placeholder - Rapid office or team photograph to be supplied by Rapid"
+    },
+    "advantage": {
+      "eyebrow": "Why Rapid"
+    },
+    "team": {
+      "eyebrow": "Our team",
+      "groups": {
+        "leadership": "Leadership",
+        "experts": "Experts",
+        "wider": "The Wider Team"
+      },
+      "placeholder": "Profile to be confirmed",
+      "photoPlaceholder": "Role placeholder - photo to be supplied by Rapid",
+      "viewProfile": "View profile",
+      "ofName": "Profile of {name}"
+    }
+  },
+  "sitePages": {
+    "imagePlaceholder": "Placeholder image - final photography to be supplied by Rapid",
+    "stepLabel": "Step {n}",
+    "learnMore": "Learn more",
+    "chooserLabel": "Choose your stage",
+    "stageCta": "Discuss this stage",
+    "stagePage": "Read about this stage",
+    "faqHeading": "Frequently asked questions",
+    "topicsLabel": "FAQ topics",
+    "videoLabel": "Video",
+    "watchVideo": "Watch the video",
+    "transcript": "Transcript",
+    "comparisonRegion": "Comparison table",
+    "comparisonRowHeader": "Aspect",
+    "toneInfo": "Good to know",
+    "toneCaution": "Please note",
+    "toneNote": "Note",
+    "previewBanner": "Preview of an unpublished draft. This page is hidden from search engines.",
+    "stageServices": "Services we provide",
+    "stageMistakes": "Common mistakes",
+    "stageNeeds": "You'll need these if",
+    "stageCardsRegion": "Service cards",
+    "stageCardsPrev": "Previous services",
+    "stageCardsNext": "Next services",
+    "stageSoon": "Not available yet",
+    "videoCardLabel": "Watch instead of reading",
+    "videoPlaceholderLabel": "Placeholder - video to be supplied by Rapid",
+    "videoPlaceholderCaption": "Read the full explanation below.",
+    "freeSeal": "Free first review",
+    "railChoose": "Choose one",
+    "railSubmit": "Get my next steps",
+    "railName": "Your name",
+    "railPhone": "Mobile number",
+    "railDistrict": "District",
+    "railActivity": "What are you working on?",
+    "railOptional": "optional",
+    "railConsent": "Rapid may contact me by phone or WhatsApp about this enquiry.",
+    "railConsentHelp": "Please tick the box so we can contact you.",
+    "railChoiceError": "Please choose one",
+    "railAnother": "Send another request",
+    "railWhatsapp": "Chat with Rapid on WhatsApp",
+    "closingPhotoNote": "Placeholder - final photography to be supplied by Rapid",
+    "claimStuck": "Claim stuck?",
+    "schemeSearchLabel": "Search by subsidy, scheme or expense",
+    "schemeSearchButton": "Search",
+    "schemeSearchChips": "Shortcuts",
+    "qaSummary": "Summary",
+    "sampleCase": "Sample case",
+    "caseLabel": "Case study",
+    "tileLocation": "Place",
+    "tileSector": "Sector",
+    "tileRole": "Rapid's role",
+    "tilesRegion": "Case tiles",
+    "tilesPrev": "Previous cases",
+    "tilesNext": "Next cases",
+    "sampleCasesNote": "Sample cases: these tiles show the layout. They are not real client cases.",
+    "quotesRegion": "What you may hear",
+    "quotesPrev": "Previous",
+    "quotesNext": "Next",
+    "casesPrev": "Previous case studies",
+    "casesNext": "Next case studies"
+  },
+  "wb": {
+    "nav": {
+      "approvals": "Approvals",
+      "subsidies": "Subsidies",
+      "yourProject": "Your Project",
+      "industries": "Industries",
+      "work": "Work",
+      "resources": "Resources",
+      "about": "About"
+    },
+    "stages": {
+      "buying-land": "Buying land",
+      "setting-up": "Setting up",
+      "running": "Running",
+      "expanding": "Expanding",
+      "file-stuck": "A file stuck at any stage"
+    },
+    "stageText": {
+      "buying-land": "Check the land and its use before you commit to the plot.",
+      "setting-up": "Approvals, registrations and subsidies for a new unit.",
+      "running": "Renewals, compliance and support for a unit already working.",
+      "expanding": "Approvals and support when you add capacity or land.",
+      "file-stuck": "Talk to Rapid about where it is waiting and the next step."
+    },
+    "menu": {
+      "more": "More",
+      "approvalsOverview": "Approvals overview",
+      "otherSupport": "Other business support",
+      "financeInsurance": "Finance and insurance",
+      "licences": "Licences and certifications",
+      "allServices": "All services",
+      "faqGroup": "Questions",
+      "yourProject": {
+        "title": "Start from where your project is",
+        "text": "Choose the stage you are at. Each one leads to the right place on the Your Project page.",
+        "overview": "See all stages",
+        "choose": "Choose your stage"
+      },
+      "subsidiesOverview": "Subsidies overview",
+      "close": "Close menu",
+      "approvalsExplore": "Explore approvals"
+    },
+    "footer": {
+      "allServices": "All services",
+      "financeInsurance": "Finance and insurance",
+      "faqs": "FAQs"
+    }
+  },
+  "wc": {
+    "filters": {
+      "applied": "Applied",
+      "search": "Search",
+      "remove": "Remove filter {filter}",
+      "clear": "Clear"
+    },
+    "schemes": {
+      "placeholder": "Scheme name, ministry or keyword",
+      "industryRow": "Industry",
+      "topicRow": "Topic",
+      "allTopics": "All topics",
+      "count": "Showing {shown} of {total} schemes",
+      "countMatching": "Showing {shown} of {total} matching schemes",
+      "inDirectory": "{count} schemes in the directory",
+      "otherCount": "{count, plural, one {# other match shown below} other {# other matches shown below}}",
+      "emptyTitle": "No schemes match",
+      "emptyFiltered": "Try fewer words or another industry or topic, or clear the filters to see every scheme.",
+      "emptyText": "No schemes are listed yet. Please check back soon.",
+      "showMore": "Show {count} more",
+      "remaining": "{count} not shown yet",
+      "otherTitle": "Other matches",
+      "otherText": "These pages are not part of the main results or the count above: one scheme has been discontinued and one is an incentive for vehicle buyers, not for businesses. Read each page for its own status."
+    },
+    "cases": {
+      "placeholder": "Industry, place or what Rapid did",
+      "industryRow": "Industry",
+      "serviceRow": "Service",
+      "allServices": "All services",
+      "count": "Showing {shown} of {total} case studies",
+      "countMatching": "Showing {shown} of {total} matching case studies",
+      "inArchive": "{count} case studies in the archive",
+      "emptyTitle": "No case studies match",
+      "emptyText": "Try fewer words or another industry or service, or clear the filters to see every case study.",
+      "showMore": "Show {count} more",
+      "remaining": "{count} not shown yet",
+      "services": {
+        "S01": "Subsidies and incentives",
+        "S02": "Approvals",
+        "S03": "Licences and certifications",
+        "S04": "Industrial insurance",
+        "S05": "Finance and other services"
+      }
+    },
+    "resources": {
+      "eyebrowArticles": "Articles",
+      "eyebrowGuides": "Guides",
+      "viewAllGuides": "View all guides",
+      "formatRow": "Format",
+      "format": {
+        "all": "All",
+        "article": "Articles",
+        "guide": "Guides",
+        "report": "Reports"
+      },
+      "notYet": "Not available yet",
+      "topicRow": "Topic",
+      "allTopics": "All topics",
+      "personRow": "Written or reviewed by",
+      "everyone": "Everyone",
+      "role": {
+        "written": "Written by",
+        "reviewed": "Reviewed by"
+      },
+      "roleVerb": {
+        "written": "written",
+        "reviewed": "reviewed"
+      },
+      "roleLabel": "Written or reviewed by {name}",
+      "noneYet": "None yet",
+      "placeholder": "Title, topic or person",
+      "nounAll": "resources",
+      "nounArticles": "articles",
+      "nounGuides": "guides",
+      "nounReports": "reports",
+      "count": "Showing {shown} of {total} {noun}",
+      "countMatching": "Showing {shown} of {total} matching {noun}",
+      "inCollection": "{count} items in all",
+      "emptyTitle": "Nothing matches",
+      "emptyText": "Try fewer words, another topic or person, or clear the filters to see everything.",
+      "emptyPerson": "{name} has no {role} resources for this selection. Try another format or topic, or clear the filters.",
+      "showMore": "Show {count} more",
+      "remaining": "{count} not shown yet"
+    },
+    "person": {
+      "written": "Written by this person",
+      "reviewed": "Reviewed by this person",
+      "seeAll": "See all {count}"
+    },
+    "homeTabs": {
+      "label": "Service categories",
+      "approvals": "Approvals",
+      "subsidies": "Subsidies and incentives",
+      "finance": "Finance and insurance"
+    }
+  },
+  "hdr": {
+    "crmLogin": "CRM Login",
+    "newTab": "opens in a new tab",
+    "unavailable": "not available yet",
+    "langHindi": "Hindi",
+    "ticker": {
+      "services": "Explore support for your next investment",
+      "schemes": "Browse schemes for your industry",
+      "guides": "Prepare for your next project discussion"
+    },
+    "footer": {
+      "tagline": "Approvals and subsidies. One team, start to finish.",
+      "ctaTitle": "Let’s get your project moving.",
+      "ctaText": "Tell us your situation. The first check is on us.",
+      "social": "Rapid on social media",
+      "cols": {
+        "subsidies": "Subsidies & Incentives",
+        "about": "About Rapid"
+      },
+      "approvalOverview": "Approval overview",
+      "clu": "CLU & land permissions",
+      "buildingPlan": "Building plan approval",
+      "cteCto": "CTE & CTO",
+      "fireNoc": "Fire NOC",
+      "subsidyAdvisory": "Subsidy advisory",
+      "schemeDirectory": "Scheme directory",
+      "schemesByIndustry": "Schemes by industry",
+      "subsidyCheck": "Request a subsidy check",
+      "buyingLand": "Buying industrial land",
+      "settingUp": "Setting up a new unit",
+      "expanding": "Machinery or expansion",
+      "running": "Unit already running",
+      "fileStuck": "Approval or claim stuck",
+      "allSituations": "Explore all situations",
+      "food": "Food & agro processing",
+      "engineering": "Engineering & materials",
+      "recycling": "Recycling & biofuel",
+      "commercial": "Commercial & logistics",
+      "allIndustries": "View all industries",
+      "caseStudies": "Case studies",
+      "clientReviews": "Client reviews",
+      "articles": "Articles",
+      "guides": "Guides",
+      "reports": "Reports & downloads",
+      "resourcesOverview": "Resources overview",
+      "story": "Story, advantage & team",
+      "howWeWork": "How we work",
+      "advisers": "For CAs & bankers",
+      "careers": "Careers",
+      "financeDpr": "Finance & DPR",
+      "insurance": "Insurance & claims",
+      "registrations": "Registrations & certifications",
+      "allServices": "View all services"
+    }
+  },
+  "homeA": {
+    "hero": {
+      "eyebrow": "Approvals & subsidies for your business",
+      "title": "Approvals and subsidies. One team, start to finish.",
+      "sub": "From land and approval checks to subsidy applications and payment follow-ups, Rapid handles the work.",
+      "rows": {
+        "support": {
+          "title": "End-to-end expert support",
+          "text": "From pre-application checks to approvals and disbursements."
+        },
+        "success": {
+          "title": "95% success rate*",
+          "text": "Serving MSMEs and industrial businesses across Haryana."
+        },
+        "ontime": {
+          "title": "On-time execution",
+          "text": "Clear processes, a client panel and proactive follow-ups keep your project on track."
+        }
+      },
+      "footnote": "*In the last 11 years, across industries in Haryana."
+    },
+    "seal": {
+      "value": "95%",
+      "label": "Success rate",
+      "aria": "95% success rate, see the note below the headline"
+    },
+    "form": {
+      "eyebrow": "The first check is on us",
+      "title": "Know what your project needs before you begin.",
+      "hint": "Choose approval or subsidy to get started.",
+      "tabsLabel": "Type of check",
+      "tabApproval": "Approval check",
+      "tabSubsidy": "Subsidy check",
+      "name": "Your name",
+      "phone": "Mobile number",
+      "phoneHint": "10-digit mobile number",
+      "district": "District",
+      "districtPlaceholder": "e.g. Hisar",
+      "site": "Site location / village",
+      "activity": "Proposed business activity",
+      "activityPlaceholder": "e.g. Food processing or manufacturing",
+      "optional": "optional",
+      "consent": "Rapid may contact me by phone or WhatsApp about this enquiry.",
+      "consentHelp": "Allow phone or WhatsApp contact to request your check.",
+      "submitApproval": "Request an approval check",
+      "submitSubsidy": "Request a subsidy check",
+      "sending": "Sending…",
+      "sentTitle": "Request received",
+      "another": "Send another request"
+    },
+    "numbers": {
+      "title": "Rapid, in numbers.",
+      "years": "Years in Business",
+      "projects": "Projects Delivered",
+      "businesses": "Businesses Supported",
+      "disbursed": "Subsidies & Incentives Disbursed",
+      "placeholder": "Placeholder figures. Rapid to confirm the final numbers before launch."
+    },
+    "services": {
+      "eyebrow": "What we can do for you",
+      "title": "Know what you need? Choose a service.",
+      "intro": "Explore approvals, subsidies, finance and insurance support for your business. Choose what you need, and let Rapid help with the next step.",
+      "previous": "Previous services",
+      "next": "Next services",
+      "carousel": "Services",
+      "also": "Also need certification or other business support?",
+      "viewAll": "View all services",
+      "approvals": {
+        "title": "The approvals to build and run your unit.",
+        "blurb": "Buying land, setting up a new unit or expanding? Start with the land and approval checks. We prepare the documents, file the applications and follow up.",
+        "cta": "Request an approval check",
+        "source": "home-services-approvals"
+      },
+      "subsidies": {
+        "title": "Subsidies and incentives for your investment.",
+        "blurb": "Planning a new unit, machinery or expansion? Rapid reviews the schemes that may be relevant to your project and prepares and follows up the agreed application work.",
+        "cta": "Request a subsidy check",
+        "source": "home-services-subsidies"
+      },
+      "finance": {
+        "title": "Finance and insurance support for your project.",
+        "blurb": "Need a project report, bank documentation or industrial insurance cover? Rapid prepares the documents and keeps your CA, lender and insurer working from the same plan.",
+        "cta": "Discuss your project",
+        "source": "home-services-finance"
+      },
+      "other": {
+        "blurb": "Explore the services in this group. Choose what you need, and let Rapid help with the next step.",
+        "cta": "Discuss your project",
+        "source": "home-services-other"
+      },
+      "hints": {
+        "land": "Buying a plot? Check its fit before you commit.",
+        "clu": "Changing the land's use? Know the approval route first.",
+        "building": "Ready to build? Check plans before work starts.",
+        "cte": "Setting up or expanding? Prepare your pollution consent.",
+        "cto": "Ready to start production? Get operating consent.",
+        "fire": "Building? Get the fire clearance."
+      },
+      "subsidyGroup": "Named subsidies and incentives",
+      "otherGroup": "Rapid’s subsidy advisory",
+      "overview": "Rapid’s subsidy advisory overview",
+      "allSchemes": "All schemes",
+      "report": "Subsidy Viability Report",
+      "note": "A directory listing shows that a scheme is relevant to a type of project. It does not confirm that your project is eligible."
+    },
+    "project": {
+      "eyebrow": "Your project",
+      "title": "Not sure where to start? Let Rapid’s experts guide you.",
+      "intro": "Buying land, ordering machinery or chasing a stuck file? Rapid experts will check your case and get your project moving in no time. The first check is on us.",
+      "listLabel": "Where is your project?",
+      "questions": "Questions people ask",
+      "helps": "How Rapid helps",
+      "situations": {
+        "land": {
+          "label": "Buying land",
+          "title": "Buying land for your unit",
+          "q1": "Can I use this land for my planned industry?",
+          "q2": "Will I get CLU approval for this plot?",
+          "q3": "What should I check before paying a token or signing the registry?",
+          "helps": "Rapid checks your plot and land records against your proposed activity, so you know the approval route before committing.",
+          "warning": "A plot can’t be changed after registry. Get a 48-hour check first.",
+          "cta": "Check my plot"
+        },
+        "machinery": {
+          "label": "Planning machinery or expansion",
+          "title": "Planning new machinery or an expansion",
+          "q1": "Do my consents need to change before I add machinery or capacity?",
+          "q2": "Should I check subsidy conditions before I place the machinery order?",
+          "q3": "Will my project report and finance papers match the new investment?",
+          "helps": "Rapid reviews your plan against your existing consents and the schemes that may apply, so you know the order of steps before you order.",
+          "warning": "Some scheme conditions depend on dates. Check them before you place the order.",
+          "cta": "Check my expansion plan"
+        },
+        "newUnit": {
+          "label": "Setting up a new unit",
+          "title": "Setting up a new unit",
+          "q1": "Which approvals does my unit need, and in what order?",
+          "q2": "Can I start construction while an application is pending?",
+          "q3": "Which schemes may be relevant to my project?",
+          "helps": "Rapid maps the approvals your activity and site need, then sets out the order and dates so each application is ready when it is due.",
+          "warning": "Approvals depend on each other. Starting out of order can hold up the project.",
+          "cta": "Get my approval roadmap"
+        },
+        "running": {
+          "label": "Unit already running",
+          "title": "Keeping a running unit in order",
+          "q1": "Which renewals are coming up, and by when?",
+          "q2": "Are there subsidy or incentive claims I should be filing?",
+          "q3": "Is the cover on my plant and machinery still right?",
+          "helps": "Rapid keeps track of your renewal dates and claim windows, and prepares the filings so nothing lapses.",
+          "warning": "A missed renewal or claim window can mean a penalty or a fresh application.",
+          "cta": "Check what’s due"
+        },
+        "fileStuck": {
+          "label": "Approval file stuck",
+          "title": "An approval file that has stopped moving",
+          "q1": "Why has my application not moved?",
+          "q2": "What does the department still need from me?",
+          "q3": "Should I follow up, correct the file or apply again?",
+          "helps": "Rapid reviews your file and the correspondence so far, finds what is holding it up, and tells you what to send and to whom.",
+          "warning": "Find out what is holding it before you pay anyone to chase it.",
+          "cta": "Find out what’s holding it"
+        },
+        "claimStuck": {
+          "label": "Subsidy claim stuck",
+          "title": "A subsidy claim that has stopped moving",
+          "q1": "Is my claim file complete, with the documents in order?",
+          "q2": "Has a claim window or a scheme condition been missed?",
+          "q3": "What follow-up is needed with the department or the bank?",
+          "helps": "Rapid checks the claim file against the scheme conditions and prepares the follow-up needed for the next step.",
+          "warning": "Claim windows can close. Check the dates early.",
+          "cta": "Check my claim"
+        }
+      }
+    },
+    "cases": {
+      "eyebrow": "Client success",
+      "title": "The work. The follow-through. The result.",
+      "intro": "A closer look at the projects and the work Rapid brings together.",
+      "previous": "Previous case studies",
+      "next": "Next case studies",
+      "carousel": "Case studies",
+      "cta": "See how Rapid helped",
+      "label": "Case study"
+    },
+    "reviews": {
+      "eyebrow": "Client experiences",
+      "title": "In our clients’ words.",
+      "intro": "What it feels like to have Rapid on your side.",
+      "previous": "Previous reviews",
+      "next": "Next reviews",
+      "carousel": "Client reviews",
+      "overall": "Overall rating",
+      "count": "client reviews",
+      "source": "Source",
+      "chip": "Trusted by growing businesses",
+      "rated": "Rated 5 out of 5 (sample)",
+      "servicesTaken": "Services taken",
+      "viewAll": "View all reviews",
+      "viewAllHint": "Available once the reviews archive is published.",
+      "placeholder": "Sample content: the rating, reviews and names are placeholders. Final, verified client reviews are to be supplied by Rapid."
+    },
+    "logos": {
+      "title": "Businesses that trust Rapid",
+      "item": "CLIENT LOGO {n}",
+      "placeholder": "Placeholder tiles. Client logos to be supplied by Rapid.",
+      "pause": "Pause client logos",
+      "play": "Play client logos"
+    },
+    "approach": {
+      "eyebrow": "The Rapid approach",
+      "title": "Expert guidance. Ownership through execution.",
+      "bold": "Your plans. A coordinated path to the next milestone.",
+      "text": "Rapid brings your documentation, applications and follow-ups together, with clear progress and ownership at every step.",
+      "learn": "Learn more about us",
+      "discuss": "Discuss your project",
+      "image": "Placeholder - Rapid team at work. Final photography to be supplied by Rapid."
+    },
+    "industries": {
+      "eyebrow": "Industries we serve",
+      "title": "Built around your business",
+      "explore": "Explore industry",
+      "show": "Show details",
+      "viewAll": "View all industries",
+      "image": "Placeholder - {industry} photograph. Final photography to be supplied by Rapid."
+    },
+    "insights": {
+      "eyebrow": "Insights & resources",
+      "title": "Useful answers for your next decision.",
+      "intro": "Practical reading and resources for business owners and their project teams.",
+      "tabsLabel": "Type of resource",
+      "articles": "Articles",
+      "guides": "Guides",
+      "reports": "Reports",
+      "soon": "Coming soon",
+      "viewArticles": "View all articles",
+      "viewGuides": "View all guides",
+      "empty": "Nothing published here yet."
+    },
+    "faq": {
+      "eyebrow": "Common questions",
+      "title": "Before we begin.",
+      "intro": "A few useful answers before your first conversation with Rapid.",
+      "items": {
+        "subsidies": {
+          "q": "Which subsidies could apply to my business?",
+          "a": "The relevant schemes depend on your business activity, location, investment and project dates. Rapid reviews those details, identifies suitable opportunities and takes ownership of the agreed application work."
+        },
+        "both": {
+          "q": "Can Rapid help with both subsidies and approvals?",
+          "a": "Yes. Rapid works on approvals, subsidy applications and the follow-ups in between, so your documents and dates stay in one plan. The scope of each assignment is agreed with you before work begins."
+        },
+        "when": {
+          "q": "When should I speak to Rapid about a new unit or expansion?",
+          "a": "Before you commit to land, machinery or construction. Some approvals and scheme conditions depend on the order and timing of those steps, so an early conversation helps you plan them properly."
+        },
+        "name": {
+          "q": "Do I need to know the scheme or approval name?",
+          "a": "No. Tell Rapid what you plan to build, buy or expand, and where. Rapid identifies the approvals and schemes that may be relevant and explains the next step."
+        }
+      }
+    }
+  },
+  "b2b": {
+    "nav": {
+      "lead": "On this page:"
+    },
+    "hero": {
+      "pointsLabel": "Why Rapid"
+    },
+    "video": {
+      "label": "Watch instead of reading",
+      "placeholder": "Video placeholder. The final video is supplied by Rapid; the full explanation is written below.",
+      "soon": "Video coming",
+      "tag": "Placeholder"
+    },
+    "rail": {
+      "label": "Free first review",
+      "seal": "Free first review",
+      "title": "Get a free first review for {name}.",
+      "hint": "Tell us where your project stands. A Rapid expert will call you.",
+      "activity": "What are you working on?",
+      "submit": "Get my first review",
+      "helper": "A Rapid expert will call you.",
+      "whatsapp": "Chat with Rapid on WhatsApp",
+      "clu": {
+        "title": "Find out if your land will get CLU, before you invest.",
+        "site": "Village / khasra",
+        "activity": "What you want to build",
+        "submit": "Check my land for CLU",
+        "helper": "A Rapid expert will call to understand your plot."
+      }
+    },
+    "eligibility": {
+      "diagram": "Plan of a plot: the zone and town plan around it, the road in front of it and the unit on it.",
+      "zone": "Zone and town plan",
+      "road": "Road",
+      "unit": "Your unit"
+    },
+    "stuck": {
+      "cta": "Get my file reviewed"
+    },
+    "cases": {
+      "nav": "Our work",
+      "title": "Cases we have handled for businesses like yours.",
+      "region": "Case studies",
+      "label": "Case study",
+      "cta": "See how Rapid helped"
+    },
+    "industry": {
+      "jump": "Jump to:",
+      "navProject": "Your project",
+      "navClaims": "What you can claim",
+      "navWatch": "Watch out",
+      "navReport": "One report",
+      "navCases": "Cases",
+      "navFaq": "FAQs",
+      "cardTitle": "What are you setting up?",
+      "cardHint": "Choose the closest one. It opens below, with what applies to it.",
+      "logosTitle": "Businesses that trust Rapid.",
+      "logoTile": "CLIENT LOGO {n}",
+      "logosNote": "Placeholder tiles. Client logos to be supplied by Rapid.",
+      "logosPause": "Pause client logos",
+      "logosPlay": "Play client logos",
+      "projectTabs": "Project types",
+      "projectType": "Project type",
+      "projectRelated": "Related links",
+      "projectCta": "Check my project",
+      "projectSubsidies": "Subsidies for this industry",
+      "projectTitle": "Pick the project closest to yours.",
+      "claimsTitle": "What {name} projects can claim, and from where.",
+      "claimsLead": "The schemes chosen for this industry, by the kind of support they give. Check each scheme's own status before you rely on it.",
+      "claimsGeneric": "Schemes selected for this industry",
+      "colKind": "Kind of support",
+      "colPays": "What it pays back",
+      "colSchemes": "Schemes to look at",
+      "statusChecking": "Being checked",
+      "watchTitle": "Check these before you commit.",
+      "watchCta": "Get my project checked",
+      "casesTitle": "{name} units we've worked with.",
+      "casesRegion": "Case studies",
+      "caseLabel": "Case study",
+      "caseCta": "See how Rapid helped",
+      "casesAll": "View all case studies",
+      "notes": "Sources and related reading",
+      "more": "More from Rapid",
+      "closingEyebrow": "Next step",
+      "closingTitle": "Tell us what you are setting up.",
+      "closingIntro": "Tell us the product, the district and the stage you are at. A Rapid expert will call you.",
+      "closingPhoto": "Placeholder: a site in Haryana. Final photography to be supplied by Rapid.",
+      "formTitle": "Check what your unit can claim.",
+      "formChoose": "Not sure yet",
+      "formActivity": "Your product",
+      "formSubmit": "Get my next steps",
+      "formHelper": "A Rapid expert will call you."
+    },
+    "industries": {
+      "eyebrow": "Industries",
+      "browse": "Find your industry",
+      "guidance": "Guidance",
+      "eyebrow2": "All industries",
+      "title": "Choose the industry closest to your project.",
+      "cardLabel": "Industry",
+      "explore": "Explore industry"
+    }
+  },
+  "b2c": {
+    "case": {
+      "clientProvided": "Client provided",
+      "rapidDid": "Rapid recorded or handled",
+      "eyebrow": "Case study",
+      "draft": "Draft case",
+      "check": {
+        "1": "The scheme or policy you are relying on, and its date",
+        "2": "The quotation or invoice for what you plan to buy",
+        "3": "Proof of payment, once you have paid",
+        "4": "Your unit's registration and approvals",
+        "5": "The dates: order, delivery, installation and first use",
+        "eyebrow": "Before you commit",
+        "title": "Bringing a purchase to a check? Have these ready.",
+        "cta": "Get my claim checked"
+      },
+      "railTitle": "Check your claim before you buy.",
+      "buying": "What are you buying?",
+      "buy": {
+        "testing": "Testing equipment",
+        "safety": "Fire or safety equipment",
+        "machinery": "Production machinery",
+        "building": "A building or land",
+        "other": "Something else"
+      },
+      "yourUnit": "Your unit",
+      "railCta": "Check my claim",
+      "need": "The need",
+      "callout": {
+        "eyebrow": "Before you buy",
+        "title": "A claim rests on its records.",
+        "cta": "Get my claim checked",
+        "text": "Rapid checks the scheme rules, the invoice and the dates before you buy, not after."
+      },
+      "did": "What Rapid did",
+      "outcome": "The outcome",
+      "related": {
+        "eyebrow": "Related cases",
+        "title": "More cases like this one.",
+        "all": "View all case studies"
+      },
+      "subsidyAmount": "Subsidy amount",
+      "equipmentSpend": "Equipment spend",
+      "spend": "Spend",
+      "industry": "Industry",
+      "district": "District",
+      "spendNote": "This is what the unit spent, not the subsidy.",
+      "scheme": "Scheme",
+      "standing": "Where it stands",
+      "glanceTitle": "At a glance"
+    },
+    "rail": {
+      "label": "Enquiry",
+      "choose": "Choose one",
+      "name": "Your name",
+      "phone": "Mobile number",
+      "district": "District",
+      "site": "Village / khasra",
+      "optional": "optional",
+      "consent": "I agree that Rapid may call or WhatsApp me about this enquiry.",
+      "consentHelp": "Please tick the box so we can contact you.",
+      "choiceError": "Please choose one",
+      "another": "Send another",
+      "stage": {
+        "buying": "Buying land",
+        "setting": "Setting up a new unit",
+        "running": "Running",
+        "expanding": "Expanding",
+        "stuck": "A file is stuck",
+        "unsure": "Not sure yet"
+      },
+      "seal": "Free first review",
+      "helper": "A Rapid expert will call you.",
+      "whatsapp": "Chat with Rapid on WhatsApp",
+      "whereProject": "Where's your project?",
+      "yourProject": "Your project"
+    },
+    "scheme": {
+      "nav": {
+        "who": "Who can apply",
+        "get": "What you get",
+        "watch": "Watch out",
+        "claimed": "How it's claimed",
+        "faq": "FAQs",
+        "fit": "Does it fit",
+        "cases": "Cases"
+      },
+      "eyebrow": "Scheme",
+      "who": {
+        "eyebrow": "Who can apply",
+        "title": "Who can apply, and on what conditions."
+      },
+      "get": {
+        "eyebrow": "What you get",
+        "title": "What the scheme gives."
+      },
+      "watch": {
+        "eyebrow": "Watch out"
+      },
+      "claimed": {
+        "eyebrow": "How it's claimed",
+        "title": "How a claim is made.",
+        "cta": "Start with a free check"
+      },
+      "cta": "Check my eligibility",
+      "railTitle": "Check {name} for your project.",
+      "fit": {
+        "eyebrow": "Does it fit",
+        "title": "Does {name} fit your project?",
+        "cta": "Check if mine fits"
+      },
+      "statusChecking": "Current status being checked",
+      "pays": "What it pays",
+      "covers": "What it covers",
+      "statusRow": "Status",
+      "checkedOn": "checked {date}",
+      "glanceTitle": "{name} at a glance"
+    },
+    "nav": {
+      "onThisPage": "On this page:",
+      "jumpTo": "Jump to:"
+    },
+    "writing": {
+      "inBrief": "In brief",
+      "minRead": "{n} min read",
+      "reviewedOn": "Reviewed {date} by",
+      "reviewedBy": "Reviewed by",
+      "guide": "Guide",
+      "article": "Article",
+      "clu": {
+        "title": "Find out if your land will get CLU, before you invest.",
+        "service": "Change of Land Use (CLU)",
+        "site": "Village / khasra",
+        "activity": "What you want to build",
+        "cta": "Check my land for CLU",
+        "helper": "A Rapid expert will call to understand your plot."
+      },
+      "rail": {
+        "title": "Not sure how this applies to your project?",
+        "hint": "Tell us where your project stands. A Rapid expert will call you.",
+        "cta": "Get my next steps"
+      },
+      "cta": "Discuss your project"
+    },
+    "caseCard": {
+      "industry": "Industry",
+      "scheme": "Scheme",
+      "service": "Service",
+      "sample": "Sample case"
+    }
+  },
+  "b2d": {
+    "schemes": {
+      "hero": {
+        "popularList": "CGTMSE, AIF, MSE-CDP, NHB, Warehousing",
+        "eyebrow": "Scheme directory"
+      },
+      "find": {
+        "title": "Find a scheme.",
+        "label": "Scheme name, ministry or keyword",
+        "placeholder": "For example CGTMSE or stamp duty",
+        "submit": "Search",
+        "popular": "Popular:"
+      },
+      "legend": {
+        "eyebrow": "Reading a status",
+        "title": "What each status means.",
+        "open": "The scheme is recorded as open. Check its application window on the scheme page before you plan around it.",
+        "upcoming": "The scheme is recorded as upcoming and is not open yet. Check the official source for when it opens.",
+        "unspecified": "We have not recorded the current status yet. Check the official source for current status."
+      },
+      "closing": {
+        "heading": "Check which schemes fit your project.",
+        "intro": "Tell us what you plan to build or buy. A Rapid expert will check which schemes apply and what their status is today.",
+        "cardTitle": "Check schemes for your project.",
+        "service": "Scheme check",
+        "submit": "Check my eligibility"
+      },
+      "list": {
+        "eyebrow": "All schemes",
+        "title": "{count} schemes, each with its status."
+      },
+      "status": {
+        "unspecified": "Being checked"
+      }
+    },
+    "form": {
+      "photoNote": "Placeholder: a factory site in Haryana. Final photography to be supplied by Rapid.",
+      "project": "Your project",
+      "where": "Where is your project?",
+      "choose": "Choose one",
+      "haryana": "Haryana",
+      "otherState": "Another state",
+      "notSure": "Not sure yet",
+      "sealLabel": "Free first review",
+      "name": "Your name",
+      "mobile": "Mobile number",
+      "district": "District",
+      "optional": "optional",
+      "choiceError": "Please choose one",
+      "consent": "Rapid may contact me by phone or WhatsApp about this enquiry.",
+      "consentHelp": "Please tick the box so we can contact you.",
+      "another": "Send another",
+      "helper": "A Rapid expert will call you.",
+      "whatsapp": "Chat with Rapid on WhatsApp"
+    },
+    "cases": {
+      "shows": {
+        "investment": "The investment",
+        "investmentText": "What the unit spent, not the subsidy.",
+        "handled": "What Rapid handled",
+        "handledText": "The records, the application and the follow-up.",
+        "stands": "Where it stands",
+        "standsText": "Filed, sanctioned or paid, as confirmed.",
+        "title": "What every case shows"
+      },
+      "hero": {
+        "eyebrow": "Case studies"
+      },
+      "closing": {
+        "heading": "Have a similar investment in mind?",
+        "intro": "Tell us what you plan to build or buy. A Rapid expert will check the route before you commit.",
+        "cardTitle": "Get your project checked.",
+        "service": "Project check",
+        "submit": "Check my project",
+        "activity": "What are you buying or building?"
+      },
+      "list": {
+        "eyebrow": "All cases",
+        "title": "Cases like yours."
+      }
+    },
+    "resources": {
+      "nav": {
+        "stage": "By stage",
+        "topic": "By topic",
+        "schemes": "Schemes",
+        "learn": "Learn live",
+        "faqs": "FAQs",
+        "label": "Find answers",
+        "lead": "Find answers:"
+      },
+      "hero": {
+        "eyebrow": "Resources"
+      },
+      "topic": {
+        "eyebrow": "By topic",
+        "title": "Read up on the question in front of you.",
+        "all": "All topics",
+        "row": "Topic",
+        "viewAll": "View all articles",
+        "read": "Read",
+        "empty": "No articles in this topic yet.",
+        "count": "Showing {shown} of {total} articles",
+        "reviewed": "Reviewed {date}"
+      },
+      "closing": {
+        "heading": "Can't find your answer?",
+        "intro": "Ask in your own words. A Rapid expert will reply with the next step.",
+        "cardTitle": "Tell us your question.",
+        "service": "Question",
+        "submit": "Send my question",
+        "activity": "Your question"
+      },
+      "stage": {
+        "reviewed": "Reviewed {date}",
+        "reviewer": "Reviewer: {name}",
+        "guide": "Guide",
+        "read": "Read the guide",
+        "pending": "Guide in preparation",
+        "region": "Guides by project stage",
+        "prev": "Previous guides",
+        "next": "Next guides",
+        "eyebrow": "By stage",
+        "title": "Not sure where to begin? Start where your project is.",
+        "all": "See every stage on Your Project"
+      },
+      "schemes": {
+        "titleCount": "Over {count} subsidy schemes, each with its own page.",
+        "title": "Subsidy schemes, each with its own page.",
+        "eyebrow": "Schemes",
+        "text": "Each scheme page shows who it is for, what it pays and where it stands today. Check the status before you plan around a scheme.",
+        "find": "Find a subsidy",
+        "browse": "Browse the scheme directory"
+      },
+      "learn": {
+        "eyebrow": "Learn and stay updated",
+        "title": "Learn with other owners, and hear about changes first.",
+        "none": "No live sessions are scheduled right now. Join a WhatsApp group below to hear first.",
+        "all": "All live sessions"
+      },
+      "faq": {
+        "eyebrow": "FAQs",
+        "title": "Questions owners ask us first.",
+        "intro": "A few short answers. The full list is grouped by topic.",
+        "all": "View all FAQs"
+      }
+    },
+    "articles": {
+      "closing": {
+        "heading": "Tell us your question.",
+        "intro": "Ask in your own words. A Rapid expert will reply with the next step.",
+        "cardTitle": "Tell us your question.",
+        "service": "Question",
+        "submit": "Send my question",
+        "activity": "Your question"
+      }
+    },
+    "faqs": {
+      "oneQuestion": "1 question",
+      "manyQuestions": "{count} questions",
+      "ask": {
+        "nav": "Ask us",
+        "topic": "Which topic is it about?",
+        "choose": "Choose a topic",
+        "other": "Something else",
+        "eyebrow": "Ask us",
+        "heading": "Didn't find your question?",
+        "intro": "Ask in your own words. A Rapid expert will reply with the next step.",
+        "cardTitle": "Ask us your question.",
+        "service": "FAQ question",
+        "submit": "Send my question",
+        "activity": "Your question"
+      },
+      "find": {
+        "title": "Find your question",
+        "label": "Search all questions",
+        "placeholder": "For example CLU, stamp duty or a callback",
+        "submit": "Search",
+        "matches": "{shown} of {total} questions match",
+        "none": "No question matches. Try fewer words, or ask us below.",
+        "clear": "Clear search",
+        "topics": "Topics",
+        "noneLong": "Nothing matches your search. Clear it to see every question, or ask us below."
+      },
+      "nav": {
+        "label": "Jump to",
+        "lead": "Jump to:"
+      },
+      "topicCta": "Ask us about {topic}"
+    }
+  },
+  "b2e": {
+    "common": {
+      "discuss": "Discuss your project",
+      "whatsapp": "WhatsApp {number}",
+      "chatWhatsapp": "Chat with Rapid on WhatsApp",
+      "placeholder": "Placeholder",
+      "placeholderConfirm": "Placeholder - Rapid to confirm",
+      "seeHow": "See how we work",
+      "callOrWhatsapp": "Call or WhatsApp",
+      "email": "Email",
+      "office": "Office",
+      "contact": "Contact",
+      "home": "Home",
+      "step": "Step {n}",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "about": {
+      "eyebrow": "About Rapid",
+      "title": "From a piece of land to a running factory, with one owner for every file.",
+      "glance": {
+        "title": "Rapid at a glance",
+        "based": "Based in",
+        "basedValue": "Hisar, Haryana",
+        "since": "Working since",
+        "sinceValue": "XX",
+        "team": "The team",
+        "teamValue": "XX people",
+        "cover": "What we cover",
+        "coverFallback": "Subsidies and incentives, statutory approvals, licences and certifications, industrial insurance and finance",
+        "start": "How we start",
+        "startValue": "A free first check, in writing",
+        "file": "Every file",
+        "fileValue": "One point person and a shared checklist",
+        "placeholder": "Placeholder - Rapid to confirm"
+      },
+      "logos": {
+        "eyebrow": "Our clients"
+      },
+      "compare": {
+        "heading": "Why one owner matters",
+        "colSituation": "The usual set-up",
+        "colEffect": "What happens",
+        "colRapid": "With Rapid",
+        "situation": "Separate consultants, and nobody responsible.",
+        "effect": "Every step waits on someone else.",
+        "rapid": "One owner for the whole sequence",
+        "closing": "A wrong decision before you invest can cost far more than the advice."
+      },
+      "why": {
+        "eyebrow": "Why Rapid"
+      },
+      "what": {
+        "eyebrow": "What we do",
+        "titleSix": "Six kinds of work, carried as one project.",
+        "titleMany": "Our kinds of work, carried as one project.",
+        "intro": "Choose the kind of support you need. Rapid carries the connected work as one project, with one owner.",
+        "carousel": "Kinds of work",
+        "explore": "Explore",
+        "count": "{count} services"
+      },
+      "people": {
+        "eyebrow": "The Rapid team",
+        "meet": "Meet {name}",
+        "viewTeam": "Meet the team",
+        "roleTbc": "Role to be added"
+      },
+      "how": {
+        "eyebrow": "How we work",
+        "title": "Assessment before quotation. An owner for every file.",
+        "s1": {
+          "title": "Listen",
+          "text": "A 20-minute call: what, where, by when, and with what budget."
+        },
+        "s2": {
+          "title": "Assess",
+          "text": "A free first check, in writing: a Land Check, an eligibility check or an approval roadmap."
+        },
+        "s3": {
+          "title": "Propose",
+          "text": "The scope, exclusions and timeline, with our fees and government charges shown apart."
+        },
+        "cta": "See how we work"
+      }
+    },
+    "howWeWork": {
+      "eyebrow": "How we work",
+      "stepsEyebrow": "The stages",
+      "stepsTitle": "From the first call to the milestone.",
+      "advisersEyebrow": "Alongside your advisers",
+      "faqEyebrow": "Before you engage",
+      "ctaEyebrow": "Next step",
+      "heroCard": "In short",
+      "heroCardS1": "You bring the business objective.",
+      "heroCardS2": "Rapid brings the expertise, preparation and follow-through.",
+      "heroCardS3": "The work is agreed before it starts."
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "title": "Talk to us about your project.",
+      "sub": "Start with a short description. You don't need the exact service name or a full set of papers.",
+      "callLabel": "Call or WhatsApp:",
+      "emailLabel": "Email:",
+      "officeLabel": "Office:",
+      "officeValue": "Hisar, Haryana",
+      "form": {
+        "title": "Get a free first check.",
+        "choice": "Where is your project?",
+        "choicePlaceholder": "Choose one",
+        "choiceError": "Please choose where your project is.",
+        "haryana": "Haryana",
+        "another": "Another state",
+        "notSure": "Not sure yet",
+        "district": "District",
+        "activity": "What are you working on?",
+        "optional": "optional",
+        "submit": "Get my next steps",
+        "helper": "A Rapid expert will call you."
+      },
+      "next": {
+        "eyebrow": "What happens next",
+        "title": "Three steps from your message to a proposal.",
+        "s1": {
+          "title": "A Rapid expert calls you.",
+          "text": "To understand what you are planning and where it stands."
+        },
+        "s2": {
+          "title": "Your free first check, in writing.",
+          "text": "What applies to your project, and what does not."
+        },
+        "s3": {
+          "title": "A proposal, if you want us to carry it.",
+          "text": "The scope, timeline and fees, agreed before the work starts."
+        },
+        "cta": "See how we work"
+      },
+      "visit": {
+        "eyebrow": "Visit us",
+        "title": "Our office in Hisar.",
+        "address": "Address",
+        "phone": "Phone",
+        "whatsapp": "WhatsApp",
+        "email": "Email",
+        "hours": "Hours",
+        "hoursValue": "[days and hours]",
+        "hoursNote": "Placeholder - Rapid to confirm the office days and hours.",
+        "directions": "Get directions",
+        "map": "Rapid Consulting office on Google Maps",
+        "street": "Plot No 134, 1st Floor, Old Court Road, Near Payasam Restaurant"
+      }
+    },
+    "profile": {
+      "sample": "Sample profile",
+      "portrait": "Portrait placeholder",
+      "portraitFull": "Portrait placeholder - photo to be supplied by Rapid",
+      "askTitle": "Ask {name}'s team about your project.",
+      "askHint": "Tell us where your project is. A Rapid expert will call.",
+      "about": "About {name}",
+      "background": "Background and experience",
+      "writtenTitle": "Guides and pages by {name}.",
+      "writtenEyebrow": "Written and reviewed",
+      "sampleNote": "Sample associations and dates, shown to demonstrate the profile layout.",
+      "casesEyebrow": "Cases",
+      "casesTitle": "Cases {name} wrote or reviewed.",
+      "seeCases": "See all case studies",
+      "backToTeam": "Back to the team",
+      "discuss": "Discuss your project",
+      "summaryFallback": "{name} is part of the Rapid team in Hisar."
+    },
+    "advisers": {
+      "eyebrow": "For advisers",
+      "cardTitle": "Who this is for",
+      "cardS1": "CAs and accounting firms",
+      "cardS2": "Bankers and relationship managers",
+      "cardS3": "Independent consultants",
+      "toolLink": "6-question client tool",
+      "discuss": "Discuss working together"
+    },
+    "careers": {
+      "eyebrow": "Careers",
+      "cardTitle": "Work at Rapid",
+      "cardText": "Rapid's team in Hisar supports clients with project documentation, financial information, applications and coordination.",
+      "openRoles": "{count} open roles",
+      "openRole": "1 open role",
+      "noRoles": "No open roles at the moment",
+      "seeRoles": "See open roles",
+      "howWeHire": "How we hire",
+      "hireEyebrow": "Recruitment",
+      "applyBack": "All open roles"
+    },
+    "svr": {
+      "eyebrow": "Before you apply",
+      "seeContents": "What the report contains"
+    }
+  },
+  "fm": {
+    "approvals": {
+      "text": "From land checks to permission to operate.",
+      "land": "Land & site",
+      "build": "Build & operate",
+      "buyingLand": "Buying industrial land",
+      "clu": "Change of Land Use (CLU)",
+      "pwd": "PWD access permission",
+      "nhai": "NHAI access permission",
+      "building": "Building plan approval",
+      "cte": "Consent to Establish (CTE)",
+      "cto": "Consent to Operate (CTO)",
+      "fire": "Fire NOC",
+      "cardTitle": "Not sure what you need?",
+      "cardText": "Share your activity, site and project stage. Rapid will check which approvals connect.",
+      "cardButton": "Request an approval check"
+    },
+    "subsidies": {
+      "title": "Subsidies & Incentives",
+      "text": "Check eligibility. Plan the application. Follow through to payment.",
+      "start": "Start with your investment",
+      "advisory": "Subsidy advisory",
+      "browse": "Browse every scheme",
+      "industry": "Schemes for your industry",
+      "explore": "Explore schemes",
+      "capital": "Capital investment support",
+      "interest": "Interest subsidy",
+      "hguvy": "HGUVY",
+      "equipment": "Equipment & safety assistance",
+      "cardTitle": "Before you commit",
+      "cardText": "Eligibility can depend on the investment, location and dates. Start with your case.",
+      "cardButton": "Request a subsidy check",
+      "exploreAll": "Explore subsidies & incentives"
+    },
+    "about": {
+      "text": "Expert guidance. Ownership through execution.",
+      "company": "Rapid Consulting",
+      "story": "The Rapid story",
+      "advantage": "The Rapid advantage",
+      "team": "Meet the team",
+      "how": "How we work",
+      "connect": "Connect with us",
+      "advisers": "For CAs & bankers",
+      "careers": "Careers",
+      "contact": "Contact us",
+      "cardTitle": "One team. Start to finish.",
+      "cardText": "Approvals and subsidies, with coordinated documentation, applications and follow-ups.",
+      "cardButton": "Discuss your project",
+      "learnMore": "Learn more about us"
+    }
   }
 }

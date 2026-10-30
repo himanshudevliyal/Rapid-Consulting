@@ -1,4 +1,5 @@
 import jwtVerify from "../../helpers/auth.js";
+import { editorBoundary, staffOnly } from "../../helpers/authorize.js";
 import userRoutes from "../../api/users/routes.js";
 import cartRoutes from "../../api/cart/routes.js";
 import orderRoutes from "../../api/order/routes.js";
@@ -22,12 +23,16 @@ import adviserRoutes from "../../api/adviser/routes.js";
 import jobRoutes from "../../api/job/routes.js";
 import industryRoutes from "../../api/industry/routes.js";
 import schemeRoutes from "../../api/scheme/routes.js";
+import sessionRoutes from "../../api/session/routes.js";
+import communityGroupRoutes from "../../api/community-group/routes.js";
+import sitePageRoutes from "../../api/site-page/routes.js";
+import siteSettingRoutes from "../../api/site-setting/routes.js";
 
 export default async function routes(fastify, options) {
   fastify.addHook("onRequest", jwtVerify.verifyToken);
-  fastify.addHook("preHandler", async (request, reply) => {
-    request.body && console.log("body", request.body);
-  });
+  fastify.addHook("preHandler", staffOnly);
+  // The "editor" role is limited to Site pages (+ read-only content lists).
+  fastify.addHook("preHandler", editorBoundary);
 
   // routes
   fastify.register(userRoutes, { prefix: "users" });
@@ -54,4 +59,9 @@ export default async function routes(fastify, options) {
   fastify.register(jobRoutes, { prefix: "jobs" });
   fastify.register(industryRoutes, { prefix: "industries" });
   fastify.register(schemeRoutes, { prefix: "schemes" });
+  fastify.register(sessionRoutes, { prefix: "sessions" });
+  fastify.register(communityGroupRoutes, { prefix: "community-groups" });
+  // ── Round 2: modular site pages + navigation settings ─────────
+  fastify.register(sitePageRoutes, { prefix: "site-pages" });
+  fastify.register(siteSettingRoutes, { prefix: "site-settings" });
 }

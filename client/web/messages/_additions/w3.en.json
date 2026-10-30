@@ -1,0 +1,72 @@
+{
+  "breadcrumb": {
+    "subsidies": "Subsidies & Incentives",
+    "schemes": "Schemes",
+    "about": "About",
+    "team": "Team"
+  },
+  "detail": {
+    "people": {
+      "writtenBy": "Written by",
+      "reviewedBy": "Reviewed by",
+      "reviewedOn": "Reviewed on {date}",
+      "reviewDatePending": "Review date to be confirmed",
+      "placeholderProfile": "Placeholder profile"
+    },
+    "sources": {
+      "navLabel": "References",
+      "reviewNote": "A source or drafting date is not a completed expert-review date."
+    },
+    "scheme": {
+      "factsTitle": "Scheme at a glance",
+      "assistanceType": "Type of assistance",
+      "activity": "Relevant activity",
+      "authority": "Administering authority",
+      "statusTitle": "Status and dates",
+      "status": {
+        "open": "Open",
+        "upcoming": "Upcoming",
+        "closed": "Closed",
+        "historical": "Historical"
+      },
+      "statusUnspecified": "Check the official source for current status.",
+      "officialSource": "Official source",
+      "closedNote": "Shown for reference. Do not assume applications are being accepted.",
+      "historicalNote": "Shown for reference as a past programme. Do not assume it is available now.",
+      "policyPeriod": "Policy period",
+      "applicationWindow": "Application window",
+      "reviewedOn": "Reviewed on"
+    },
+    "case": {
+      "location": "Location",
+      "sector": "Sector",
+      "rapidRole": "Rapid's role",
+      "investmentLabel": "Investment",
+      "evidenceEyebrow": "Evidence",
+      "evidenceTitle": "Evidence of the outcome",
+      "documentAlt": "Redacted supporting document",
+      "milestone": "Milestone",
+      "navEvidence": "Evidence"
+    },
+    "industry": {
+      "schemesEyebrow": "Subsidies & Incentives",
+      "servicesEyebrow": "Services",
+      "navSchemes": "Schemes",
+      "navServices": "Services",
+      "photoPlaceholder": "Placeholder - industry photography to be supplied by Rapid"
+    },
+    "nextSteps": {
+      "title": "Useful next steps",
+      "schemes": "Browse subsidies & incentives",
+      "services": "Find the service you need"
+    },
+    "team": {
+      "eyebrow": "Rapid Consulting team",
+      "photoPlaceholder": "Placeholder - photo to be supplied by Rapid",
+      "placeholderNote": "Placeholder profile - biography and photo to be supplied.",
+      "expertise": "Areas of expertise",
+      "linkedin": "LinkedIn profile",
+      "backToTeam": "Back to the team"
+    }
+  }
+}

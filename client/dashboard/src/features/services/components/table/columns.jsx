@@ -10,6 +10,8 @@ import {
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { StatusSelect } from "@/components/status-select";
+import { updateService } from "@/services/service-service";
 import Link from "next/link";
 
 const label = (map, code) => (code ? map?.[code] ?? code.replace(/-/g, " ") : "—");
@@ -60,7 +62,7 @@ export const columns = (openModal, setId, names = {}) => [
     accessorKey: "available_locales",
     header: "Languages",
     cell: ({ row }) => (
-      <div className="flex gap-1">
+      <div className="flex items-center gap-1">
         {(row.original.available_locales ?? []).map((locale) => (
           <Badge key={locale} variant="outline" className="uppercase">
             {locale}
@@ -74,9 +76,14 @@ export const columns = (openModal, setId, names = {}) => [
     header: "Status",
     cell: ({ row }) => (
       <div className="flex gap-1">
-        <Badge variant={row.original.status === "published" ? "default" : "secondary"} className="capitalize">
-          {row.original.status ?? "draft"}
-        </Badge>
+        {/* The status of the language shown in this row (row.locale); saves straight away. */}
+        <StatusSelect
+          value={row.original.status ?? "draft"}
+          onChange={(status) =>
+            updateService(row.original.id, { translations: [{ locale: row.original.locale || "en", status }] })
+          }
+          queryKey={["services"]}
+        />
         {!row.original.is_active && <Badge variant="outline">Hidden</Badge>}
       </div>
     ),

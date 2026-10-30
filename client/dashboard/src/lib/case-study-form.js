@@ -1,4 +1,5 @@
 // Form <-> API conversion for case studies.
+import { authorFieldsDefaults, authorFieldsFromRecord, authorFieldsPayload } from "@/lib/author-fields";
 
 export const RICH_FIELDS = [
   ["challenge", "Challenge", "What the client needed or was struggling with."],
@@ -17,6 +18,16 @@ export const emptyCaseStudy = {
   challenge: "",
   solution: "",
   result: "",
+  location: "",
+  sector: "",
+  rapid_role: "",
+  proof_image: "",
+  proof_caption: "",
+  milestone_label: "",
+  milestone_date: "",
+  quote_text: "",
+  quote_attribution: "",
+  ...authorFieldsDefaults,
 };
 
 // API record -> form values (tags become a comma separated line).
@@ -33,6 +44,16 @@ export const toFormValues = (item) => {
     challenge: item.challenge ?? "",
     solution: item.solution ?? "",
     result: item.result ?? "",
+    location: item.location ?? "",
+    sector: item.sector ?? "",
+    rapid_role: item.rapid_role ?? "",
+    proof_image: item.proof_image ?? "",
+    proof_caption: item.proof_caption ?? "",
+    milestone_label: item.milestone_label ?? "",
+    milestone_date: item.milestone_date ? String(item.milestone_date).slice(0, 10) : "",
+    quote_text: item.quote_text ?? "",
+    quote_attribution: item.quote_attribution ?? "",
+    ...authorFieldsFromRecord(item),
   };
 };
 
@@ -52,6 +73,17 @@ export const buildPayload = (values) => {
     challenge: values.challenge,
     solution: values.solution,
     result: values.result,
+    location: values.location.trim(),
+    sector: values.sector.trim(),
+    rapid_role: values.rapid_role.trim(),
+    proof_image: values.proof_image.trim(),
+    proof_caption: values.proof_caption.trim(),
+    milestone_label: values.milestone_label.trim(),
+    // An empty date clears it.
+    milestone_date: values.milestone_date || null,
+    quote_text: values.quote_text.trim(),
+    quote_attribution: values.quote_attribution.trim(),
+    ...authorFieldsPayload(values),
   };
   const slug = values.slug.trim();
   if (slug) payload.slug = slug;

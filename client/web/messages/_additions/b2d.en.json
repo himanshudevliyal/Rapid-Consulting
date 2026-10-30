@@ -1,0 +1,193 @@
+{
+  "b2d": {
+    "schemes": {
+      "hero": {
+        "popularList": "CGTMSE, AIF, MSE-CDP, NHB, Warehousing",
+        "eyebrow": "Scheme directory"
+      },
+      "find": {
+        "title": "Find a scheme.",
+        "label": "Scheme name, ministry or keyword",
+        "placeholder": "For example CGTMSE or stamp duty",
+        "submit": "Search",
+        "popular": "Popular:"
+      },
+      "legend": {
+        "eyebrow": "Reading a status",
+        "title": "What each status means.",
+        "open": "The scheme is recorded as open. Check its application window on the scheme page before you plan around it.",
+        "upcoming": "The scheme is recorded as upcoming and is not open yet. Check the official source for when it opens.",
+        "unspecified": "We have not recorded the current status yet. Check the official source for current status."
+      },
+      "closing": {
+        "heading": "Check which schemes fit your project.",
+        "intro": "Tell us what you plan to build or buy. A Rapid expert will check which schemes apply and what their status is today.",
+        "cardTitle": "Check schemes for your project.",
+        "service": "Scheme check",
+        "submit": "Check my eligibility"
+      },
+      "list": {
+        "eyebrow": "All schemes",
+        "title": "{count} schemes, each with its status."
+      },
+      "status": {
+        "unspecified": "Being checked"
+      }
+    },
+    "form": {
+      "photoNote": "Placeholder: a factory site in Haryana. Final photography to be supplied by Rapid.",
+      "project": "Your project",
+      "where": "Where is your project?",
+      "choose": "Choose one",
+      "haryana": "Haryana",
+      "otherState": "Another state",
+      "notSure": "Not sure yet",
+      "sealLabel": "Free first review",
+      "name": "Your name",
+      "mobile": "Mobile number",
+      "district": "District",
+      "optional": "optional",
+      "choiceError": "Please choose one",
+      "consent": "Rapid may contact me by phone or WhatsApp about this enquiry.",
+      "consentHelp": "Please tick the box so we can contact you.",
+      "another": "Send another",
+      "helper": "A Rapid expert will call you.",
+      "whatsapp": "Chat with Rapid on WhatsApp"
+    },
+    "cases": {
+      "shows": {
+        "investment": "The investment",
+        "investmentText": "What the unit spent, not the subsidy.",
+        "handled": "What Rapid handled",
+        "handledText": "The records, the application and the follow-up.",
+        "stands": "Where it stands",
+        "standsText": "Filed, sanctioned or paid, as confirmed.",
+        "title": "What every case shows"
+      },
+      "hero": {
+        "eyebrow": "Case studies"
+      },
+      "closing": {
+        "heading": "Have a similar investment in mind?",
+        "intro": "Tell us what you plan to build or buy. A Rapid expert will check the route before you commit.",
+        "cardTitle": "Get your project checked.",
+        "service": "Project check",
+        "submit": "Check my project",
+        "activity": "What are you buying or building?"
+      },
+      "list": {
+        "eyebrow": "All cases",
+        "title": "Cases like yours."
+      }
+    },
+    "resources": {
+      "nav": {
+        "stage": "By stage",
+        "topic": "By topic",
+        "schemes": "Schemes",
+        "learn": "Learn live",
+        "faqs": "FAQs",
+        "label": "Find answers",
+        "lead": "Find answers:"
+      },
+      "hero": {
+        "eyebrow": "Resources"
+      },
+      "topic": {
+        "eyebrow": "By topic",
+        "title": "Read up on the question in front of you.",
+        "all": "All topics",
+        "row": "Topic",
+        "viewAll": "View all articles",
+        "read": "Read",
+        "empty": "No articles in this topic yet.",
+        "count": "Showing {shown} of {total} articles",
+        "reviewed": "Reviewed {date}"
+      },
+      "closing": {
+        "heading": "Can't find your answer?",
+        "intro": "Ask in your own words. A Rapid expert will reply with the next step.",
+        "cardTitle": "Tell us your question.",
+        "service": "Question",
+        "submit": "Send my question",
+        "activity": "Your question"
+      },
+      "stage": {
+        "reviewed": "Reviewed {date}",
+        "reviewer": "Reviewer: {name}",
+        "guide": "Guide",
+        "read": "Read the guide",
+        "pending": "Guide in preparation",
+        "region": "Guides by project stage",
+        "prev": "Previous guides",
+        "next": "Next guides",
+        "eyebrow": "By stage",
+        "title": "Not sure where to begin? Start where your project is.",
+        "all": "See every stage on Your Project"
+      },
+      "schemes": {
+        "titleCount": "Over {count} subsidy schemes, each with its own page.",
+        "title": "Subsidy schemes, each with its own page.",
+        "eyebrow": "Schemes",
+        "text": "Each scheme page shows who it is for, what it pays and where it stands today. Check the status before you plan around a scheme.",
+        "find": "Find a subsidy",
+        "browse": "Browse the scheme directory"
+      },
+      "learn": {
+        "eyebrow": "Learn and stay updated",
+        "title": "Learn with other owners, and hear about changes first.",
+        "none": "No live sessions are scheduled right now. Join a WhatsApp group below to hear first.",
+        "all": "All live sessions"
+      },
+      "faq": {
+        "eyebrow": "FAQs",
+        "title": "Questions owners ask us first.",
+        "intro": "A few short answers. The full list is grouped by topic.",
+        "all": "View all FAQs"
+      }
+    },
+    "articles": {
+      "closing": {
+        "heading": "Tell us your question.",
+        "intro": "Ask in your own words. A Rapid expert will reply with the next step.",
+        "cardTitle": "Tell us your question.",
+        "service": "Question",
+        "submit": "Send my question",
+        "activity": "Your question"
+      }
+    },
+    "faqs": {
+      "oneQuestion": "1 question",
+      "manyQuestions": "{count} questions",
+      "ask": {
+        "nav": "Ask us",
+        "topic": "Which topic is it about?",
+        "choose": "Choose a topic",
+        "other": "Something else",
+        "eyebrow": "Ask us",
+        "heading": "Didn't find your question?",
+        "intro": "Ask in your own words. A Rapid expert will reply with the next step.",
+        "cardTitle": "Ask us your question.",
+        "service": "FAQ question",
+        "submit": "Send my question",
+        "activity": "Your question"
+      },
+      "find": {
+        "title": "Find your question",
+        "label": "Search all questions",
+        "placeholder": "For example CLU, stamp duty or a callback",
+        "submit": "Search",
+        "matches": "{shown} of {total} questions match",
+        "none": "No question matches. Try fewer words, or ask us below.",
+        "clear": "Clear search",
+        "topics": "Topics",
+        "noneLong": "Nothing matches your search. Clear it to see every question, or ask us below."
+      },
+      "nav": {
+        "label": "Jump to",
+        "lead": "Jump to:"
+      },
+      "topicCta": "Ask us about {topic}"
+    }
+  }
+}

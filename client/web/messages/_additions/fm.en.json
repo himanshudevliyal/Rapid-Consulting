@@ -1,0 +1,59 @@
+{
+  "fm": {
+    "approvals": {
+      "text": "From land checks to permission to operate.",
+      "land": "Land & site",
+      "build": "Build & operate",
+      "buyingLand": "Buying industrial land",
+      "clu": "Change of Land Use (CLU)",
+      "pwd": "PWD access permission",
+      "nhai": "NHAI access permission",
+      "building": "Building plan approval",
+      "cte": "Consent to Establish (CTE)",
+      "cto": "Consent to Operate (CTO)",
+      "fire": "Fire NOC",
+      "cardTitle": "Not sure what you need?",
+      "cardText": "Share your activity, site and project stage. Rapid will check which approvals connect.",
+      "cardButton": "Request an approval check"
+    },
+    "subsidies": {
+      "title": "Subsidies & Incentives",
+      "text": "Check eligibility. Plan the application. Follow through to payment.",
+      "start": "Start with your investment",
+      "advisory": "Subsidy advisory",
+      "browse": "Browse every scheme",
+      "industry": "Schemes for your industry",
+      "explore": "Explore schemes",
+      "capital": "Capital investment support",
+      "interest": "Interest subsidy",
+      "hguvy": "HGUVY",
+      "equipment": "Equipment & safety assistance",
+      "cardTitle": "Before you commit",
+      "cardText": "Eligibility can depend on the investment, location and dates. Start with your case.",
+      "cardButton": "Request a subsidy check",
+      "exploreAll": "Explore subsidies & incentives"
+    },
+    "about": {
+      "text": "Expert guidance. Ownership through execution.",
+      "company": "Rapid Consulting",
+      "story": "The Rapid story",
+      "advantage": "The Rapid advantage",
+      "team": "Meet the team",
+      "how": "How we work",
+      "connect": "Connect with us",
+      "advisers": "For CAs & bankers",
+      "careers": "Careers",
+      "contact": "Contact us",
+      "cardTitle": "One team. Start to finish.",
+      "cardText": "Approvals and subsidies, with coordinated documentation, applications and follow-ups.",
+      "cardButton": "Discuss your project",
+      "learnMore": "Learn more about us"
+    }
+  },
+  "wb": {
+    "menu": {
+      "close": "Close menu",
+      "approvalsExplore": "Explore approvals"
+    }
+  }
+}

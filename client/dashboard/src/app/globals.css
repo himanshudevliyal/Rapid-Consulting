@@ -193,3 +193,11 @@
 .PhoneInput {
   @apply flex rounded-md;
 }
+
+/* TinyMCE: hide the editor's own warnings (API key / domain notices) and the upgrade badge. */
+.tox .tox-notifications-container,
+.tox-notifications-container,
+.tox .tox-notification,
+.tox .tox-promotion {
+  display: none !important;
+}

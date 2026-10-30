@@ -25,6 +25,8 @@ const init = async (sequelize) => {
       application_process: { type: DataTypes.TEXT, allowNull: true },
       official_url: { type: DataTypes.STRING(500), allowNull: true },
       cover_image: { type: DataTypes.STRING(500), allowNull: true },
+      // An uploaded PDF (path); the website links to it and opens it in a new tab.
+      pdf_url: { type: DataTypes.STRING(500), allowNull: true },
       category_id: { type: DataTypes.UUID, allowNull: true },
       tags: {
         type: DataTypes.ARRAY(DataTypes.TEXT),
@@ -36,6 +38,26 @@ const init = async (sequelize) => {
         allowNull: false,
         defaultValue: false,
       },
+      // Quick facts shown on the scheme page.
+      assistance_type: { type: DataTypes.STRING(255), allowNull: true },
+      relevant_activity: { type: DataTypes.STRING(255), allowNull: true },
+      policy_period: { type: DataTypes.STRING(255), allowNull: true },
+      application_window: { type: DataTypes.STRING(255), allowNull: true },
+      // The "at a glance" rows: [{ label, value, bold }], in the order shown.
+      // Replaces the four fixed facts above when it has rows.
+      quick_facts: { type: DataTypes.JSONB, allowNull: false, defaultValue: [] },
+      // Extra page sections, the same shape as a service's sections
+      // ({ key, title, role, html, intro_html, items, outro_html, ... }).
+      sections: { type: DataTypes.JSONB, allowNull: false, defaultValue: [] },
+      // open | upcoming | closed | historical
+      status: { type: DataTypes.STRING(20), allowNull: true },
+      // Author and reviewer are team members (advisers); the review date only
+      // counts when a reviewer is set.
+      author_id: { type: DataTypes.UUID, allowNull: true },
+      reviewer_id: { type: DataTypes.UUID, allowNull: true },
+      // none | assigned | pending | completed (null = not tracked yet).
+      review_status: { type: DataTypes.STRING(20), allowNull: true },
+      reviewed_at: { type: DataTypes.DATEONLY, allowNull: true },
       // Featured schemes are the ones shown on the home page.
       is_featured: {
         type: DataTypes.BOOLEAN,
@@ -122,7 +144,10 @@ const getPublishedBySlugs = async (slugs) => {
   if (!slugs?.length) return [];
   const rows = await SchemeModel.findAll({
     where: { slug: { [Op.in]: slugs }, is_published: true },
-    attributes: ["id", "title", "slug", "ministry", "description", "cover_image", "tags"],
+    attributes: [
+      "id", "title", "slug", "ministry", "description", "cover_image", "tags",
+      "assistance_type", "relevant_activity", "policy_period", "application_window", "status",
+    ],
   });
   const order = new Map(slugs.map((slug, index) => [slug, index]));
   return rows.sort((a, b) => order.get(a.slug) - order.get(b.slug));

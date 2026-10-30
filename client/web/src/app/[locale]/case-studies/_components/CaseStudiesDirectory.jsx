@@ -10,7 +10,7 @@ import { Directory } from "./directory";
 
 // Searchable case-study list fed by the API: every published case study is
 // shown, so one added in the admin panel appears here by itself.
-export function CaseStudiesDirectory({ initialData }) {
+export function CaseStudiesDirectory({ initialData, copy }) {
   const t = useTranslations("state");
   const query = useAllCaseStudies({}, { initialData });
 
@@ -20,7 +20,7 @@ export function CaseStudiesDirectory({ initialData }) {
   return (
     <>
       <QueryState query={list} emptyTitle={t("noCasesTitle")} emptyText={t("noCasesText")}>
-        <Directory items={items} kind="cases" />
+        <Directory items={items} kind="cases" copy={copy} />
       </QueryState>
       {query.isError && items.length > 0 && (
         <p className="directory-note text-center" role="status">

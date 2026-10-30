@@ -36,6 +36,24 @@ const init = async (sequelize) => {
         defaultValue: false,
       },
       published_at: { type: DataTypes.DATE, allowNull: true },
+      location: { type: DataTypes.STRING(200), allowNull: true },
+      sector: { type: DataTypes.STRING(200), allowNull: true },
+      // What Rapid did on this project.
+      rapid_role: { type: DataTypes.TEXT, allowNull: true },
+      // Evidence block - each part is shown on the website only when filled.
+      proof_image: { type: DataTypes.STRING(500), allowNull: true },
+      proof_caption: { type: DataTypes.STRING(500), allowNull: true },
+      milestone_label: { type: DataTypes.STRING(200), allowNull: true },
+      milestone_date: { type: DataTypes.DATEONLY, allowNull: true },
+      quote_text: { type: DataTypes.TEXT, allowNull: true },
+      quote_attribution: { type: DataTypes.STRING(255), allowNull: true },
+      // Author and reviewer are team members (advisers); the review date only
+      // counts when a reviewer is set.
+      author_id: { type: DataTypes.UUID, allowNull: true },
+      reviewer_id: { type: DataTypes.UUID, allowNull: true },
+      // none | assigned | pending | completed (null = not tracked yet).
+      review_status: { type: DataTypes.STRING(20), allowNull: true },
+      reviewed_at: { type: DataTypes.DATEONLY, allowNull: true },
     },
     {
       tableName: TABLE,

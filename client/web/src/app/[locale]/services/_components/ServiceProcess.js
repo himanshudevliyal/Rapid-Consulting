@@ -1,19 +1,25 @@
 import { Html } from "@/components/common/html";
 import { heading } from "./escape";
 
-// Intro text followed by the ordered working steps.
+// A leading "1. " in the title is the old way of numbering the steps; the
+// numbered row draws its own number.
+const withoutNumber = (title = "") => String(title).replace(/^\s*\d+[.)]\s*/, "");
+
+// Intro text followed by the ordered working steps, as numbered rows.
 export function ServiceProcess({ section }) {
   return (
     <div className="service-explanation service-explanation-process" data-component="ServiceProcess">
-      <Html html={section.intro_html} />
-      <div className="service-process-steps">
+      <Html html={section.intro_html} className="b2b-prose" />
+      <ol className="service-process-steps">
         {section.items.map((item, index) => (
-          <article key={item.key || index}>
-            <Html html={heading(3, item.title, item.key) + item.html} />
-          </article>
+          <li key={item.key || index}>
+            <article>
+              <Html html={heading(3, withoutNumber(item.title), item.key) + item.html} className="b2b-prose" />
+            </article>
+          </li>
         ))}
-      </div>
-      <Html html={section.outro_html} />
+      </ol>
+      <Html html={section.outro_html} className="b2b-prose" />
     </div>
   );
 }

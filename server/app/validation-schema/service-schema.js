@@ -12,15 +12,32 @@ export const SECTION_ROLES = [
   "service_cards", // text whose service links render as service cards
   "hero_benefit", // shown inside the hero instead of the intro
   "cta", // closing call-to-action section
+  "quick_answers", // grey card of question / answer rows
+  "eligibility", // "Will your land work?": numbered factors beside a plan diagram
+  "stuck_file", // navy "is your file stuck?" panel with a list and a button
+  "hero_points", // the three icon rows in the hero (not a body section)
+  "video", // the hero's "watch instead of reading" card (not a body section)
+  "cases", // "Our work": the case studies that belong to the service
+  "panel_navy", // rich text on a dark navy panel
+  "panel_grey", // rich text on a light grey panel
+  "cards", // a grid of cards (title + text; a link in the text makes the card a link)
+  "reviews", // "In our clients' words": rating box + review cards (each service its own)
 ];
 
 const sectionItemSchema = z.object({
   key: z.string().trim().optional(),
   title: z.string().trim().min(1, "Item title is required"),
   html: z.string().optional().default(""),
+  // "reviews" role: the item title is the quote; these describe the reviewer.
+  name: z.string().trim().max(120).optional(),
+  business: z.string().trim().max(160).optional(),
+  location: z.string().trim().max(120).optional(),
+  rating: z.string().trim().max(4).optional(),
+  // Services taken, one per line or comma separated.
+  services: z.string().trim().max(500).optional(),
 });
 
-const sectionSchema = z.object({
+export const sectionSchema = z.object({
   key: z
     .string()
     .trim()
@@ -28,11 +45,29 @@ const sectionSchema = z.object({
     .max(160, "Section key is too long"),
   title: z.string().trim().min(1, "Section title is required"),
   nav_label: z.string().trim().optional(),
+  // Small label above the heading (the Figma eyebrow). Optional; the menu label is used when it is left out.
+  eyebrow: z.string().trim().optional(),
   role: z.enum(SECTION_ROLES).optional().default("content"),
   html: z.string().optional().default(""),
   intro_html: z.string().optional().default(""),
   items: z.array(sectionItemSchema).optional().default([]),
   outro_html: z.string().optional().default(""),
+  // "video" role: the YouTube address and the poster picture (an uploaded file path or an address).
+  video_url: z
+    .string()
+    .trim()
+    .max(500)
+    .refine((value) => !value || /^https?:\/\/(?:www\.|m\.|music\.)?(?:youtube\.com|youtube-nocookie\.com|youtu\.be)\//i.test(value), "Enter a YouTube address")
+    .optional(),
+  poster: z.string().trim().max(500).optional(),
+  // "eligibility" role: a picture shown above the factors (for example a plan of the plot) and its text alternative.
+  image: z.string().trim().max(500).optional(),
+  image_alt: z.string().trim().max(300).optional(),
+  // "reviews" role: the rating box of this service (e.g. 4.8 / 5 · 120 client reviews · Source: Google).
+  rating_value: z.string().trim().max(10).optional(),
+  rating_count: z.string().trim().max(20).optional(),
+  rating_source: z.string().trim().max(120).optional(),
+  trust_label: z.string().trim().max(80).optional(),
 });
 
 // Fields without defaults, so an update only contains what the editor sent.

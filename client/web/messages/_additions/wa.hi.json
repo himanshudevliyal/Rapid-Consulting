@@ -1,0 +1,21 @@
+{
+  "sitePages": {
+    "imagePlaceholder": "प्लेसहोल्डर चित्र - अंतिम फ़ोटोग्राफ़ी Rapid द्वारा दी जाएगी",
+    "stepLabel": "चरण {n}",
+    "learnMore": "और जानें",
+    "chooserLabel": "अपना चरण चुनें",
+    "stageCta": "इस चरण पर चर्चा करें",
+    "stagePage": "इस चरण के बारे में पढ़ें",
+    "faqHeading": "अक्सर पूछे जाने वाले प्रश्न",
+    "topicsLabel": "प्रश्नों के विषय",
+    "videoLabel": "वीडियो",
+    "watchVideo": "वीडियो देखें",
+    "transcript": "ट्रांसक्रिप्ट",
+    "comparisonRegion": "तुलना तालिका",
+    "comparisonRowHeader": "पहलू",
+    "toneInfo": "जानने योग्य",
+    "toneCaution": "कृपया ध्यान दें",
+    "toneNote": "टिप्पणी",
+    "previewBanner": "अप्रकाशित ड्राफ़्ट का पूर्वावलोकन। यह पृष्ठ सर्च इंजन से छिपा है।"
+  }
+}

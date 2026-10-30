@@ -1,105 +1,61 @@
 /**
- * HowWeHirePage — dedicated UI for the "How We Hire" page (U03).
+ * HowWeHirePage - "How We Hire" (U03), in the batch-2 look.
  *
- * Layout (top → bottom):
- *   1. Hero       — eyebrow + h1 + intro paragraph, full-width
- *   2. Steps      — 4 numbered process cards from page.sections
- *   3. CTA banner — WhatsApp contact link + link to /careers
- *
- * Isolated from all other pages. Tailwind CSS utility classes only —
- * NO new CSS added to globals.css.
+ *   1. Hero: eyebrow, h1, introduction, buttons
+ *   2. The steps as numbered cards (from page.sections)
+ *   3. Back to the open roles
  */
-
 import Link from "next/link";
-import { MessageCircle, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
+import { BTN_LIME } from "@/components/home/styles";
 import { Html } from "@/components/pages/content-primitives";
-import Section from "@/components/layout/section";
-import Heading from "@/components/layout/heading";
+import { Band, H3_CLASS, HeroBand, PROSE_CARD } from "@/components/pages/b2e-ui";
+import { b2eText } from "@/lib/pages/b2e-copy";
 
-/** Number labels for the 4 steps — used as decorative badges. */
-const STEP_NUMBERS = ["01", "02", "03", "04"];
+const STEP_NUMBERS = ["01", "02", "03", "04", "05", "06"];
 
-/**
- * Accent colors cycling through the step cards.
- * Only brand colors used; no CSS vars — Tailwind classes only.
- */
-const STEP_ACCENTS = [
-  { badge: "bg-[#eaff6b] text-[#09263e]", border: "border-l-[#eaff6b]" },
-  { badge: "bg-[#09263e] text-[#eaff6b]", border: "border-l-[#09263e]" },
-  { badge: "bg-[#1f5d57] text-white",      border: "border-l-[#1f5d57]" },
-  { badge: "bg-[#eaff6b] text-[#09263e]", border: "border-l-[#eaff6b]" },
-];
-
-/** WhatsApp number extracted from CMS "share-your-cv" section. */
-const WA_HREF   = "https://wa.me/919254049513";
-const WA_LABEL  = "+91 92540 49513";
-
-export function HowWeHirePage({ page, t, has }) {
+export function HowWeHirePage({ page, t }) {
+  const text = b2eText(t);
   const steps = page.sections ?? [];
 
   return (
     <main id="main">
+      <HeroBand
+        id="hire-title"
+        eyebrow={text("careers.hireEyebrow")}
+        title={page.h1}
+        intro={<Html html={page.introHtml} />}
+        actions={
+          <Link href={`/${page.locale}/careers`} className={BTN_LIME}>
+            {text("careers.applyBack")}
+            <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
+        }
+      />
 
-  
-      {/* ── 2. Process steps ─────────────────────────────────────────────── */}
       {steps.length > 0 && (
-        <Section   >
-
-         <Heading
-            className="mx-auto  text-center mb-10"
-            eyebrow="Recruitment"
-                  eyebrowClassName="mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
-            heading= {page.h1}
-            headingClassName="text-3xl font-semibold leading-tight tracking-tight text-[#071f33] md:text-4xl"
-            subheading={page.introHtml}
-          />
-
-          <ol className="grid gap-6 md:grid-cols-2">
-            {steps.map((step, idx) => {
-              const accent = STEP_ACCENTS[idx % STEP_ACCENTS.length];
-              const num    = STEP_NUMBERS[idx] ?? String(idx + 1).padStart(2, "0");
-
-              return (
-                <li
-                  key={step.id}
-                  id={step.id}
-                  className={[
-                    "relative flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white",
-                    "border-l-4 p-7 shadow-sm transition-shadow hover:shadow-md",
-                    accent.border,
-                  ].join(" ")}
+        <Band>
+          <ol className="m-0 grid list-none gap-6 p-0 md:grid-cols-2">
+            {steps.map((step, index) => (
+              <li
+                key={step.id}
+                id={step.id}
+                className="b2e-anchor m-0 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 sm:p-7"
+              >
+                <span
+                  aria-hidden="true"
+                  className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-[#09263e] text-sm font-bold text-[#eaff6b]"
                 >
-                  {/* Step number badge */}
-                  <span
-                    className={[
-                      "inline-flex size-11 shrink-0 items-center justify-center rounded-full",
-                      "text-sm font-black tracking-tight",
-                      accent.badge,
-                    ].join(" ")}
-                    aria-hidden="true"
-                  >
-                    {num}
-                  </span>
-
-                  {/* Step title */}
-                  <h2 className="text-lg font-bold text-[#09263e]">
-                    {step.title}
-                  </h2>
-
-                  {/* Step body */}
-                  <div className="text-[0.925rem] leading-7 text-slate-600 [&_a]:font-medium [&_a]:text-[#1f5d57] [&_a:hover]:underline [&_p]:m-0 [&_p+p]:mt-3">
-                    <Html html={step.html} />
-                  </div>
-                </li>
-              );
-            })}
+                  {STEP_NUMBERS[index] ?? String(index + 1).padStart(2, "0")}
+                </span>
+                <h2 className={H3_CLASS}>{step.title}</h2>
+                <Html html={step.html} className={PROSE_CARD} />
+              </li>
+            ))}
           </ol>
-        </Section>
+        </Band>
       )}
-
-
-
     </main>
   );
 }

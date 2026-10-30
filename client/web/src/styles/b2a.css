@@ -1,0 +1,45 @@
+/* Batch 2, agent A: hub pages and the "Setting up a new unit" situation page
+   (components/site-pages/*: qa-list.jsx, roadmap-timeline.jsx, timeline-steps.jsx,
+   closing-panel-block.jsx ...). Most styling is Tailwind in the components; this
+   file holds what needs a selector: the links inside quick answers and the
+   vertical line of the route timeline.
+
+   Import once, after wc2.css:  import "@/styles/b2a.css";
+   (app/[locale]/layout.js, next to the other style imports). */
+
+/* Quick answers: links in an answer are rust, underlined, with a jump arrow. */
+.b2a-qa a {
+  color: #b3472d;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.b2a-qa a:hover,
+.b2a-qa a:focus-visible {
+  color: #09263e;
+}
+
+/* The route: a line behind the number badges, ending at the last badge. */
+.b2a-route__step::before {
+  content: "";
+  position: absolute;
+  top: 2.75rem;
+  bottom: -1.25rem;
+  left: 1.3125rem; /* half of the 2.75rem badge, minus half the line */
+  width: 2px;
+  background: rgba(9, 38, 62, 0.16);
+}
+
+.b2a-route__step:last-child::before {
+  display: none;
+}
+
+/* No movement for people who ask for less of it. */
+@media (prefers-reduced-motion: reduce) {
+  .b2a-route__step,
+  .b2a-step {
+    transition: none;
+  }
+}

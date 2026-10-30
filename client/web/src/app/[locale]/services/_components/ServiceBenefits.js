@@ -8,16 +8,16 @@ const ICONS = ["certificate", "gear", "leaf", "chart-line-up"];
 export function ServiceBenefits({ section }) {
   return (
     <div className="service-explanation service-explanation-benefits" data-component="ServiceBenefits">
-      <Html html={section.intro_html} />
+      <Html html={section.intro_html} className="b2b-prose" />
       <div className="service-benefit-grid">
         {section.items.map((item, index) => (
           <article key={item.key || index}>
             <Icon name={ICONS[index] || "target"} />
-            <Html html={heading(3, item.title, item.key) + item.html} />
+            <Html html={heading(3, item.title, item.key) + item.html} className="b2b-prose" />
           </article>
         ))}
       </div>
-      <Html html={section.outro_html} />
+      <Html html={section.outro_html} className="b2b-prose" />
     </div>
   );
 }

@@ -1,26 +1,32 @@
 "use client";
 import { ArrowDown, ArrowUp, ChevronDown, ChevronRight, Plus, Trash } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useFieldArray, useWatch } from "react-hook-form";
+import { Controller, useController, useFieldArray, useWatch } from "react-hook-form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import FileUploaderServer from "@/components/file-uploader-server";
+import ImageField from "@/components/image-field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { sectionRoles } from "@/data/service-constants";
 import { emptySection, htmlSnippet } from "@/lib/service-form";
 import { cn } from "@/lib/utils";
 import HtmlField from "./html-field";
+import LayoutPicker from "./layout-picker";
 import SectionItemsEditor from "./section-items-editor";
 
 const selectClass =
   "w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring";
 
-const itemLabels = { features: "Feature", benefits: "Benefit", process: "Step", faq: "Question" };
+const itemLabels = { features: "Feature", benefits: "Benefit", process: "Step", faq: "Question", reviews: "Review" };
 
-function SectionCard({ index, name, control, register, errors, open, onToggle, onMove, onRemove, isFirst, isLast }) {
+function SectionCard({ index, name, control, register, errors, open, onToggle, onMove, onRemove, isFirst, isLast, roles = sectionRoles }) {
   const section = useWatch({ control, name: `${name}.${index}` }) ?? {};
-  const roleInfo = sectionRoles.find((r) => r.value === section.role) ?? sectionRoles[0];
+  const roleInfo = roles.find((r) => r.value === section.role) ?? roles[0];
+  const { field: roleField } = useController({ control, name: `${name}.${index}.role` });
   const sectionErrors = errors?.[index];
+  // Fields shown for the role: the classic roles show intro + items + closing text, or the content.
+  const parts = roleInfo.parts ?? (roleInfo.items ? ["intro", "items", "outro"] : ["html"]);
   const preview = roleInfo.items
     ? `${section.items?.length ?? 0} item${section.items?.length === 1 ? "" : "s"}${section.intro_html ? " · " + htmlSnippet(section.intro_html, 90) : ""}`
     : htmlSnippet(section.html, 140);
@@ -61,18 +67,16 @@ function SectionCard({ index, name, control, register, errors, open, onToggle, o
             </div>
             <div className="space-y-1">
               <Label htmlFor={`${name}.${index}.role`}>Layout on the website</Label>
-              <select id={`${name}.${index}.role`} className={selectClass} {...register(`${name}.${index}.role`)}>
-                {sectionRoles.map((role) => (
-                  <option key={role.value} value={role.value}>
-                    {role.label}
-                  </option>
-                ))}
-              </select>
+              <LayoutPicker id={`${name}.${index}.role`} roles={roles} value={roleField.value} onChange={roleField.onChange} />
               <p className="text-xs text-muted-foreground">{roleInfo.help}</p>
             </div>
             <div className="space-y-1">
               <Label htmlFor={`${name}.${index}.nav_label`}>Menu label</Label>
               <Input id={`${name}.${index}.nav_label`} placeholder="Short name in “On this page” (optional)" {...register(`${name}.${index}.nav_label`)} />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor={`${name}.${index}.eyebrow`}>Eyebrow</Label>
+              <Input id={`${name}.${index}.eyebrow`} placeholder="Small label above the heading (optional)" {...register(`${name}.${index}.eyebrow`)} />
             </div>
             <div className="space-y-1">
               <Label htmlFor={`${name}.${index}.key`}>Anchor key</Label>
@@ -81,21 +85,81 @@ function SectionCard({ index, name, control, register, errors, open, onToggle, o
             </div>
           </div>
 
-          {roleInfo.items ? (
-            <>
-              <HtmlField control={control} name={`${name}.${index}.intro_html`} label="Intro text" />
-              <SectionItemsEditor
-                control={control}
-                register={register}
-                name={`${name}.${index}.items`}
-                errors={sectionErrors?.items}
-                itemLabel={itemLabels[section.role] ?? "Item"}
-              />
-              <HtmlField control={control} name={`${name}.${index}.outro_html`} label="Closing text" />
-            </>
-          ) : (
-            <HtmlField control={control} name={`${name}.${index}.html`} label="Content" />
+          {section.role === "video" && (
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-1">
+                <Label htmlFor={`${name}.${index}.video_url`}>YouTube video link</Label>
+                <Input id={`${name}.${index}.video_url`} placeholder="https://www.youtube.com/watch?v=…" {...register(`${name}.${index}.video_url`)} />
+                {sectionErrors?.video_url && <p className="text-sm text-red-500">{sectionErrors.video_url.message}</p>}
+                <p className="text-xs text-muted-foreground">Paste the YouTube address. Without a link the card shows “Video coming”.</p>
+              </div>
+              <div className="space-y-1">
+                <Label>Poster picture</Label>
+                <Controller
+                  control={control}
+                  name={`${name}.${index}.poster`}
+                  render={({ field }) => <FileUploaderServer value={field.value} onFileChange={(path) => field.onChange(path ?? "")} />}
+                />
+                <p className="text-xs text-muted-foreground">Shown on the card until the video is played. The section title is the heading; Content below is the description.</p>
+              </div>
+            </div>
           )}
+          {section.role === "eligibility" && (
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-1">
+                <Label>Picture / diagram (optional)</Label>
+                <Controller
+                  control={control}
+                  name={`${name}.${index}.image`}
+                  render={({ field }) => <ImageField value={field.value} onChange={(path) => field.onChange(path ?? "")} />}
+                />
+                <p className="text-xs text-muted-foreground">Shown above the numbered factors. PNG, JPG, WebP or SVG. Every service can have its own picture; leave empty for none.</p>
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor={`${name}.${index}.image_alt`}>Picture description</Label>
+                <Input id={`${name}.${index}.image_alt`} placeholder="What the picture shows (for screen readers)" {...register(`${name}.${index}.image_alt`)} />
+              </div>
+            </div>
+          )}
+          {section.role === "reviews" && (
+            <div className="space-y-2 rounded-md border bg-muted/20 p-3">
+              <p className="text-sm font-medium">Rating box of this service</p>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-3">
+                <div className="space-y-1">
+                  <Label htmlFor={`${name}.${index}.rating_value`}>Overall rating (out of 5)</Label>
+                  <Input id={`${name}.${index}.rating_value`} inputMode="decimal" placeholder="4.8" {...register(`${name}.${index}.rating_value`)} />
+                  {sectionErrors?.rating_value && <p className="text-sm text-red-500">{sectionErrors.rating_value.message}</p>}
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor={`${name}.${index}.rating_count`}>Number of client reviews</Label>
+                  <Input id={`${name}.${index}.rating_count`} inputMode="numeric" placeholder="120" {...register(`${name}.${index}.rating_count`)} />
+                  {sectionErrors?.rating_count && <p className="text-sm text-red-500">{sectionErrors.rating_count.message}</p>}
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor={`${name}.${index}.rating_source`}>Source</Label>
+                  <Input id={`${name}.${index}.rating_source`} placeholder="Google reviews" {...register(`${name}.${index}.rating_source`)} />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor={`${name}.${index}.trust_label`}>Card label</Label>
+                  <Input id={`${name}.${index}.trust_label`} placeholder="Trusted by growing businesses" {...register(`${name}.${index}.trust_label`)} />
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground">Each service has its own numbers. Leave the rating empty to hide the box.</p>
+            </div>
+          )}
+          {parts.includes("html") && <HtmlField control={control} name={`${name}.${index}.html`} label={section.role === "video" ? "Description" : "Content"} />}
+          {parts.includes("intro") && <HtmlField control={control} name={`${name}.${index}.intro_html`} label="Intro text" />}
+          {parts.includes("items") && (
+            <SectionItemsEditor
+              control={control}
+              register={register}
+              name={`${name}.${index}.items`}
+              errors={sectionErrors?.items}
+              itemLabel={itemLabels[section.role] ?? "Item"}
+              reviews={section.role === "reviews"}
+            />
+          )}
+          {parts.includes("outro") && <HtmlField control={control} name={`${name}.${index}.outro_html`} label="Closing text" />}
         </div>
       )}
     </div>
@@ -103,7 +167,7 @@ function SectionCard({ index, name, control, register, errors, open, onToggle, o
 }
 
 // Add, edit, reorder and remove the ordered sections of one language version.
-export default function SectionsEditor({ control, register, name, errors }) {
+export default function SectionsEditor({ control, register, name, errors, roles = sectionRoles }) {
   const { fields, append, remove, move } = useFieldArray({ control, name });
   const [openIds, setOpenIds] = useState(() => new Set());
 
@@ -157,6 +221,7 @@ export default function SectionsEditor({ control, register, name, errors }) {
           onRemove={remove}
           isFirst={index === 0}
           isLast={index === fields.length - 1}
+          roles={roles}
         />
       ))}
 

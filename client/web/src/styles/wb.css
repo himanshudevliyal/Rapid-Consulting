@@ -1,0 +1,268 @@
+/*
+ * wb - navigation / site structure (header states, Approvals + Your Project
+ * menus, footer). Imported by app/[locale]/layout.js after w1.css.
+ */
+
+/* ── Home header: navy bar in the page + white translucent sticky bar ──
+   The navy bar scrolls away with the page. The white bar hangs from a
+   zero-height sticky anchor (so it never takes space and nothing jumps) and
+   slides in once the navy bar is completely out of view: the two are never
+   on screen together. The inactive bar is inert and invisible. */
+.wb-bar-initial[data-state="off"] {
+  visibility: hidden;
+}
+
+.wb-sticky-anchor {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 0;
+  overflow: visible;
+}
+
+.wb-sticky-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  transform: translateY(-100%);
+  visibility: hidden;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .wb-sticky-bar {
+    background: rgb(255 255 255 / 0.9);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    backdrop-filter: saturate(1.4) blur(12px);
+  }
+}
+
+/* entering: visible straight away, then a quick slide; leaving is instant,
+   so the white bar is gone before the navy bar comes back into view */
+.wb-sticky-bar[data-state="in"] {
+  transform: none;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wb-sticky-anchor[data-animate="true"] .wb-sticky-bar[data-state="in"] {
+    transition: transform 0.16s ease-out;
+  }
+}
+
+/* ── Approvals menu: categories + "Other business support" ── */
+.wb-other-support {
+  padding: 20px 22px 22px;
+  border-radius: 14px;
+  background: var(--muted-bg, #f4f6f1);
+  border-top: 3px solid var(--primary, #eaff6b);
+}
+.wb-other-support .nav-group h3 {
+  margin-bottom: 14px;
+}
+.wb-other-support .nav-page-link {
+  font-weight: 600;
+}
+@media (max-width: 1279px) {
+  .wb-other-support {
+    padding: 16px 16px 18px;
+  }
+}
+
+/* ── Your Project menu: five stages ── */
+.wb-stage-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.wb-stage-list > li {
+  display: flex;
+  min-width: 0;
+}
+/* the fifth stage ("a file stuck at any stage") is the wide one */
+.wb-stage-list > li:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+.wb-stage-link {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 40px 14px 14px;
+  border: 1px solid #e3e8e5;
+  border-radius: 14px;
+  background: #fff;
+  color: #09263e;
+  text-decoration: none;
+  transition: border-color 0.18s, background-color 0.18s, box-shadow 0.18s;
+}
+.wb-stage-link:hover,
+.wb-stage-link:focus-visible {
+  border-color: #1f5d57;
+  background: #f4f6f1;
+}
+.wb-stage-link:focus-visible {
+  outline: 2px solid #1f5d57;
+  outline-offset: 2px;
+}
+.wb-stage-link:hover strong,
+.wb-stage-link:focus-visible strong {
+  color: #1f5d57;
+}
+.wb-stage-num {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #09263e;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+}
+.wb-stage-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.wb-stage-body strong {
+  font-size: 15px;
+  line-height: 1.3;
+  color: #09263e;
+}
+.wb-stage-body > span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #4b5d68;
+}
+.wb-stage-link .nav-tile-arrow {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+@media (max-width: 800px) {
+  .wb-stage-list {
+    grid-template-columns: 1fr;
+  }
+}
+#rapid-navigation .menu-your-project .wb-stage-list {
+  grid-template-columns: 1fr;
+}
+
+/* The Approvals body inside the phone / tablet panel is one column. */
+#rapid-navigation .wb-approvals {
+  grid-template-columns: 1fr;
+}
+#rapid-navigation .wb-approvals .mega-grid {
+  grid-template-columns: 1fr;
+}
+
+/* ── Footer: always a clear edge against whatever sits above it ── */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: rgb(255 255 255 / 0.1);
+}
+
+/* ── Header actions: green WhatsApp button (Figma batch 1, A.2) ──
+   Icon-only circle by default (from 640px; phones keep the callback pill).
+   The number joins the icon where the bar has room for it:
+     1024-1279px  menu is a button, plenty of room
+     >= 1440px    inline menu (7 items) + number fit in English
+   Not shown between 1280px and 1439px, nor in Hindi with the inline menu
+   (>= 1280px): the longer labels leave no room. The number is always part of
+   the accessible name. */
+.wb-wa {
+  display: none;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border-radius: 999px;
+  background: var(--whatsapp, #078342);
+  color: #fff !important;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 0.18s;
+}
+.wb-wa:hover {
+  background: var(--whatsapp-hover, #066b37);
+}
+.wb-wa svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+.wb-wa-num {
+  display: none;
+}
+@media (min-width: 640px) {
+  .wb-wa {
+    display: inline-flex;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .wb-wa {
+    padding: 0 14px;
+  }
+  .wb-wa-num {
+    display: inline;
+  }
+}
+@media (min-width: 1440px) {
+  html:not(:lang(hi)) .wb-wa {
+    padding: 0 14px;
+  }
+  html:not(:lang(hi)) .wb-wa-num {
+    display: inline;
+  }
+}
+
+/* ── Footer (Figma batch 1, A.4): navy panel, CTA row, eight link columns ── */
+.wb-footer-logo-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #fff;
+}
+.wb-footer-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.12);
+  color: #fff !important;
+  transition: background-color 0.18s, color 0.18s;
+}
+.wb-footer-social:hover {
+  background: #eaff6b;
+  color: #09263e !important;
+}
+.wb-footer-social:focus-visible {
+  outline: 2px solid #eaff6b;
+  outline-offset: 2px;
+}
+.wb-footer-disabled {
+  cursor: not-allowed;
+}

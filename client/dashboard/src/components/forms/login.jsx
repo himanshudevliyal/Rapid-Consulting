@@ -22,6 +22,7 @@ import { handleError } from "@/lib/handle-error-toast";
 import { handleSuccessToast } from "@/lib/handle-success-toast";
 import { useState } from "react";
 import FieldError from "../ui/field-error";
+import { homeRouteForRole } from "@/data/routes";
 
 // Form validation schema
 const loginSchema = z.object({
@@ -30,12 +31,33 @@ const loginSchema = z.object({
   // rememberMe: z.boolean().optional(),
 });
 
-// API login function
-const loginUser = async (data) => {
-  await axios.post("/api/login", {
+// API login function. The API checks the account's role, so an administrator
+// signs in as "admin"; if no admin account matches (404), the same
+// credentials are tried as an "editor" (site pages only). Resolves to the role
+// that signed in.
+const loginAs = async (data, role) => {
+  const res = await axios.post("/api/login", {
     method: "POST",
-    body: JSON.stringify(data),
+    body: JSON.stringify({ ...data, role }),
   });
+  // The API answers with the account's own role (an editor can sign in through
+  // the admin sign-in), so route by that rather than by what was sent.
+  return res?.data?.user_data?.role ?? role;
+};
+
+const loginUser = async (data) => {
+  try {
+    return await loginAs(data, "admin");
+  } catch (error) {
+    if (error?.response?.status !== 404) throw error;
+    try {
+      return await loginAs(data, "editor");
+    } catch (editorError) {
+      // Still not found: report the first answer, not the retry.
+      if (editorError?.response?.status === 404) throw error;
+      throw editorError;
+    }
+  }
 };
 
 export default function LoginForm() {
@@ -56,14 +78,15 @@ export default function LoginForm() {
   });
   const loginMutation = useMutation({
     mutationFn: loginUser,
-    onSuccess: () => {
+    onSuccess: (role) => {
       handleSuccessToast("Login successful!");
-      router.replace("/dashboard");
+      // Editors only have Site pages; the dashboard is admin only.
+      router.replace(homeRouteForRole(role));
     },
   });
 
   const onSubmit = (data) => {
-    loginMutation.mutate({ ...data, role: "admin" });
+    loginMutation.mutate(data);
   };
 
   return (

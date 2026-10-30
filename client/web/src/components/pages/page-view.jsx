@@ -14,7 +14,6 @@ import {
   evidenceCaseIds,
 } from "@/lib/pages/presentation";
 import { WhatsAppButton } from "@/components/contact/whatsapp";
-import { ArrowRight } from "lucide-react";
 
 import { cardCopy, linkedContentIds } from "@/lib/pages/card-copy";
 import { ClientTicker } from "@/components/common/client-ticker";
@@ -25,36 +24,42 @@ import { AdviserPage } from "./adviser-page";
 import Heading from "@/components/layout/heading";
 import Section from "@/components/layout/section";
 import { ActiveSectionNav } from "@/components/common/active-section-nav";
+import { AuthorReviewer } from "@/components/common/author-reviewer";
+import { EnquiryTrigger } from "@/components/form/enquiry-drawer";
+import { SvrTeaser } from "@/components/common/svr-teaser";
+import { ContentCard as ServiceCard } from "@/components/common/content-card";
+import { CaseContext, CaseEvidence } from "./case-evidence";
+import { SchemeFacts } from "./scheme-facts";
+import { pdfFor } from "@/lib/pages/downloads";
+import { loadServicesForScheme } from "@/lib/content/related";
+import { serviceHref } from "@/lib/site";
 
 
-import { ChevronRight, ChevronsUp } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 
 import { ContentCard, InvestmentMetric } from "./content-card";
 import {
+  DownloadButton,
   Html,
   Icon,
   PhotoPlaceholder,
   SectionNav,
 } from "./content-primitives";
 import { FaqContent } from "./faq-content";
-import { HomeSections } from "@/home/home-sections";
-import { IndustryDiscovery } from "./industry-discovery";
+import { HomeView } from "./home-view";
+import { AboutUsView } from "./about-view";
+import { IndustryPage } from "./industry-page";
 import {
   InvestmentScenarios,
   isInvestmentScenarios,
 } from "./investment-scenarios";
-import { ProjectStages } from "./project-stages";
 import {
   ServiceExplanation,
   serviceExplanationRole,
 } from "./service-explanation";
 import { TeamSection, isTeamSection } from "./team-section";
-import Image from "next/image";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { loadCaseStudies } from "@/lib/content/site-data";
-import Link from "next/link";
 
 // Detail templates (hero + "on this page" + numbered sections + contact rail).
 export const DETAIL_TYPES = [
@@ -78,6 +83,14 @@ export const COLLECTIONS = {
 const eyebrowFor = (page, t) =>
   page.locale === "hi" ? t("site.eyebrowGroupFallback") : page.group;
 
+// Anchored sections stop below the site header AND the sticky section bar.
+const NAV_OFFSET =
+  "scroll-mt-[calc(var(--site-header-h,var(--header-height,80px))+var(--section-nav-h,52px)+16px)]!";
+const EYEBROW =
+  "mb-2 inline-block text-xs font-semibold uppercase tracking-[0.14em] text-[#1f5d57]";
+const H1 =
+  "mt-0 text-[clamp(34px,3.7vw,48px)] font-semibold leading-[1.16] tracking-[-0.04em] text-[#09263e]";
+
 function BodySection({ section, page, index, t, has }) {
   const faq = hasFaqContent(section.html);
   const explanation = serviceExplanationRole(page, section);
@@ -88,6 +101,7 @@ function BodySection({ section, page, index, t, has }) {
     "body-section",
     index % 2 ? "section-wash" : "",
     evidence.length ? "proof-section" : "",
+    NAV_OFFSET,
   ];
 
   return (
@@ -97,7 +111,7 @@ function BodySection({ section, page, index, t, has }) {
         eyebrow={String(index + 1).padStart(2, "0")}
         heading={section.title}
         className="text-left mb-5  flex  items-center gap-4"
-                  eyebrowClassName="mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
+                  eyebrowClassName="mb-2 inline-block text-xs font-semibold uppercase tracking-[0.14em] text-[#1f5d57]"
         headingClassName="text-[28px] leading-[1.35] font-semibold text-foreground "
       />
       {explanation ? (
@@ -146,76 +160,6 @@ const PARENTS = {
 
 // import { Html } from "..."  // apna existing Html component import yaha rakho
 
-export function HeroSection({ t, page }) {
-  // Split h1 into two halves: first half dark navy, second half teal
-  const words = String(page.h1 || "").split(" ");
-  const mid = Math.ceil(words.length / 2);
-  const line1 = words.slice(0, mid).join(" ");
-  const line2 = words.slice(mid).join(" ");
-
-  return (
-      <div className="grid min-h-[640px] lg:min-h-[730px] lg:grid-cols-2">
-        {/* ───── Left content ───── */}
-        <div className="flex items-center px-4 py-16 sm:px-6 lg:py-24 lg:pl-[max(2rem,calc((100vw-82.5rem)/2+2rem))] lg:pr-12">
-          <div className="max-w-[620px]">
-            {/* Eyebrow */}
-            <p className="mb-5 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.12em] text-[#1f5d57]">
-              <ChevronsUp className="size-4" aria-hidden="true" />
-              {t("site.eyebrowHome")}
-            </p>
-
-            {/* H1 */}
-            <h1 className="text-[2.2rem] font-semibold leading-[1.12] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-              {line1}
-              {line2 && (
-                <span className="text-[#1f5d57]"> {line2}</span>
-              )}
-            </h1>
-
-            {/* Intro paragraph */}
-            <div
-              className="mt-5 max-w-xl text-base leading-8 text-muted-foreground sm:text-[17px] [&_p]:m-0 [&_p+p]:mt-4"
-              dangerouslySetInnerHTML={{ __html: page.introHtml }}
-            />
-
-            {/* CTAs */}
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Button
-                asChild
-                className="group h-[60px] rounded-full bg-primary pl-8 pr-2 text-base font-semibold text-foreground shadow-none transition-all hover:bg-[#dcf24f] hover:-translate-y-0.5"
-              >
-                <Link href="/about">
-                  <span>About Us</span>
-                  <span className="ml-3 flex size-11 items-center justify-center rounded-full bg-accent text-white transition-transform group-hover:translate-x-0.5">
-                    <ChevronRight className="size-5" aria-hidden="true" />
-                  </span>
-                </Link>
-              </Button>
-
-              <WhatsAppButton />
-            </div>
-          </div>
-        </div>
-
-        {/* ───── Right image (full-bleed) ───── */}
-        <div className="relative min-h-[380px] w-full lg:min-h-full">
-          <Image
-            src="/assets/hero-section.jpg"
-            alt="Rapid Consulting team"
-            fill
-            priority
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover"
-          />
-          {/* Subtle left-edge gradient to blend with content */}
-          <span
-            aria-hidden="true"
-            className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#f6f6f6] to-transparent lg:hidden"
-          />
-        </div>
-      </div>
-  );
-}
 
 
 function ReviewNote({ page, t }) {
@@ -237,55 +181,56 @@ function ReviewNote({ page, t }) {
   );
 }
 
-function Attribution({ page, t }) {
-  return (
-    <div className="attribution">
-      <div className="avatar-placeholder">
-        <Icon name="users-three" />
-      </div>
-      <div>
-        {["article", "guide"].includes(page.type) && (
-          <span>{t("site.attribution.authorPending")}</span>
-        )}
-        <p>
-          {t("site.attribution.designatedReviewer")}{" "}
-          <a href={pageHref("P01", page.locale)}>Atul Goyal</a>
-          <span> · {t("site.attribution.founderRole")}</span>
-        </p>
-        <small>{t("site.attribution.reviewPending")}</small>
-      </div>
-    </div>
-  );
-}
+// References (official / earlier pages) and the review of the page: the
+// reviewer is the same linked name card used under the title. No reviewer, no
+// review block; sources alone still list.
+const SOURCEABLE = ["scheme", "article", "guide"];
+const sourceLinks = (page) =>
+  (SOURCEABLE.includes(page.type) ? (page.sourceUrls ?? []) : [])
+    .map((url) => {
+      try {
+        return { url, host: new URL(url).hostname };
+      } catch {
+        return null;
+      }
+    })
+    .filter(Boolean);
+const hasSources = (page) =>
+  sourceLinks(page).length > 0 ||
+  (SOURCEABLE.includes(page.type) && Boolean(page.reviewer));
 
 function Sources({ page, t }) {
-  if (
-    !page.sourceUrls.length ||
-    !["scheme", "article", "guide"].includes(page.type)
-  )
-    return null;
+  const links = sourceLinks(page);
+  const reviewer = SOURCEABLE.includes(page.type) ? page.reviewer : null;
+  if (!links.length && !reviewer) return null;
   return (
-    <Section className="source-panel" id="source-record">
+    <Section className={`source-panel ${NAV_OFFSET}`} id="source-record">
       <h2>{t("site.sources.title")}</h2>
-      <p>{t("site.sources.intro")}</p>
-      <ul>
-        {page.sourceUrls.map((url, i) => {
-          const host = new URL(url).hostname;
-          return (
-            <li key={url}>
-              <a href={url} target="_blank" rel="noreferrer">
-                {host.includes("rapidconsulting.in")
-                  ? t("site.sources.earlierPage")
-                  : host.replace("www.", "")}{" "}
-                <span className="source-label">
-                  · {t("site.sources.reference")} {i + 1} ↗
-                </span>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-      <p className="small">{t("site.sources.reviewerNote")}</p>
+      {links.length > 0 && (
+        <>
+          <p>{t("site.sources.intro")}</p>
+          <ul>
+            {links.map(({ url, host }, i) => (
+              <li key={url}>
+                <a href={url} target="_blank" rel="noreferrer">
+                  {host.includes("rapidconsulting.in")
+                    ? t("site.sources.earlierPage")
+                    : host.replace("www.", "")}{" "}
+                  <span className="source-label">
+                    · {t("site.sources.reference")} {i + 1} ↗
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {reviewer && (
+        <div className="mt-6 border-t border-slate-200 pt-5">
+          <AuthorReviewer page={page} t={t} variant="review" className="!my-0" />
+          <p className="small">{t("detail.sources.reviewNote")}</p>
+        </div>
+      )}
     </Section>
   );
 }
@@ -329,7 +274,7 @@ function Related({ page, t, has, compact = false }) {
                   eyebrow={t("site.related.keepExploring")}
                   heading={s.label}
                   className="text-left"
-                  eyebrowClassName="mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
+                  eyebrowClassName="mb-2 inline-block text-xs font-semibold uppercase tracking-[0.14em] text-[#1f5d57]"
                   headingClassName="text-2xl font-semibold tracking-tight text-foreground mt-0"
                 />
               </div>
@@ -356,6 +301,58 @@ function Related({ page, t, has, compact = false }) {
   );
 }
 
+// Where to go after reading: the services relevant to a scheme (taken from
+// the industries that list it) and the two directories. Real links only.
+function NextSteps({ page, t, services = [] }) {
+  const locale = page.locale;
+  const links = [
+    page.type !== "scheme" && {
+      href: pageHref("R02", locale),
+      label: t("detail.nextSteps.schemes"),
+    },
+    {
+      href: `/${locale}/services`,
+      label: t("detail.nextSteps.services"),
+    },
+  ].filter(Boolean);
+  return (
+    <Section className="related-block compact-related" containerClassName="px-0">
+      <div className="related-set">
+        <Heading
+          eyebrow={t("site.related.keepExploring")}
+          heading={t("detail.nextSteps.title")}
+          className="text-left"
+          eyebrowClassName={EYEBROW}
+          headingClassName="text-2xl font-semibold tracking-tight text-foreground mt-0"
+        />
+        {services.length > 0 && (
+          <div className={`card-grid columns-${services.length} mt-5`}>
+            {services.map((service) => (
+              <ServiceCard
+                key={service.code}
+                item={service}
+                href={serviceHref(service, locale)}
+                typeLabel={t(`card.types.${service.type}`)}
+                englishTag={service.has_locale ? "" : t("common.englishTag")}
+                actionLabel={t("card.explore")}
+              />
+            ))}
+          </div>
+        )}
+        <ul className="m-0 mt-5 flex list-none flex-wrap gap-3 p-0">
+          {links.map((link) => (
+            <li key={link.href}>
+              <a className="button button-secondary" href={link.href}>
+                {link.label} <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Section>
+  );
+}
+
 function CaseIntroduction({ page, t }) {
   const pieces = [...page.introHtml.matchAll(/<p[^>]*>[\s\S]*?<\/p>/g)].map(
     (m) => m[0],
@@ -373,288 +370,151 @@ function CaseIntroduction({ page, t }) {
   );
 }
 
-function Hero({ page, t, detail = false }) {
-  const benefit = benefitSection(page);
-  const intro = (benefit ? benefit.html : page.introHtml).replace(
-    /<p>On this page:[\s\S]*?<\/p>/g,
-    "",
-  );
-
-  // Industry pages get the Heading component treatment
-  if (page.type === "industry") {
-    return (
-      <header className={`page-hero ${detail ? "detail-hero" : ""}`}>
-        <Heading
-          eyebrow={eyebrowFor(page, t)}
-          heading={page.h1}
-          className="text-left"
-                  eyebrowClassName="mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
-          headingClassName="text-[clamp(34px,3.7vw,48px)] leading-[1.16] tracking-[-0.04em] font-semibold text-foreground mt-0"
-        />
-        {benefit && <h2 className="benefit-heading">{benefit.title}</h2>}
-        <Html html={intro} className="hero-copy" />
-        <ContextActions t={t} />
-        <ReviewNote page={page} t={t} />
-      </header>
-    );
-  }
-
+// WhatsApp first, then the enquiry drawer (same form as the page's callback rail).
+function HeroActions({ page, t }) {
   return (
-    <header className={`page-hero ${detail ? "detail-hero" : ""}`}>
-      <p className="eyebrow">
-        {page.type === "home" ? t("site.eyebrowHome") : eyebrowFor(page, t)}
-      </p>
-      <h1>{page.h1}</h1>
-      {detail && <ShareActions title={page.h1} />}
-      {["article", "guide", "scheme", "case-study"].includes(page.type) && (
-        <Attribution page={page} t={t} />
-      )}
-      {benefit && <h2 className="benefit-heading">{benefit.title}</h2>}
-      {page.type === "case-study" ? (
+    <div className="actions">
+      <WhatsAppButton />
+      <EnquiryTrigger
+        className="button button-secondary"
+        source="page-hero"
+        serviceName={page.type === "service" ? page.h1 : undefined}
+      >
+        {t("service.discussProject")}
+        <span aria-hidden="true">↗</span>
+      </EnquiryTrigger>
+    </div>
+  );
+}
+
+// Articles, guides, schemes and case studies: reading comes first. No banner
+// picture above the title; the title, who wrote and reviewed it, then the
+// opening copy.
+function EditorialHero({ page, t }) {
+  const intro = page.introHtml.replace(/<p>On this page:[\s\S]*?<\/p>/g, "");
+  const pdf = pdfFor(page);
+  const caseStudy = page.type === "case-study";
+  return (
+    <header className="page-hero detail-hero" data-component="EditorialHero">
+      <span className={EYEBROW}>{eyebrowFor(page, t)}</span>
+      <h1 className={H1}>{page.h1}</h1>
+      <ShareActions title={page.h1} />
+      <AuthorReviewer page={page} t={t} />
+      {caseStudy ? (
         <CaseIntroduction page={page} t={t} />
       ) : (
         <Html html={intro} className="hero-copy" />
       )}
-      <ContextActions t={t} />
-      <ReviewNote page={page} t={t} />
+      {caseStudy && <CaseContext page={page} t={t} />}
+      {page.type === "scheme" && <SchemeFacts page={page} t={t} />}
+      {pdf && (
+        <div className="download-row">
+          <DownloadButton
+            href={pdf}
+            label={t(
+              page.type === "scheme"
+                ? "site.download.scheme"
+                : page.type === "guide"
+                  ? "site.download.guide"
+                  : "site.download.generic",
+            )}
+          />
+          <span>{t("site.download.note")}</span>
+        </div>
+      )}
+      <HeroActions page={page} t={t} />
+      {!caseStudy && <ReviewNote page={page} t={t} />}
     </header>
   );
 }
 
-function  HomeView({ page, t, has }) {
-  const credibility = [
-    [t("site.credibility.years"), "chart-line-up"],
-    [t("site.credibility.assignments"), "clipboard-text"],
-    [t("site.credibility.businesses"), "users-three"],
-  ];
-
+// Plain breadcrumbs, then the sticky section bar across the full width (so a
+// sticky form rail sits below the header and the bar), then the page and its
+// callback rail.
+export function DetailLayout({ page, t, nav, children }) {
   return (
     <>
-      {/* Hero Section */}
-     <HeroSection t={t} page={page} ></HeroSection>
-
-      {/* Credibility Strip */}
-      <Section className="border-y border-border bg-white py-0">
-          <div className="grid grid-cols-1 divide-y divide-[#d6dde3] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-            {credibility.map(([label, icon]) => (
-              <div
-                key={icon}
-                className="flex items-center gap-4 px-5 py-6 sm:px-8 lg:py-9"
-              >
-                {/* Icon bubble */}
-                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary text-foreground">
-                  <Icon name={icon} />
-                </div>
-
-                {/* Stats */}
-                <div className="flex flex-col">
-                  <strong className="text-2xl font-bold leading-none tracking-tight text-foreground">
-                    —
-                  </strong>
-                  <span className="mt-1 text-sm font-semibold text-foreground">
-                    {label}
-                  </span>
-                  <small className="mt-0.5 text-xs text-muted-foreground">
-                    {t("site.credibility.pending")}
-                  </small>
-                </div>
-              </div>
-            ))}
-          </div>
-        
+      <Breadcrumbs page={page} t={t} />
+      {nav}
+      <Section as="div" className="py-0 bg-gray-50">
+        <div className="detail-layout">
+          <main className="detail-content" id="main">
+            {children}
+          </main>
+          <aside className="detail-rail">
+            <ContactExperience
+              pageTitle={page.h1}
+              pageId={page.id}
+              variant="rail"
+            />
+          </aside>
+        </div>
       </Section>
-
-      {/* Client Ticker */}
-      
-          <ClientTicker />
-      
-      {/* Home Sections */}
-      <HomeSections
-        page={page}
-        t={t}
-        has={has}
-      />
     </>
   );
 }
 
-export function DetailLayout({ page, t, children }) {
-  return (
-<>
-            <Breadcrumbs page={page} t={t} />
-
-    <Section as="div" className="py-0  bg-gray-50">
-      <div className="[&_.breadcrumbs]:py-3 border-b border-slate-200 mb-0">
-  
-      </div>
-      <div className="detail-layout">
-        <main className="detail-content" id="main">
-          {children}
-        </main>
-        <aside className="detail-rail">
-          <ContactExperience
-            pageTitle={page.h1}
-            pageId={page.id}
-            variant="rail"
-          />
-        </aside>
-      </div>
-    </Section>
-    </>
-  );
-}
-
-export function DetailView({ page, t, has }) {
+export async function DetailView({ page, t, has }) {
   const sections = page.sections.filter((s) => s !== benefitSection(page));
   const nav = explanationNav[`${page.locale}/${page.id}`] ?? {};
+  const navSections = [
+    ...(page.type === "case-study" && page.proof
+      ? [{ id: "evidence", title: t("detail.case.navEvidence") }]
+      : []),
+    ...sections.map((s) => ({ id: s.id, title: nav[s.id] || s.title })),
+    ...(hasSources(page)
+      ? [{ id: "source-record", title: t("detail.sources.navLabel") }]
+      : []),
+  ];
+  const services =
+    page.type === "scheme"
+      ? await loadServicesForScheme(page.slug, page.locale).catch(() => [])
+      : [];
   return (
     <>
-    <DetailLayout page={page} t={t}>
-      <Hero page={page} t={t} detail />
-      <ActiveSectionNav
-        title={t("service.onThisPage")}
-        label={t("service.onThisPageLabel")}
-        sections={sections.map((s) => ({
-          id: s.id,
-          title: nav[s.id] || s.title,
-        }))}
-      />
-      {sections.map((s, i) => (
-        <BodySection
-          section={s}
-          page={page}
-          index={i}
-          key={s.id}
-          t={t}
-          has={has}
-        />
-      ))}
-      <Sources page={page} t={t} />
-      <Related page={page} t={t} has={has} compact />
-    </DetailLayout>
-          <ClientTicker />
-</>
-  );
-}
-
-export function IndustryView({ page, t, has }) {
-  const navSections = page.sections.map((s) => ({ id: s.id, title: s.title }));
-
-  return (
-    <>
-      <DetailLayout page={page} t={t}>
-        <Hero page={page} t={t} />
-        {navSections.length > 0 && (
+      <DetailLayout
+        page={page}
+        t={t}
+        nav={
           <ActiveSectionNav
             title={t("service.onThisPage")}
             label={t("service.onThisPageLabel")}
             sections={navSections}
           />
-        )}
-        {page.sections.map((s, i) => (
-          <BodySection
-            section={s}
-            page={page}
-            index={i}
-            key={s.id}
-            t={t}
-            has={has}
-          />
-        ))}
-        <IndustryDiscovery page={page} t={t} has={has} />
-        <Related page={page} t={t} has={has} compact />
+        }
+      >
+        {/* One reading width for the whole page */}
+        <div className="w-full max-w-[860px]">
+          <EditorialHero page={page} t={t} />
+          {page.type === "case-study" && <CaseEvidence page={page} t={t} />}
+          {sections.map((s, i) => (
+            <BodySection
+              section={s}
+              page={page}
+              index={i}
+              key={s.id}
+              t={t}
+              has={has}
+            />
+          ))}
+          <Sources page={page} t={t} />
+          {page.type === "scheme" && <SvrTeaser context="scheme" />}
+          <NextSteps page={page} t={t} services={services} />
+          <Related page={page} t={t} has={has} compact />
+        </div>
       </DetailLayout>
       <ClientTicker />
     </>
   );
 }
 
-export function AboutUsView({ page, t, has }) {
-  const contactId =
-    page.locale === "hi"
-      ? "अपने-प्रोजेक्ट-पर-बात-करें"
-      : "discuss-your-project";
-  const contact = page.sections.find((section) => section.id === contactId);
-  const sections = page.sections.filter((section) => section !== contact);
-  return (
-    <main id="main" className="container standard-page about-page">
-      <Breadcrumbs page={page} t={t} />
-      <header className="page-hero about-hero">
-        <p className="eyebrow">Rapid Consulting</p>
-        <h1>{page.h1}</h1>
-        <Html html={page.introHtml} className="hero-copy" />
-        <ContextActions t={t} />
-      </header>
-      <ClientTicker />
-      <div className="standard-body">
-        {sections.map((section, index) => {
-          const advantage = [
-            "the-rapid-advantage",
-            "रैपिड-के-साथ-काम-करने-के-फायदे",
-          ].includes(section.id);
-          if (!advantage)
-            return (
-              <BodySection
-                key={section.id}
-                section={section}
-                page={page}
-                index={index}
-                t={t}
-                has={has}
-              />
-            );
-          const blocks = section.html.split(/(?=<h3\b)/);
-          return (
-            <Section
-              key={section.id}
-              id={section.id}
-              className="body-section section-wash about-advantage"
-            >
-              <Heading
-                eyebrow={String(index + 1).padStart(2, "0")}
-                heading={section.title}
-                className="text-left mb-5"
-                  eyebrowClassName="mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
-                headingClassName="text-[28px] leading-[1.35] font-semibold text-foreground mt-1"
-              />
-              <div className="about-advantage-grid">
-                {blocks
-                  .filter((block) => block.trim())
-                  .map((html, i) => (
-                    <article key={i}>
-                      <Icon
-                        name={
-                          [
-                            "target",
-                            "clipboard-text",
-                            "users-three",
-                            "factory",
-                          ][i] || "target"
-                        }
-                      />
-                      <Html html={html} />
-                    </article>
-                  ))}
-              </div>
-            </Section>
-          );
-        })}
-      </div>
-      <Section id={contact?.id || contactId} className="about-contact">
-        <div>
-          <p className="eyebrow">{t("site.about.letsTalk")}</p>
-          <h2>{contact?.title || t("site.about.discussProject")}</h2>
-          {contact && <Html html={contact.html} />}
-        </div>
-        <ContactExperience
-          pageTitle={page.h1}
-          pageId={page.id}
-          variant="section"
-        />
-      </Section>
-    </main>
-  );
+// The industry page is built in industry-page.jsx (the Figma layout: hero with
+// the project-type card, claims table, cases, FAQs); this stays as the one
+// export other routes use for a page of type "industry".
+export function IndustryView({ page, t, has }) {
+  return <IndustryPage page={page} t={t} has={has} />;
 }
+
 
 export async function StandardView({ page, t, has }) {
   if (page.id === "U01")

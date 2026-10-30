@@ -1,4 +1,3 @@
-
 import {
   FileQuestion,
   LayoutDashboard,
@@ -11,15 +10,23 @@ import {
   Briefcase,
   Building2,
   ScrollText,
+  CalendarDays,
+  UsersRound,
+  LayoutTemplate,
+  Menu,
 } from "lucide-react";
 
 export const ROLES = {
   ADMIN: "admin",
+  EDITOR: "editor",
   CUSTOMER: "customer",
 };
 
+// Where a role lands after sign in (editors do not have the dashboard).
+export const homeRouteForRole = (role) =>
+  role === ROLES.EDITOR ? "/site-pages?page=1&limit=10" : "/dashboard";
+
 export const sidebarData = [
-  // 1. Dashboard
   {
     title: "Dashboard",
     url: "/dashboard",
@@ -28,8 +35,35 @@ export const sidebarData = [
     isVisible: true,
     items: [],
   },
-
-  // 2. Users
+  {
+    title: "Site pages",
+    url: "/site-pages?page=1&limit=10",
+    icon: LayoutTemplate,
+    roles: [ROLES.ADMIN, ROLES.EDITOR],
+    isVisible: true,
+    items: [
+      {
+        title: "Create",
+        url: "/site-pages/create",
+        roles: [ROLES.ADMIN, ROLES.EDITOR],
+        isVisible: true,
+      },
+      {
+        title: "Edit",
+        url: "/site-pages/:id/edit",
+        roles: [ROLES.ADMIN, ROLES.EDITOR],
+        isVisible: false,
+      },
+    ],
+  },
+  {
+    title: "Navigation",
+    url: "/settings/navigation",
+    icon: Menu,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [],
+  },
   {
     title: "Users",
     url: "/users?page=1&limit=10",
@@ -51,8 +85,6 @@ export const sidebarData = [
       },
     ],
   },
-
-  // 3. Categories
   {
     title: "Categories",
     url: "/categories?page=1&limit=10",
@@ -74,90 +106,133 @@ export const sidebarData = [
       },
     ],
   },
+{
+  title: "Services",
+  url: "/services?page=1&limit=10",
+  icon: Briefcase,
+  roles: [ROLES.ADMIN],
+  isVisible: true,
+  items: [
+    {
+      title: "Create",
+      url: "/services/create",
+      roles: [ROLES.ADMIN],
+      isVisible: true,
+    },
+    {
+      title: "Edit",
+      url: "/services/:id/edit",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
+    {
+      title: "Formats",
+      url: "/services/format?page=1&limit=10",
+      roles: [ROLES.ADMIN],
+      isVisible: true,
+    },
+    {
+      title: "Create format",
+      url: "/services/format/create",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
+    {
+      title: "Edit format",
+      url: "/services/format/:id/edit",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
+    {
+      title: "Family / topics",
+      url: "/services/family-topic?page=1&limit=10",
+      roles: [ROLES.ADMIN],
+      isVisible: true,
+    },
+    {
+      title: "Create family / topic",
+      url: "/services/family-topic/create",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
+    {
+      title: "Edit family / topic",
+      url: "/services/family-topic/:id/edit",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
+  ],
+},
 
-  // 4. Services
+
+{
+  title: "Blogs",
+  url: "/blogs?page=1&limit=10",
+  icon: Users,
+  roles: [ROLES.ADMIN],
+  isVisible: true,
+  items: [
+    {
+      title: "Create",
+      url: "/blogs/create",
+      roles: [ROLES.ADMIN],
+      isVisible: true,
+    },
+    {
+      title: "Edit",
+      url: "/blogs/:id/edit",
+      roles: [ROLES.ADMIN],
+      isVisible: false,
+    },
+  ],
+},
+
+
   {
-    title: "Services",
-    url: "/services?page=1&limit=10",
-    icon: Briefcase,
+    title: "Queries",
+    url: "/queries?page=1&limit=10",
+    icon: FileQuestion,
     roles: [ROLES.ADMIN],
-    isVisible: true,
+    isVisible: false,
     items: [
       {
-        title: "Create",
-        url: "/services/create",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-      {
-        title: "Edit",
-        url: "/services/:id/edit",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-      {
-        title: "Formats",
-        url: "/services/format?page=1&limit=10",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-      {
-        title: "Create format",
-        url: "/services/format/create",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-      {
-        title: "Edit format",
-        url: "/services/format/:id/edit",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-      {
-        title: "Family / topics",
-        url: "/services/family-topic?page=1&limit=10",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-      {
-        title: "Create family / topic",
-        url: "/services/family-topic/create",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-      {
-        title: "Edit family / topic",
-        url: "/services/family-topic/:id/edit",
+        title: "View",
+        url: "/queries/:id",
         roles: [ROLES.ADMIN],
         isVisible: false,
       },
     ],
   },
-
-  // 5. Schemes
   {
-    title: "Schemes",
-    url: "/schemes?page=1&limit=10",
-    icon: ScrollText,
+    title: "Service Enquiries",
+    url: "/enquiries?page=1&limit=10",
+    icon: MessageSquare,
     roles: [ROLES.ADMIN],
     isVisible: true,
     items: [
       {
-        title: "Create",
-        url: "/schemes/create",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-      {
-        title: "Edit",
-        url: "/schemes/:id/edit",
+        title: "View",
+        url: "/enquiries/:id/edit",
         roles: [ROLES.ADMIN],
         isVisible: false,
       },
     ],
   },
-
-  // 6. Articles
+  {
+    title: "Contact Enquiries",
+    url: "/contact-enquiries?page=1&limit=10",
+    icon: MessageSquare,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [
+      {
+        title: "View",
+        url: "/contact-enquiries/:id/edit",
+        roles: [ROLES.ADMIN],
+        isVisible: false,
+      },
+    ],
+  },
   {
     title: "Articles",
     url: "/articles?page=1&limit=10",
@@ -179,8 +254,6 @@ export const sidebarData = [
       },
     ],
   },
-
-  // 7. Case Studies
   {
     title: "Case Studies",
     url: "/case-studies?page=1&limit=10",
@@ -202,105 +275,6 @@ export const sidebarData = [
       },
     ],
   },
-
-  // 8. Industries
-  {
-    title: "Industries",
-    url: "/industries?page=1&limit=10",
-    icon: Building2,
-    roles: [ROLES.ADMIN],
-    isVisible: true,
-    items: [
-      {
-        title: "Create",
-        url: "/industries/create",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-      {
-        title: "Edit",
-        url: "/industries/:id/edit",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-    ],
-  },
-
-  // 9. Blogs
-  {
-    title: "Blogs",
-    url: "/blogs?page=1&limit=10",
-    icon: Users,
-    roles: [ROLES.ADMIN],
-    isVisible: true,
-    items: [
-      {
-        title: "Create",
-        url: "/blogs/create",
-        roles: [ROLES.ADMIN],
-        isVisible: true,
-      },
-      {
-        title: "Edit",
-        url: "/blogs/:id/edit",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-    ],
-  },
-
-  // 10. Queries
-  {
-    title: "Queries",
-    url: "/queries?page=1&limit=10",
-    icon: FileQuestion,
-    roles: [ROLES.ADMIN],
-    isVisible: true,
-    items: [
-      {
-        title: "View",
-        url: "/queries/:id",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-    ],
-  },
-
-  // 11. Service Enquiries
-  {
-    title: "Service Enquiries",
-    url: "/enquiries?page=1&limit=10",
-    icon: MessageSquare,
-    roles: [ROLES.ADMIN],
-    isVisible: true,
-    items: [
-      {
-        title: "View",
-        url: "/enquiries/:id/edit",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-    ],
-  },
-
-  // 12. Contact Enquiries
-  {
-    title: "Contact Enquiries",
-    url: "/contact-enquiries?page=1&limit=10",
-    icon: MessageSquare,
-    roles: [ROLES.ADMIN],
-    isVisible: true,
-    items: [
-      {
-        title: "View",
-        url: "/contact-enquiries/:id/edit",
-        roles: [ROLES.ADMIN],
-        isVisible: false,
-      },
-    ],
-  },
-
-  // 13. Advisers
   {
     title: "Advisers",
     url: "/advisers?page=1&limit=10",
@@ -322,8 +296,6 @@ export const sidebarData = [
       },
     ],
   },
-
-  // 14. Jobs
   {
     title: "Jobs",
     url: "/jobs?page=1&limit=10",
@@ -345,8 +317,90 @@ export const sidebarData = [
       },
     ],
   },
-
-  // 15. Profile
+  {
+    title: "Industries",
+    url: "/industries?page=1&limit=10",
+    icon: Building2,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [
+      {
+        title: "Create",
+        url: "/industries/create",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
+      },
+      {
+        title: "Edit",
+        url: "/industries/:id/edit",
+        roles: [ROLES.ADMIN],
+        isVisible: false,
+      },
+    ],
+  },
+  {
+    title: "Schemes",
+    url: "/schemes?page=1&limit=10",
+    icon: ScrollText,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [
+      {
+        title: "Create",
+        url: "/schemes/create",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
+      },
+      {
+        title: "Edit",
+        url: "/schemes/:id/edit",
+        roles: [ROLES.ADMIN],
+        isVisible: false,
+      },
+    ],
+  },
+  {
+    title: "Sessions",
+    url: "/sessions?page=1&limit=10",
+    icon: CalendarDays,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [
+      {
+        title: "Create",
+        url: "/sessions/create",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
+      },
+      {
+        title: "Edit",
+        url: "/sessions/:id/edit",
+        roles: [ROLES.ADMIN],
+        isVisible: false,
+      },
+    ],
+  },
+  {
+    title: "Community Groups",
+    url: "/community-groups?page=1&limit=10",
+    icon: UsersRound,
+    roles: [ROLES.ADMIN],
+    isVisible: true,
+    items: [
+      {
+        title: "Create",
+        url: "/community-groups/create",
+        roles: [ROLES.ADMIN],
+        isVisible: true,
+      },
+      {
+        title: "Edit",
+        url: "/community-groups/:id/edit",
+        roles: [ROLES.ADMIN],
+        isVisible: false,
+      },
+    ],
+  },
   {
     title: "Profile Overview",
     url: "/profile",
@@ -357,9 +411,4 @@ export const sidebarData = [
   },
 ];
 
-export const publicRoutes = [
-  "/",
-  "/admin",
-  "/register",
-  "/accept-invite",
-];
+export const publicRoutes = ["/", "/admin", "/register", "/accept-invite"];

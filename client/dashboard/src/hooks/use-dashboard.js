@@ -37,7 +37,8 @@ export const useDashboardData = () => ({
   services: useList("services", endpoints.services.getAll, { limit: 200, include_inactive: "true" }),
   enquiries: useList("enquiries", endpoints.enquiries.getAll, { limit: 200 }),
   newEnquiries: useList("enquiries-new", endpoints.enquiries.getAll, { limit: 1, status: "new" }),
-  queries: useList("queries", endpoints.queries.getAll, { limit: 200 }),
+  contactEnquiries: useList("contact-enquiries", endpoints.contactEnquiries.getAll, { limit: 200 }),
+  newContactEnquiries: useList("contact-enquiries-new", endpoints.contactEnquiries.getAll, { limit: 1, status: "new" }),
 
   schemes: useList("schemes", endpoints.schemes.list, { limit: 1 }),
   schemesPublished: useList("schemes-published", endpoints.schemes.list, { limit: 1, is_published: "true" }),

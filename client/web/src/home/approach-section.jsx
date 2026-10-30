@@ -1,84 +1,72 @@
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import Section from "@/components/layout/section";
-import { Html } from "@/components/pages/content-primitives";
-import Heading from "@/components/layout/heading";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-const APPROACH_IMAGE = "/assets/hero-section.jpg"; // <- apni team / meeting photo yahan lagao
+import { EnquiryTrigger } from "@/components/form/enquiry-drawer";
+import { BTN_LIME, BTN_WHITE, WRAP } from "@/components/home/styles";
+import { mainSiteHref } from "@/lib/site";
 
-export function ApproachSection({
-  id,
-  eyebrow,
-  title,
-  paragraphs = [],
-  alternate,
-  alternateLocale,
-  ctaHref = "#contact",
-  ctaLabel = "Talk to us",
-  image = APPROACH_IMAGE,
-}) {
-  const [lead, ...rest] = paragraphs;
+const PHOTO = "/assets/home-approach.jpg";
+
+/**
+ * The Rapid Approach: one rounded navy panel with the photograph (two people
+ * reviewing a site file) on its right, fading into the navy so the text on the
+ * left stays readable. Heading on top; under a thin rule, the short promise on
+ * the left and the two actions on the right. The only accent colour is the
+ * lime action.
+ */
+export function ApproachSection({ text, title, locale, learnHref }) {
+  const t = (key) => text(`homeA.approach.${key}`);
 
   return (
-    <Section
-      id={id}
-      className="relative overflow-hidden bg-gray-50 py-16 lg:py-24"
-    >
-      <div className="relative mt-12 grid items-center gap-10 lg:mt-16 lg:grid-cols-2 lg:gap-16">
-        <div>
-          <Heading
-            className="mx-auto max-w-3xl text-start"
-            eyebrow={eyebrow}
-                  eyebrowClassName="mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
-            heading={title}
-            headingClassName="text-3xl font-semibold leading-tight tracking-tight text-[#071f33] md:text-4xl"
-            subheading={alternate}
-          />
-
-          <div>
-            {lead && (
-              <Html
-                html={lead}
-                className="text-lg leading-relaxed text-[#56677b] md:text-xl [&_p]:m-0"
-              />
-            )}
-
-            {rest.length > 0 && (
-              <Html
-                html={rest.join("")}
-                className="mt-5 max-w-xl text-base leading-relaxed text-[#56677b] [&_p]:m-0 [&_p+p]:mt-4"
-              />
-            )}
-
-            <a
-              href={ctaHref}
-              className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#09263e] py-2 pl-6 pr-2 text-base font-semibold text-white! shadow-sm transition-all duration-300 hover:bg-[#1f5d57] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#09263e] focus-visible:ring-offset-2"
-            >
-              {ctaLabel}
-              <span className="flex size-9 items-center justify-center rounded-full bg-[#eaff6b] text-[#09263e] transition-transform group-hover:translate-x-0.5">
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </span>
-            </a>
-          </div>
-        </div>
-
-        {/* Image with decorative border */}
-        <div className="relative">
-          <div
-            className="absolute -right-3 -top-3 size-full rounded-2xl border-2 border-[#eaff6b]/60"
+    <section id="approach" aria-labelledby="home-approach-title" className="scroll-mt-24 bg-white py-12 sm:py-16 lg:py-20">
+      <div className={WRAP}>
+        <div className="relative isolate overflow-hidden rounded-[1.75rem] bg-[#09263e] text-white">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={PHOTO}
+            alt=""
             aria-hidden="true"
+            width="1600"
+            height="547"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-y-0 right-0 -z-10 !h-full !w-full !max-w-none object-cover object-[72%_center] lg:!w-[62%]"
           />
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[#eaf0f4]">
-            <Image
-              src={image}
-              alt=""
-              fill
-              sizes="(min-width: 1024px) 560px, 100vw"
-              className="object-cover"
-            />
+          {/* Navy from the left (and from the bottom on small screens) over the photo. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 bg-gradient-to-t from-[#09263e] via-[#09263e]/85 to-[#09263e]/40 lg:bg-gradient-to-r lg:from-[#09263e] lg:from-40% lg:via-[#09263e]/75 lg:via-60% lg:to-[#09263e]/10"
+          />
+
+          <div className="px-6 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-14">
+            <p className="mb-4! mt-0! text-xs font-bold uppercase tracking-[0.16em] text-white/85">{t("eyebrow")}</p>
+            <h2
+              id="home-approach-title"
+              className="m-0! max-w-[22ch]! text-[2rem]! font-semibold! leading-[1.12]! tracking-tight! text-white! sm:text-4xl! lg:text-[2.75rem]!"
+            >
+              {title || t("title")}
+            </h2>
+
+            <hr className="my-7 border-0 border-t border-white/20 lg:max-w-[58%]" />
+
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-xl">
+                <p className="m-0! text-lg font-semibold leading-snug text-white">{t("bold")}</p>
+                <p className="mb-0! mt-2! text-[15px] leading-6 text-white/85">{t("text")}</p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:shrink-0">
+                <a href={learnHref || mainSiteHref("A01", locale)} className={BTN_LIME}>
+                  {t("learn")}
+                  <ArrowUpRight className="size-4" aria-hidden="true" />
+                </a>
+                <EnquiryTrigger source="home-approach" className={BTN_WHITE}>
+                  {t("discuss")}
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </EnquiryTrigger>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

@@ -13,9 +13,11 @@ import { Button } from "@/components/ui/button";
 import ErrorMessage from "@/components/ui/error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useAdviser, useCreateAdviser, useUpdateAdviser } from "@/hooks/use-advisers";
 import { buildPayload, emptyAdviser, toFormValues } from "@/lib/adviser-form";
+import { slugify } from "@/lib/service-form";
 import { cn } from "@/lib/utils";
 import { TEAM_GROUPS, adviserFormSchema } from "@/schemas/adviser";
 
@@ -30,7 +32,8 @@ export default function AdviserForm({ id, type = "create" }) {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    setValue,
+    formState: { errors, dirtyFields },
   } = useForm({
     resolver: zodResolver(adviserFormSchema),
     defaultValues: emptyAdviser,
@@ -48,6 +51,16 @@ export default function AdviserForm({ id, type = "create" }) {
   useEffect(() => {
     if (isEdit && data) reset(toFormValues(data));
   }, [isEdit, data?.id, data?.updated_at, reset]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // On a new person, suggest the slug while the name is typed, until the
+  // slug is edited by hand.
+  const nameField = register("name");
+  const suggestSlug = (event) => {
+    nameField.onChange(event);
+    if (!isEdit && !dirtyFields.slug) {
+      setValue("slug", slugify(event.target.value), { shouldValidate: false });
+    }
+  };
 
   const submit = (values) => {
     const payload = buildPayload(values);
@@ -73,10 +86,26 @@ export default function AdviserForm({ id, type = "create" }) {
                   <Input
                     id="name"
                     className={cn({ "border-red-500": errors.name })}
-                    {...register("name")}
+                    {...nameField}
+                    onChange={suggestSlug}
                     placeholder="Atul Goyal"
                   />
                   <FieldError error={errors.name} />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="slug">Slug (page address)</Label>
+                  <Input
+                    id="slug"
+                    className={cn("font-mono text-sm", { "border-red-500": errors.slug })}
+                    {...register("slug")}
+                    placeholder="made-from-the-name"
+                  />
+                  <FieldError error={errors.slug} />
+                  <p className="text-xs text-muted-foreground">
+                    {isEdit
+                      ? "Changing it changes the public link of this person's page."
+                      : "Filled in from the name; leave it as it is or edit it."}
+                  </p>
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="designation">Designation</Label>
@@ -113,6 +142,17 @@ export default function AdviserForm({ id, type = "create" }) {
                 <Textarea id="bio" rows={5} {...register("bio")} placeholder="A few lines about the person" />
                 <FieldError error={errors.bio} />
               </div>
+              <div className="space-y-1">
+                <Label htmlFor="expertise">Expertise</Label>
+                <Textarea
+                  id="expertise"
+                  rows={5}
+                  {...register("expertise")}
+                  placeholder={"One area per line, e.g.\nIndustrial incentives\nMSME registrations"}
+                />
+                <FieldError error={errors.expertise} />
+                <p className="text-xs text-muted-foreground">One item per line. Shown as a list on the person's page.</p>
+              </div>
             </Card>
           </>
         }
@@ -126,6 +166,26 @@ export default function AdviserForm({ id, type = "create" }) {
                   <span className="block text-xs text-muted-foreground">Unticked people stay hidden on the website.</span>
                 </span>
               </label>
+              <div className="flex items-start gap-3 text-sm">
+                <Controller
+                  control={control}
+                  name="is_placeholder"
+                  render={({ field }) => (
+                    <Switch
+                      id="is_placeholder"
+                      checked={!!field.value}
+                      onCheckedChange={field.onChange}
+                      className="mt-0.5"
+                    />
+                  )}
+                />
+                <Label htmlFor="is_placeholder" className="block cursor-pointer font-normal">
+                  Placeholder card
+                  <span className="block text-xs text-muted-foreground">
+                    A "Team member" slot kept so the About page layout shows. Turn off once a real person is added.
+                  </span>
+                </Label>
+              </div>
               <div className="space-y-1">
                 <Label htmlFor="display_order">Display order</Label>
                 <Input id="display_order" type="number" min={0} {...register("display_order")} placeholder="0" />

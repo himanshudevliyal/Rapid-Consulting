@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { editorialFields, optionalDate } from "./editorial-fields.js";
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -42,6 +43,17 @@ const caseStudyFields = {
       [...new Set(list.map((tag) => tag.trim()).filter(Boolean))],
     ),
   is_published: z.boolean(),
+  location: optionalText(200),
+  sector: optionalText(200),
+  rapid_role: optionalText(5000),
+  // Evidence block: each part is shown only when filled.
+  proof_image: optionalText(500),
+  proof_caption: optionalText(500),
+  milestone_label: optionalText(200),
+  milestone_date: optionalDate("Milestone date must be a valid date"),
+  quote_text: optionalText(5000),
+  quote_attribution: optionalText(255),
+  ...editorialFields,
 };
 
 const base = z.object(caseStudyFields);

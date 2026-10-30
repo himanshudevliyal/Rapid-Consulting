@@ -1,0 +1,57 @@
+{
+  "hdr": {
+    "crmLogin": "CRM Login",
+    "newTab": "opens in a new tab",
+    "unavailable": "not available yet",
+    "langHindi": "Hindi",
+    "ticker": {
+      "services": "Explore support for your next investment",
+      "schemes": "Browse schemes for your industry",
+      "guides": "Prepare for your next project discussion"
+    },
+    "footer": {
+      "tagline": "Approvals and subsidies. One team, start to finish.",
+      "ctaTitle": "Let’s get your project moving.",
+      "ctaText": "Tell us your situation. The first check is on us.",
+      "social": "Rapid on social media",
+      "cols": {
+        "subsidies": "Subsidies & Incentives",
+        "about": "About Rapid"
+      },
+      "approvalOverview": "Approval overview",
+      "clu": "CLU & land permissions",
+      "buildingPlan": "Building plan approval",
+      "cteCto": "CTE & CTO",
+      "fireNoc": "Fire NOC",
+      "subsidyAdvisory": "Subsidy advisory",
+      "schemeDirectory": "Scheme directory",
+      "schemesByIndustry": "Schemes by industry",
+      "subsidyCheck": "Request a subsidy check",
+      "buyingLand": "Buying industrial land",
+      "settingUp": "Setting up a new unit",
+      "expanding": "Machinery or expansion",
+      "running": "Unit already running",
+      "fileStuck": "Approval or claim stuck",
+      "allSituations": "Explore all situations",
+      "food": "Food & agro processing",
+      "engineering": "Engineering & materials",
+      "recycling": "Recycling & biofuel",
+      "commercial": "Commercial & logistics",
+      "allIndustries": "View all industries",
+      "caseStudies": "Case studies",
+      "clientReviews": "Client reviews",
+      "articles": "Articles",
+      "guides": "Guides",
+      "reports": "Reports & downloads",
+      "resourcesOverview": "Resources overview",
+      "story": "Story, advantage & team",
+      "howWeWork": "How we work",
+      "advisers": "For CAs & bankers",
+      "careers": "Careers",
+      "financeDpr": "Finance & DPR",
+      "insurance": "Insurance & claims",
+      "registrations": "Registrations & certifications",
+      "allServices": "View all services"
+    }
+  }
+}

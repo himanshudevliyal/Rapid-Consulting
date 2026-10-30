@@ -1,0 +1,153 @@
+{
+  "b2c": {
+    "case": {
+      "clientProvided": "Client provided",
+      "rapidDid": "Rapid recorded or handled",
+      "eyebrow": "Case study",
+      "draft": "Draft case",
+      "check": {
+        "1": "The scheme or policy you are relying on, and its date",
+        "2": "The quotation or invoice for what you plan to buy",
+        "3": "Proof of payment, once you have paid",
+        "4": "Your unit's registration and approvals",
+        "5": "The dates: order, delivery, installation and first use",
+        "eyebrow": "Before you commit",
+        "title": "Bringing a purchase to a check? Have these ready.",
+        "cta": "Get my claim checked"
+      },
+      "railTitle": "Check your claim before you buy.",
+      "buying": "What are you buying?",
+      "buy": {
+        "testing": "Testing equipment",
+        "safety": "Fire or safety equipment",
+        "machinery": "Production machinery",
+        "building": "A building or land",
+        "other": "Something else"
+      },
+      "yourUnit": "Your unit",
+      "railCta": "Check my claim",
+      "need": "The need",
+      "callout": {
+        "eyebrow": "Before you buy",
+        "title": "A claim rests on its records.",
+        "cta": "Get my claim checked",
+        "text": "Rapid checks the scheme rules, the invoice and the dates before you buy, not after."
+      },
+      "did": "What Rapid did",
+      "outcome": "The outcome",
+      "related": {
+        "eyebrow": "Related cases",
+        "title": "More cases like this one.",
+        "all": "View all case studies"
+      },
+      "subsidyAmount": "Subsidy amount",
+      "equipmentSpend": "Equipment spend",
+      "spend": "Spend",
+      "industry": "Industry",
+      "district": "District",
+      "spendNote": "This is what the unit spent, not the subsidy.",
+      "scheme": "Scheme",
+      "standing": "Where it stands",
+      "glanceTitle": "At a glance"
+    },
+    "rail": {
+      "label": "Enquiry",
+      "choose": "Choose one",
+      "name": "Your name",
+      "phone": "Mobile number",
+      "district": "District",
+      "site": "Village / khasra",
+      "optional": "optional",
+      "consent": "I agree that Rapid may call or WhatsApp me about this enquiry.",
+      "consentHelp": "Please tick the box so we can contact you.",
+      "choiceError": "Please choose one",
+      "another": "Send another",
+      "stage": {
+        "buying": "Buying land",
+        "setting": "Setting up a new unit",
+        "running": "Running",
+        "expanding": "Expanding",
+        "stuck": "A file is stuck",
+        "unsure": "Not sure yet"
+      },
+      "seal": "Free first review",
+      "helper": "A Rapid expert will call you.",
+      "whatsapp": "Chat with Rapid on WhatsApp",
+      "whereProject": "Where's your project?",
+      "yourProject": "Your project"
+    },
+    "scheme": {
+      "nav": {
+        "who": "Who can apply",
+        "get": "What you get",
+        "watch": "Watch out",
+        "claimed": "How it's claimed",
+        "faq": "FAQs",
+        "fit": "Does it fit",
+        "cases": "Cases"
+      },
+      "eyebrow": "Scheme",
+      "who": {
+        "eyebrow": "Who can apply",
+        "title": "Who can apply, and on what conditions."
+      },
+      "get": {
+        "eyebrow": "What you get",
+        "title": "What the scheme gives."
+      },
+      "watch": {
+        "eyebrow": "Watch out"
+      },
+      "claimed": {
+        "eyebrow": "How it's claimed",
+        "title": "How a claim is made.",
+        "cta": "Start with a free check"
+      },
+      "cta": "Check my eligibility",
+      "railTitle": "Check {name} for your project.",
+      "fit": {
+        "eyebrow": "Does it fit",
+        "title": "Does {name} fit your project?",
+        "cta": "Check if mine fits"
+      },
+      "statusChecking": "Current status being checked",
+      "pays": "What it pays",
+      "covers": "What it covers",
+      "statusRow": "Status",
+      "checkedOn": "checked {date}",
+      "glanceTitle": "{name} at a glance"
+    },
+    "nav": {
+      "onThisPage": "On this page:",
+      "jumpTo": "Jump to:"
+    },
+    "writing": {
+      "inBrief": "In brief",
+      "minRead": "{n} min read",
+      "reviewedOn": "Reviewed {date} by",
+      "reviewedBy": "Reviewed by",
+      "guide": "Guide",
+      "article": "Article",
+      "clu": {
+        "title": "Find out if your land will get CLU, before you invest.",
+        "service": "Change of Land Use (CLU)",
+        "site": "Village / khasra",
+        "activity": "What you want to build",
+        "cta": "Check my land for CLU",
+        "helper": "A Rapid expert will call to understand your plot."
+      },
+      "rail": {
+        "title": "Not sure how this applies to your project?",
+        "hint": "Tell us where your project stands. A Rapid expert will call you.",
+        "cta": "Get my next steps"
+      },
+      "cta": "Discuss your project"
+    },
+    "caseCard": {
+      "industry": "Industry",
+      "scheme": "Scheme",
+      "service": "Service",
+      "sample": "Sample case"
+    }
+  }
+}

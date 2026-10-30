@@ -8,8 +8,10 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import Loader from "@/components/loader";
 import TextEditor from "@/components/editor";
+import AuthorReviewerCard from "@/components/author-reviewer-card";
 import CategoryField from "@/components/category-field";
 import FileUploaderServer from "@/components/file-uploader-server";
+import PdfUploader from "@/components/pdf-uploader";
 import { FieldError, FormCard as Card, FormColumns } from "@/components/form-layout";
 import { Button } from "@/components/ui/button";
 import ErrorMessage from "@/components/ui/error";
@@ -176,6 +178,8 @@ export default function ArticleForm({ id, type = "create" }) {
               </select>
             </Card>
 
+            <AuthorReviewerCard control={control} register={register} setValue={setValue} watch={watch} errors={errors} />
+
             <Card title="Category">
               <Controller
                 control={control}
@@ -196,6 +200,15 @@ export default function ArticleForm({ id, type = "create" }) {
                 )}
               />
               <FieldError error={errors.cover_image} />
+            </Card>
+
+            <Card title="PDF" description="Optional. Shown on the page as a link that opens the PDF in a new tab.">
+              <Controller
+                control={control}
+                name="pdf_url"
+                render={({ field }) => <PdfUploader value={field.value} onChange={(path) => field.onChange(path ?? "")} />}
+              />
+              <FieldError error={errors.pdf_url} />
             </Card>
 
             <Card title="Tags">

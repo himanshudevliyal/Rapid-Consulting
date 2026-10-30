@@ -9,17 +9,20 @@ export function WhatsAppMark() {
 }
 
 // Primary general contact action: WhatsApp logo plus the visible number.
-export function WhatsAppButton({ className = "" }) {
+// variant="outline": white button with a dark outline and a green logo (the Figma hero buttons);
+// short drops the "+91 " so the number reads "94672 48028".
+export function WhatsAppButton({ className = "", variant = "solid", short = false }) {
+  const label = short ? WHATSAPP_LABEL.replace(/^\+91\s*/, "") : WHATSAPP_LABEL;
   return (
     <a
-      className={`whatsapp-button ${className}`}
+      className={`whatsapp-button ${variant === "outline" ? "whatsapp-button--outline" : ""} ${className}`}
       href={`https://wa.me/${WHATSAPP_NUMBER}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`WhatsApp ${WHATSAPP_LABEL}`}
     >
       <WhatsAppMark />
-      <span>{WHATSAPP_LABEL}</span>
+      <span>{label}</span>
     </a>
   );
 }

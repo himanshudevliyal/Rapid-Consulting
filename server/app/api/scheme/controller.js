@@ -1,6 +1,7 @@
 "use strict";
 import table from "../../db/models.js";
 import { assertCategory, categoryFilter, withCategory } from "../../helpers/category-link.js";
+import { applyReviewRule, assertPeople, withPeople } from "../../helpers/people-link.js";
 import { removeReplacedImage } from "../../helpers/image-files.js";
 import { notifyWebsite } from "../../helpers/notify-website.js";
 import { StatusCodes } from "http-status-codes";
@@ -24,9 +25,13 @@ const create = async (req, res) => {
     return slugConflict(res);
   }
   await assertCategory(data.category_id);
+  await assertPeople(data);
+  applyReviewRule(data);
   const item = await table.SchemeModel.create(data);
   notifyWebsite("schemes", [item.slug]);
-  return res.code(StatusCodes.CREATED).send({ status: true, data: await withCategory(item) });
+  return res
+    .code(StatusCodes.CREATED)
+    .send({ status: true, data: await withPeople(await withCategory(item)) });
 };
 
 // Admin: every scheme, drafts included. ?q=&is_published=true|false&tag=&page=&limit=
@@ -40,7 +45,7 @@ const getAll = async (req, res) => {
     page: Number(page) || 1,
     limit: Number(limit) || 20,
   });
-  return res.send({ ...result, data: await withCategory(result.data) });
+  return res.send({ ...result, data: await withPeople(await withCategory(result.data)) });
 };
 
 // Public: published schemes only.
@@ -55,20 +60,20 @@ const getAllPublic = async (req, res) => {
     page: Number(page) || 1,
     limit: Number(limit) || 20,
   });
-  return res.send({ ...result, data: await withCategory(result.data) });
+  return res.send({ ...result, data: await withPeople(await withCategory(result.data)) });
 };
 
 const getBySlug = async (req, res) => {
   const item = await table.SchemeModel.getBySlug(req.params.slug);
   if (!item || !item.is_published) return res.code(StatusCodes.NOT_FOUND).send({ error: "Not found" });
-  return res.send(await withCategory(item));
+  return res.send(await withPeople(await withCategory(item)));
 };
 
 // Admin: one scheme by id, published or not.
 const getById = async (req, res) => {
   const item = await table.SchemeModel.getById(req.params.id);
   if (!item) return res.code(StatusCodes.NOT_FOUND).send({ error: "Not found" });
-  return res.send(await withCategory(item));
+  return res.send(await withPeople(await withCategory(item)));
 };
 
 const update = async (req, res) => {
@@ -77,12 +82,14 @@ const update = async (req, res) => {
     return slugConflict(res);
   }
   await assertCategory(data.category_id);
+  await assertPeople(data);
   const previous = await table.SchemeModel.getById(req.params.id);
+  applyReviewRule(data, previous);
   const item = await table.SchemeModel.updateById(req.params.id, data);
   if (!item) return res.code(StatusCodes.NOT_FOUND).send({ error: "Not found" });
   if ("cover_image" in data) await removeReplacedImage(previous?.cover_image, data.cover_image);
   notifyWebsite("schemes", [previous?.slug, item.slug]);
-  return res.send({ status: true, data: await withCategory(item) });
+  return res.send({ status: true, data: await withPeople(await withCategory(item)) });
 };
 
 const destroy = async (req, res) => {

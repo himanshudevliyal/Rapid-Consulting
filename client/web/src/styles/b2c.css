@@ -1,0 +1,329 @@
+/* Batch 2, agent b2c: scheme, guide / article and case-study detail pages
+   (components/b2c/*) and the shared CaseCard rows.
+
+   Import once, after globals.css and wc2.css:
+     import "@/styles/b2c.css";   (app/[locale]/layout.js, next to the other style imports)
+
+   Most of the look is Tailwind in the components. This file holds what needs a
+   name: the two-column body with its sticky rail, and the editor-HTML styling
+   (tables with a navy header row, callout boxes, numbered lists). */
+
+:root {
+  --b2c-navy: #09263e;
+  --b2c-lime: #eaff6b;
+  --b2c-sage: #e8eee9;
+  --b2c-grey: #f3f5f6;
+  --b2c-line: #d6dde3;
+  --b2c-rust: #922e0c;
+}
+
+/* ── Masthead band ───────────────────────────────────────────────────────── */
+.b2c-band {
+  background: var(--b2c-sage);
+}
+
+/* ── Body with the right-hand rail ────────────────────────────────────────
+   The rail column stretches over the whole article; the card inside it is
+   sticky, so it follows the reader down the article and stops where this grid
+   ends. Anything full width (related cases, closing panel) is placed AFTER the
+   grid, so the rail always stops above it. */
+.b2c-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 48px;
+  align-items: start;
+}
+.b2c-main {
+  min-width: 0;
+}
+.b2c-rail {
+  align-self: stretch;
+  min-width: 0;
+  padding-top: 8px;
+}
+.b2c-rail-sticky {
+  position: sticky;
+  top: calc(var(--site-header-h, var(--header-height, 80px)) + var(--section-nav-h, 0px) + 16px);
+  max-height: calc(100vh - var(--site-header-h, var(--header-height, 80px)) - var(--section-nav-h, 0px) - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  /* room for the card's shadow inside the clipped scroll box */
+  padding: 2px 4px 12px 2px;
+  margin: -2px -4px -12px -2px;
+}
+@media (max-width: 1150px) {
+  .b2c-layout {
+    grid-template-columns: minmax(0, 1fr) 350px;
+    gap: 28px;
+  }
+}
+@media (max-width: 1023px) {
+  .b2c-layout {
+    display: block;
+  }
+  .b2c-rail {
+    padding-top: 0;
+    margin-top: 40px;
+  }
+  .b2c-rail-sticky {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* Anchored sections stop below the site header and the sticky contents bar. */
+.b2c-anchor {
+  scroll-margin-top: calc(var(--site-header-h, var(--header-height, 80px)) + var(--section-nav-h, 52px) + 16px);
+}
+
+/* ── Editor HTML ─────────────────────────────────────────────────────────── */
+.prose.b2c-prose {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #22364a;
+  overflow-wrap: anywhere;
+}
+.prose.b2c-prose h3 {
+  margin: 30px 0 10px;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--b2c-navy);
+}
+.prose.b2c-prose h4 {
+  margin: 22px 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--b2c-navy);
+}
+.prose.b2c-prose p {
+  margin: 0 0 16px;
+}
+.prose.b2c-prose p:last-child {
+  margin-bottom: 0;
+}
+.prose.b2c-prose strong {
+  color: var(--b2c-navy);
+}
+.prose.b2c-prose a {
+  color: var(--b2c-navy);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(9, 38, 62, 0.35);
+  text-underline-offset: 3px;
+}
+.prose.b2c-prose a:hover {
+  text-decoration-color: var(--b2c-navy);
+}
+.prose.b2c-prose ul {
+  margin: 14px 0 20px;
+  padding-left: 22px;
+  list-style: disc;
+}
+.prose.b2c-prose ul > li {
+  margin: 6px 0;
+  padding-left: 2px;
+}
+.prose.b2c-prose ul > li::marker {
+  color: var(--b2c-navy);
+}
+
+/* Numbered lists: one row per item, a navy number disc on the left. */
+.prose.b2c-prose ol {
+  margin: 18px 0 22px;
+  padding: 0;
+  list-style: none;
+  counter-reset: b2c-ol;
+}
+.prose.b2c-prose ol > li {
+  counter-increment: b2c-ol;
+  position: relative;
+  margin: 10px 0;
+  padding: 14px 18px 14px 62px;
+  min-height: 56px;
+  border: 1px solid var(--b2c-line);
+  border-radius: 14px;
+  background: #fff;
+}
+.prose.b2c-prose ol > li::before {
+  content: counter(b2c-ol);
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--b2c-navy);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+.prose.b2c-prose ol > li > p:last-child {
+  margin-bottom: 0;
+}
+.prose.b2c-prose li ul,
+.prose.b2c-prose li ol {
+  margin: 8px 0 4px;
+}
+
+/* Tables: navy header row, light row lines, rounded frame. */
+.prose.b2c-prose table {
+  display: table;
+  width: 100%;
+  margin: 22px 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--b2c-line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.prose.b2c-prose th,
+.prose.b2c-prose td {
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: top;
+  border: 0;
+  border-bottom: 1px solid var(--b2c-line);
+  border-right: 0;
+}
+.prose.b2c-prose tr:last-child > td,
+.prose.b2c-prose tr:last-child > th {
+  border-bottom: 0;
+}
+.prose.b2c-prose th {
+  background: var(--b2c-navy);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.prose.b2c-prose th + th {
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+}
+/* a th that starts a data row is a row heading, not a header */
+.prose.b2c-prose tr:has(td) > th {
+  background: var(--b2c-grey);
+  color: var(--b2c-navy);
+  font-size: 15px;
+  letter-spacing: 0;
+}
+.prose.b2c-prose td:first-child {
+  width: auto;
+  font-weight: 600;
+  color: var(--b2c-navy);
+}
+.prose.b2c-prose tbody tr:nth-child(even) > td {
+  background: #fafbfc;
+}
+
+/* Callout boxes: grey, with a navy edge. A <blockquote>, <aside> or an element
+   given the class "callout" / "note" in the editor. */
+.prose.b2c-prose blockquote,
+.prose.b2c-prose aside,
+.prose.b2c-prose .callout,
+.prose.b2c-prose .note {
+  margin: 22px 0;
+  padding: 18px 20px;
+  border: 1px solid var(--b2c-line);
+  border-left: 4px solid var(--b2c-navy);
+  border-radius: 12px;
+  background: var(--b2c-grey);
+  color: #22364a;
+}
+.prose.b2c-prose blockquote > :last-child,
+.prose.b2c-prose aside > :last-child,
+.prose.b2c-prose .callout > :last-child,
+.prose.b2c-prose .note > :last-child {
+  margin-bottom: 0;
+}
+
+/* The "How it's claimed" card: the numbered rows sit on a grey card. */
+.prose.b2c-prose.b2c-steps ol > li {
+  border-color: transparent;
+  box-shadow: 0 1px 0 rgba(9, 38, 62, 0.06);
+}
+
+/* On the navy WATCH OUT panel. */
+.prose.b2c-prose.b2c-prose--navy {
+  color: rgba(255, 255, 255, 0.86);
+}
+.prose.b2c-prose.b2c-prose--navy strong,
+.prose.b2c-prose.b2c-prose--navy h3,
+.prose.b2c-prose.b2c-prose--navy h4 {
+  color: #fff;
+}
+.prose.b2c-prose.b2c-prose--navy a {
+  color: var(--b2c-lime);
+  text-decoration-color: rgba(234, 255, 107, 0.5);
+}
+.prose.b2c-prose.b2c-prose--navy ul > li::marker {
+  color: var(--b2c-lime);
+}
+.prose.b2c-prose.b2c-prose--navy ol {
+  counter-reset: b2c-watch;
+}
+.prose.b2c-prose.b2c-prose--navy ol > li {
+  counter-increment: b2c-watch;
+  padding-left: 66px;
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.88);
+}
+.prose.b2c-prose.b2c-prose--navy ol > li::before {
+  content: counter(b2c-watch, decimal-leading-zero);
+  left: 14px;
+  width: 36px;
+  height: 30px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--b2c-lime);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+.prose.b2c-prose.b2c-prose--navy blockquote,
+.prose.b2c-prose.b2c-prose--navy .callout {
+  border-color: rgba(255, 255, 255, 0.2);
+  border-left-color: var(--b2c-lime);
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 700px) {
+  .prose.b2c-prose {
+    font-size: 15px;
+  }
+  .prose.b2c-prose table {
+    display: block;
+    overflow-x: auto;
+    font-size: 13px;
+  }
+  .prose.b2c-prose th,
+  .prose.b2c-prose td {
+    padding: 11px 12px;
+  }
+  .prose.b2c-prose ol > li {
+    padding: 12px 14px 12px 54px;
+  }
+  .prose.b2c-prose ol > li::before {
+    left: 12px;
+    top: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .b2c-rail-sticky {
+    scroll-behavior: auto;
+  }
+}

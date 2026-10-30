@@ -9,7 +9,7 @@ export const endpoints = {
   },
   profile: "/users/me",
   files: {
-    upload: "/public/upload/files",
+    upload: "/upload/files",
     getFiles: "/upload",
     deleteKey: "/upload/s3",
     preSignedUrl: "/upload/presigned-url",
@@ -34,10 +34,17 @@ export const endpoints = {
   caseStudies: { getAll: "/case-studies", list: "/case-studies/all" },
   advisers: { getAll: "/advisers", list: "/advisers/all" },
   jobs: { getAll: "/jobs", list: "/jobs/all" },
+  // getAll = base path for create / update / delete / by id; list = admin list incl. inactive
+  sessions: { getAll: "/sessions", list: "/sessions/all" },
+  communityGroups: { getAll: "/community-groups", list: "/community-groups/all" },
   industries: { getAll: "/industries", list: "/industries/all" },
   // getAll = base path for create / update / delete / by id; list = admin list incl. drafts
   schemes: { getAll: "/schemes", list: "/schemes/all" },
   services: { getAll: "/services" },
   serviceFormats: { getAll: "/service/format" },
   serviceFamilyTopics: { getAll: "/service/family-topic" },
+  // getAll = base path for create / update / delete / by id; list = admin list (no sections)
+  sitePages: { getAll: "/site-pages", list: "/site-pages/all", registry: "/site-pages/registry" },
+  // /site-settings/<key>, e.g. "navigation" (admin only)
+  siteSettings: { getAll: "/site-settings" },
 };

@@ -17,26 +17,37 @@ const uploadFiles = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.send(error);
+    return res.code(400).send({ message: error?.message || "Upload failed" });
   }
+};
+
+const PUBLIC_ROOT = path.resolve(
+  dirname(fileURLToPath(import.meta.url)),
+  "../../../public"
+);
+
+// file_path is "public/images/x.webp" (what uploads return) or "images/x.webp".
+// Returns the absolute path inside public/, or null when it points anywhere
+// else ("../.env", absolute paths, …).
+const resolvePublicPath = (filePath) => {
+  const relative = String(filePath)
+    .replace(/\\/g, "/")
+    .replace(/^\/+/, "")
+    .replace(/^public\//, "");
+  const full = path.resolve(PUBLIC_ROOT, relative);
+  return full.startsWith(PUBLIC_ROOT + path.sep) ? full : null;
 };
 
 const getFile = async (req, res) => {
   if (!req.query || !req.query.file_path) {
-    return res.send({
+    return res.code(400).send({
       message: "file_path is required parameter",
     });
   }
 
-  const currentFilePath = fileURLToPath(import.meta.url);
-  const currentDirPath = dirname(currentFilePath);
-  const publicPath = path.join(
-    currentDirPath,
-    "../../../public",
-    req.query.file_path
-  );
+  const publicPath = resolvePublicPath(req.query.file_path);
 
-  if (!fs.existsSync(publicPath)) {
+  if (!publicPath || !fs.existsSync(publicPath) || !fs.statSync(publicPath).isFile()) {
     console.log("file not found");
     return res.code(404).send({ message: "file not found" });
   }
@@ -48,6 +59,9 @@ const getFile = async (req, res) => {
     } else {
       res.type(`image/${mime}`);
     }
+  }
+  if (mime === "svg") {
+    res.type("image/svg+xml");
   }
   if (["mp4", "mpeg", "ogg", "webm"].includes(mime)) {
     res.type(`video/${mime}`);
@@ -88,22 +102,17 @@ const getFile = async (req, res) => {
 const deleteFile = async (req, res) => {
   try {
     if (!req.query || !req.query.file_path) {
-      return res.send({
+      return res.code(400).send({
         message: "file_path is required parameter",
       });
     }
 
-    const currentFilePath = fileURLToPath(import.meta.url);
-    const currentDirPath = dirname(currentFilePath);
-    const publicPath = path.join(
-      currentDirPath,
-      "../../..",
-      req.query.file_path
-    );
-    if (fs.existsSync(publicPath)) {
-      fs.unlinkSync(publicPath);
-      res.send({ message: "File deleted" });
+    const publicPath = resolvePublicPath(req.query.file_path);
+    if (!publicPath || !fs.existsSync(publicPath) || !fs.statSync(publicPath).isFile()) {
+      return res.code(404).send({ message: "file not found" });
     }
+    fs.unlinkSync(publicPath);
+    return res.send({ message: "File deleted" });
   } catch (error) {
     console.error(error);
     res.code(500).send(error);

@@ -1,5 +1,5 @@
 "use client";
-import { sidebarData } from "@/data/routes";
+import { ROLES, homeRouteForRole, sidebarData } from "@/data/routes";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { useContext, useEffect, useMemo } from "react";
 import { AuthContext } from "./auth-provider";
@@ -40,12 +40,23 @@ export default function ProtectedRouteProvider({ children }) {
       const routePattern = route.url.split("?")[0];
       return routePattern === currRoute;
     });
-    if (!protectedRoute) return;
+    if (!protectedRoute) {
+      // Editors may only open the pages listed for their role.
+      if (user.role === ROLES.EDITOR && pathname !== "/unauthorized") {
+        router.replace("/unauthorized");
+      }
+      return;
+    }
 
     const hasPermission = protectedRoute.roles.includes(user.role);
 
     if (!hasPermission) {
-      router.replace("/unauthorized");
+      // An editor who lands on the dashboard goes to their own home page.
+      router.replace(
+        user.role === ROLES.EDITOR && currRoute === "/dashboard"
+          ? homeRouteForRole(user.role)
+          : "/unauthorized",
+      );
     }
   }, [user, params.id, pathname, router, isUserLoading, protectedRoutes]);
 

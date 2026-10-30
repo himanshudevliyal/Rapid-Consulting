@@ -5,10 +5,17 @@ import { CASE_STUDIES_TAG, fetchAllCaseStudies, fetchCaseStudies } from "@/servi
 import { SCHEMES_TAG, fetchSchemes } from "@/services/scheme-service";
 import { INDUSTRIES_TAG, fetchAllIndustries } from "@/services/industry-service";
 import { JOBS_TAG, fetchAllJobs, fetchJobBySlug, jobTag } from "@/services/job-service";
-import { ADVISERS_TAG, fetchAllAdvisers } from "@/services/adviser-service";
+import { ADVISERS_TAG, adviserTag, fetchAllAdvisers, fetchAdviserBySlug } from "@/services/adviser-service";
+import { SESSIONS_TAG, fetchAllSessions, fetchSessionBySlug, sessionTag } from "@/services/session-service";
+import { COMMUNITY_TAG, fetchCommunityGroups } from "@/services/community-service";
+import { fetchNavigationSettings } from "@/services/navigation-service";
 import { defaultLocale } from "@/i18n/routing";
 import {
   adviserToMember,
+  adviserToProfile,
+  communityGroupToItem,
+  sessionToPage,
+  sessionToSummary,
   articleToSummary,
   caseStudyToSummary,
   groupMembers,
@@ -18,6 +25,7 @@ import {
   schemeToSummary,
 } from "./adapters";
 import { toCategoryGroups } from "../navigation";
+import { mergeNavigation } from "../site-navigation";
 
 // Server-side loaders for the parts of the site built from the API on every
 // page: the menu and the home page sections. Each one degrades to "nothing to
@@ -75,15 +83,58 @@ export const loadJobSlugs = async (locale) => {
 export const loadTeam = async () =>
   groupMembers((await settle(fetchAllAdvisers(cachedFor(ADVISERS_TAG)), EMPTY)).items.map(adviserToMember));
 
-// Everything the header needs, in plain serialisable form.
+// One person's profile page, or null (unknown slug / hidden person).
+export const loadTeamProfile = async (slug) => {
+  const adviser = await fetchAdviserBySlug(slug, cachedFor(ADVISERS_TAG, adviserTag(slug)));
+  return adviser ? adviserToProfile(adviser) : null;
+};
+
+export const loadTeamSlugs = async () =>
+  (await settle(fetchAllAdvisers(cachedFor(ADVISERS_TAG)), EMPTY)).items
+    .filter((adviser) => adviser.slug)
+    .map((adviser) => ({ slug: adviser.slug }));
+
+// ── Sessions (webinars) ──
+// Every published session: upcoming first (soonest first), then the rest
+// (latest first), so expired calls to join are never ahead of live ones.
+export const loadSessions = async () => {
+  const items = (await settle(fetchAllSessions({}, cachedFor(SESSIONS_TAG)), EMPTY)).items.map(sessionToSummary);
+  const when = (session) => (session.startsAt ? new Date(session.startsAt).getTime() : 0);
+  const upcoming = items.filter((session) => session.state === "upcoming").sort((a, b) => when(a) - when(b));
+  const rest = items.filter((session) => session.state !== "upcoming").sort((a, b) => when(b) - when(a));
+  return [...upcoming, ...rest];
+};
+
+export const loadSessionDetail = async (slug) => {
+  const session = await fetchSessionBySlug(slug, cachedFor(SESSIONS_TAG, sessionTag(slug)));
+  return session ? sessionToPage(session) : null;
+};
+
+export const loadSessionSlugs = async () =>
+  (await settle(fetchAllSessions({}, cachedFor(SESSIONS_TAG)), EMPTY)).items.map((session) => ({ slug: session.slug }));
+
+// ── WhatsApp community groups ── for one part of the site ("industries",
+// "resources", "advisers", "home"); all active groups when none is given.
+export const loadCommunityGroups = async ({ placement } = {}) =>
+  (await settle(fetchCommunityGroups(placement ? { placement } : {}, cachedFor(COMMUNITY_TAG)), EMPTY)).items.map(
+    communityGroupToItem,
+  );
+
+// The central navigation (primary destinations + footer columns): the saved
+// "navigation" setting merged over the built-in default. Never throws.
+export const loadNavigationConfig = async () => mergeNavigation(await fetchNavigationSettings());
+
+// Everything the header and footer need, in plain serialisable form.
+// `config` = { primary, footer } from the central navigation setting.
 export async function loadNavigation(locale) {
-  const [services, categories, industries, cases, guides, schemes] = await Promise.all([
+  const [services, categories, industries, cases, guides, schemes, config] = await Promise.all([
     settle(fetchServices(locale), []),
     loadCategoryGroups(locale),
     loadIndustries(),
     loadCaseStudies({ limit: 4 }),
     loadGuides({ limit: 4 }),
     loadFeaturedSchemes({ limit: 4 }),
+    loadNavigationConfig(),
   ]);
-  return { services, categories, industries, cases, guides, schemes };
+  return { services, categories, industries, cases, guides, schemes, config };
 }

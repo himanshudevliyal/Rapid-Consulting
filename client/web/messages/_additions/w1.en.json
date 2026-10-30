@@ -1,0 +1,34 @@
+{
+  "header": {
+    "nav": { "subsidies": "Subsidies & Incentives" },
+    "contactPage": "Contact us",
+    "callbackCta": "Request a callback",
+    "callbackShort": "Callback",
+    "pauseAnnouncements": "Pause announcements",
+    "playAnnouncements": "Play announcements",
+    "viewAllServices": "See every service",
+    "searchServices": "Search services",
+    "subsidies": {
+      "title": "Find the support your project may qualify for",
+      "text": "Explore scheme conditions and sources yourself, or have Rapid assess your project and carry the application forward.",
+      "advisory": "Subsidy & incentive advisory",
+      "advisoryGroup": "Rapid advisory",
+      "advisoryDetail": "Assessment, application and follow-up",
+      "discoveryGroup": "Scheme discovery",
+      "directory": "Browse the scheme directory",
+      "directoryDetail": "Every scheme with its status, conditions and official sources",
+      "featuredGroup": "Featured schemes"
+    }
+  },
+  "enquiryDrawer": {
+    "heading": "Request a callback",
+    "eyebrow": "Discuss your project"
+  },
+  "contact": {
+    "callbackHeading": "Request a callback",
+    "mobileCallback": "Request a callback"
+  },
+  "clients": {
+    "play": "Play client logos"
+  }
+}

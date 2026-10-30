@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { isLocale } from "@/i18n/routing";
-import { hasTranslation } from "@/i18n/has-translation";
 import { contentPageMetadata, robots } from "@/lib/seo";
 import { PageAlternates } from "@/components/layout/page-alternates";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
@@ -10,7 +9,6 @@ import { resolveContentPath } from "@/lib/pages/resolve";
 import { HowWeHirePage } from "./_components/HowWeHirePage";
 
 const PATH = "/careers/how-we-hire";
-const HERO_IMAGE = "/assets/hero-section.jpg";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -28,7 +26,6 @@ export default async function HowWeHireRoute({ params }) {
   if (found.kind !== "page") notFound();
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
-  const has = hasTranslation(t);
 
   return (
     <>
@@ -36,17 +33,8 @@ export default async function HowWeHireRoute({ params }) {
         en={`/en${PATH}`}
         hi={found.page.hasHindi ? `/hi${PATH}` : null}
       />
-      <Breadcrumbs
-        page={found.page}
-        t={t}
-        heading={found.page.h1}
-        backgroundImage={HERO_IMAGE}
-      />
-      <HowWeHirePage
-        page={found.page}
-        t={t}
-        has={has}
-      />
+      <Breadcrumbs page={found.page} t={t} />
+      <HowWeHirePage page={found.page} t={t} />
     </>
   );
 }

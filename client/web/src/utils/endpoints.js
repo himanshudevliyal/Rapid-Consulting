@@ -12,9 +12,20 @@ export const endpoints = {
   schemes: { getAll: "/schemes", getBySlug: "/schemes/by-slug" },
   // Careers (open jobs only) and the people shown on the About page.
   jobs: { getAll: "/jobs", getBySlug: "/jobs/by-slug" },
-  advisers: { getAll: "/advisers" },
+  advisers: { getAll: "/advisers", getBySlug: "/advisers/by-slug" },
+  // Expert sessions (webinars) and the WhatsApp community groups.
+  sessions: { getAll: "/sessions", getBySlug: "/sessions/by-slug" },
+  communityGroups: { getAll: "/community-groups" },
+  // Pages composed in the admin panel from reusable sections, and the central
+  // site settings (navigation).
+  sitePages: {
+    getAll: "/site-pages",
+    byPath: "/site-pages/by-path",
+    preview: "/site-pages/preview",
+    registry: "/site-pages/registry",
+  },
+  siteSettings: { navigation: "/site-settings/navigation" },
   // Public forms.
   enquiries: { create: "/enquiries" },
   contactEnquiries: { create: "/contact-enquiries" },
-  queries: { create: "/queries" },
 };

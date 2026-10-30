@@ -1,27 +1,31 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Loader2, Plus, Trash } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import Loader from "@/components/loader";
 import TextEditor from "@/components/editor";
+import AuthorReviewerCard from "@/components/author-reviewer-card";
 import CategoryField from "@/components/category-field";
 import CommandMenu from "@/components/command-menu";
 import FileUploaderServer from "@/components/file-uploader-server";
+import PdfUploader from "@/components/pdf-uploader";
 import { FieldError, FormCard as Card, FormColumns } from "@/components/form-layout";
 import { Button } from "@/components/ui/button";
 import ErrorMessage from "@/components/ui/error";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import SectionsEditor from "@/features/services/components/sections-editor";
+import { schemeSectionRoles } from "@/data/service-constants";
 import { useAllServiceFamilyTopics } from "@/hooks/use-service-options";
 import { useCreateScheme, useScheme, useUpdateScheme } from "@/hooks/use-schemes";
 import { slugify } from "@/lib/service-form";
 import { buildPayload, emptyScheme, RICH_FIELDS, toFormValues } from "@/lib/scheme-form";
 import { cn } from "@/lib/utils";
-import { schemeFormSchema } from "@/schemas/scheme";
+import { SCHEME_STATUSES, schemeFormSchema } from "@/schemas/scheme";
 
 const LIST_URL = "/schemes?page=1&limit=10";
 
@@ -42,6 +46,8 @@ export default function SchemeForm({ id, type = "create" }) {
     resolver: zodResolver(schemeFormSchema),
     defaultValues: emptyScheme,
   });
+
+  const quickFacts = useFieldArray({ control, name: "quick_facts" });
 
   const done = (message) => () => {
     toast.success(message);
@@ -146,6 +152,105 @@ export default function SchemeForm({ id, type = "create" }) {
               </div>
             </Card>
 
+            <Card
+              title="Quick facts (at a glance)"
+              description="The fact box at the top of the scheme page: one row = a label and its text. Add, remove or reorder rows. Rows with an empty text are not shown."
+            >
+              <div className="space-y-3">
+                {quickFacts.fields.map((field, index) => (
+                  <div key={field.id} className="rounded-lg border p-3">
+                    <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
+                      <div className="space-y-1">
+                        <Label htmlFor={`quick_facts.${index}.label`}>Label {index + 1}</Label>
+                        <Input id={`quick_facts.${index}.label`} {...register(`quick_facts.${index}.label`)} placeholder="e.g. What it pays" />
+                        <FieldError error={errors.quick_facts?.[index]?.label} />
+                      </div>
+                      <div className="space-y-1">
+                        <Label htmlFor={`quick_facts.${index}.value`}>Text</Label>
+                        <Input
+                          id={`quick_facts.${index}.value`}
+                          {...register(`quick_facts.${index}.value`)}
+                          placeholder={field.example || "Write the fact"}
+                        />
+                        <FieldError error={errors.quick_facts?.[index]?.value} />
+                      </div>
+                    </div>
+                    <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+                      <label className="flex items-center gap-2 text-sm">
+                        <input type="checkbox" className="h-4 w-4" {...register(`quick_facts.${index}.bold`)} />
+                        Show the text larger / bold
+                      </label>
+                      <div className="flex gap-2">
+                        <Button type="button" variant="outline" size="icon" disabled={index === 0} onClick={() => quickFacts.move(index, index - 1)} aria-label="Move row up">
+                          <ArrowUp className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          disabled={index === quickFacts.fields.length - 1}
+                          onClick={() => quickFacts.move(index, index + 1)}
+                          aria-label="Move row down"
+                        >
+                          <ArrowDown className="h-4 w-4" />
+                        </Button>
+                        <Button type="button" variant="destructive" size="icon" onClick={() => quickFacts.remove(index)} aria-label="Remove row">
+                          <Trash className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <Button type="button" variant="secondary" size="sm" onClick={() => quickFacts.append({ label: "", value: "", bold: false })}>
+                  <Plus className="h-4 w-4" /> Add row
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                The ministry / department above is shown as the authority. A row labelled "Official source" with an empty text links to the Official URL.
+              </p>
+            </Card>
+
+            <Card title="Card summary" description="Short facts used on scheme cards and lists (and as a fallback when there are no quick-facts rows).">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-4">
+                <div className="space-y-1">
+                  <Label htmlFor="assistance_type">Type of assistance</Label>
+                  <Input id="assistance_type" {...register("assistance_type")} placeholder="e.g. Capital subsidy" />
+                  <FieldError error={errors.assistance_type} />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="relevant_activity">Relevant activity</Label>
+                  <Input id="relevant_activity" {...register("relevant_activity")} placeholder="e.g. Manufacturing" />
+                  <FieldError error={errors.relevant_activity} />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="policy_period">Policy period</Label>
+                  <Input id="policy_period" {...register("policy_period")} placeholder="e.g. 2022-2027" />
+                  <FieldError error={errors.policy_period} />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="application_window">Application window</Label>
+                  <Input id="application_window" {...register("application_window")} placeholder="e.g. Open throughout the year" />
+                  <FieldError error={errors.application_window} />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="status">Status</Label>
+                  <select
+                    id="status"
+                    className="h-9 w-full rounded-md border bg-transparent px-3 text-sm"
+                    {...register("status")}
+                  >
+                    <option value="">Not set</option>
+                    {SCHEME_STATUSES.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  <FieldError error={errors.status} />
+                </div>
+              </div>
+            </Card>
+
             <Card title="Content" description="Shown on the scheme page.">
               {RICH_FIELDS.map(([name, label, hint]) => (
                 <div key={name} className="space-y-1">
@@ -158,6 +263,13 @@ export default function SchemeForm({ id, type = "create" }) {
                   />
                 </div>
               ))}
+            </Card>
+
+            <Card
+              title="More page sections"
+              description="Extra sections of the scheme page, in order: Does it fit (cards), Who can apply, What you get, Watch out, How it's claimed (steps), FAQs. Pick the layout for each; the heading and text are yours."
+            >
+              <SectionsEditor control={control} register={register} name="sections" errors={errors.sections} roles={schemeSectionRoles} />
             </Card>
           </>
         }
@@ -179,6 +291,8 @@ export default function SchemeForm({ id, type = "create" }) {
                 </span>
               </label>
             </Card>
+
+            <AuthorReviewerCard control={control} register={register} setValue={setValue} watch={watch} errors={errors} />
 
             <Card title="Family / topic">
               <Controller
@@ -219,6 +333,15 @@ export default function SchemeForm({ id, type = "create" }) {
                 )}
               />
               <FieldError error={errors.cover_image} />
+            </Card>
+
+            <Card title="PDF" description="Optional. Shown on the page as a link that opens the PDF in a new tab.">
+              <Controller
+                control={control}
+                name="pdf_url"
+                render={({ field }) => <PdfUploader value={field.value} onChange={(path) => field.onChange(path ?? "")} />}
+              />
+              <FieldError error={errors.pdf_url} />
             </Card>
 
             <Card title="Tags">

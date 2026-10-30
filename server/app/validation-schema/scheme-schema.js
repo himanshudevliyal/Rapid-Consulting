@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { editorialFields } from "./editorial-fields.js";
+import { sectionSchema } from "./service-schema.js";
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -40,6 +42,7 @@ const schemeFields = {
     .nullish()
     .transform(blankToNull),
   cover_image: optionalText(500),
+  pdf_url: optionalText(500),
   // Id of a category (/v1/categories); "" clears it.
   category_id: z
     .union([z.literal(""), z.uuid("Pick a valid category")])
@@ -52,6 +55,28 @@ const schemeFields = {
     ),
   is_published: z.boolean(),
   is_featured: z.boolean(),
+  // Quick facts shown on the scheme page.
+  assistance_type: optionalText(255),
+  relevant_activity: optionalText(255),
+  policy_period: optionalText(255),
+  application_window: optionalText(255),
+  // The "at a glance" rows, in order. A row needs a label; the value may be empty.
+  quick_facts: z
+    .array(
+      z.object({
+        label: z.string().trim().min(1, "Label is required").max(120),
+        value: z.string().trim().max(600).optional().default(""),
+        bold: z.boolean().optional().default(false),
+      }),
+    )
+    .max(20, "At most 20 rows"),
+  // Extra sections (same shape and roles as a service's sections).
+  sections: z.array(sectionSchema).max(40, "At most 40 sections"),
+  status: z
+    .union([z.literal(""), z.enum(["open", "upcoming", "closed", "historical"], "Pick a valid status")])
+    .nullish()
+    .transform(blankToNull),
+  ...editorialFields,
 };
 
 const base = z.object(schemeFields);

@@ -5,7 +5,7 @@ import { isLocale } from "@/i18n/routing";
 import { hasTranslation } from "@/i18n/has-translation";
 import { contentPageMetadata, robots } from "@/lib/seo";
 import { PageAlternates } from "@/components/layout/page-alternates";
-import { PageView } from "@/components/pages/page-view";
+import { SchemeView } from "@/components/b2c/scheme-view";
 import { loadDetail, loadStaticParams } from "@/lib/content/loaders";
 
 // Scheme pages: the published record from the API (cached; the admin panel
@@ -41,7 +41,7 @@ export default async function SchemeDetailRoute({ params }) {
   return (
     <>
       <PageAlternates en={`/en${path}`} hi={null} />
-      <PageView page={found.page} t={t} has={has} />
+      <SchemeView page={found.page} t={t} has={has} />
     </>
   );
 }

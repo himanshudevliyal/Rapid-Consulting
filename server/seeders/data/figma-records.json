@@ -1,0 +1,351 @@
+{
+  "services": [
+    {
+      "code": "D060",
+      "locale": "en",
+      "h1": "Change of Land Use (CLU) in Haryana.",
+      "eyebrow": "APPROVALS · LAND & SITE",
+      "intro_html": "<p><strong>Before you commit to the plot or start work, talk to Rapid.</strong></p>\n<p>We check your land and CLU requirements to help you avoid costly mistakes.</p>\n",
+      "sections": [
+        {
+          "key": "hero-points",
+          "role": "hero_points",
+          "title": "Why Rapid",
+          "items": [
+            {
+              "key": "one-team",
+              "title": "One team, from check to CLU letter",
+              "html": "<p>We draft, file, answer the department's questions and follow up. You don't run between offices.</p>"
+            },
+            {
+              "key": "paperwork",
+              "title": "Paperwork right the first time",
+              "html": "<p>We check your land records before filing and fix what the department usually questions.</p>"
+            },
+            {
+              "key": "file-status",
+              "title": "Always know where your file stands",
+              "html": "<p>One point person and a shared checklist: what's done, what's pending and who acts next.</p>"
+            }
+          ]
+        },
+        {
+          "key": "video",
+          "role": "video",
+          "title": "Will my land get CLU? The 3-minute answer",
+          "html": "<p>What decides it, what it costs, how long it takes, and how we handle the file.</p>",
+          "intro_html": "<p>3:00 · Captions on</p>"
+        },
+        {
+          "key": "quick-answers",
+          "role": "quick_answers",
+          "nav_label": "Quick answers",
+          "title": "What you need to know first",
+          "items": [
+            {
+              "key": "do-i-need-clu",
+              "title": "Do I need CLU?",
+              "html": "<p>Yes, if you want to use land in a planned area for something other than its approved use, such as farmland for a factory or warehouse.</p>"
+            },
+            {
+              "key": "will-my-land-get-it",
+              "title": "Will my land get it?",
+              "html": "<p>It depends on three things: the area plan, the road and your unit.</p><p><a href=\"#will-your-land-work\">Three things decide it</a></p>"
+            },
+            {
+              "key": "plot-size",
+              "title": "Is my plot the right size?",
+              "html": "<p>Usually, yes. Most zones have no minimum area.</p><p><a href=\"#the-rules\">The rules</a></p>"
+            },
+            {
+              "key": "does-the-road-matter",
+              "title": "Does the road matter?",
+              "html": "<p>Yes. On farmland you need at least a 20 ft link road or a 33 ft rasta.</p>"
+            },
+            {
+              "key": "cost",
+              "title": "What will it cost?",
+              "html": "<p>An application fee of ₹10 per sq m, then charges set by your area. We work them out for your plot.</p><p><a href=\"#cost-time-and-validity\">Cost and time</a></p>"
+            },
+            {
+              "key": "how-long-before-build",
+              "title": "How long before I can build?",
+              "html": "<p>In an industrial zone, a decision is due within 60 days of a complete file.</p>"
+            },
+            {
+              "key": "how-long-once-granted",
+              "title": "How long do I have once I get it?",
+              "html": "<p>Two years to build, and it can be renewed.</p>"
+            }
+          ],
+          "outro_html": "<p>Rules last checked 17 October 2026, including government amendments up to 14 September 2026.</p>"
+        },
+        {
+          "key": "our-work",
+          "role": "cases",
+          "nav_label": "Our work",
+          "eyebrow": "CLIENT SUCCESS",
+          "title": "CLU done for businesses like yours.",
+          "intro_html": "<p>Real CLU files we've handled.</p>",
+          "outro_html": "<p><a href=\"/en/case-studies\">View all case studies</a></p>"
+        },
+        {
+          "key": "will-your-land-work",
+          "role": "eligibility",
+          "nav_label": "Will my land work?",
+          "eyebrow": "ELIGIBILITY",
+          "title": "Will your land work for your unit? Three things decide it.",
+          "items": [
+            {
+              "key": "zone",
+              "title": "What the area plan allows here",
+              "html": "<p>Every planned area has a development plan. It marks land as industrial, farmland or transport zone, and grades the nearby town by growth potential.</p>"
+            },
+            {
+              "key": "road",
+              "title": "The road to your plot",
+              "html": "<p>On farmland you need an existing village link road at least 20 ft wide, a revenue or panchayat road at least 33 ft wide, or direct highway frontage with the road authority's permission. You can make your own 33 ft rasta by donating a strip of land to the gram panchayat, before you apply. In an industrial zone, the minimum is a 33 ft road linked to the sector road.</p>"
+            },
+            {
+              "key": "unit",
+              "title": "How polluting your unit is",
+              "html": "<p>The state pollution board puts every activity in a category: white, green, orange or red. White, green and orange units can get CLU on farmland. Red-category units need a plot in an industrial zone.</p>"
+            }
+          ],
+          "outro_html": "<blockquote><p>Your neighbour's CLU doesn't mean you'll get one. Their zone, their road and their date were their own.</p></blockquote><p><a href=\"#service-enquiry\">Haven't bought the land yet? Get the free 48-hour Land Check →</a></p>"
+        },
+        {
+          "key": "the-rules",
+          "role": "content",
+          "nav_label": "The rules",
+          "eyebrow": "THE RULES",
+          "title": "Where you can set up a unit, at a glance",
+          "html": "<p>You won't find this on your sale deed. Your plot's zone and the town's grading come from the area's development plan, and that's the first thing we check.</p><table>\n<thead>\n<tr><th>What the plan marks your land as</th><th>Near the biggest towns (hyper and high potential)</th><th>Near medium-potential towns</th><th>Near low-potential towns</th></tr>\n</thead>\n<tbody>\n<tr><td>Industrial zone</td><td>Any unit, any size</td><td>Any unit, any size</td><td>Any unit, any size</td></tr>\n<tr><td>Farmland, within 2 km of the town's planned area</td><td>Not allowed</td><td>White, green or orange units, up to 5 acres</td><td>White, green or orange units, any size</td></tr>\n<tr><td>Farmland, further out</td><td>Not allowed</td><td>White, green or orange units, any size</td><td>White, green or orange units, any size</td></tr>\n<tr><td>Transport zone</td><td>White, green or orange units, from 0.5 acre</td><td>Same</td><td>Same</td></tr>\n</tbody>\n</table>\n"
+        },
+        {
+          "key": "cost-time-and-validity",
+          "role": "panel_navy",
+          "nav_label": "Cost & time",
+          "eyebrow": "COST, TIME AND VALIDITY",
+          "title": "Know your costs and timeline upfront.",
+          "html": "<p>No surprises: we work out what applies to your plot before you commit.</p><h3>WHAT YOU PAY</h3><p><strong>Government charges, set by your area</strong></p><p>An application fee of ₹10 per sq m, then conversion charges, plus development charges in some areas.</p><p><strong>Ways to pay less</strong></p><p>MSMEs in less-developed blocks pay half the conversion charges, and several sectors pay half the development charges.</p><p><strong>Warehouse or logistics park?</strong></p><p>Part of the development charges can be reimbursed once you start operations.</p><h3>HOW LONG IT TAKES</h3><p><strong>60 days, once your file is complete</strong></p><p>For plots in an industrial zone, that's the legal limit for a decision. Farmland cases aren't bound by it.</p><h3>HOW LONG IT LASTS</h3><p><strong>Two years to build, renewable</strong></p><p>For sites up to 25 acres: time to build and start using the land. You can renew it if you need longer.</p>"
+        },
+        {
+          "key": "what-you-send",
+          "role": "panel_grey",
+          "nav_label": "What you send",
+          "eyebrow": "WORKING WITH RAPID",
+          "title": "You send three things. We handle the rest.",
+          "html": "<h3>TO GET STARTED, SEND</h3><ol><li>Your khasra number, or a photo of the jamabandi (the land record)</li><li>The village and district, or a map pin</li><li>What you want to build</li></ol><p>+ If you're expanding: your current CLU letter</p><p>We'll ask for anything else as we go.</p><h3>What we do</h3><ul><li>Checks your plot for free and tells you if CLU is possible</li><li>Prepares and files the complete application</li><li>Deals with the patwari, the tehsildar and the department for you</li><li>Follows up until the CLU letter is issued</li><li>Hands over what you need for your building plan</li></ul>"
+        },
+        {
+          "key": "what-it-unlocks",
+          "role": "cards",
+          "nav_label": "What it unlocks",
+          "title": "The CLU letter is your go-ahead to build.",
+          "intro_html": "<p>Next, we can help you with:</p>",
+          "items": [
+            {
+              "key": "building-plan",
+              "title": "Building plan approval",
+              "html": "<p><a href=\"/en/p/D065\">Have your CLU?<br>Get your drawings sanctioned.</a></p>"
+            },
+            {
+              "key": "pwd",
+              "title": "PWD entry & exit permission",
+              "html": "<p><a href=\"/en/p/D061\">On a state road?<br>Get road entry approved.</a></p>"
+            },
+            {
+              "key": "nhai",
+              "title": "NHAI entry & exit permission",
+              "html": "<p><a href=\"/en/p/D074\">On a national highway?<br>Use your frontage legally.</a></p>"
+            },
+            {
+              "key": "oc",
+              "title": "Occupation certificate",
+              "html": "<p><a href=\"/en/p/D073\">Building complete?<br>Start using it legally.</a></p>"
+            }
+          ]
+        },
+        {
+          "key": "stuck-file",
+          "role": "stuck_file",
+          "nav_label": "Stuck file",
+          "eyebrow": "FILE REVIEW",
+          "title": "Is your CLU file stuck? Find out why before you pay anyone again.",
+          "html": "<p>Files usually wait at one of four points: land records with the patwari, a question from the department, an approval letter that hasn't come, or conditions that haven't been met. Whether you applied yourself or through someone else, we start with your file as it stands.</p>",
+          "intro_html": "<p><strong>Send us</strong></p>",
+          "items": [
+            {
+              "key": "application-number",
+              "title": "Your application number",
+              "html": ""
+            },
+            {
+              "key": "latest-letter",
+              "title": "The latest letter or query",
+              "html": ""
+            },
+            {
+              "key": "documents",
+              "title": "The documents already submitted",
+              "html": ""
+            }
+          ],
+          "outro_html": "<p><strong>What happens next</strong></p><p>We tell you what's holding it, what can be fixed and who needs to act.</p><p><a href=\"#enquire\">Find out what's holding my file →</a></p>"
+        },
+        {
+          "key": "who-will-handle-your-file",
+          "role": "cards",
+          "nav_label": "Your team",
+          "title": "Who'll handle your file",
+          "items": [
+            {
+              "key": "land-approvals-expert",
+              "title": "LAND AND APPROVALS EXPERT",
+              "html": "<p><strong>[Name]</strong></p><p>Decides the route, reviews every document and every reply to the department.</p>"
+            },
+            {
+              "key": "clu-team-lead",
+              "title": "CLU TEAM LEAD",
+              "html": "<p><strong>[Name]</strong></p><p>Runs your file day to day and keeps your checklist up to date.</p>"
+            }
+          ]
+        },
+        {
+          "key": "client-experiences",
+          "role": "cards",
+          "nav_label": "Client experiences",
+          "eyebrow": "CLIENT EXPERIENCES",
+          "title": "In our clients' words.",
+          "intro_html": "<p>What it feels like to have Rapid on your side.</p><p>Overall rating: X.X / 5 · XX client reviews · Source: XXXXX</p>",
+          "items": [
+            {
+              "key": "review-1",
+              "title": "“Rapid brought the paperwork, our CA and the bank onto one clear plan. We always knew what was needed next.”",
+              "html": "<p>5 ★★★★★ · TRUSTED BY GROWING BUSINESSES</p><p>Client name · Business name · Hisar, Haryana</p><p>SERVICES TAKEN: Change of Land Use (CLU)</p>"
+            },
+            {
+              "key": "review-2",
+              "title": "“The team explained what was needed at every stage. One point of contact made the paperwork and follow-ups much easier.”",
+              "html": "<p>5 ★★★★★ · TRUSTED BY GROWING BUSINESSES</p><p>Client name · Business name · Panipat, Haryana</p><p>SERVICES TAKEN: Change of Land Use (CLU)</p>"
+            },
+            {
+              "key": "review-3",
+              "title": "“Rapid brought our CA, bank and machinery supplier onto the same page. We knew which documents were needed next.”",
+              "html": "<p>5 ★★★★★ · TRUSTED BY GROWING BUSINESSES</p><p>Client name · Business name · Sonipat, Haryana</p><p>SERVICES TAKEN: Change of Land Use (CLU)</p>"
+            }
+          ],
+          "outro_html": "<p>View all reviews</p>"
+        },
+        {
+          "key": "faqs",
+          "role": "faq",
+          "nav_label": "FAQs",
+          "eyebrow": "CHANGE OF LAND USE / FAQs",
+          "title": "Common CLU questions",
+          "items": [
+            {
+              "key": "",
+              "title": "Can I start building while my CLU is being processed?",
+              "html": "<p>No. An application receipt or an approval letter (LOI) isn't permission to build. Building plan approval needs the CLU letter, and construction comes after that.</p>"
+            },
+            {
+              "key": "",
+              "title": "Is there a minimum land area for CLU in Haryana?",
+              "html": ""
+            },
+            {
+              "key": "",
+              "title": "What are the CLU charges in Haryana?",
+              "html": ""
+            },
+            {
+              "key": "",
+              "title": "Does my existing CLU cover an expansion?",
+              "html": ""
+            },
+            {
+              "key": "",
+              "title": "How long is a CLU valid, and can it be extended?",
+              "html": ""
+            },
+            {
+              "key": "",
+              "title": "Do I need CLU for a plot in an HSIIDC estate?",
+              "html": ""
+            },
+            {
+              "key": "",
+              "title": "What happens if CLU is refused?",
+              "html": ""
+            },
+            {
+              "key": "",
+              "title": "Do you guarantee approval?",
+              "html": ""
+            }
+          ],
+          "outro_html": "<p><a href=\"/en/faqs\">View all FAQs</a></p>"
+        },
+        {
+          "key": "related-reading",
+          "role": "cards",
+          "nav_label": "Related reading",
+          "eyebrow": "RELATED READING",
+          "title": "Want the full procedure?",
+          "intro_html": "<p>Articles · Guides · Reports</p>",
+          "items": [
+            {
+              "key": "clu-guide",
+              "title": "Change of Land Use in Haryana: the complete guide",
+              "html": "<p><strong>GUIDE</strong></p><p>Every step, the full document list and which office handles what.</p><p>Guide · PDF available</p><p><a href=\"/en/guides/change-of-land-use-clu-haryana\">Read guide ↗</a></p>"
+            }
+          ],
+          "outro_html": "<p><a href=\"/en/articles\">View all articles</a></p>"
+        },
+        {
+          "key": "author-and-sources",
+          "role": "content",
+          "nav_label": "Sources",
+          "eyebrow": "AUTHOR AND SOURCES",
+          "title": "The people behind this guidance.",
+          "html": "<p><strong>Author</strong>: Rapid Consulting editorial team (Editorial team)</p><p>Sources: Industrial CLU policy, 01.10.2015 · Industries on farmland, 19.03.2021 · Amendment, 28.04.2026 · Road access rules, 11.11.2025 · Clarification, 14.09.2026 · Validity rule (Rule 26F), Haryana Gazette, 17.08.2020 · Right to Service time limits (TCP).</p>"
+        },
+        {
+          "key": "next-step",
+          "role": "panel_navy",
+          "nav_label": "Next step",
+          "eyebrow": "NEXT STEP",
+          "title": "Send us your khasra number. We'll tell you if CLU is possible.",
+          "html": "<p>Your first review is free.</p><p><a href=\"#enquire\">Check my land for CLU →</a></p><p>or <a href=\"https://wa.me/919467248028\">WhatsApp +91 94672 48028</a></p>"
+        }
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "slug": "change-of-land-use-clu-haryana",
+      "title": "Change of Land Use (CLU) in Haryana: rules, charges and process",
+      "content": "<p>Whether your land can take a factory, what CLU costs, the papers you'll need and how long the permission lasts. Taken from TCP Haryana's current policies for industrial proposals in controlled areas.</p>\n<h3>Can my land get CLU?</h3>\n<p>In an industrial zone, all unit types are allowed, with no minimum area, subject to pollution clearance. In the agriculture zone, it depends on the nearest town and how close you are to it. Red-category units can't get CLU there.</p>\n<h3>What does it cost?</h3>\n<p>A scrutiny fee of ₹10 per sq m with the application, then conversion charges and, in some areas, development charges, demanded in the Letter of Intent (LOI).</p>\n<h3>How long does it last?</h3>\n<p>Two years to put the land to use, for sites up to 25 acres other than multi-storey buildings. It can be renewed.</p>\n<h3>Who grants it?</h3>\n<p>The Department of Town and Country Planning (TCP), Haryana, for land in controlled areas. Land inside municipal limits follows the urban local body's route; check which applies to yours.</p>\n<h2 id=\"where-allowed\" data-eyebrow=\"WHERE INDUSTRY IS ALLOWED\" data-nav=\"Where allowed\">Can your land take a factory?</h2>\n<p>These rules cover industrial proposals in TCP-controlled areas. They depend on the zone your land is in on the development plan, and on the potential of the nearest town. Most industrial CLU has no minimum area.</p>\n<table>\n<thead>\n<tr><th>Zone on the development plan</th><th>Hyper or high potential town</th><th>Medium potential town</th><th>Low potential town</th></tr>\n</thead>\n<tbody>\n<tr><td>Industrial zone</td><td>All units, no area limit, subject to pollution clearance</td><td>The same</td><td>The same</td></tr>\n<tr><td>Agriculture zone, within 2 km of the urbanisable zone</td><td>Not allowed</td><td>Green, white and orange units, up to 5 acres</td><td>Green, white and orange units, any area</td></tr>\n<tr><td>Agriculture zone, beyond 2 km</td><td>Not allowed</td><td>Green, white and orange units, any area</td><td>Green, white and orange units, any area</td></tr>\n<tr><td>Transport and communication zone</td><td>White, green and orange units, at least 0.5 acre, within 25% of the zone's net planned area</td><td>The same</td><td>The same</td></tr>\n</tbody>\n</table>\n<p>The colour is your unit's pollution category. Red-category units can't get CLU in the agriculture zone.</p>\n<aside><p><strong>Plot in an HSIIDC estate? You don't need CLU.</strong> Your building plans are filed with HSIIDC under the estate's rules. Pollution consents, the fire NOC and the factory licence still apply.</p><p>HSIIDC estate approvals ↗</p></aside>\n<p><a class=\"button\" href=\"#enquire\">Check my plot →</a></p>\n<h2 id=\"road-access\" data-eyebrow=\"ROAD ACCESS\" data-nav=\"Road access\">Does your road qualify?</h2>\n<aside><p><strong>ILLUSTRATIVE</strong></p><ul><li><strong>PLOT</strong> Not an approved plot. <strong>↕ 20 ft</strong> Existing village link road</li><li><strong>PLOT</strong> Not an approved plot. <strong>↕ 33 ft</strong> Revenue or panchayati rasta</li></ul><p>Road width is one check. The zone, access permissions and your unit also matter.</p></aside>\n<ul><li>Agriculture zone: at least a 20 ft existing village link road, or a 33 ft revenue or self-made panchayati rasta. Direct access from a national highway, scheduled road or state highway also qualifies once you have access permission.</li><li>A self-made panchayati rasta must be land donated to the gram panchayat before you apply, leading to a road of at least 33 ft.</li><li>Transport and communication zone: at least a 33 ft revenue rasta or public road, plus access from a planned 18 or 24 m internal road or a 12 m service road.</li><li>Industrial zone: at least a 33 ft road, with access from the sector road network. The frontage is widened and donated.</li></ul>\n<p>Access from a highway needs its own permission:</p>\n<p><a href=\"/en/services/nhai-entry-and-exit-permission-noc\">NHAI access NOC ↗</a> · <a href=\"/en/services/pwd-entry-exit-permission-noc\">PWD access NOC ↗</a></p>\n<h2 id=\"charges\" data-eyebrow=\"CHARGES\" data-nav=\"Charges\">What CLU costs, and when you pay.</h2>\n<table>\n<thead>\n<tr><th>Charge</th><th>When you pay</th><th>What decides it</th></tr>\n</thead>\n<tbody>\n<tr><td>Scrutiny fee</td><td>With the application</td><td>₹10 per sq m</td></tr>\n<tr><td>Conversion charges</td><td>By the date in the Letter of Intent (LOI)</td><td>Rates set for your area. MSMEs pay half in B, C and D category blocks</td></tr>\n<tr><td>External development charges (EDC)</td><td>By the date in the LOI</td><td>Only for sites inside the urbanisable zone. Half for MSMEs and some sectors in B, C and D blocks, for new cases</td></tr>\n<tr><td>Internal development charges (IDC)</td><td>By the date in the LOI</td><td>Only where the site is in a developed sector</td></tr>\n</tbody>\n</table>\n<p>None of these is the price of the land.</p>\n<p><a class=\"button\" href=\"#enquire\">Work out my charges →</a></p>\n<h2 id=\"papers\" data-eyebrow=\"THE PAPERS\" data-nav=\"Papers\">The papers you'll need.</h2>\n<ul><li>The sizra (aks-shajra), showing your plot, its road and the road's width</li><li>The latest jamabandi, signed by the patwari</li><li>Every mutation (intkal) entry for the land</li><li>The registry, sale deed or lease deed</li><li>The landowners' KYC and net-worth certificate</li><li>A non-encumbrance certificate from the tehsildar</li><li>Your Udyam registration, if you have one</li><li>The business's constitution document, and an authority letter or board resolution</li><li>Photos of the site</li></ul>\n<h2 id=\"steps\" data-eyebrow=\"THE STEPS\" data-nav=\"Steps\">How a CLU application moves.</h2>\n<ol><li><strong>Land and project checked.</strong> The zone, the road and your unit's pollution category.</li><li><strong>Papers collected</strong> and verified against the revenue record.</li><li><strong>The application prepared:</strong> the CLU-I form, site plan, utilisation plan and project report.</li><li><strong>Submission.</strong> Filed online through Invest Haryana, and the department's queries answered.</li><li><strong>Letter of Intent (LOI).</strong> It sets the charges, the conditions and a date to meet them. You sign the undertaking by OTP. It isn't the CLU permission yet.</li><li><strong>Compliance, then the CLU letter.</strong> Once the charges are paid and the conditions met, you sign the final form (CLU-II) by OTP and the CLU letter is issued.</li></ol>\n<p>Submission → Letter of Intent → Compliance → CLU letter</p>\n<p>How long each step takes depends on your file and the department's queue. Haryana sets time limits for approvals under its Right to Service rules.</p>\n<h2 id=\"validity\" data-eyebrow=\"VALIDITY\" data-nav=\"Validity\">How long a CLU lasts.</h2>\n<table>\n<thead>\n<tr><th>Your site</th><th>Time to put the land to use</th></tr>\n</thead>\n<tbody>\n<tr><td>Up to 25 acres, not a multi-storey building</td><td>Two years</td></tr>\n<tr><td>Up to 25 acres, multi-storey</td><td>Three years</td></tr>\n<tr><td>25 acres or more</td><td>Five years</td></tr>\n</tbody>\n</table>\n<ul><li>Renewal, for sites up to 25 acres that aren't multi-storey: up to three more years, on paying 10% of the current conversion charges.</li><li>One further year with government approval, if the delay was beyond your control, at 15% of the conversion charges.</li></ul>\n<h2 id=\"hold-ups\" data-eyebrow=\"WHAT HOLDS A FILE UP\" data-nav=\"Hold-ups\" data-tone=\"navy\">What holds a CLU file up.</h2>\n<ul><li>The road's width and name not shown on the sizra</li><li>Mutation entries not checked with the patwari</li><li>A jamabandi or non-encumbrance certificate without the patwari's or tehsildar's signature</li><li>The activity described loosely in the application</li><li>The wrong pollution category</li></ul>\n<p><a class=\"button\" href=\"#enquire\">Get my file checked →</a></p>\n<h2 id=\"want-it-handled\" data-eyebrow=\"\" data-nav=\"\" data-tone=\"grey\">Want it handled?</h2>\n<p>We check your plot, prepare the file and see it through to the CLU letter.</p>\n<p><a href=\"/en/services/change-in-land-use-clu\">See our CLU service ↗</a></p>\n<h2 id=\"after-clu\" data-eyebrow=\"AFTER CLU\" data-nav=\"\">After the CLU letter.</h2>\n<p>The CLU letter confirms the permitted land use. Before construction, get the building plan approval and the Consent to Establish. Once the building is complete come the occupation certificate and the Consent to Operate.</p>\n<p><a href=\"/en/services/building-plans-approval-from-dtp-and-stp-haryana\">Building plan approval ↗</a> · <a href=\"/en/services/consent-to-establish-cte-pollution-noc\">Consent to Establish ↗</a> · <a href=\"/en/approvals\">All approvals for your factory ↗</a></p>\n<h2 id=\"faqs\" data-eyebrow=\"FAQs\" data-nav=\"FAQs\">Questions about CLU.</h2>\n<h3>Can I start building while my CLU is being processed?</h3>\n<h3>Does my existing CLU cover an expansion?</h3>\n<h3>What happens if CLU is refused?</h3>\n<h3>Do you guarantee the outcome?</h3>\n<p><a class=\"button\" href=\"/en/faqs\">View all FAQs →</a></p>\n<h2 id=\"author-and-sources\" data-eyebrow=\"AUTHOR AND SOURCES\" data-nav=\"\">The people behind this guidance.</h2>\n<p><strong>Author:</strong> Rapid Consulting editorial team (Editorial team)</p>\n<ul><li>Industrial CLU policy, 01.10.2015 (Misc-388) ↗</li><li>Industries in the agriculture zone, 19.03.2021 (Misc-452) ↗</li><li>CLU policy amendment, 28.04.2026 ↗</li><li>Road access norms, 11.11.2025 ↗</li><li>Clarification on panchayati rasta, 14.09.2026 ↗</li><li>Rule 26F, Haryana Gazette, 17.08.2020 ↗</li></ul>\n<h2 id=\"further-reading\" data-eyebrow=\"FURTHER READING\" data-nav=\"\">More on land and approvals.</h2>\n<p>Articles · Guides · Reports</p>\n<ul><li><strong>LAND AND CLU</strong> What should a CLU consultant coordinate for your Haryana project?</li><li><strong>PROJECT PLANNING</strong> Planning your first facility</li><li><strong>PROJECT PLANNING</strong> Capacity, cash or approvals</li></ul>\n<p><a class=\"button\" href=\"/en/articles\">View all articles ↗</a></p>\n<h2 id=\"next-step\" data-eyebrow=\"NEXT STEP\" data-nav=\"\" data-tone=\"navy\">Not sure your land qualifies? Send us the khasra number.</h2>\n<p>Tell us where the plot is and what you want to build.</p>\n<p>PHOTO PLACEHOLDER: An agricultural plot with its approach road</p>\n<p><a class=\"button\" href=\"#enquire\">Check my land for CLU →</a></p>"
+    }
+  ],
+  "cases": [
+    {
+      "slug": "testing-equipment-subsidy-support-for-an-agro-processor-in-sirsa",
+      "title": "Testing equipment for an agro processor in Sirsa",
+      "industry": "Food and agro processing",
+      "sector": "Food and agro processing",
+      "location": "Sirsa, Haryana",
+      "rapid_role": "Assessment, application and filing",
+      "milestone_label": "Application filed; result to be confirmed",
+      "add_tags": [
+        "Draft case",
+        "scheme:Testing equipment subsidy"
+      ],
+      "challenge": "<p><strong>About ₹16.5 lakh in equipment spend</strong></p>\n<p>An analyser that tests oil and moisture in mustard seed, about ₹16.5 lakh of equipment spend, and an earlier testing subsidy to account for.</p>\n<h2 id=\"the-need\" data-eyebrow=\"THE NEED\">A testing machine, bought for one job.</h2>\n<p>An agro-processing business in Sirsa bought an analyser to measure oil and moisture in mustard seed. The claim had to show what the machine does, what it cost, when it was bought, and how it fits the unit's work.</p>\n<p><a class=\"button\" href=\"#enquire\">Talk to us before you buy →</a></p>\n<aside><p><strong>IMAGE PLACEHOLDER</strong></p><p><strong>An oil and moisture analyser</strong></p><p>Oil · Moisture</p><p>Mustard seed sample</p><ul><li><strong>Purpose</strong> Oil and moisture testing</li><li><strong>Cost</strong> About ₹16.5 lakh equipment spend</li><li><strong>Purchase date</strong> Recorded for the claim</li></ul></aside>\n<h2 id=\"the-hard-part\" data-eyebrow=\"THE HARD PART\" data-tone=\"navy\">An earlier testing subsidy needed checking.</h2>\n<p>The assessment recorded that testing subsidy had been availed before. That history needed to be considered when preparing the new application.</p>\n<p><a class=\"button\" href=\"#enquire\">Get my claim checked →</a></p>",
+      "solution": "<h2 id=\"what-rapid-did\" data-eyebrow=\"WHAT RAPID DID\">From the invoice to the filed application.</h2>\n<ol><li><strong>The documents</strong><p>Client provided: The documents for the claim</p><p>Rapid recorded or handled: Collected them, and recorded the analyser's cost, purchase date, identity and use</p></li><li><strong>The history</strong><p>Rapid recorded or handled: Recorded whether testing subsidy had been availed previously</p></li><li><strong>The application</strong><p>Client provided: Signatures on the final papers</p><p>Rapid recorded or handled: Prepared the application documents</p></li><li><strong>Filing</strong><p>Rapid recorded or handled: Submitted the application on the department's portal</p></li></ol>\n<p><a class=\"button\" href=\"#enquire\">Start with a free check →</a></p>",
+      "result": "<h2 id=\"where-it-stands\" data-eyebrow=\"WHERE IT STANDS\">Application filed.</h2>\n<p>The result is confirmed with the client before this case is published.</p>\n<p>The ₹16.5 lakh is what the unit spent on the analyser. It isn't the subsidy.</p>\n<p><a class=\"button\" href=\"/en/schemes/testing-machine-subsidy\">See the testing equipment subsidy →</a></p>\n<h2 id=\"before-you-buy\" data-eyebrow=\"BEFORE YOU BUY\" data-tone=\"grey\">Buying testing equipment? Bring these to a check.</h2>\n<ul><li>Talk to us before you order. The scheme's window and conditions decide whether the purchase counts.</li><li>A line on what the machine is for. The claim rests on how it fits your work.</li><li>The quotation, then the invoice and payment proof.</li><li>Any earlier subsidy you've had, for testing or anything else on the same unit.</li></ul>\n<p><a class=\"button\" href=\"#enquire\">Check my claim before I buy →</a></p>\n<p><a href=\"/en/schemes/testing-machine-subsidy\">Testing equipment subsidy ↗</a> · <a href=\"/en/industries/food-and-agro-processing\">Food and agro processing ↗</a></p>\n<h2 id=\"author-and-reviewer\" data-eyebrow=\"AUTHOR AND REVIEWER\">The people behind this case.</h2>\n<p><strong>Author:</strong> Rapid Consulting editorial team (Editorial team)</p>\n<p>Client name and details withheld. Figures are rounded.</p>\n<h2 id=\"next-step\" data-eyebrow=\"NEXT STEP\" data-tone=\"navy\">Buying testing or safety equipment? Talk to us before you order.</h2>\n<p>IMAGE PLACEHOLDER: A quality-testing lab in a Haryana processing unit</p>\n<p><a class=\"button\" href=\"#enquire\">Check my claim →</a></p>"
+    }
+  ]
+}

@@ -15,6 +15,9 @@ export const searchParams = {
   type: parseAsString,
   family: parseAsString,
   is_published: parseAsString,
+  template: parseAsString,
+  locale: parseAsString,
+  status: parseAsString,
   start_date: parseAsString,
   end_date: parseAsString,
 };

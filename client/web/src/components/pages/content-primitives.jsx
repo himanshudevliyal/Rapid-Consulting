@@ -41,7 +41,7 @@ export function SectionNav({ sections, t }) {
 
 export function DownloadButton({ href, label }) {
   return (
-    <a className="button button-secondary download-button" href={href} download>
+    <a className="button button-secondary download-button" href={href} target="_blank" rel="noopener noreferrer">
       <svg  className="w-[20px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
         <path d="M12 3v12m-5-5 5 5 5-5M4 15v6h16v-6" />
       </svg>

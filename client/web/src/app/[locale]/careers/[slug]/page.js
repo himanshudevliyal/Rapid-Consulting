@@ -39,12 +39,7 @@ export default async function JobDetailRoute({ params }) {
   return (
     <>
       <PageAlternates en={`/en${path}`} hi={null} />
-      <Breadcrumbs
-        page={found.page}
-        t={t}
-        heading={found.page.h1}
-        backgroundImage="/assets/hero-section.jpg"
-      />
+      <Breadcrumbs page={found.page} t={t} />
       <JobView page={found.page} t={t} />
     </>
   );

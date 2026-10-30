@@ -2,7 +2,6 @@
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 import config from "@/config";
-import axios from "axios";
 import { ImageUpIcon, Loader2, XIcon } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
@@ -24,7 +23,7 @@ export default function ImageArrayUploader({ value = [], onChange }) {
       for (const file of files) {
         const formData = new FormData();
         formData.append("file", file);
-        const response = await axios.post(
+        const response = await http().post(
           `${config.api_base}${endpoints.files.upload}`,
           formData,
           {

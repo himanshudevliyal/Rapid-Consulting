@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useTranslations } from "next-intl";
+import { useTx } from "@/lib/use-tx";
 import {
   CONTACT_DEFAULTS,
   createContactSchema,
@@ -24,6 +25,50 @@ import { FormStatus, HoneypotField, TextAreaField, TextField } from "./form-fiel
 import { useSubmitContactEnquiry, useSubmitEnquiry } from "@/hooks/use-enquiry";
 import { EMAIL, PHONE_LABEL, PHONE_HREF } from "@/lib/site";
 
+// The sticky rail sits below BOTH the main header and the section menu. The
+// header publishes --site-header-h; the section menu (any sticky <nav> on the
+// page that is not the header) is measured here and published as
+// --section-nav-h (0px when the page has none). See styles/w1.css.
+function useStickyOffsets(enabled) {
+  useEffect(() => {
+    if (!enabled) return undefined;
+    const root = document.documentElement;
+    let observer;
+    let target = null;
+
+    const find = () =>
+      document.querySelector("[data-section-nav]") ||
+      Array.from(document.querySelectorAll("nav")).find(
+        (nav) => !nav.closest("header, footer, [role='dialog']") && getComputedStyle(nav).position === "sticky",
+      ) ||
+      null;
+
+    const measure = () => {
+      if (!target || !target.isConnected) target = find();
+      root.style.setProperty("--section-nav-h", `${target ? Math.ceil(target.getBoundingClientRect().height) : 0}px`);
+    };
+
+    measure();
+    if (typeof ResizeObserver !== "undefined") {
+      observer = new ResizeObserver(measure);
+      if (target) observer.observe(target);
+    }
+    window.addEventListener("resize", measure);
+    // The section menu can mount a moment after the rail.
+    const late = window.setTimeout(() => {
+      measure();
+      if (observer && target) observer.observe(target);
+    }, 400);
+
+    return () => {
+      window.clearTimeout(late);
+      observer?.disconnect();
+      window.removeEventListener("resize", measure);
+      root.style.removeProperty("--section-nav-h");
+    };
+  }, [enabled]);
+}
+
 // Empty text is left out of the request; the API column limits are enforced
 // by the validation schema, so nothing is cut silently.
 const clean = (value) => (value ?? "").trim() || undefined;
@@ -31,6 +76,9 @@ const clean = (value) => (value ?? "").trim() || undefined;
 // Contextual expert-callback / contact form (React Hook Form).
 //   kind="enquiry" (default) -> POST /enquiries          (service & page enquiries)
 //   kind="contact"           -> POST /contact-enquiries  (Contact Us page: also asks email)
+//   variant="rail"    sticky side form (a dialog + persistent button on mobile)
+//   variant="section" large page-section form
+//   variant="drawer"  just the form, for the enquiry drawer / sheet (enquiry-drawer.jsx)
 // The page title, URL and service name are captured on submit so the admin
 // can see where every enquiry came from.
 export function ContactExperience({
@@ -44,8 +92,12 @@ export function ContactExperience({
   heading,
   eyebrow,
   description,
+  formId = "enquiry",
+  initialValues,
+  onDraftChange,
 }) {
   const t = useTranslations();
+  const tx = useTx();
   const uid = useId();
   const isContact = kind === "contact";
   // The message box is "message" on the contact form, "requirement" on the enquiry form.
@@ -61,7 +113,7 @@ export function ContactExperience({
     formState: { errors },
   } = useForm({
     resolver: zodResolver(isContact ? createContactSchema(t) : createEnquirySchema(t)),
-    defaultValues: isContact ? CONTACT_DEFAULTS : ENQUIRY_DEFAULTS,
+    defaultValues: { ...(isContact ? CONTACT_DEFAULTS : ENQUIRY_DEFAULTS), ...initialValues },
   });
 
   const enquiryMutation = useSubmitEnquiry();
@@ -72,6 +124,9 @@ export function ContactExperience({
   const [open, setOpen] = useState(false);
 
   const modal = mobile && variant === "rail";
+  const drawer = variant === "drawer";
+
+  useStickyOffsets(variant === "rail");
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 900px)");
@@ -129,11 +184,13 @@ export function ContactExperience({
   // Typing again after a result clears the old "sent" / "failed" message.
   const { isIdle, isPending, reset: resetMutation } = mutation;
   useEffect(() => {
-    const subscription = watch((_values, info) => {
+    const subscription = watch((values, info) => {
+      // Lets a host (the enquiry drawer) keep the draft while it is closed.
+      onDraftChange?.(values);
       if (info.type === "change" && !isIdle && !isPending) resetMutation();
     });
     return () => subscription.unsubscribe();
-  }, [watch, isIdle, isPending, resetMutation]);
+  }, [watch, isIdle, isPending, resetMutation, onDraftChange]);
 
   const submit = (values) => {
     if (mutation.isPending) return;
@@ -148,14 +205,16 @@ export function ContactExperience({
       page_title: clean(pageTitle) || clean(document.title),
       page_url: window.location.href,
       page_id: clean(pageId),
-      source: source || (isContact ? "contact-page" : variant === "section" ? "contact-section" : "callback-rail"),
+      source:
+        source ||
+        (isContact ? "contact-page" : drawer ? "enquiry-drawer" : variant === "section" ? "contact-section" : "callback-rail"),
       website: values.website || undefined,
     };
     if (isContact) payload.email = clean(values.email);
     else if (serviceName) payload.service_name = clean(serviceName);
 
     mutation.mutate(payload, {
-      onSuccess: () => reset(),
+      onSuccess: () => reset(isContact ? CONTACT_DEFAULTS : ENQUIRY_DEFAULTS),
       onError: (error) => {
         // The API names the fields it rejected: show each under its own input.
         const fieldErrors = error?.response?.data?.errors;
@@ -200,29 +259,37 @@ export function ContactExperience({
     />
   );
 
-  const TitleTag = modal ? DialogTitle : "h2";
+  // Inside a dialog (mobile rail, drawer) the heading is the dialog's title.
+  const inDialog = modal || drawer;
+  const TitleTag = inDialog ? DialogTitle : "h2";
+  // A dialog is labelled by its own title (Radix sets the id); a plain heading gets ours.
+  const titleId = inDialog ? undefined : `${uid}-title`;
+  const headingText = heading || (isContact ? t("contact.heading") : tx("contact.callbackHeading", "Request a callback"));
 
   const form = (
     <form
-      id="enquiry"
+      id={formId}
       className="callback-form"
       onSubmit={handleSubmit(submit, invalid)}
       noValidate
-      aria-labelledby={`${uid}-title`}
+      aria-labelledby={titleId}
     >
       <span className="eyebrow">
         {eyebrow || t("contact.eyebrow")}
       </span>
 
-      <TitleTag id={`${uid}-title`}>
-        {heading || t("contact.heading")}
+      <TitleTag id={titleId}>
+        {headingText}
       </TitleTag>
 
       <p>{t("contact.intro")}</p>
 
-      <p className="contact-context">
-        {pageTitle} <span>· {pageId}</span>
-      </p>
+      {pageTitle && (
+        <p className="contact-context">
+          {pageTitle}
+          {pageId && <span> · {pageId}</span>}
+        </p>
+      )}
 
       <HoneypotField register={register} />
 
@@ -297,20 +364,20 @@ export function ContactExperience({
     const info = [
       {
         icon: Mail,
-        label: "Email Address",
+        label: t("contact.emailLabel"),
         value: EMAIL,
         href: `mailto:${EMAIL}`,
       },
       {
         icon: Phone,
-        label: "Call Us",
+        label: t("contact.callLabel"),
         value: PHONE_LABEL,
         href: PHONE_HREF,
       },
       {
         icon: Clock,
-        label: "Working Hours",
-        value: "Mon–Sat, 09am–07pm",
+        label: t("contact.hoursLabel"),
+        value: t("contact.hoursValue"),
       },
     ];
 
@@ -350,7 +417,7 @@ export function ContactExperience({
         {/* ───────── Left: Text + Info ───────── */}
 
         <div className="flex flex-col">
-          <span className="mb-5 w-fit rounded-md bg-[#eaff6b] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#09263e]">
+          <span className="mb-5 inline-block text-xs font-bold uppercase tracking-[0.14em] text-[#922e0c]">
             {eyebrow || t("contact.eyebrow")}
           </span>
 
@@ -376,7 +443,7 @@ export function ContactExperience({
                   key={label}
                   className="flex items-start gap-4"
                 >
-                  <span className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-full bg-[#eaff6b] text-[#09263e]">
+                  <span className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-full bg-[#e8efec] text-[#1f5d57]">
                     <Icon
                       className="size-[18px]"
                       aria-hidden="true"
@@ -409,7 +476,7 @@ export function ContactExperience({
 
         {/* ───────── Right: Form ───────── */}
 
-        <div className="rounded-[2rem] bg-[#eaff6b] p-2 shadow-sm sm:p-2.5">
+        <div className="rounded-[2rem] bg-[#e8efec] p-2 shadow-sm sm:p-2.5">
           <div className="flex items-center gap-3 px-4 pb-3.5 pt-3 sm:px-5">
             <Send
               className="size-6 text-[#1f5d57]"
@@ -417,14 +484,13 @@ export function ContactExperience({
             />
 
             <h3 className="text-xl font-semibold text-[#09263e] sm:text-2xl">
-              Let&apos;s Talk – Free Consultation
+              {isContact ? t("contact.sendMessage") : t("contact.callbackHeading")}
             </h3>
           </div>
 
           <div className="rounded-3xl bg-white p-5 sm:p-8">
             <p className="mb-6 text-sm leading-7 text-slate-500">
-              Book your free session with our team and
-              discover solutions crafted for your business.
+              {isContact ? t("contact.contactIntro") : t("contact.intro")}
             </p>
 
             <form
@@ -513,9 +579,9 @@ export function ContactExperience({
                   type="submit"
                   disabled={pending}
                   aria-busy={pending}
-                  className="h-14 rounded-full bg-[#1f5d57] px-10 text-base font-medium text-white! shadow-none transition-colors hover:bg-[#09263e]"
+                  className="h-14 rounded-full bg-[#eaff6b] px-10 text-base font-semibold text-[#09263e]! shadow-none transition-colors hover:bg-[#dcf24f]"
                 >
-                  {pending ? t("contact.sending") : t("contact.sendMessage")}
+                  {pending ? t("contact.sending") : isContact ? t("contact.sendMessage") : t("contact.submit")}
                 </Button>
 
                 <a
@@ -527,9 +593,12 @@ export function ContactExperience({
                     aria-hidden="true"
                   />
 
-                  Call : {PHONE_LABEL}
+                  {t("contact.callPrefix")}: {PHONE_LABEL}
                 </a>
               </div>
+
+              {/* Primary direct contact sits below the callback submit button. */}
+              <WhatsAppButton />
 
               {status}
 
@@ -541,6 +610,14 @@ export function ContactExperience({
         </div>
       </div>
     );
+  }
+
+  /* ─────────────────────────────────────────────
+     Drawer Variant (the form only; the dialog is the host's)
+  ───────────────────────────────────────────── */
+
+  if (drawer) {
+    return <div className="contact-experience contact-drawer">{form}</div>;
   }
 
   /* ─────────────────────────────────────────────
@@ -583,7 +660,7 @@ export function ContactExperience({
           onClick={() => setOpen(true)}
           aria-haspopup="dialog"
         >
-          {t("contact.mobileButton")}
+          {tx("contact.mobileCallback", "Request a callback")}
           <span aria-hidden="true">↗</span>
         </Button>
       )}

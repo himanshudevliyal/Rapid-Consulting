@@ -19,8 +19,7 @@ import table from "../../db/models.js";
 import z from "zod";
 
 const verifyUserCredentials = async (req, res) => {
-  const { username, password, provider, provider_account_id, email, role } =
-    req.body;
+  const { username, password } = req.body;
   let userData = null;
   let transaction = null;
   try {
@@ -31,7 +30,12 @@ const verifyUserCredentials = async (req, res) => {
           .code(404)
           .send({ message: "User with this username does not exist." });
       }
-      if (userData.role !== req.body.role) {
+      // The dashboard sign-in always sends role "admin"; editors use the same
+      // sign-in (what they can do is limited by the role guards on each route).
+      const sameRole =
+        userData.role === req.body.role ||
+        (req.body.role === "admin" && userData.role === "editor");
+      if (!sameRole) {
         return res.code(404).send({ message: "User not found." });
       }
 
@@ -48,41 +52,10 @@ const verifyUserCredentials = async (req, res) => {
           message: "Invalid Credentials.",
         });
       }
-    } else if (provider && provider_account_id && email) {
-      userData = await table.UserModel.getByEmailId(req);
-      transaction = await sequelize.transaction();
-      if (!userData) {
-        userData = await table.UserModel.create(req, { transaction });
-        const freePlan = await table.UserModel.getByFreePlan();
-        const currDate = moment();
-        const startDate = currDate.toISOString();
-        const endDate = currDate.add(7, "days");
-        await table.UserModel.create(
-          {
-            user_data: { id: userData.id },
-            body: {
-              plan_id: freePlan.id,
-              plan_tier: freePlan.plan_tier,
-              start_date: startDate,
-              end_date: endDate,
-              duration_in_months: 0,
-            },
-          },
-          { transaction },
-        );
-      } else {
-        if (!userData.provider) {
-          await table.UserModel.update(
-            { body: { provider, provider_account_id } },
-            userData.id,
-            transaction,
-          );
-        }
-      }
-      if (transaction) {
-        await transaction.commit();
-      }
     } else {
+      // Username + password only. There is no social sign-in: the old
+      // provider/email branch issued tokens for any existing e-mail address
+      // without checking a provider token.
       return res.code(400).send({ message: "Invalid login request." });
     }
 
@@ -122,6 +95,8 @@ const register = async (req, res) => {
       );
     }
 
+    // Self sign-up is always a plain user; the role is never taken from the body.
+    req.body.role = "user";
     const user = await table.UserModel.create(req, transaction);
 
     await transaction.commit();
@@ -339,6 +314,7 @@ const registerVerify = async (req, res) => {
     }
 
     await table.UserModel.update({ body: { verified: true } }, otpRecord.id);
+    req.body.role = "user";
     const userData = await table.UserModel.create(req, { transaction });
 
     await transaction.commit();

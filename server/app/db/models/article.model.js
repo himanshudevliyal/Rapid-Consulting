@@ -23,6 +23,8 @@ const init = async (sequelize) => {
       excerpt: { type: DataTypes.TEXT, allowNull: true },
       content: { type: DataTypes.TEXT, allowNull: true },
       cover_image: { type: DataTypes.STRING(500), allowNull: true },
+      // An uploaded PDF (path); the website links to it and opens it in a new tab.
+      pdf_url: { type: DataTypes.STRING(500), allowNull: true },
       category_id: { type: DataTypes.UUID, allowNull: true },
       // "article" or "guide" (guides live under /guides on the website).
       type: { type: DataTypes.STRING(20), allowNull: false, defaultValue: "article" },
@@ -39,6 +41,13 @@ const init = async (sequelize) => {
       published_at: { type: DataTypes.DATE, allowNull: true },
       meta_title: { type: DataTypes.STRING(255), allowNull: true },
       meta_description: { type: DataTypes.TEXT, allowNull: true },
+      // Author and reviewer are team members (advisers); the review date only
+      // counts when a reviewer is set.
+      author_id: { type: DataTypes.UUID, allowNull: true },
+      reviewer_id: { type: DataTypes.UUID, allowNull: true },
+      // none | assigned | pending | completed (null = not tracked yet).
+      review_status: { type: DataTypes.STRING(20), allowNull: true },
+      reviewed_at: { type: DataTypes.DATEONLY, allowNull: true },
     },
     {
       tableName: TABLE,
@@ -78,12 +87,16 @@ const create = async (data) => {
 };
 
 // published_only: public site. is_published: "true" | "false" filters the
-// admin list. tag: only articles carrying that tag.
+// admin list. tag: only articles carrying that tag. author_id / reviewer_id:
+// only articles by / reviewed by that team member; person_id: either of them.
 const getAll = async ({
   published_only = false,
   is_published,
   tag,
   category_id,
+  author_id,
+  reviewer_id,
+  person_id,
   type,
   q,
   page = 1,
@@ -96,13 +109,20 @@ const getAll = async ({
   if (tag) where.tags = { [Op.contains]: [tag] };
   if (category_id) where.category_id = category_id;
   if (type) where.type = type;
+  if (author_id) where.author_id = author_id;
+  if (reviewer_id) where.reviewer_id = reviewer_id;
+  const clauses = [];
+  if (person_id) clauses.push({ [Op.or]: [{ author_id: person_id }, { reviewer_id: person_id }] });
   if (q) {
-    where[Op.or] = [
-      { title: { [Op.iLike]: `%${q}%` } },
-      { excerpt: { [Op.iLike]: `%${q}%` } },
-      { slug: { [Op.iLike]: `%${q}%` } },
-    ];
+    clauses.push({
+      [Op.or]: [
+        { title: { [Op.iLike]: `%${q}%` } },
+        { excerpt: { [Op.iLike]: `%${q}%` } },
+        { slug: { [Op.iLike]: `%${q}%` } },
+      ],
+    });
   }
+  if (clauses.length) where[Op.and] = clauses;
   const offset = (page - 1) * limit;
   const { count, rows } = await ArticleModel.findAndCountAll({
     where,

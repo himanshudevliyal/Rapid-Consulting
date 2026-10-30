@@ -10,12 +10,15 @@ import { resolveContentPath } from "@/lib/pages/resolve";
 import { loadInitialList } from "@/lib/content/loaders";
 import { ArticlesPage } from "../articles/_components/ArticlesPage";
 
-const PATH = "/articles";
+// The guides collection: the same listing copy as the articles index, opened on
+// Guides, with its own address for canonical and language alternates.
+const COPY_PATH = "/articles";
+const PATH = "/guides";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const found = resolveContentPath(locale, PATH);
+  const found = resolveContentPath(locale, COPY_PATH);
   if (found.kind !== "page") return { robots };
   const t = await getTranslations({ locale });
   return contentPageMetadata(found.page, locale, t("meta.siteName"), PATH);
@@ -24,7 +27,7 @@ export async function generateMetadata({ params }) {
 export default async function GuidesIndexRoute({ params }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const found = resolveContentPath(locale, PATH);
+  const found = resolveContentPath(locale, COPY_PATH);
   if (found.kind !== "page") notFound();
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
@@ -39,12 +42,10 @@ export default async function GuidesIndexRoute({ params }) {
         hi={found.page.hasHindi ? `/hi${PATH}` : null}
       />
       <Breadcrumbs
-        heading={found.page.h1}
         items={[
           { label: t("common.home"), href: `/${locale}` },
           { label: found.page.title, href: `/${locale}${PATH}` },
         ]}
-        backgroundImage="/assets/articles.jpg"
       />
       <main id="main">
         <ArticlesPage
@@ -53,6 +54,7 @@ export default async function GuidesIndexRoute({ params }) {
           has={has}
           image="/assets/articles.jpg"
           initialData={initialData}
+          defaultFormat="guide"
         />
       </main>
     </>

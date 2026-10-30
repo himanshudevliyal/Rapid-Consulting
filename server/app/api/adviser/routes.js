@@ -14,4 +14,5 @@ export default async function adviserRoutes(fastify, options) {
 // Public routes: active advisers only, in display order.
 export async function adviserPublicRoutes(fastify, options) {
   fastify.get("/", controller.getAllPublic);
+  fastify.get("/by-slug/:slug", controller.getBySlug);
 }

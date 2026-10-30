@@ -5,7 +5,9 @@ import { ChevronDown, PackageSearch, RotateCcw, Search, X } from "lucide-react";
 
 import { useLocale, useTranslations } from "next-intl";
 import { matchesSearch } from "@/lib/search";
+import { industryFromLocation, resolveIndustryId } from "@/lib/industry-filter";
 import { serviceHref } from "@/lib/site";
+import { useNoindex } from "@/hooks/use-url-filters";
 import { ContentCard } from "@/components/common/content-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,12 +50,34 @@ export function ServicesDirectory({ items, industries = [], industry = "" }) {
   const [format, setFormat] = useState("");
   const [family, setFamily] = useState("");
   const [limit, setLimit] = useState(PAGE_SIZE);
-  const normalizeIndustry = (value) =>
-    industries.some((entry) => entry.id === value) ? value : "";
+  // ?industry=<slug> (or a legacy code such as I01) -> the industry's id, or "".
+  const normalizeIndustry = (value) => resolveIndustryId(value, industries);
   const [selectedIndustry, setIndustry] = useState(normalizeIndustry(industry));
   const input = useRef(null);
   const section = useRef(null);
   const focusIndex = useRef(null);
+
+  // The incoming link's industry is applied again when the list is ready, when
+  // the link changes and on back/forward, and the address is kept in step with
+  // the control (legacy codes become slugs).
+  const industryKey = industries.map((entry) => entry.id).join(",");
+  useEffect(() => {
+    if (!industries.length) return undefined;
+    const restore = (withFallback) => {
+      const next = resolveIndustryId(industryFromLocation() || (withFallback ? industry : ""), industries);
+      setIndustry(next);
+      setLimit(PAGE_SIZE);
+      const url = new URL(window.location.href);
+      if (next && url.searchParams.get("industry") !== next) {
+        url.searchParams.set("industry", next);
+        window.history.replaceState(null, "", url);
+      }
+    };
+    const onPop = () => restore(false);
+    restore(true);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [industryKey, industry]);
 
   useEffect(() => {
     if (focusIndex.current !== null) {
@@ -68,22 +92,23 @@ export function ServicesDirectory({ items, industries = [], industry = "" }) {
   // A service belongs to the category chosen for it in the admin panel.
   const groupOf = (item) => item.category?.slug || "";
 
-  const industrySlugs = useMemo(() => {
-    const record = industries.find((entry) => entry.id === selectedIndustry);
-    return record ? new Set(record.serviceSlugs) : null;
-  }, [industries, selectedIndustry]);
+  const industryRecord = industries.find((entry) => entry.id === selectedIndustry);
+  const industrySlugs = useMemo(() => (industryRecord ? new Set(industryRecord.serviceSlugs) : null), [industryRecord]);
 
-  const filtered = useMemo(
-    () =>
-      items.filter(
-        (item) =>
-          (!industrySlugs || industrySlugs.has(item.slug)) &&
-          matchesSearch(item, query) &&
-          (!format || item.type === format) &&
-          (!family || groupOf(item) === family),
-      ),
-    [items, query, format, family, industrySlugs],
-  );
+  // Inside an industry the order is the industry's own (the single catalogue
+  // set in the admin panel); otherwise the services keep their usual order.
+  const filtered = useMemo(() => {
+    const found = items.filter(
+      (item) =>
+        (!industrySlugs || industrySlugs.has(item.slug)) &&
+        matchesSearch(item, query) &&
+        (!format || item.type === format) &&
+        (!family || groupOf(item) === family),
+    );
+    if (!industryRecord) return found;
+    const rank = (item) => industryRecord.serviceSlugs.indexOf(item.slug);
+    return [...found].sort((a, b) => rank(a) - rank(b));
+  }, [items, query, format, family, industrySlugs, industryRecord]);
 
   const changeIndustry = (next) => {
     setIndustry(next);
@@ -91,7 +116,8 @@ export function ServicesDirectory({ items, industries = [], industry = "" }) {
     const url = new URL(window.location.href);
     if (next) url.searchParams.set("industry", next);
     else url.searchParams.delete("industry");
-    window.history.replaceState(null, "", url);
+    // A new history entry: Back returns to the previous industry selection.
+    window.history.pushState(null, "", url);
   };
 
   const formats = [...new Set(items.map((item) => item.type))];
@@ -110,6 +136,8 @@ export function ServicesDirectory({ items, industries = [], industry = "" }) {
     input.current?.focus();
   };
   const filtering = Boolean(query || format || family || selectedIndustry);
+  // A filtered list is a view, not a page of its own: keep it out of search results.
+  useNoindex(filtering);
 
   // active filter chips
   const chips = [
@@ -260,7 +288,7 @@ export function ServicesDirectory({ items, industries = [], industry = "" }) {
         </div>
       ) : (
         <div className="flex flex-col items-center rounded-3xl border border-dashed border-slate-300 bg-white/70 px-6 py-16 text-center">
-          <span className="flex size-16 items-center justify-center rounded-full bg-[#eaff6b] text-[#09263e]">
+          <span className="flex size-16 items-center justify-center rounded-full bg-[#e8efec] text-[#1f5d57]">
             <PackageSearch className="size-7" aria-hidden="true" />
           </span>
           <h3 className="!mb-0 !mt-5 !text-xl !font-semibold !text-[#09263e]">{t("directory.emptyTitle")}</h3>
@@ -287,7 +315,7 @@ export function ServicesDirectory({ items, industries = [], industry = "" }) {
             className="h-13 gap-3 rounded-full bg-[#09263e] px-8 text-sm font-semibold text-white shadow-none hover:bg-[#1f5d57]"
           >
             {t("directory.loadMore")}
-            <span className="rounded-full bg-[#eaff6b] px-2.5 py-0.5 text-xs font-bold text-[#09263e]">
+            <span className="rounded-full bg-[#e8efec] px-2.5 py-0.5 text-xs font-bold text-[#1f5d57]">
               {t("directory.remaining", { count: filtered.length - limit })}
             </span>
           </Button>

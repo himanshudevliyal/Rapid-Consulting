@@ -6,6 +6,7 @@ const homeRoles = {
     'find-the-service-you-need': 'services', 'अपनी-ज़रूरत-की-सेवा-खोजें': 'services',
     'see-the-work-behind-the-promise': 'proof', 'हमने-किन-प्रोजेक्ट-पर-काम-किया-है': 'proof',
     'get-useful-answers-before-your-next-decision': 'resources', 'अगले-फैसले-से-पहले-उपयोगी-जानकारी': 'resources',
+    'frequently-asked-questions': 'faq', 'अक्सर-पूछे-जाने-वाले-प्रश्न': 'faq',
     'discuss-your-project': 'contact', 'अपने-प्रोजेक्ट-पर-बात-करें': 'contact',
 };
 export function homeSectionRole(section) { return homeRoles[section.id]; }

@@ -12,6 +12,10 @@ export const PHONE_HREF = "tel:+919416506136";
 export const PHONE_LABEL = "+91 94165 06136";
 export const EMAIL = "info@rapidconsulting.in";
 
+// Google Maps embed of the Rapid Consulting office, Hisar.
+export const OFFICE_MAP_EMBED =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3484.6546383250857!2d75.71726797942208!3d29.145375397169552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391232d6785c2e3d%3A0x84cef73c556785b2!2sRapid%20Consulting!5e0!3m2!1sen!2sin!4v1793286408758!5m2!1sen!2sin";
+
 export const servicesHref = (locale) => `/${locale}/services`;
 
 export const serviceHref = (service, locale) => {

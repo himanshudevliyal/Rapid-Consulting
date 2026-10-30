@@ -1,10 +1,12 @@
 // Form <-> API conversion for articles.
+import { authorFieldsDefaults, authorFieldsFromRecord, authorFieldsPayload } from "@/lib/author-fields";
 
 export const emptyArticle = {
   title: "",
   slug: "",
   excerpt: "",
   cover_image: "",
+  pdf_url: "",
   category_id: "",
   tags: "",
   type: "article",
@@ -12,6 +14,7 @@ export const emptyArticle = {
   content: "",
   meta_title: "",
   meta_description: "",
+  ...authorFieldsDefaults,
 };
 
 // API record -> form values (tags become a comma separated line).
@@ -22,6 +25,7 @@ export const toFormValues = (article) => {
     slug: article.slug ?? "",
     excerpt: article.excerpt ?? "",
     cover_image: article.cover_image ?? "",
+    pdf_url: article.pdf_url ?? "",
     category_id: article.category_id ?? "",
     tags: Array.isArray(article.tags) ? article.tags.join(", ") : "",
     type: article.type === "guide" ? "guide" : "article",
@@ -29,6 +33,7 @@ export const toFormValues = (article) => {
     content: article.content ?? "",
     meta_title: article.meta_title ?? "",
     meta_description: article.meta_description ?? "",
+    ...authorFieldsFromRecord(article),
   };
 };
 
@@ -39,6 +44,7 @@ export const buildPayload = (values) => {
     title: values.title.trim(),
     excerpt: values.excerpt.trim(),
     cover_image: values.cover_image.trim(),
+    pdf_url: (values.pdf_url ?? "").trim(),
     category_id: values.category_id || "",
     tags: values.tags
       .split(",")
@@ -49,6 +55,7 @@ export const buildPayload = (values) => {
     content: values.content,
     meta_title: values.meta_title.trim(),
     meta_description: values.meta_description.trim(),
+    ...authorFieldsPayload(values),
   };
   const slug = values.slug.trim();
   if (slug) payload.slug = slug;

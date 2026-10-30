@@ -23,28 +23,24 @@ export default function TextEditor({ onChange, value }) {
   if (!mounted) return null;
 
   return (
+    <>
+    {/* Hide TinyMCE's own warning toasts (API key / premium plugin notices). */}
+    <style>{`.tox-notifications-container, .tox-notification, .tox-promotion { display: none !important; }`}</style>
     <Editor
-      apiKey="v1b1bk2snmaau21wkptjk8qqy51hzgg28kgnlw2g8puglyzr"
+      apiKey="lzeq992iwwymgg5upsyyi5ahxwj21w3qxrg6n9fsn80wyh9v"
       onInit={(_evt, editor) => (editorRef.current = editor)}
       init={{
+        // Free plugins only: the premium ones are not enabled on this API key
+        // and each one shows a "premium plugin is not enabled" warning.
         plugins:
-          "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown",
+          "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount",
         toolbar:
-          "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-        tinycomments_mode: "embedded",
-        tinycomments_author: "Author name",
-        mergetags_list: [
-          { value: "First.Name", title: "First Name" },
-          { value: "Email", title: "Email" },
-        ],
-        ai_request: (request, respondWith) =>
-          respondWith.string(() =>
-            Promise.reject("See docs to implement AI Assistant"),
-          ),
+          "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat",
       }}
       initialValue=""
       onEditorChange={onChange}
       value={value}
     />
+    </>
   );
 }

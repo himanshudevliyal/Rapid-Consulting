@@ -52,11 +52,20 @@ export const emptySection = () => ({
   key: "",
   title: "",
   nav_label: "",
+  eyebrow: "",
   role: "content",
   html: "",
   intro_html: "",
   items: [],
   outro_html: "",
+  video_url: "",
+  poster: "",
+  image: "",
+  image_alt: "",
+  rating_value: "",
+  rating_count: "",
+  rating_source: "",
+  trust_label: "",
 });
 
 const contentFromTranslation = (t = {}) => ({
@@ -69,6 +78,7 @@ const contentFromTranslation = (t = {}) => ({
     key: s.key ?? "",
     title: s.title ?? "",
     nav_label: s.nav_label ?? "",
+    eyebrow: s.eyebrow ?? "",
     role: s.role ?? "content",
     html: s.html ?? "",
     intro_html: s.intro_html ?? "",
@@ -76,8 +86,21 @@ const contentFromTranslation = (t = {}) => ({
       key: i.key ?? "",
       title: i.title ?? "",
       html: i.html ?? "",
+      name: i.name ?? "",
+      business: i.business ?? "",
+      location: i.location ?? "",
+      rating: i.rating ?? "",
+      services: i.services ?? "",
     })),
     outro_html: s.outro_html ?? "",
+    video_url: s.video_url ?? "",
+    poster: s.poster ?? "",
+    image: s.image ?? "",
+    image_alt: s.image_alt ?? "",
+    rating_value: s.rating_value ?? "",
+    rating_count: s.rating_count ?? "",
+    rating_source: s.rating_source ?? "",
+    trust_label: s.trust_label ?? "",
   })),
   source_urls: t.source_urls ?? [],
   status: t.status ?? "draft",
@@ -112,7 +135,7 @@ export const toFormValues = (service) => {
 
 const trimmed = (list = []) => list.map((v) => String(v ?? "").trim()).filter(Boolean);
 
-const cleanSections = (sections = []) => {
+export const cleanSections = (sections = []) => {
   const used = new Set();
   return sections.map((section, index) => {
     // The key is the anchor id on the page; make it unique and URL-safe.
@@ -128,13 +151,36 @@ const cleanSections = (sections = []) => {
     if (section.html?.trim()) out.html = section.html;
     if (section.intro_html?.trim()) out.intro_html = section.intro_html;
     if (section.outro_html?.trim()) out.outro_html = section.outro_html;
-    const items = (section.items ?? []).map((item) => ({
-      key: slugify(item.key) || slugify(item.title),
-      title: item.title.trim(),
-      html: item.html ?? "",
-    }));
+    const items = (section.items ?? []).map((item) => {
+      const out = {
+        key: slugify(item.key) || slugify(item.title),
+        title: item.title.trim(),
+        html: item.html ?? "",
+      };
+      // A review card also names the reviewer, the stars and the services taken.
+      if (section.role === "reviews") {
+        for (const field of ["name", "business", "location", "rating", "services"]) {
+          if (item[field]?.trim()) out[field] = item[field].trim();
+        }
+      }
+      return out;
+    });
     if (items.length) out.items = items;
     if (section.nav_label?.trim()) out.nav_label = section.nav_label.trim();
+    if (section.eyebrow?.trim()) out.eyebrow = section.eyebrow.trim();
+    if (section.role === "video") {
+      if (section.video_url?.trim()) out.video_url = section.video_url.trim();
+      if (section.poster?.trim()) out.poster = section.poster.trim();
+    }
+    if (section.role === "eligibility") {
+      if (section.image?.trim()) out.image = section.image.trim();
+      if (section.image_alt?.trim()) out.image_alt = section.image_alt.trim();
+    }
+    if (section.role === "reviews") {
+      for (const field of ["rating_value", "rating_count", "rating_source", "trust_label"]) {
+        if (section[field]?.trim()) out[field] = section[field].trim();
+      }
+    }
     return out;
   });
 };

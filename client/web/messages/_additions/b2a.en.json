@@ -1,0 +1,45 @@
+{
+  "sitePages": {
+    "videoCardLabel": "Watch instead of reading",
+    "videoPlaceholderLabel": "Placeholder - video to be supplied by Rapid",
+    "videoPlaceholderCaption": "Read the full explanation below.",
+    "freeSeal": "Free first review",
+    "railChoose": "Choose one",
+    "railSubmit": "Get my next steps",
+    "railName": "Your name",
+    "railPhone": "Mobile number",
+    "railDistrict": "District",
+    "railActivity": "What are you working on?",
+    "railOptional": "optional",
+    "railConsent": "Rapid may contact me by phone or WhatsApp about this enquiry.",
+    "railConsentHelp": "Please tick the box so we can contact you.",
+    "railChoiceError": "Please choose one",
+    "railAnother": "Send another request",
+    "railWhatsapp": "Chat with Rapid on WhatsApp",
+    "closingPhotoNote": "Placeholder - final photography to be supplied by Rapid",
+    "claimStuck": "Claim stuck?",
+    "schemeSearchLabel": "Search by subsidy, scheme or expense",
+    "schemeSearchButton": "Search",
+    "schemeSearchChips": "Shortcuts",
+    "qaSummary": "Summary",
+    "sampleCase": "Sample case",
+    "caseLabel": "Case study",
+    "tileLocation": "Place",
+    "tileSector": "Sector",
+    "tileRole": "Rapid's role",
+    "tilesRegion": "Case tiles",
+    "tilesPrev": "Previous cases",
+    "tilesNext": "Next cases",
+    "sampleCasesNote": "Sample cases: these tiles show the layout. They are not real client cases.",
+    "quotesRegion": "What you may hear",
+    "quotesPrev": "Previous",
+    "quotesNext": "Next",
+    "casesPrev": "Previous case studies",
+    "casesNext": "Next case studies"
+  },
+  "wb": {
+    "menu": {
+      "subsidiesOverview": "Subsidies overview"
+    }
+  }
+}

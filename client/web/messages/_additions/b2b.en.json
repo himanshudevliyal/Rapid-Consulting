@@ -1,0 +1,105 @@
+{
+  "b2b": {
+    "nav": {
+      "lead": "On this page:"
+    },
+    "hero": {
+      "pointsLabel": "Why Rapid"
+    },
+    "video": {
+      "label": "Watch instead of reading",
+      "placeholder": "Video placeholder. The final video is supplied by Rapid; the full explanation is written below.",
+      "soon": "Video coming",
+      "tag": "Placeholder"
+    },
+    "rail": {
+      "label": "Free first review",
+      "seal": "Free first review",
+      "title": "Get a free first review for {name}.",
+      "hint": "Tell us where your project stands. A Rapid expert will call you.",
+      "activity": "What are you working on?",
+      "submit": "Get my first review",
+      "helper": "A Rapid expert will call you.",
+      "whatsapp": "Chat with Rapid on WhatsApp",
+      "clu": {
+        "title": "Find out if your land will get CLU, before you invest.",
+        "site": "Village / khasra",
+        "activity": "What you want to build",
+        "submit": "Check my land for CLU",
+        "helper": "A Rapid expert will call to understand your plot."
+      }
+    },
+    "eligibility": {
+      "diagram": "Plan of a plot: the zone and town plan around it, the road in front of it and the unit on it.",
+      "zone": "Zone and town plan",
+      "road": "Road",
+      "unit": "Your unit"
+    },
+    "stuck": {
+      "cta": "Get my file reviewed"
+    },
+    "cases": {
+      "nav": "Our work",
+      "title": "Cases we have handled for businesses like yours.",
+      "region": "Case studies",
+      "label": "Case study",
+      "cta": "See how Rapid helped"
+    },
+    "industry": {
+      "jump": "Jump to:",
+      "navProject": "Your project",
+      "navClaims": "What you can claim",
+      "navWatch": "Watch out",
+      "navReport": "One report",
+      "navCases": "Cases",
+      "navFaq": "FAQs",
+      "cardTitle": "What are you setting up?",
+      "cardHint": "Choose the closest one. It opens below, with what applies to it.",
+      "logosTitle": "Businesses that trust Rapid.",
+      "logoTile": "CLIENT LOGO {n}",
+      "logosNote": "Placeholder tiles. Client logos to be supplied by Rapid.",
+      "logosPause": "Pause client logos",
+      "logosPlay": "Play client logos",
+      "projectTabs": "Project types",
+      "projectType": "Project type",
+      "projectRelated": "Related links",
+      "projectCta": "Check my project",
+      "projectSubsidies": "Subsidies for this industry",
+      "projectTitle": "Pick the project closest to yours.",
+      "claimsTitle": "What {name} projects can claim, and from where.",
+      "claimsLead": "The schemes chosen for this industry, by the kind of support they give. Check each scheme's own status before you rely on it.",
+      "claimsGeneric": "Schemes selected for this industry",
+      "colKind": "Kind of support",
+      "colPays": "What it pays back",
+      "colSchemes": "Schemes to look at",
+      "statusChecking": "Being checked",
+      "watchTitle": "Check these before you commit.",
+      "watchCta": "Get my project checked",
+      "casesTitle": "{name} units we've worked with.",
+      "casesRegion": "Case studies",
+      "caseLabel": "Case study",
+      "caseCta": "See how Rapid helped",
+      "casesAll": "View all case studies",
+      "notes": "Sources and related reading",
+      "more": "More from Rapid",
+      "closingEyebrow": "Next step",
+      "closingTitle": "Tell us what you are setting up.",
+      "closingIntro": "Tell us the product, the district and the stage you are at. A Rapid expert will call you.",
+      "closingPhoto": "Placeholder: a site in Haryana. Final photography to be supplied by Rapid.",
+      "formTitle": "Check what your unit can claim.",
+      "formChoose": "Not sure yet",
+      "formActivity": "Your product",
+      "formSubmit": "Get my next steps",
+      "formHelper": "A Rapid expert will call you."
+    },
+    "industries": {
+      "eyebrow": "Industries",
+      "browse": "Find your industry",
+      "guidance": "Guidance",
+      "eyebrow2": "All industries",
+      "title": "Choose the industry closest to your project.",
+      "cardLabel": "Industry",
+      "explore": "Explore industry"
+    }
+  }
+}

@@ -1,129 +1,74 @@
 "use client";
-import axios from "axios";
-import { ImageUp, Loader2, Trash2 } from "lucide-react";
+import { ImageUp, Loader2, X } from "lucide-react";
 import { useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
 import config from "@/config";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { imageSrc } from "@/lib/image-src";
 import { endpoints } from "@/utils/endpoints";
+import http from "@/utils/http";
 
 const MAX_MB = 5;
 
-// Address to show for a saved value: files uploaded through the API are saved
-// as a path (public/images/…) served from the file base; a full URL is used as is.
-export const imageSrc = (value) => {
-  if (!value) return "";
-  if (/^(https?:)?\/\//i.test(value) || value.startsWith("data:") || value.startsWith("/")) return value;
-  return `${config.file_base}/${value}`;
-};
-
-// One image: upload, preview, replace, remove. `value` is the saved path or
-// URL (empty when there is no image); `onChange` gets the new path, or "" when
-// removed. A replaced or removed file is deleted by the server when the record
-// is saved, so nothing is lost if the form is abandoned.
-export default function ImageField({ value, onChange, disabled, className, hint }) {
-  const inputRef = useRef(null);
-  const [uploading, setUploading] = useState(false);
+// One picture for a section: upload a file (PNG, JPG, WebP or SVG) or paste a
+// full address. `value` is what is saved: the path the server returns
+// (public/images/…) or a full https:// address. A picture that fails to load is
+// only reported; the saved value is never cleared by the preview.
+export default function ImageField({ value, onChange }) {
+  const input = useRef(null);
+  const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [broken, setBroken] = useState(false);
 
-  const upload = async (file) => {
+  const pick = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
     if (!file) return;
+    if (!/^image\//.test(file.type) && !/\.(svg|png|jpe?g|webp)$/i.test(file.name)) return setError("Choose an image file.");
+    if (file.size > MAX_MB * 1024 * 1024) return setError(`The picture is larger than ${MAX_MB} MB.`);
     setError("");
-    if (!file.type.startsWith("image/")) {
-      setError("Choose an image file (JPG, PNG or WebP).");
-      return;
-    }
-    if (file.size > MAX_MB * 1024 * 1024) {
-      setError(`The image is larger than ${MAX_MB} MB.`);
-      return;
-    }
-    setUploading(true);
+    setBusy(true);
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const response = await axios.post(`${config.api_base}${endpoints.files.upload}`, formData, {
+      const body = new FormData();
+      body.append("file", file);
+      const response = await http().post(`${config.api_base}${endpoints.files.upload}`, body, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
-      const path = response.data?.path?.[0];
-      if (!path) throw new Error("No file path returned");
       setBroken(false);
-      onChange(path);
+      onChange(response.data.path[0]);
     } catch (err) {
-      setError(err?.response?.data?.message || "Upload failed. Please try again.");
+      setError(err?.response?.data?.message || "Upload failed");
     } finally {
-      setUploading(false);
-      if (inputRef.current) inputRef.current.value = "";
+      setBusy(false);
     }
   };
 
   const src = imageSrc(value);
-
   return (
-    <div className={cn("space-y-2", className)}>
-      <div
-        className={cn(
-          "relative flex aspect-video w-full max-w-md items-center justify-center overflow-hidden rounded-lg border bg-muted/30",
-          !src && "border-dashed",
-        )}
-      >
-        {src && !broken ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={src} alt="" className="size-full object-cover" onError={() => setBroken(true)} />
-        ) : (
-          <div className="flex flex-col items-center gap-1 px-4 text-center text-sm text-muted-foreground">
-            <ImageUp className="size-6 opacity-60" aria-hidden="true" />
-            {src ? (
-              <span className="break-all text-xs">Preview not available here: {value}</span>
-            ) : (
-              <span>No image yet</span>
-            )}
-          </div>
-        )}
-        {uploading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/70">
-            <Loader2 className="size-6 animate-spin" aria-label="Uploading" />
-          </div>
-        )}
-      </div>
-
-      <div className="flex flex-wrap items-center gap-2">
-        <input
-          ref={inputRef}
-          type="file"
-          accept="image/*"
-          className="sr-only"
-          aria-label="Choose an image"
-          disabled={disabled || uploading}
-          onChange={(event) => upload(event.target.files?.[0])}
-        />
-        <Button type="button" variant="outline" size="sm" disabled={disabled || uploading} onClick={() => inputRef.current?.click()}>
-          <ImageUp className="mr-2 size-4" /> {value ? "Replace image" : "Upload image"}
-        </Button>
-        {value && (
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="text-red-600"
-            disabled={disabled || uploading}
-            onClick={() => {
-              setBroken(false);
-              onChange("");
-            }}
-          >
-            <Trash2 className="mr-2 size-4" /> Remove
+    <div className="space-y-2">
+      <input ref={input} type="file" accept="image/*,.svg" className="sr-only" aria-label="Upload picture" onChange={pick} />
+      {value ? (
+        <div className="relative overflow-hidden rounded-md border bg-white">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={src} alt="" className="mx-auto block max-h-56 w-auto max-w-full object-contain" onError={() => setBroken(true)} onLoad={() => setBroken(false)} />
+          <Button type="button" variant="secondary" size="icon" className="absolute right-2 top-2" onClick={() => onChange("")} aria-label="Remove picture">
+            <X className="h-4 w-4" />
           </Button>
-        )}
+        </div>
+      ) : null}
+      {broken && <p className="text-xs text-amber-600">The picture could not be shown from the address below. The address is still saved; check it opens in the browser.</p>}
+      <div className="flex flex-wrap items-center gap-2">
+        <Button type="button" variant="outline" disabled={busy} onClick={() => input.current?.click()}>
+          {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <ImageUp className="h-4 w-4" />}
+          {busy ? "Uploading…" : value ? "Replace picture" : "Upload picture"}
+        </Button>
       </div>
-
-      {error && (
-        <p className="text-sm text-red-500" role="alert">
-          {error}
-        </p>
-      )}
-      <p className="text-xs text-muted-foreground">{hint ?? `JPG, PNG or WebP, up to ${MAX_MB} MB. It is resized and saved as WebP.`}</p>
+      <div className="space-y-1">
+        <Input value={value ?? ""} onChange={(event) => onChange(event.target.value)} placeholder="…or paste a full address, e.g. https://…/plan.png" aria-label="Picture address" />
+        {value ? <p className="break-all text-xs text-muted-foreground">Full address: {src}</p> : null}
+      </div>
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
 }

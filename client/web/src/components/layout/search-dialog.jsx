@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 
 import { useLocale, useTranslations } from "next-intl";
-import { matchesSearch } from "@/lib/search";
+import { searchServices } from "@/lib/search";
 import { serviceHref } from "@/lib/site";
 import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -14,7 +14,8 @@ export function SearchDialog({ open, onOpenChange, services }) {
   const t = useTranslations();
   const [query, setQuery] = useState("");
   const input = useRef(null);
-  const results = services.filter((service) => matchesSearch(service, query));
+  // Exact / prefix title matches come first, families and category hits after.
+  const results = searchServices(services, query);
 
   const clear = () => {
     setQuery("");

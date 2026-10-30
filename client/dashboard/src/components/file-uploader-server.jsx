@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import { imageSrc } from "@/lib/image-src";
 import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
-import axios from "axios";
 import { AlertCircleIcon, ImageUpIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 
@@ -19,6 +18,7 @@ export default function FileUploaderServer({
   // State to track upload progress for each file
   const [uploadProgress, setUploadProgress] = useState([]);
   const [filePaths, setFilePaths] = useState({});
+  const [broken, setBroken] = useState(false);
   // Function to handle file upload to server
   const uploadFileToServer = async (file) => {
     return new Promise(async (resolve, reject) => {
@@ -26,7 +26,7 @@ export default function FileUploaderServer({
         const formData = new FormData();
         formData.append("file", file.file);
 
-        const response = await axios.post(
+        const response = await http().post(
           `${config.api_base}${endpoints.files.upload}`,
           formData,
           {
@@ -167,7 +167,10 @@ export default function FileUploaderServer({
                 src={previewUrl}
                 alt={files[0]?.file?.name || "Uploaded image"}
                 className="size-full object-cover"
-                onError={() => onFileChange(null)}
+                // A preview that fails to load must not clear the saved path:
+                // that silently dropped uploaded images on the next save.
+                onError={() => setBroken(true)}
+                onLoad={() => setBroken(false)}
               />
             </div>
           ) : (
@@ -205,6 +208,12 @@ export default function FileUploaderServer({
           </div>
         )}
       </div>
+
+      {broken && value && (
+        <p className="text-xs text-amber-600">
+          The image could not be shown ({previewUrl}). The path is still saved.
+        </p>
+      )}
 
       {errors.length > 0 && (
         <div

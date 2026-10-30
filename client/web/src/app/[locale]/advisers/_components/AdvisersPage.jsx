@@ -1,21 +1,23 @@
-
-import Image from "next/image";
+import Link from "next/link";
 import {
   Users,
   Building2,
   Briefcase,
   MessageCircle,
   ArrowRight,
+  ChevronRight,
   CheckCircle2,
 } from "lucide-react";
 
 import { Html } from "@/components/pages/content-primitives";
 import { ContactExperience } from "@/components/form/contact-experience";
-import Section from "@/components/layout/section";
-import Heading from "@/components/layout/heading";
+import { SectionHeading } from "@/components/home/section-heading";
+import { BTN_LIME, BTN_OUTLINE } from "@/components/home/styles";
+import { Band, CARD, H3_CLASS, HeroBand, PROSE_CARD, StepCards } from "@/components/pages/b2e-ui";
+import { b2eText } from "@/lib/pages/b2e-copy";
+import { mainSiteHref } from "@/lib/site";
 
-const DEFAULT_IMAGE = "/assets/hero-section.jpg";
-const WHATSAPP_URL  = "https://wa.me/919254049513";
+const WHATSAPP_URL = "https://wa.me/919254049513";
 
 /* ─── Static data ──────────────────────────────────────────────────────────── */
 
@@ -45,28 +47,25 @@ const AUDIENCES = [
 
 const PROCESS_STEPS = [
   {
-    num: "01",
     title: "Start with a short introduction",
-    body: "Share your role, the client's activity, district, project stage and requirement. Agree who should join the first discussion.",
+    text: "Share your role, the client's activity, district, project stage and requirement. Agree who should join the first discussion.",
   },
   {
-    num: "02",
     title: "Define the work together",
-    body: "Rapid discusses the requirement and identifies its proposed role — scope, fees, client-contact arrangements, responsibilities and communications.",
+    text: "Rapid discusses the requirement and identifies its proposed role — scope, fees, client-contact arrangements, responsibilities and communications.",
   },
   {
-    num: "03",
     title: "Move the work forward",
-    body: "The business and advisers provide records within their responsibility. Rapid undertakes the agreed documentation, coordination and follow-ups.",
+    text: "The business and advisers provide records within their responsibility. Rapid undertakes the agreed documentation, coordination and follow-ups.",
   },
 ];
 
 const SERVICES = [
-  { label: "Subsidies & Incentives",    href: "/en/p/S01" },
-  { label: "Statutory Approvals",       href: "/en/p/S02" },
-  { label: "Licences & Certifications", href: "/en/p/S03" },
-  { label: "Industrial Insurance",      href: "/en/p/S04" },
-  { label: "Finance & Other Services",  href: "/en/p/S05" },
+  { label: "Subsidies & Incentives", code: "S01" },
+  { label: "Statutory Approvals", code: "S02" },
+  { label: "Licences & Certifications", code: "S03" },
+  { label: "Industrial Insurance", code: "S04" },
+  { label: "Finance & Other Services", code: "S05" },
 ];
 
 const PREVIEW_SCENARIOS = [
@@ -105,327 +104,245 @@ const PARTNERSHIP_PRINCIPLES = [
   },
 ];
 
+const AUDIENCE_SECTION = "more-value-for-the-people-who-trust-your-advice";
+
 /* ─── Component ────────────────────────────────────────────────────────────── */
 
-export function AdvisersPage({ page, t, has, image = DEFAULT_IMAGE }) {
+export function AdvisersPage({ page, t, has, community = null }) {
+  const text = b2eText(t);
+  const locale = page.locale;
   const byId = Object.fromEntries((page.sections ?? []).map((s) => [s.id, s]));
 
-  const sectionTool        = byId["start-with-a-useful-tool"];
-  const sectionWork        = byId["see-the-work-and-meet-the-people"];
-  const sectionCommunity   = byId["explore-the-whatsapp-community"];
+  const sectionTool = byId["start-with-a-useful-tool"];
+  const sectionWork = byId["see-the-work-and-meet-the-people"];
+  const sectionCommunity = byId["explore-the-whatsapp-community"];
   const sectionPartnership = byId["explore-a-partnership-with-rapid"];
-  const sectionCTA         = byId["discuss-working-together"];
+  const sectionCTA = byId["discuss-working-together"];
+
+  const audienceCard = (
+    <nav aria-labelledby="advisers-card-title" className={CARD}>
+      <h2 id="advisers-card-title" className="m-0! text-xl! font-semibold! leading-snug! tracking-tight! text-[#09263e]!">
+        {text("advisers.cardTitle")}
+      </h2>
+      <ol className="m-0 mt-5 grid list-none gap-3 p-0">
+        {[1, 2, 3].map((n, index) => (
+          <li key={n}>
+            <a
+              href={`#${AUDIENCE_SECTION}`}
+              className="group flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 text-[#09263e]! no-underline transition-colors hover:border-[#09263e] hover:bg-[#f4f7f5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#09263e] focus-visible:ring-offset-2"
+            >
+              <span aria-hidden="true" className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#09263e] text-sm font-semibold text-white">
+                {index + 1}
+              </span>
+              <span className="min-w-0 flex-1 text-base font-semibold leading-snug">{text(`advisers.cardS${n}`)}</span>
+              <ChevronRight className="size-5 shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
 
   return (
     <main id="main">
-
       {/* ── 1. Hero ──────────────────────────────────────────────────────── */}
-      <Section className="py-12 lg:py-20">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-
-          {/* Left — content */}
-          <div className="order-2 flex flex-col gap-7 lg:order-1">
-            <Heading
-              className="text-start"
-              eyebrow="For Advisers"
-              heading={page.h1}
-              headingClassName="mt-3 text-[2.2rem] font-extrabold leading-[1.15] tracking-tight text-[#09263e] text-wrap-balance lg:text-[2.7rem]"
-              subheading={page.introHtml}
-              subheadingClassName="mt-4 max-w-lg text-base leading-8 text-slate-600 [&_p]:m-0 [&_p+p]:mt-3"
-            />
-
-            <div className="flex flex-wrap gap-3">
-              <a
-                href="#discuss-working-together"
-                className="inline-flex items-center gap-2 rounded-full text-white! bg-[#09263e] px-6 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
-              >
-                <span>Discuss working together</span>
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </a>
-              <a
-                href="#start-with-a-useful-tool"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-[#09263e] transition-colors hover:bg-slate-50"
-              >
-                <span>6-question client tool</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Right — image */}
-          <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
-            <Image
-              src={page.image || image}
-              alt={page.h1}
-              width={600}
-              height={600}
-              className="h-auto w-full max-w-xl rounded-3xl object-cover shadow-md"
-              priority
-            />
-          </div>
-        </div>
-      </Section>
+      <HeroBand
+        id="advisers-title"
+        eyebrow={text("advisers.eyebrow")}
+        title={page.h1}
+        intro={<Html html={page.introHtml} />}
+        actions={
+          <>
+            <a href="#discuss-working-together" className={BTN_LIME}>
+              {text("advisers.discuss")}
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+            <a href="#start-with-a-useful-tool" className={BTN_OUTLINE}>
+              {text("advisers.toolLink")}
+            </a>
+          </>
+        }
+        aside={audienceCard}
+      />
 
       {/* ── 2. Audience cards ────────────────────────────────────────────── */}
-      <Section
-        id="more-value-for-the-people-who-trust-your-advice"
-        className="  bg-gray-50"
-      >
-        <Heading
-          className="mb-10 text-start"
+      <Band id={AUDIENCE_SECTION} labelledBy={`${AUDIENCE_SECTION}-title`}>
+        <SectionHeading
+          id={`${AUDIENCE_SECTION}-title`}
           eyebrow="Who this is for"
-          heading="More value for the people who trust your advice"
-          headingClassName="mt-2 text-2xl font-extrabold text-[#09263e] lg:text-3xl"
+          title="More value for the people who trust your advice"
         />
-
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           {AUDIENCES.map(({ icon: Icon, title, blurb, cta }) => (
-            <div
-              key={title}
-              className="flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-7 shadow-sm"
-            >
-              <span className="flex size-11 items-center justify-center rounded-full bg-[#eaff6b] text-[#09263e]">
+            <article key={title} className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-7">
+              <span className="flex size-12 items-center justify-center rounded-xl bg-[#09263e] text-[#eaff6b]">
                 <Icon className="size-5" aria-hidden="true" />
               </span>
-              <h3 className="text-base font-bold text-[#09263e]">{title}</h3>
-              <p className="flex-1 text-sm leading-7 text-slate-600">{blurb}</p>
-              <p className="rounded-xl bg-slate-50 px-4 py-3 text-xs leading-6 text-slate-500">
-                <strong className="font-semibold text-[#1f5d57]">Put it to work: </strong>
+              <h3 className={H3_CLASS}>{title}</h3>
+              <p className="m-0! flex-1 text-[15px] leading-7 text-slate-700">{blurb}</p>
+              <p className="m-0! rounded-xl bg-[#f4f7f5] px-4 py-3 text-sm leading-6 text-slate-700">
+                <strong className="font-semibold text-[#09263e]">Put it to work: </strong>
                 {cta}
               </p>
-            </div>
+            </article>
           ))}
         </div>
-      </Section>
+      </Band>
 
       {/* ── 3. 6-question client tool ─────────────────────────────────────── */}
       {sectionTool && (
-        <Section id={sectionTool.id} className="py-14 lg:py-20">
-          <div className="mx-auto  rounded-3xl bg-[#09263e] px-8 py-10 lg:px-12 lg:py-14">
-            <Heading
-              className="mb-8 text-start  text-white"
-              eyebrow="Practical tool"
-              eyebrowClassName="mb-3 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
-              heading={sectionTool.title}
-              headingClassName="text-2xl  font-extrabold text-white! lg:text-3xl"
-            />
-            <div className="text-sm leading-8 max-w-5xl  text-slate-300 [&_a]:font-semibold [&_a]:text-[#eaff6b]! [&_a:hover]:underline [&_ol]:mt-4 [&_ol]:flex [&_ol]:flex-col [&_ol]:gap-3 [&_li]:rounded-xl [&_li]:bg-white/10 [&_li]:px-5 [&_li]:py-3 [&_li]:text-white [&_strong]:text-[#eaff6b] [&_p]:m-0 [&_p+p]:mt-4">
-              <Html html={sectionTool.html}  className="props-a:text-white!" />
+        <section id={sectionTool.id} aria-labelledby={`${sectionTool.id}-title`} className="scroll-mt-24 bg-white pb-12 sm:pb-16 lg:pb-20">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-3xl bg-[#09263e] px-6 py-10 sm:px-10 lg:px-14 lg:py-14">
+              <SectionHeading id={`${sectionTool.id}-title`} tone="dark" eyebrow="Practical tool" title={sectionTool.title} />
+              <div className="mt-8 max-w-5xl text-base leading-8 text-white/85 [&_a]:font-semibold [&_a]:text-[#eaff6b]! [&_a:hover]:underline [&_li]:rounded-xl [&_li]:bg-white/10 [&_li]:px-5 [&_li]:py-3 [&_li]:text-white [&_ol]:mt-4 [&_ol]:flex [&_ol]:list-none [&_ol]:flex-col [&_ol]:gap-3 [&_ol]:p-0 [&_p]:m-0 [&_p+p]:mt-4 [&_strong]:text-[#eaff6b]">
+                <Html html={sectionTool.html} />
+              </div>
             </div>
           </div>
-        </Section>
+        </section>
       )}
 
-      {/* ── 4. Preview scenarios — 3 styled cards ────────────────────────── */}
-      <Section
-        id="a-preview-of-useful-updates"
-        className="pt-0 pb-16 lg:pb-20 bg-slate-50"
-      >
-        <Heading
-          className="mb-10 text-start"
+      {/* ── 4. Preview scenarios ─────────────────────────────────────────── */}
+      <Band id="a-preview-of-useful-updates" tone="grey" labelledBy="advisers-preview-title">
+        <SectionHeading
+          id="advisers-preview-title"
           eyebrow="Community content preview"
-          heading="A preview of useful updates"
-          headingClassName="mt-2 text-2xl font-extrabold text-[#09263e] lg:text-3xl"
-          subheading="Examples of the kind of updates members receive."
-          subheadingClassName="mt-3 text-base text-slate-600"
+          title="A preview of useful updates"
+          intro="Examples of the kind of updates members receive."
         />
-
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           {PREVIEW_SCENARIOS.map(({ who, ask, use }) => (
-            <div
-              key={who}
-              className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
-            >
-              {/* Card header */}
-              <div className="border-b border-slate-100 bg-[#09263e]/5 px-6 py-4">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#1f5d57]">
-                  {who}
-                </span>
+            <article key={who} className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white">
+              <div className="border-b border-slate-200 bg-[#eef3f0] px-6 py-4">
+                <p className="m-0! text-xs font-bold uppercase tracking-[0.14em] text-[#922e0c]">{who}</p>
               </div>
-
               <div className="flex flex-1 flex-col gap-4 px-6 py-5">
-                {/* Ask */}
                 <div>
-                  <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                    Ask
-                  </p>
-                  <p className="text-sm leading-6 text-[#09263e]">{ask}</p>
+                  <p className="m-0! mb-1! text-[11px] font-bold uppercase tracking-[0.14em] text-slate-600">Ask</p>
+                  <p className="m-0! text-[15px] leading-6 text-[#09263e]">{ask}</p>
                 </div>
-
-                {/* Divider */}
-                <div className="border-t border-dashed border-slate-200" />
-
-                {/* How Rapid helps */}
+                <div className="border-t border-dashed border-slate-300" />
                 <div className="flex items-start gap-2.5">
-                  <CheckCircle2
-                    className="mt-0.5 size-4 shrink-0 text-[#1f5d57]"
-                    aria-hidden="true"
-                  />
+                  <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-[#1f5d57]" aria-hidden="true" />
                   <div>
-                    <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                      How Rapid helps
-                    </p>
-                    <p className="text-sm leading-6 text-slate-600">{use}</p>
+                    <p className="m-0! mb-1! text-[11px] font-bold uppercase tracking-[0.14em] text-slate-600">How Rapid helps</p>
+                    <p className="m-0! text-[15px] leading-6 text-slate-700">{use}</p>
                   </div>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
-      </Section>
+      </Band>
 
       {/* ── 5. Services ──────────────────────────────────────────────────── */}
-      <Section
-        id="specialist-support-for-your-clients-next-step"
-        className="py-14 lg:py-20"
-      >
-        <Heading
-          className="mb-8 text-start"
+      <Band id="specialist-support-for-your-clients-next-step" labelledBy="advisers-services-title">
+        <SectionHeading
+          id="advisers-services-title"
           eyebrow="Rapid's expertise"
-          heading="Specialist support for your client's next step"
-          headingClassName="mt-2 text-2xl font-extrabold text-[#09263e] lg:text-3xl"
+          title="Specialist support for your client's next step"
         />
-        <div className="flex flex-wrap gap-3">
-          {SERVICES.map(({ label, href }) => (
-            <a
-              key={label}
-              href={href}
-              className="inline-flex items-center gap-2 rounded-full border border-[#09263e]/20 bg-white px-5 py-2.5 text-sm font-semibold text-[#09263e] shadow-sm transition-colors hover:bg-[#09263e] hover:text-white"
-            >
-              <span>{label}</span>
-              <ArrowRight className="size-3.5" aria-hidden="true" />
-            </a>
+        <ul className="m-0 mt-8 flex list-none flex-wrap gap-3 p-0">
+          {SERVICES.map(({ label, code }) => (
+            <li key={code}>
+              <Link
+                href={mainSiteHref(code, locale, true)}
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#09263e]/25 bg-white px-5 text-sm font-semibold text-[#09263e]! no-underline transition-colors hover:bg-[#eaff6b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#09263e] focus-visible:ring-offset-2"
+              >
+                <span>{label}</span>
+                <ArrowRight className="size-3.5" aria-hidden="true" />
+              </Link>
+            </li>
           ))}
-        </div>
-      </Section>
+        </ul>
+      </Band>
 
       {/* ── 6. Work proof ────────────────────────────────────────────────── */}
       {sectionWork && (
-        <Section id={sectionWork.id} className="py-14 lg:py-20 bg-slate-50">
-          <Heading
-            className="mb-8 text-start"
-            eyebrow="Track record"
-            heading={sectionWork.title}
-            headingClassName="mt-2 text-2xl font-extrabold text-[#09263e] lg:text-3xl"
-          />
-          <div className="text-sm leading-8 text-slate-600 [&_a]:font-medium [&_a]:text-[#1f5d57] [&_a:hover]:underline [&_p]:m-0 [&_p+p]:mt-3">
-            <Html html={sectionWork.html} />
+        <Band id={sectionWork.id} tone="sage" labelledBy={`${sectionWork.id}-title`}>
+          <SectionHeading id={`${sectionWork.id}-title`} eyebrow="Track record" title={sectionWork.title} />
+          <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+            <Html html={sectionWork.html} className={PROSE_CARD} />
           </div>
-        </Section>
+        </Band>
       )}
 
       {/* ── 7. Process steps ─────────────────────────────────────────────── */}
-      <Section
-        id="how-a-client-introduction-becomes-an-assignment"
-        className="py-14 lg:py-20"
-      >
-        <Heading
-          className="mb-10 text-start"
+      <Band id="how-a-client-introduction-becomes-an-assignment" labelledBy="advisers-process-title">
+        <SectionHeading
+          id="advisers-process-title"
           eyebrow="Working together"
-          heading="How a client introduction becomes an assignment"
-          headingClassName="mt-2 text-2xl font-extrabold text-[#09263e] lg:text-3xl"
+          title="How a client introduction becomes an assignment"
         />
-        <ol className="grid gap-6 md:grid-cols-3">
-          {PROCESS_STEPS.map(({ num, title, body }) => (
-            <li
-              key={num}
-              className="flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-7 shadow-sm"
-            >
-              <span className="inline-flex size-11 items-center justify-center rounded-full bg-[#eaff6b] text-sm font-black text-[#09263e]">
-                {num}
-              </span>
-              <h3 className="text-base font-bold text-[#09263e]">{title}</h3>
-              <p className="text-sm leading-7 text-slate-600">{body}</p>
-            </li>
-          ))}
-        </ol>
-      </Section>
+        <div className="mt-8">
+          <StepCards steps={PROCESS_STEPS} />
+        </div>
+      </Band>
 
-      {/* ── 8. WhatsApp community — dark panel ───────────────────────────── */}
+      {/* ── 8. WhatsApp community ────────────────────────────────────────── */}
       {sectionCommunity && (
-        <Section id={sectionCommunity.id} className="py-14 lg:py-20 bg-[#09263e]">
+        <Band id={sectionCommunity.id} tone="navy" labelledBy={`${sectionCommunity.id}-title`}>
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-
-            {/* Left — heading + cta */}
-            <div className="flex flex-col gap-6">
-          <div className=" sticky top-35">    <Heading
-                className="text-start "
-                eyebrow="Stay informed"
-                eyebrowClassName="mb-2   inline-block rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#eaff6b]"
-                heading={sectionCommunity.title}
-                headingClassName="text-2xl font-extrabold text-white! lg:text-3xl"
-              />
-
-              {/* WhatsApp button — yellow bg, dark text — always visible */}
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-fit items-center gap-2.5 rounded-full bg-[#eaff6b] px-6 py-3 text-sm font-bold text-[#09263e] transition-opacity hover:opacity-90"
-              >
+            <div className="flex flex-col gap-6 lg:sticky lg:top-32 lg:self-start">
+              <SectionHeading id={`${sectionCommunity.id}-title`} tone="dark" eyebrow="Stay informed" title={sectionCommunity.title} />
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={`${BTN_LIME} w-fit`}>
                 <MessageCircle className="size-4 shrink-0" aria-hidden="true" />
                 <span className="whitespace-nowrap">Join the WhatsApp community</span>
               </a>
             </div>
-</div>
-            {/* Right — html content */}
-            <div className="text-sm leading-8 text-slate-300! [&_h3]:mb-2 [&_h3]:mt-6 [&_h3]:text-sm [&_h3]:font-bold [&_h3]:text-white! [&_h3:first-child]:mt-0 [&_hr]:my-6 [&_hr]:border-white/20 [&_p]:m-0 [&_p+p]:mt-2">
+            <div className="text-base leading-8 text-white/85 [&_a]:text-[#eaff6b]! [&_h3]:mb-2 [&_h3]:mt-6 [&_h3]:text-base [&_h3]:font-bold [&_h3]:text-white! [&_h3:first-child]:mt-0 [&_hr]:my-6 [&_hr]:border-white/20 [&_p]:m-0 [&_p+p]:mt-2">
               <Html html={sectionCommunity.html} />
             </div>
           </div>
-        </Section>
+        </Band>
       )}
 
-      {/* ── 9. Partnership — 3 principle cards ───────────────────────────── */}
-      {sectionPartnership && (
-        <Section id={sectionPartnership.id} className="py-14 lg:py-20 bg-slate-50">
-          <Heading
-            className="mb-10 text-start"
-            eyebrow="Partnership"
-            heading={sectionPartnership.title}
-            headingClassName="mt-2 text-2xl font-extrabold text-[#09263e] lg:text-3xl"
-            subheading="Three commitments that define how Rapid works with every adviser."
-            subheadingClassName="mt-3 text-base text-slate-600"
-          />
+      {/* Community invitations (separate from private WhatsApp contact and from the partnership journey) */}
+      {community && <Band className="py-10 lg:py-14">{community}</Band>}
 
-          <div className="grid gap-6 md:grid-cols-3">
+      {/* ── 9. Partnership ───────────────────────────────────────────────── */}
+      {sectionPartnership && (
+        <Band id={sectionPartnership.id} tone="grey" labelledBy={`${sectionPartnership.id}-title`}>
+          <SectionHeading
+            id={`${sectionPartnership.id}-title`}
+            eyebrow="Partnership"
+            title={sectionPartnership.title}
+            intro="Three commitments that define how Rapid works with every adviser."
+          />
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
             {PARTNERSHIP_PRINCIPLES.map(({ num, title, body }) => (
-              <div
-                key={num}
-                className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-7 shadow-sm"
-              >
-                <span className="inline-flex size-10 items-center justify-center rounded-full bg-[#09263e] text-xs font-black text-[#eaff6b]">
+              <article key={num} className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-7">
+                <span className="inline-flex size-11 items-center justify-center rounded-full bg-[#09263e] text-sm font-bold text-[#eaff6b]">
                   {num}
                 </span>
-                <h3 className="text-base font-bold text-[#09263e]">{title}</h3>
-                <p className="text-sm leading-7 text-slate-600">{body}</p>
-              </div>
+                <h3 className={H3_CLASS}>{title}</h3>
+                <p className="m-0! text-[15px] leading-7 text-slate-700">{body}</p>
+              </article>
             ))}
           </div>
 
           {/* CMS disclaimer / additional partnership text */}
           {sectionPartnership.html && (
-            <div className="mt-8 rounded-xl border border-slate-200 bg-white px-6 py-5 text-xs leading-6 text-slate-500 [&_a]:font-medium [&_a]:text-[#1f5d57] [&_a:hover]:underline [&_h3]:hidden [&_p]:m-0 [&_p+p]:mt-2">
+            <div className="mt-8 rounded-xl border border-slate-200 bg-white px-6 py-5 text-sm leading-6 text-slate-600 [&_a]:font-semibold [&_a]:text-[#1f5d57] [&_a:hover]:underline [&_h3]:hidden [&_p]:m-0 [&_p+p]:mt-2">
               <Html html={sectionPartnership.html} />
             </div>
           )}
-        </Section>
+        </Band>
       )}
 
-      {/* ── 10. CTA / Contact form ────────────────────────────────────────── */}
+      {/* ── 10. Contact form ─────────────────────────────────────────────── */}
       {sectionCTA && (
-    
-       <Section className="px-0 "> <Heading
-              className="mb-8 text-center  max-w-5xl mx-auto"
-              eyebrow="Get in touch"
-              heading={sectionCTA.title}
-              headingClassName="mt-2 text-2xl font-extrabold text-[#09263e] lg:text-3xl"
-              subheading={sectionCTA.html}
-              subheadingClassName="mt-3 text-base leading-8 text-slate-600 [&_p]:m-0 [&_p+p]:mt-2"
-            />
-
+        <Band id={sectionCTA.id} labelledBy={`${sectionCTA.id}-title`}>
+          <div className="mx-auto max-w-3xl text-center">
+            <SectionHeading id={`${sectionCTA.id}-title`} eyebrow="Get in touch" title={sectionCTA.title} />
+            <Html html={sectionCTA.html} className="mt-4 text-base leading-7 text-slate-700 [&_p]:m-0 [&_p+p]:mt-2" />
+          </div>
+          <div className="mt-8">
             <ContactExperience pageTitle={page.h1} pageId={page.id} variant="section" />
-</Section>     )}
-
+          </div>
+        </Band>
+      )}
     </main>
   );
 }

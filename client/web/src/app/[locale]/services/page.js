@@ -10,7 +10,8 @@ import { mainSiteHref, servicesHref } from "@/lib/site";
 import { servicesIndexMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { ClientTicker } from "@/components/common/client-ticker";
-import { Html } from "@/components/common/html";
+import Section from "@/components/layout/section";
+import { CollectionHero } from "@/components/pages/collection-hero";
 import { ContactExperience } from "@/components/form/contact-experience";
 import { PageAlternates } from "@/components/layout/page-alternates";
 import { ServiceGuidance } from "./_components/ServiceGuidance";
@@ -50,9 +51,7 @@ export default async function ServicesIndex({ params, searchParams }) {
     <main id="main">
       <PageAlternates en={servicesHref("en")} hi={page?.available_locales?.includes("hi") ? servicesHref("hi") : null} />
       
-  <Breadcrumbs
-        heading={title}
-        paragraph={<Html html={content.intro_html} />}
+      <Breadcrumbs
         label={t("breadcrumb.label")}
         items={[
           {
@@ -64,8 +63,15 @@ export default async function ServicesIndex({ params, searchParams }) {
           },
         ]}
       />
-      
-       
+
+      <Section className="pb-0">
+        <CollectionHero
+          eyebrow={t("site.collection.findNextStep")}
+          title={title}
+          introHtml={content?.intro_html}
+        />
+      </Section>
+
         <ServicesDirectory items={services} industries={industries} industry={typeof industry === "string" ? industry : ""} />
         {content && <ServiceGuidance sections={content.sections} />}
        

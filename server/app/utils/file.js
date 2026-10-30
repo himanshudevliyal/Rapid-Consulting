@@ -13,6 +13,7 @@ const MAX_FILE_SIZE = 100 * 1024 * 1024;
 const getFileCategory = (mime) => {
   const ext = mime.split("/").pop().toLowerCase();
 
+  if (ext === "svg+xml" || ext === "svg") return { type: "svg", ext: "svg" };
   if (["jpeg", "jpg", "png", "webp", "heic", "avif"].includes(ext))
     return { type: "image", ext };
   if (["mpeg", "mp3", "wav", "ogg"].includes(ext))
@@ -39,6 +40,7 @@ export const saveFile = async (file) => {
 
   const folderMap = {
     image: "public/images",
+    svg: "public/images",
     audio: "public/audio",
     document: "public/docs",
     archive: "public/archives",

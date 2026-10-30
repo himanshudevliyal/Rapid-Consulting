@@ -39,12 +39,10 @@ export default async function ArticlesRoute({ params }) {
         hi={found.page.hasHindi ? `/hi${PATH}` : null}
       />
       <Breadcrumbs
-        heading={found.page.h1}
         items={[
           { label: t("common.home"), href: `/${locale}` },
           { label: found.page.title, href: `/${locale}${PATH}` },
         ]}
-        backgroundImage="/assets/articles.jpg"
       />
       <main id="main">
         <ArticlesPage
@@ -53,6 +51,7 @@ export default async function ArticlesRoute({ params }) {
           has={has}
           image="/assets/articles.jpg"
           initialData={initialData}
+          defaultFormat="article"
         />
       </main>
     </>

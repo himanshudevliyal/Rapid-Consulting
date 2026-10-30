@@ -16,6 +16,15 @@ import {
 import { Toaster } from "sonner";
 
 import "../globals.css";
+import "@/styles/w1.css";
+import "@/styles/wb.css";
+import "@/styles/wc2.css";
+import "@/styles/b2a.css";
+import "@/styles/b2b.css";
+import "@/styles/b2c.css";
+import "@/styles/b2d.css";
+import "@/styles/b2e.css";
+import "@/styles/r3.css";
 
 import { routing } from "@/i18n/routing";
 import QueryProvider from "@/providers/query-client-provider";
@@ -24,6 +33,7 @@ import { SITE_URL } from "@/lib/site";
 import { robots } from "@/lib/seo";
 
 import { ChatWidget } from "@/components/contact/chat-widget";
+import { EnquiryDrawerProvider } from "@/components/form/enquiry-drawer";
 import { AlternatesProvider } from "@/components/layout/page-alternates";
 import { LanguageFallbackNotice } from "@/components/layout/language-fallback-notice";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -75,8 +85,10 @@ export default async function LocaleLayout({ children, params }) {
 
   /*
    * The header menu, the search and the language links are built from the API
-   * (service categories, industries, case studies, guides, schemes). If the API
-   * is down, pages still render with an empty menu.
+   * (service categories, industries, case studies, guides, schemes) and from the
+   * central navigation setting (primary destinations, footer columns; the
+   * built-in default applies when none is saved). If the API is down, pages
+   * still render with an empty menu and the default navigation.
    */
   const navigation = await loadNavigation(locale);
 
@@ -89,24 +101,26 @@ export default async function LocaleLayout({ children, params }) {
         >
           <QueryProvider>
             <AlternatesProvider>
-              <a
-                className="skip-link"
-                href="#main"
-              >
-                {t("common.skipToContent")}
-              </a>
+              <EnquiryDrawerProvider>
+                <a
+                  className="skip-link"
+                  href="#main"
+                >
+                  {t("common.skipToContent")}
+                </a>
 
-              <SiteHeader navigation={navigation} />
+                <SiteHeader navigation={navigation} />
 
-              <Suspense fallback={null}>
-                <LanguageFallbackNotice />
-              </Suspense>
+                <Suspense fallback={null}>
+                  <LanguageFallbackNotice />
+                </Suspense>
 
-              {children}
+                {children}
 
-              <SiteFooter locale={locale} />
+                <SiteFooter locale={locale} navigation={navigation.config} />
 
-              <ChatWidget />
+                <ChatWidget />
+              </EnquiryDrawerProvider>
             </AlternatesProvider>
           </QueryProvider>
 

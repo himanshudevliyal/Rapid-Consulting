@@ -1,0 +1,72 @@
+{
+  "breadcrumb": {
+    "subsidies": "सब्सिडी और प्रोत्साहन",
+    "schemes": "योजनाएँ",
+    "about": "हमारे बारे में",
+    "team": "टीम"
+  },
+  "detail": {
+    "people": {
+      "writtenBy": "लेखक",
+      "reviewedBy": "समीक्षक",
+      "reviewedOn": "समीक्षा की तारीख: {date}",
+      "reviewDatePending": "समीक्षा की तारीख की पुष्टि होनी बाकी है",
+      "placeholderProfile": "अस्थायी प्रोफ़ाइल"
+    },
+    "sources": {
+      "navLabel": "संदर्भ",
+      "reviewNote": "स्रोत या ड्राफ़्ट की तारीख, विशेषज्ञ समीक्षा पूरी होने की तारीख नहीं है।"
+    },
+    "scheme": {
+      "factsTitle": "योजना एक नज़र में",
+      "assistanceType": "सहायता का प्रकार",
+      "activity": "संबंधित गतिविधि",
+      "authority": "प्रशासनिक प्राधिकरण",
+      "statusTitle": "स्थिति और तारीखें",
+      "status": {
+        "open": "खुली",
+        "upcoming": "आगामी",
+        "closed": "बंद",
+        "historical": "ऐतिहासिक"
+      },
+      "statusUnspecified": "वर्तमान स्थिति के लिए आधिकारिक स्रोत देखें।",
+      "officialSource": "आधिकारिक स्रोत",
+      "closedNote": "केवल संदर्भ के लिए। यह न मानें कि आवेदन अभी स्वीकार हो रहे हैं।",
+      "historicalNote": "पिछली योजना के रूप में केवल संदर्भ के लिए। यह न मानें कि यह अभी उपलब्ध है।",
+      "policyPeriod": "नीति की अवधि",
+      "applicationWindow": "आवेदन की अवधि",
+      "reviewedOn": "समीक्षा की तारीख"
+    },
+    "case": {
+      "location": "स्थान",
+      "sector": "क्षेत्र",
+      "rapidRole": "रैपिड की भूमिका",
+      "investmentLabel": "निवेश",
+      "evidenceEyebrow": "प्रमाण",
+      "evidenceTitle": "परिणाम का प्रमाण",
+      "documentAlt": "छिपाए गए विवरण वाला सहायक दस्तावेज़",
+      "milestone": "प्रमुख पड़ाव",
+      "navEvidence": "प्रमाण"
+    },
+    "industry": {
+      "schemesEyebrow": "सब्सिडी और प्रोत्साहन",
+      "servicesEyebrow": "सेवाएँ",
+      "navSchemes": "योजनाएँ",
+      "navServices": "सेवाएँ",
+      "photoPlaceholder": "अस्थायी - उद्योग की फ़ोटो रैपिड द्वारा दी जाएगी"
+    },
+    "nextSteps": {
+      "title": "आगे के उपयोगी कदम",
+      "schemes": "सब्सिडी और प्रोत्साहन देखें",
+      "services": "अपनी ज़रूरत की सेवा खोजें"
+    },
+    "team": {
+      "eyebrow": "रैपिड कंसल्टिंग टीम",
+      "photoPlaceholder": "अस्थायी - फ़ोटो रैपिड द्वारा दी जाएगी",
+      "placeholderNote": "अस्थायी प्रोफ़ाइल - जीवन-परिचय और फ़ोटो जल्द जोड़ी जाएगी।",
+      "expertise": "विशेषज्ञता के क्षेत्र",
+      "linkedin": "LinkedIn प्रोफ़ाइल",
+      "backToTeam": "टीम पर वापस जाएँ"
+    }
+  }
+}

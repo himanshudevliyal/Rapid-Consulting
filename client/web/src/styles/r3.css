@@ -1,0 +1,409 @@
+/*
+ * Round 3 (managed pages, gold seal, contour pattern).
+ *
+ * .r3-contour  decorative contour-line pattern (public/assets/brand/contour-pattern.png)
+ *              as a background, bottom right. Low opacity on light bands, about
+ *              0.35 on navy (.r3-contour--navy or a navy parent). Put it on a
+ *              positioned band; the pattern sits behind the content.
+ */
+.r3-contour {
+  position: relative;
+  isolation: isolate;
+}
+.r3-contour::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("/assets/brand/contour-pattern.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: min(78%, 1100px) auto;
+  opacity: 0.08;
+}
+/* No contour picture on navy bands. */
+.r3-contour--navy::before {
+  display: none;
+}
+@media (max-width: 767px) {
+  .r3-contour::before {
+    background-size: 140% auto;
+  }
+}
+@media print {
+  .r3-contour::before {
+    display: none;
+  }
+}
+
+/* Managed-page blocks in the generic renderer (previews). */
+.r3-accordion > summary {
+  cursor: pointer;
+  list-style: none;
+}
+.r3-accordion > summary::-webkit-details-marker {
+  display: none;
+}
+.r3-scroll-row {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: 0.5rem;
+}
+.r3-scroll-row > * {
+  flex: 0 0 min(320px, 85%);
+  scroll-snap-align: start;
+}
+
+/* The FREE ribbon for form cards whose label is not "FREE / FIRST REVIEW" (the artwork says that text). */
+.r3-free-ribbon {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 92px;
+  margin: 0 10px;
+  padding: 8px 12px 7px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #b43a14 0%, #922e0c 100%);
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1;
+  box-shadow: 0 2px 6px rgb(9 38 62 / 0.22), inset 0 1px 0 rgb(255 255 255 / 0.18);
+}
+.r3-free-ribbon::before,
+.r3-free-ribbon::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  bottom: -5px;
+  width: 12px;
+  background: #1c4a86;
+  z-index: -1;
+}
+.r3-free-ribbon::before {
+  left: -9px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 35% 50%);
+}
+.r3-free-ribbon::after {
+  right: -9px;
+  clip-path: polygon(0 0, 100% 0, 65% 50%, 100% 100%, 0 100%);
+}
+.r3-free-ribbon__main {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.r3-free-ribbon__sub {
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid rgb(255 255 255 / 0.75);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+/* WhatsApp button, outline look (hero buttons in the Figma pages): white, dark outline, green logo. */
+a.whatsapp-button.whatsapp-button--outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.7rem 1.15rem;
+  border: 1.5px solid #09263e;
+  border-radius: 999px;
+  background: #fff;
+  color: #09263e;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+a.whatsapp-button.whatsapp-button--outline svg {
+  width: 20px;
+  height: 20px;
+  color: #128c4a;
+}
+a.whatsapp-button.whatsapp-button--outline:hover {
+  background: #f1f6f3;
+  box-shadow: 0 6px 16px -10px rgb(9 38 62 / 0.5);
+  transform: translateY(-1px);
+}
+a.whatsapp-button.whatsapp-button--outline:focus-visible {
+  outline: 2px solid #09263e;
+  outline-offset: 2px;
+}
+
+/* ── Mega menus (Approvals, Subsidies, About), Figma layout ─────────────────────── */
+.rapid-mega[data-menu="approvals"],
+.rapid-mega[data-menu="subsidies"],
+.rapid-mega[data-menu="about"] {
+  border-top: 0;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+}
+.rapid-mega[data-menu="approvals"] > div,
+.rapid-mega[data-menu="subsidies"] > div,
+.rapid-mega[data-menu="about"] > div {
+  padding-bottom: 28px;
+}
+.fm-menu {
+  pointer-events: auto;
+  max-width: 1040px;
+  margin: 10px auto 0;
+  padding: 28px 32px 22px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 28px 64px -24px rgb(9 38 62 / 0.4), 0 0 0 1px rgb(9 38 62 / 0.06);
+}
+.fm-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.fm-menu .fm-title {
+  margin: 0 !important;
+  color: #09263e;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.fm-text {
+  margin: 6px 0 0 !important;
+  color: #51606f;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.fm-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #09263e;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.fm-close:hover {
+  background: #eaeff3;
+}
+.fm-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 40px;
+  margin-top: 22px;
+  align-items: start;
+}
+.fm-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 40px;
+}
+.fm-menu .fm-label {
+  margin: 0 0 8px !important;
+  color: #a8381a;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  line-height: 1.3 !important;
+  text-transform: uppercase;
+}
+.fm-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fm-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 9px 0;
+  color: #09263e;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.fm-link__arrow {
+  color: #51606f;
+  font-size: 0.7rem;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+.fm-link:hover,
+.fm-link:focus-visible {
+  color: #1f5d57;
+}
+.fm-link:hover .fm-link__arrow,
+.fm-link:focus-visible .fm-link__arrow {
+  color: #1f5d57;
+  transform: translate(2px, -2px);
+}
+/* A destination that does not exist yet: shown, greyed, not clickable. */
+.fm-link--disabled,
+.fm-link--disabled:hover,
+.fm-link--disabled .fm-link__arrow,
+.fm-link--disabled:hover .fm-link__arrow {
+  color: #8a96a3;
+  cursor: default;
+  transform: none;
+}
+.fm-link:focus-visible {
+  outline: 2px solid #1f5d57;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.fm-card {
+  padding: 24px 26px 26px;
+  border-radius: 14px;
+  background: #eaeff3;
+}
+.fm-menu .fm-card h3 {
+  margin: 0 0 8px !important;
+  color: #09263e;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3 !important;
+}
+.fm-card p {
+  margin: 0 0 18px !important;
+  color: #51606f;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+.fm-card__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1.5px solid #09263e;
+  border-radius: 10px;
+  background: #fff;
+  color: #09263e;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.fm-card__button:hover {
+  background: #f6f9fb;
+  box-shadow: 0 6px 14px -8px rgb(9 38 62 / 0.5);
+}
+.fm-footer {
+  margin-top: 14px;
+  padding-top: 16px;
+  border-top: 1px solid #e4eaee;
+}
+.fm-list--row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 44px;
+}
+.fm-list--row .fm-link {
+  gap: 12px;
+}
+@media (max-width: 1023px) {
+  .fm-menu {
+    margin: 0;
+    padding: 6px 0 4px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .fm-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .fm-columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .fm-close {
+    display: none;
+  }
+  .fm-link {
+    padding: 11px 0;
+    font-size: 0.9375rem;
+  }
+}
+a.whatsapp-button.whatsapp-button--outline,
+a.whatsapp-button.whatsapp-button--outline span {
+  color: #09263e !important;
+}
+a.whatsapp-button.whatsapp-button--outline svg {
+  color: #128c4a !important;
+}
+
+/* Sticky enquiry rails: a slim, quiet scrollbar, so it is clear the card scrolls when the window is very short. */
+.b2c-rail-sticky,
+.b2b-rail__sticky,
+.b2e-rail,
+.detail-rail {
+  scrollbar-width: thin;
+  scrollbar-color: #c3ced6 transparent;
+}
+.b2c-rail-sticky::-webkit-scrollbar,
+.b2b-rail__sticky::-webkit-scrollbar,
+.b2e-rail::-webkit-scrollbar,
+.detail-rail::-webkit-scrollbar {
+  width: 6px;
+}
+.b2c-rail-sticky::-webkit-scrollbar-thumb,
+.b2b-rail__sticky::-webkit-scrollbar-thumb,
+.b2e-rail::-webkit-scrollbar-thumb,
+.detail-rail::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #c3ced6;
+}
+
+/* Select fields in the enquiry card: same look in every browser, with a chevron (Figma). */
+[data-component="FigmaEnquiryCard"] select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.25rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2309263e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px;
+}
+
+/* ── Breadcrumb: on the pale green of the hero, on the left (Figma) ─────── */
+.breadcrumbs {
+  display: block !important;
+  padding: 18px 0 16px !important;
+  border-bottom: 0 !important;
+  background-color: #eef3f0 !important;
+}
+.breadcrumbs:has(+ .b2c-band) {
+  background-color: #e8eee9 !important;
+}
+.breadcrumbs:has(+ .sticky) {
+  background-color: #fff !important;
+  padding-bottom: 14px !important;
+}
+.breadcrumbs ol {
+  justify-content: flex-start;
+}
+
+/* ── Cards on white: a soft lift so they do not look flat (Figma) ────────── */
+main :is(.rounded-xl, .rounded-2xl).border.border-slate-200.bg-white:not(input, select, textarea, button),
+main .b2a-step,
+main article.group.rounded-2xl {
+  box-shadow: 0 1px 2px rgba(9, 38, 62, 0.06), 0 6px 14px -8px rgba(9, 38, 62, 0.3);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+main :is(a, article).rounded-xl.border.border-slate-200.bg-white:hover,
+main a.rounded-2xl.border.border-slate-200.bg-white:hover,
+main article.group.rounded-2xl:hover {
+  box-shadow: 0 1px 2px rgba(9, 38, 62, 0.06), 0 18px 40px -22px rgba(9, 38, 62, 0.45);
+}

@@ -47,7 +47,7 @@ const init = (sequelize) => {
       },
       role: {
         type: DataTypes.ENUM({
-          values: ["admin", "user"],
+          values: ["admin", "user", "editor"],
         }),
         defaultValue: "user",
         allowNull: false,

@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { submitContactEnquiry, submitEnquiry, submitQuery } from "@/services/enquiry-service";
+import { submitContactEnquiry, submitEnquiry } from "@/services/enquiry-service";
 import { apiErrorMessage } from "@/utils/api-helpers";
 
-// Both hooks return the React Query mutation (mutate / mutateAsync, isPending,
+// All hooks return the React Query mutation (mutate / mutateAsync, isPending,
 // isSuccess, isError, reset) plus `errorMessage` ready to show under the form.
 // `meta.silent` stops the global error toast: the form shows the error itself.
 const formMutation = (mutationFn) => () => {
@@ -15,6 +15,3 @@ export const useSubmitEnquiry = formMutation(submitEnquiry);
 
 // Contact Us page -> POST /contact-enquiries
 export const useSubmitContactEnquiry = formMutation(submitContactEnquiry);
-
-// Older contact-us -> POST /queries
-export const useSubmitQuery = formMutation(submitQuery);

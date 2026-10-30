@@ -1,0 +1,98 @@
+{
+  "wc": {
+    "filters": {
+      "applied": "Applied",
+      "search": "Search",
+      "remove": "Remove filter {filter}",
+      "clear": "Clear"
+    },
+    "schemes": {
+      "placeholder": "Scheme name, ministry or keyword",
+      "industryRow": "Industry",
+      "topicRow": "Topic",
+      "allTopics": "All topics",
+      "count": "Showing {shown} of {total} schemes",
+      "countMatching": "Showing {shown} of {total} matching schemes",
+      "inDirectory": "{count} schemes in the directory",
+      "otherCount": "{count, plural, one {# other match shown below} other {# other matches shown below}}",
+      "emptyTitle": "No schemes match",
+      "emptyFiltered": "Try fewer words or another industry or topic, or clear the filters to see every scheme.",
+      "emptyText": "No schemes are listed yet. Please check back soon.",
+      "showMore": "Show {count} more",
+      "remaining": "{count} not shown yet",
+      "otherTitle": "Other matches",
+      "otherText": "These pages are not part of the main results or the count above: one scheme has been discontinued and one is an incentive for vehicle buyers, not for businesses. Read each page for its own status."
+    },
+    "cases": {
+      "placeholder": "Industry, place or what Rapid did",
+      "industryRow": "Industry",
+      "serviceRow": "Service",
+      "allServices": "All services",
+      "count": "Showing {shown} of {total} case studies",
+      "countMatching": "Showing {shown} of {total} matching case studies",
+      "inArchive": "{count} case studies in the archive",
+      "emptyTitle": "No case studies match",
+      "emptyText": "Try fewer words or another industry or service, or clear the filters to see every case study.",
+      "showMore": "Show {count} more",
+      "remaining": "{count} not shown yet",
+      "services": {
+        "S01": "Subsidies and incentives",
+        "S02": "Approvals",
+        "S03": "Licences and certifications",
+        "S04": "Industrial insurance",
+        "S05": "Finance and other services"
+      }
+    },
+    "resources": {
+      "eyebrowArticles": "Articles",
+      "eyebrowGuides": "Guides",
+      "viewAllGuides": "View all guides",
+      "formatRow": "Format",
+      "format": {
+        "all": "All",
+        "article": "Articles",
+        "guide": "Guides",
+        "report": "Reports"
+      },
+      "notYet": "Not available yet",
+      "topicRow": "Topic",
+      "allTopics": "All topics",
+      "personRow": "Written or reviewed by",
+      "everyone": "Everyone",
+      "role": {
+        "written": "Written by",
+        "reviewed": "Reviewed by"
+      },
+      "roleVerb": {
+        "written": "written",
+        "reviewed": "reviewed"
+      },
+      "roleLabel": "Written or reviewed by {name}",
+      "noneYet": "None yet",
+      "placeholder": "Title, topic or person",
+      "nounAll": "resources",
+      "nounArticles": "articles",
+      "nounGuides": "guides",
+      "nounReports": "reports",
+      "count": "Showing {shown} of {total} {noun}",
+      "countMatching": "Showing {shown} of {total} matching {noun}",
+      "inCollection": "{count} items in all",
+      "emptyTitle": "Nothing matches",
+      "emptyText": "Try fewer words, another topic or person, or clear the filters to see everything.",
+      "emptyPerson": "{name} has no {role} resources for this selection. Try another format or topic, or clear the filters.",
+      "showMore": "Show {count} more",
+      "remaining": "{count} not shown yet"
+    },
+    "person": {
+      "written": "Written by this person",
+      "reviewed": "Reviewed by this person",
+      "seeAll": "See all {count}"
+    },
+    "homeTabs": {
+      "label": "Service categories",
+      "approvals": "Approvals",
+      "subsidies": "Subsidies and incentives",
+      "finance": "Finance and insurance"
+    }
+  }
+}

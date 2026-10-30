@@ -5,25 +5,33 @@
  * "other industries" accordion section that no other collection needs —
  * it lives here, not in the shared CollectionView.
  *
- * Genuinely shared utilities come from src/components/.
+ * Look: the same language as the industry pages — a light sage hero (rust
+ * label, bold navy H1, lime action + WhatsApp, photo on the right), the
+ * industries as white cards on a light band, and the guidance as navy-ruled
+ * disclosures.
  */
 
 import Image from "next/image";
+import { ArrowRight, ChevronDown } from "lucide-react";
 
-import { linksApiContent } from "@/lib/pages/card-copy";
+import { WhatsAppMark } from "@/components/contact/whatsapp";
+import { EnquiryTrigger } from "@/components/form/enquiry-drawer";
 import { ClientTicker } from "@/components/common/client-ticker";
+import { LIME_BUTTON, OUTLINE_BUTTON } from "@/components/pages/b2b-buttons";
 import { Html } from "@/components/pages/content-primitives";
-import Heading from "@/components/layout/heading";
-import Section from "@/components/layout/section";
+import { ImagePlaceholder } from "@/components/ui/image-placeholder";
+import { linksApiContent } from "@/lib/pages/card-copy";
+import { b2bText } from "@/lib/pages/b2b-text";
+import { WHATSAPP_LABEL, WHATSAPP_NUMBER } from "@/lib/site";
 import { IndustriesDirectory } from "./IndustriesDirectory";
 
 export function IndustriesPage({
   page,
   t,
   has,
-  image = "/assets/hero-section.jpg",
   initialData,
 }) {
+  const tx = b2bText(t);
   // ── Data ────────────────────────────────────────────────────────────────────
   // The industries come from the API (IndustriesDirectory). Sections of the
   // index copy that only describe individual industries are replaced by it;
@@ -34,53 +42,71 @@ export function IndustriesPage({
 
   // ── Render ──────────────────────────────────────────────────────────────────
   return (
-    <div className="container collection-page">
+    <div className="b2b-page b2b-industries collection-page">
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <Section>
-        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-          <div>
-            <Heading
-              eyebrow={t("site.collection.findNextStep")}
-              heading={page.h1}
-              className="text-left"
-              subheading={page.introHtml}
-              eyebrowClassName="mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
-              headingClassName="text-[2.6rem] leading-[1.1] font-bold tracking-tight text-[#111] mt-0 text-wrap-balance lg:text-[3rem]"
-            />
+      <section className="b2b-hubhero" aria-labelledby="industries-title">
+        <div className="b2b-wrap b2b-hubhero__grid b2b-hubhero__grid--card">
+          <div className="min-w-0">
+            <p className="b2b-eyebrow">{tx("industries.eyebrow", "Industries")}</p>
+            <h1 id="industries-title" className="b2b-h1 b2b-h1--hub">
+              {page.h1}
+            </h1>
+            <Html html={page.introHtml} className="b2b-lead" />
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <a href="#all-industries" className={LIME_BUTTON}>
+                {tx("industries.browse", "Find your industry")}
+                <ChevronDown className="size-4" aria-hidden="true" />
+              </a>
+              <EnquiryTrigger className={OUTLINE_BUTTON} source="industries-hero" pageTitle={page.h1}>
+                {t("service.discussProject")}
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </EnquiryTrigger>
+              <a className={OUTLINE_BUTTON} href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${WHATSAPP_LABEL}`}>
+                <span className="size-4 [&>svg]:size-4" aria-hidden="true">
+                  <WhatsAppMark />
+                </span>
+                WhatsApp {WHATSAPP_LABEL}
+              </a>
+            </div>
           </div>
-
-          <div className="flex justify-end">
-            <Image
-              width={500}
-              height={500}
-              src={page.image || image}
-              alt={page.h1}
-              className="h-auto w-full max-w-xl rounded-2xl object-cover"
-            />
+          <div className="min-w-0">
+            {page.image ? (
+              <Image
+                width={640}
+                height={480}
+                src={page.image}
+                alt=""
+                className="h-auto w-full rounded-3xl object-cover"
+              />
+            ) : (
+              <ImagePlaceholder
+                ratio="4/3"
+                label={t("detail.industry.photoPlaceholder")}
+                className="rounded-3xl"
+              />
+            )}
           </div>
         </div>
-      </Section>
+      </section>
 
       {/* ── Industries (from the API) ─────────────────────────────────────── */}
       <IndustriesDirectory initialData={initialData} />
 
       {/* ── Generic guidance accordion ────────────────────────────────────── */}
       {guidanceSections.length > 0 && (
-        <Section className="collection-guidance">
-          {guidanceSections.map((s) => (
-            <details
-              key={s.id}
-              id={s.id}
-              className="mb-4 bg-gray-50 shadow-md"
-            >
-              <summary>
-                {s.title}
-                <span>+</span>
-              </summary>
-              <Html html={s.html} />
-            </details>
-          ))}
-        </Section>
+        <section className="b2b-sec" aria-label={tx("industries.guidance", "Guidance")}>
+          <div className="b2b-wrap max-w-4xl">
+            {guidanceSections.map((s) => (
+              <details key={s.id} id={s.id} className="b2b-details">
+                <summary>
+                  {s.title}
+                  <span aria-hidden="true">+</span>
+                </summary>
+                <Html html={s.html} className="b2b-prose" />
+              </details>
+            ))}
+          </div>
+        </section>
       )}
 
       {/* ── Client ticker ─────────────────────────────────────────────────── */}

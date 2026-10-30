@@ -1,0 +1,38 @@
+/*
+ * b2e - About, How we work, Contact, Expert profile, Advisers, Careers and the
+ * Subsidy Viability Report (Figma batch 2, agent b2e). Almost everything is
+ * Tailwind in the components; this file holds only what utilities cannot express.
+ * Import once in app/[locale]/layout.js (the lead does this).
+ */
+
+/* The "Ask <name>'s team" rail on the expert profile: sticky below the site header on
+   wide screens, scrolling inside itself when the window is shorter than the form.
+   It lives inside the About-to-Cases grid, so it stops where that grid ends. */
+@media (min-width: 1024px) {
+  .b2e-rail {
+    --b2e-rail-top: calc(var(--site-header-h, var(--header-height, 84px)) + 1rem);
+    position: sticky;
+    top: var(--b2e-rail-top);
+    max-height: calc(100dvh - var(--b2e-rail-top) - 1rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    /* room for the card's shadow and focus rings inside the scroll box */
+    padding: 4px 4px 12px;
+    margin: -4px -4px 0;
+  }
+}
+
+/* Anchored sections of these pages stop below the header. */
+.b2e-anchor {
+  scroll-margin-top: calc(var(--site-header-h, var(--header-height, 84px)) + 1rem);
+}
+
+/* Cards of the manuscript step lists never split across a printed page. */
+@media print {
+  .b2e-rail {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+}

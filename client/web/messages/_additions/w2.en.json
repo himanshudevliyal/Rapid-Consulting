@@ -1,0 +1,71 @@
+{
+  "homePage": {
+    "hero": {
+      "region": "Featured themes",
+      "previous": "Previous slide",
+      "next": "Next slide",
+      "selectorGroup": "Choose a slide",
+      "selector": "Slide {n} of {total}: {theme}",
+      "slideOf": "Slide {n} of {total}",
+      "discuss": "Discuss your project",
+      "slides": {
+        "subsidies": {
+          "theme": "Subsidies",
+          "headline": "Unlock subsidy opportunities for your next investment.",
+          "sub": "Relevant incentives and ownership of the agreed application work.",
+          "image": "Placeholder - subsidy application documents. Final photography to be supplied by Rapid."
+        },
+        "newUnit": {
+          "theme": "New unit",
+          "headline": "Get your new business unit moving.",
+          "sub": "Approvals, registrations and the documentation your project needs.",
+          "image": "Placeholder - new unit under construction. Final photography to be supplied by Rapid."
+        },
+        "expansion": {
+          "theme": "Expansion",
+          "headline": "Turn expansion plans into a funding-ready proposal.",
+          "sub": "Project preparation, finance documentation and relevant incentives.",
+          "image": "Placeholder - plant expansion and machinery. Final photography to be supplied by Rapid."
+        }
+      }
+    },
+    "labels": {
+      "clients": "Clients",
+      "faq": "Questions answered",
+      "updates": "Updates"
+    },
+    "approach": {
+      "cta": "Discuss your project"
+    },
+    "services": {
+      "subsidyGroup": "Named subsidies and incentives",
+      "otherGroup": "Rapid’s subsidy advisory",
+      "overview": "Rapid’s subsidy advisory overview",
+      "allSchemes": "All schemes",
+      "report": "Subsidy Viability Report",
+      "note": "A directory listing shows that a scheme is relevant to a type of project. It does not confirm that your project is eligible."
+    },
+    "cases": {
+      "investment": "Investment",
+      "projectInvestment": "Project investment",
+      "expenditure": "Expenditure",
+      "approximately": "Approximately",
+      "location": "Location",
+      "sector": "Sector",
+      "role": "Rapid’s role",
+      "noteInvestment": "Investment figure, not subsidy received.",
+      "noteExpenditure": "Recorded expenditure, not subsidy received.",
+      "image": "Placeholder - project photograph. Final photography to be supplied by Rapid."
+    },
+    "industries": {
+      "image": "Placeholder - {industry} photograph. Final photography to be supplied by Rapid."
+    }
+  },
+  "site": {
+    "homeLabels": {
+      "clients": "Clients",
+      "faq": "Questions answered",
+      "updates": "Updates"
+    }
+  }
+}

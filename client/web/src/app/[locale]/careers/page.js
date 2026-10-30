@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { isLocale } from "@/i18n/routing";
-import { hasTranslation } from "@/i18n/has-translation";
 import { contentPageMetadata, robots } from "@/lib/seo";
 import { PageAlternates } from "@/components/layout/page-alternates";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
@@ -11,7 +10,6 @@ import { loadJobs } from "@/lib/content/site-data";
 import { CareersPage } from "./_components/CareersPage";
 
 const PATH = "/careers";
-const HERO_IMAGE = "/assets/hero-section.jpg";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -29,7 +27,6 @@ export default async function CareersRoute({ params }) {
   if (found.kind !== "page") notFound();
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
-  const has = hasTranslation(t);
   const jobs = await loadJobs();
 
   return (
@@ -38,17 +35,10 @@ export default async function CareersRoute({ params }) {
         en={`/en${PATH}`}
         hi={found.page.hasHindi ? `/hi${PATH}` : null}
       />
-      <Breadcrumbs
-        page={found.page}
-        t={t}
-        heading={found.page.h1}
-        backgroundImage={HERO_IMAGE}
-      />
+      <Breadcrumbs page={found.page} t={t} />
       <CareersPage
         page={found.page}
         t={t}
-        has={has}
-        image={HERO_IMAGE}
         jobs={jobs}
         locale={locale}
       />

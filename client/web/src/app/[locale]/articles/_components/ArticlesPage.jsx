@@ -1,91 +1,75 @@
 /**
- * ArticlesPage — collection view for the Articles / Guides index (R01).
+ * ArticlesPage - collection view for the Articles / Guides index (R01).
  *
  * Isolated from all other collection pages. Changing this layout,
  * cards, or filters has ZERO effect on Schemes, Services, Case Studies
- * or Industries.
+ * or Industries. /guides renders this page too (opened on Guides).
  *
- * Genuinely shared utilities come from src/components/.
+ * Light restyle to the Figma look: sage hero, the Resources explorer, the
+ * page's guidance copy, the client ticker and the closing enquiry panel.
  */
 
 import Image from "next/image";
 
-import { linksApiContent } from "@/lib/pages/card-copy";
 import { ClientTicker } from "@/components/common/client-ticker";
-import { ContactExperience } from "@/components/form/contact-experience";
+import { ClosingEnquiryPanel } from "@/components/forms/closing-enquiry-panel";
+import { GuidanceSections, HeroActions, HeroBand } from "@/components/pages/b2d-parts";
+import { b2dText } from "@/lib/pages/b2d-text";
+import { enquiryCard } from "@/lib/pages/b2d-forms";
+import { linksApiContent } from "@/lib/pages/card-copy";
 import { ArticlesDirectory } from "./ArticlesDirectory";
-import { Html } from "@/components/pages/content-primitives";
-import Heading from "@/components/layout/heading";
-import Section from "@/components/layout/section";
 
 /**
  * Articles and guides come from the API (ArticlesDirectory); `initialData` is
  * the list the server already fetched.
  */
-export function ArticlesPage({ page, t, has, image = "/assets/articles.jpg", initialData }) {
-  // ── Data ────────────────────────────────────────────────────────────────────
+export function ArticlesPage({ page, t, image = "/assets/articles.jpg", initialData, defaultFormat = "article" }) {
+  const tx = b2dText(t);
   // Sections of the index copy that only list individual guides / articles are
   // replaced by the live directory below; the rest is guidance.
   const guidanceSections = page.sections.filter((section) => !linksApiContent(section.html));
 
-  // ── Render ──────────────────────────────────────────────────────────────────
   return (
-    <div className="container collection-page">
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <Section>
-        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-          <div>
-            <Heading
-              eyebrow={t("site.collection.findNextStep")}
-              heading={page.h1}
-              className="text-left"
-              subheading={page.introHtml}
-              eyebrowClassName="mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
-              headingClassName="text-[2.6rem] leading-[1.1] font-bold tracking-tight text-[#111] mt-0 text-wrap-balance lg:text-[3rem]"
-            />
-          </div>
+    <>
+      <HeroBand
+        titleId="articles-title"
+        eyebrow={t(defaultFormat === "guide" ? "wc.resources.eyebrowGuides" : "wc.resources.eyebrowArticles")}
+        title={page.h1}
+        introHtml={page.introHtml}
+        actions={<HeroActions label={t("service.discussProject")} source="articles-hero" pageTitle={page.h1} />}
+        card={
+          <Image
+            width={600}
+            height={420}
+            src={page.image || image}
+            alt=""
+            className="hidden h-auto w-full rounded-3xl border border-slate-200 object-cover lg:block"
+          />
+        }
+      />
 
-          <div className="flex justify-end">
-            <Image
-              width={500}
-              height={500}
-              src={page.image || image}
-              alt={page.h1}
-              className="h-auto w-full max-w-xl rounded-2xl object-cover"
-            />
-          </div>
-        </div>
-      </Section>
+      <ArticlesDirectory initialData={initialData} defaultFormat={defaultFormat} />
 
-      {/* ── Searchable directory ───────────────────────────────────────────── */}
-      <ArticlesDirectory initialData={initialData} />
+      <GuidanceSections sections={guidanceSections} />
 
-      {/* ── Guidance accordion ────────────────────────────────────────────── */}
-      <Section className="collection-guidance">
-        {guidanceSections.map((s) => (
-          <details
-            key={s.id}
-            id={s.id}
-            className="mb-4 bg-gray-50 shadow-md"
-          >
-            <summary>
-              {s.title}
-              <span>+</span>
-            </summary>
-            <Html html={s.html} />
-          </details>
-        ))}
-      </Section>
-
-      {/* ── Client ticker ─────────────────────────────────────────────────── */}
       <ClientTicker />
 
-      {/* ── Contact CTA ───────────────────────────────────────────────────── */}
-      <ContactExperience
-        pageTitle={page.h1}
-        pageId={page.id}
-        variant="section"
+      <ClosingEnquiryPanel
+        id="articles-closing"
+        heading={tx("articles.closing.heading", "Tell us your question.")}
+        intro={tx("articles.closing.intro", "Ask in your own words. A Rapid expert will reply with the next step.")}
+        photoNote={tx("form.photoNote", "Placeholder: a factory site in Haryana. Final photography to be supplied by Rapid.")}
+        card={enquiryCard(tx, {
+          title: tx("articles.closing.cardTitle", "Tell us your question."),
+          source: defaultFormat === "guide" ? "guides-index" : "articles-index",
+          pageId: page.id,
+          pageTitle: page.h1,
+          serviceName: tx("articles.closing.service", "Question"),
+          submit: tx("articles.closing.submit", "Send my question"),
+          activityLabel: tx("articles.closing.activity", "Your question"),
+          select: null,
+        })}
       />
-    </div>
+    </>
   );
 }

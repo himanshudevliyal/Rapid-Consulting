@@ -1,0 +1,34 @@
+{
+  "header": {
+    "nav": { "subsidies": "सब्सिडी और प्रोत्साहन" },
+    "contactPage": "संपर्क करें",
+    "callbackCta": "कॉलबैक का अनुरोध करें",
+    "callbackShort": "कॉलबैक",
+    "pauseAnnouncements": "घोषणाएँ रोकें",
+    "playAnnouncements": "घोषणाएँ चलाएँ",
+    "viewAllServices": "सभी सेवाएँ देखें",
+    "searchServices": "सेवाएँ खोजें",
+    "subsidies": {
+      "title": "जानें कि आपका प्रोजेक्ट किस सहायता के लिए पात्र हो सकता है",
+      "text": "योजनाओं की शर्तें और स्रोत स्वयं देखें, या रैपिड से अपने प्रोजेक्ट का आकलन करवाएँ और आवेदन आगे बढ़वाएँ।",
+      "advisory": "सब्सिडी और प्रोत्साहन परामर्श",
+      "advisoryGroup": "रैपिड परामर्श",
+      "advisoryDetail": "आकलन, आवेदन और फॉलो-अप",
+      "discoveryGroup": "योजनाएँ खोजें",
+      "directory": "योजना निर्देशिका देखें",
+      "directoryDetail": "हर योजना की स्थिति, शर्तें और आधिकारिक स्रोत",
+      "featuredGroup": "चुनी हुई योजनाएँ"
+    }
+  },
+  "enquiryDrawer": {
+    "heading": "कॉलबैक का अनुरोध करें",
+    "eyebrow": "अपने प्रोजेक्ट पर चर्चा करें"
+  },
+  "contact": {
+    "callbackHeading": "कॉलबैक का अनुरोध करें",
+    "mobileCallback": "कॉलबैक का अनुरोध करें"
+  },
+  "clients": {
+    "play": "क्लाइंट लोगो चलाएँ"
+  }
+}

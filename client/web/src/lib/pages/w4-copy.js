@@ -1,0 +1,186 @@
+// English copy for the About team, Subsidy Viability Report, community
+// invitations and live sessions. The same strings are shipped as
+// messages/_additions/w4.en.json (merged into messages/en.json later); this
+// file is the fallback so a page never shows a raw key before the merge.
+//
+//   copy(t, "svr.name")                         -> "Subsidy Viability Report"
+//   copy(t, "sessions.minutes", { count: 60 })  -> "60 minutes"
+//
+// PUBLIC NAME of the report: change `svr.name` here and in messages only.
+export const W4_COPY = {
+  svr: {
+    name: "Subsidy Viability Report",
+    teaser: {
+      eyebrow: "Before you apply",
+      body: "The {name} sets out the questions it answers, the information it needs from you and what the report contains.",
+      cta: "See what the report covers",
+      heading: {
+        schemes: "Check how a scheme fits your project before you apply",
+        scheme: "Considering this scheme for your project?",
+        industry: "Planning an investment in this sector?",
+        resources: "From general guidance to a view of your own project",
+        home: "A clearer view of subsidy options for your project",
+      },
+    },
+    meta: {
+      description:
+        "What the Subsidy Viability Report covers: the questions it answers, the project information it needs and how it connects to execution support.",
+    },
+    hero: {
+      intro:
+        "A structured look at how subsidy and incentive options relate to your project, set out in a report you can review with your team and advisers.",
+    },
+    questions: {
+      eyebrow: "The questions",
+      heading: "Questions the report answers",
+      items: [
+        "Which subsidy or incentive schemes are relevant to this project's activity, location and stage?",
+        "How do the project facts compare with each scheme's published conditions?",
+        "Which parts of the investment or activity need particular attention?",
+        "What information and documents are needed before an application can be prepared?",
+        "What are the sensible next steps, and which of them need professional support?",
+      ],
+    },
+    inputs: {
+      eyebrow: "What we need",
+      heading: "What we need from you",
+      intro: "The more clearly the project is described, the more specific the report can be.",
+      items: [
+        "What the business does and where the unit is, or will be, located",
+        "The stage of the project: planned, under construction or operating",
+        "The planned investment, such as land, building, plant and machinery",
+        "Existing registrations, approvals and any applications already made",
+        "Any scheme you are already considering",
+      ],
+    },
+    contents: {
+      eyebrow: "The report",
+      heading: "What the report contains",
+      items: [
+        "The schemes considered and why each is, or is not, relevant",
+        "A comparison of the project facts with the scheme conditions",
+        "A checklist of information and documents to gather",
+        "Points to confirm and risks to watch",
+        "Suggested next steps, with the official sources used",
+      ],
+    },
+    sample: {
+      eyebrow: "A closer look",
+      heading: "See what the report looks like",
+      label: "Sample report - to be supplied by Rapid",
+      caption: "A sample of the report will be shown here.",
+    },
+    execution: {
+      eyebrow: "What comes next",
+      heading: "From report to execution",
+      body: "The report is a starting point. If you decide to go ahead, Rapid can support the application, documents and follow-up for the scheme you choose, within an agreed scope.",
+      schemes: "Subsidies and incentives",
+      services: "Our services",
+      cta: "Discuss your project",
+      note: "Scheme conditions are set by the issuing authority. Always check the official source.",
+    },
+  },
+  community: {
+    eyebrow: "WhatsApp updates",
+    heading: "Get relevant updates in a Rapid group",
+    intro: "Choose the group that matches your work. Each group lists the kinds of updates its members receive.",
+    audience: "Who it is for",
+    updates: "Useful updates",
+    cadence: "How often: {cadence}",
+    join: "Join the group",
+    pending: "Invite link coming soon",
+    groupLabel: "Join the WhatsApp group: {name}",
+    separate:
+      "Joining a group does not create a channel partnership, and the adviser partnership journey has its own terms. Private WhatsApp contact with Rapid is separate:",
+    whatsapp: "message Rapid on WhatsApp",
+    usefulHeading: "A useful update answers:",
+    usefulText: "What changed? Who does it affect? What should the reader do, and by when? Include an official source.",
+  },
+  sessions: {
+    meta: {
+      title: "Live sessions",
+      description:
+        "Expert sessions from Rapid, with recordings and related resources kept here after the event where available.",
+    },
+    eyebrow: "Learn from the experts",
+    heading: "Live sessions",
+    intro: "Expert sessions from Rapid, with recordings and related resources kept here after the event where available.",
+    upcoming: "Upcoming sessions",
+    past: "Past sessions and recordings",
+    emptyTitle: "No sessions scheduled yet",
+    emptyBody: "New sessions will appear here once Rapid schedules them.",
+    topic: "Topic",
+    audience: "Who it is for",
+    speaker: "Speaker",
+    date: "Date",
+    time: "Time",
+    duration: "Duration",
+    minutes: "{count} minutes",
+    states: {
+      upcoming: "Upcoming",
+      closed: "Registration closed",
+      recording: "Recording available",
+    },
+    register: "Register for this session",
+    registrationSoon: "Registration opens soon",
+    closedNote: "Registration for this session has closed.",
+    watch: "Watch the recording",
+    viewDetails: "View details",
+    about: "About this session",
+    related: "Related resources and questions",
+    askQuestion: "Ask a related question",
+    allSessions: "All sessions",
+    registrationHeading: "Registration",
+    recordingHeading: "Recording",
+    schedule: "Session details",
+  },
+  aboutUs: {
+    story: {
+      eyebrow: "Rapid Consulting",
+      photo: "Placeholder - Rapid office or team photograph to be supplied by Rapid",
+    },
+    advantage: { eyebrow: "Why Rapid" },
+    team: {
+      eyebrow: "Our team",
+      groups: { leadership: "Leadership", experts: "Experts", wider: "The Wider Team" },
+      placeholder: "Profile to be confirmed",
+      photoPlaceholder: "Role placeholder - photo to be supplied by Rapid",
+      viewProfile: "View profile",
+      ofName: "Profile of {name}",
+    },
+  },
+};
+
+// Dotted path; numbered list items ("items.1") are 1-based.
+const lookup = (key) =>
+  key
+    .split(".")
+    .reduce((node, part) => (node == null ? node : Array.isArray(node) ? node[Number(part) - 1] : node[part]), W4_COPY);
+
+const fill = (text, values) =>
+  values ? text.replace(/\{(\w+)\}/g, (whole, name) => (name in values ? String(values[name]) : whole)) : text;
+
+// Translated message when it exists, otherwise the English default above.
+export function copy(t, key, values) {
+  try {
+    if (t?.has?.(key)) return t(key, values);
+  } catch {
+    /* fall back to the default */
+  }
+  const text = lookup(key);
+  return typeof text === "string" ? fill(text, values) : key;
+}
+
+// Lists (questions, inputs…) are arrays in the default copy; in the message
+// files they are objects numbered "1", "2"… and read item by item.
+export function copyList(t, key) {
+  const fallback = lookup(key) ?? [];
+  return fallback.map((_, index) => copy(t, `${key}.${index + 1}`));
+}
+
+// Same copy as the nested JSON for messages/*.json (lists become numbered keys).
+export function toMessages(node = W4_COPY) {
+  if (Array.isArray(node)) return Object.fromEntries(node.map((item, index) => [String(index + 1), toMessages(item)]));
+  if (node && typeof node === "object") return Object.fromEntries(Object.entries(node).map(([k, v]) => [k, toMessages(v)]));
+  return node;
+}

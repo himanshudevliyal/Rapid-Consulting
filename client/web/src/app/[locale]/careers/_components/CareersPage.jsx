@@ -1,101 +1,86 @@
 /**
- * CareersPage — dedicated UI for the Careers page (U02).
+ * CareersPage - the Careers page (U02), in the batch-2 look.
  *
- * Layout (top → bottom):
- *   1. Hero split  — LEFT: image   RIGHT: eyebrow + h1 + introHtml
- *   2. Openings    — open jobs from the API (links to /careers/<slug>)
- *   3. Body        — page.sections rendered as styled accordion details
- *
- * Tailwind CSS utility classes only — NO new CSS in globals.css.
+ *   1. Hero: eyebrow, h1, introduction, buttons | "Work at Rapid" card with the open-role count
+ *   2. Open roles (from the API), as cards
+ *   3. The page's remaining sections as accordion cards
  */
-
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, ChevronRight } from "lucide-react";
 
 import { Html } from "@/components/pages/content-primitives";
-import Section from "@/components/layout/section";
-import Heading from "@/components/layout/heading";
+import { BTN_LIME, BTN_OUTLINE } from "@/components/home/styles";
+import { Band, CARD, HeroBand, PROSE_CARD } from "@/components/pages/b2e-ui";
 import { JobOpenings } from "@/components/pages/job-openings";
+import { b2eText } from "@/lib/pages/b2e-copy";
 
-const DEFAULT_IMAGE = "/assets/hero-section.jpg";
-
-
-export function CareersPage({ page, t, has, image = DEFAULT_IMAGE, jobs = [], locale = "en" }) {
+export function CareersPage({ page, t, jobs = [], locale = "en" }) {
+  const text = b2eText(t);
   // The roles come from the API (JobOpenings), so the written list of roles is left out.
   const bodySections = (page.sections ?? []).filter((section) => section.id !== "explore-the-roles");
+  const countLabel = jobs.length === 0 ? text("careers.noRoles") : jobs.length === 1 ? text("careers.openRole") : text("careers.openRoles", { count: jobs.length });
+
+  const card = (
+    <aside aria-labelledby="careers-card-title" className={CARD}>
+      <h2 id="careers-card-title" className="m-0! text-xl! font-semibold! leading-snug! tracking-tight! text-[#09263e]!">
+        {text("careers.cardTitle")}
+      </h2>
+      <p className="mb-0! mt-3! text-[15px] leading-7 text-slate-700">{text("careers.cardText")}</p>
+      <a
+        href="#current-openings"
+        className="group mt-5 flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 text-[#09263e]! no-underline transition-colors hover:border-[#09263e] hover:bg-[#f4f7f5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#09263e] focus-visible:ring-offset-2"
+      >
+        <span className="min-w-0 flex-1 text-base font-semibold leading-snug">{countLabel}</span>
+        <ChevronRight className="size-5 shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+      </a>
+    </aside>
+  );
 
   return (
     <main id="main">
+      <HeroBand
+        id="careers-title"
+        eyebrow={text("careers.eyebrow")}
+        title={page.h1}
+        intro={<Html html={page.introHtml} />}
+        actions={
+          <>
+            <a href="#current-openings" className={BTN_LIME}>
+              {text("careers.seeRoles")}
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+            <Link href={`/${locale}/careers/how-we-hire`} className={BTN_OUTLINE}>
+              {text("careers.howWeHire")}
+            </Link>
+          </>
+        }
+        aside={card}
+      />
 
-      {/* ── 1. Hero: Left image + Right content ──────────────────────────── */}
-      <Section className="py-12 lg:py-20">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-
-          {/* Left — image */}
-          <div className="flex justify-center lg:justify-start">
-            <Image
-              src="/assets/careers.jpg"
-              alt={page.h1}
-              width={600}
-              height={600}
-              className="h-auto w-full max-w-xl rounded-3xl object-cover shadow-md"
-              priority
-            />
-          </div>
-
-          {/* Right — eyebrow, heading, intro */}
-    
-         
-         
-         
-            
-                   <Heading
-                     className="mx-auto max-w-3xl text-start"
-                     eyebrow=" Careers"
-                           eyebrowClassName="mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
-                     heading={page.h1}
-                     headingClassName="text-3xl font-semibold leading-tight tracking-tight text-[#071f33] md:text-4xl"
-                     subheading={page.introHtml}
-                   />
-         
-         
-         
-         
-         </div>
-         
-         
-      </Section>
-
-      {/* ── 2. Open roles (API) ──────────────────────────────────────────── */}
       <JobOpenings jobs={jobs} locale={locale} t={t} />
 
-      {/* ── 3. Body sections — accordions ────────────────────────────────── */}
       {bodySections.length > 0 && (
-        <Section className="pt-0 pb-16 lg:pb-24">
-          <div className="grid gap-6">
+        <Band tone="grey" className="py-12 sm:py-14">
+          <div className="grid gap-4">
             {bodySections.map((section) => (
-              <details
-                key={section.id}
-                id={section.id}
-                className="group rounded-2xl border border-slate-100 bg-white shadow-sm"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-base font-semibold text-[#09263e] transition-colors hover:text-[#1f5d57] [&::-webkit-details-marker]:hidden">
+              <details key={section.id} id={section.id} className="b2e-anchor group rounded-2xl border border-slate-200 bg-white">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-5 text-lg font-semibold text-[#09263e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#09263e] [&::-webkit-details-marker]:hidden">
                   {section.title}
                   <span
                     aria-hidden="true"
-                    className="ml-auto flex size-7 shrink-0 items-center justify-center rounded-full bg-[#f0fdf4] text-[#1f5d57] text-lg font-bold transition-transform group-open:rotate-45"
+                    className="ml-auto flex size-8 shrink-0 items-center justify-center rounded-full bg-[#eaff6b] text-xl font-bold leading-none text-[#09263e] transition-transform group-open:rotate-45"
                   >
                     +
                   </span>
                 </summary>
-                <div className="px-6 pb-6 pt-2 text-slate-600 leading-relaxed [&_a]:font-medium [&_a]:text-[#1f5d57] [&_a:hover]:underline [&_p]:m-0 [&_p+p]:mt-3">
-                  <Html html={section.html} />
+                <div className="px-6 pb-6 pt-1">
+                  <Html html={section.html} className={PROSE_CARD} />
                 </div>
               </details>
             ))}
           </div>
-        </Section>
+        </Band>
       )}
-
     </main>
   );
 }

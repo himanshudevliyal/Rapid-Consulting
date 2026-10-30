@@ -1,0 +1,46 @@
+{
+  "_notice": "PLACEHOLDER DATA for the Home page (Option A). Nothing in this file is a verified figure, review or client. Rapid must supply and approve the real numbers, ratings, reviews and logos before launch. Keep the 'placeholder' flags; the Home page shows a visible note while they are true.",
+  "stats": {
+    "placeholder": true,
+    "items": [
+      { "id": "years", "icon": "calendar", "value": "XX" },
+      { "id": "projects", "icon": "checklist", "value": "XX" },
+      { "id": "businesses", "icon": "people", "value": "XX" }
+    ],
+    "disbursed": { "value": "₹XX" }
+  },
+  "reviews": {
+    "placeholder": true,
+    "rating": { "value": "X.X", "outOf": "5", "count": "XX", "source": "XXXXX" },
+    "items": [
+      {
+        "id": "sample-1",
+        "quote": "Rapid brought the paperwork, our CA and the bank onto one clear plan. We always knew what was needed next.",
+        "name": "Client name",
+        "business": "Business name",
+        "location": "Hisar, Haryana",
+        "services": ["Subsidy advisory", "Project finance"]
+      },
+      {
+        "id": "sample-2",
+        "quote": "The team explained what was needed at every stage. One point of contact made the paperwork and follow-ups much easier.",
+        "name": "Client name",
+        "business": "Business name",
+        "location": "Hisar, Haryana",
+        "services": ["Subsidy advisory", "Project finance"]
+      },
+      {
+        "id": "sample-3",
+        "quote": "Rapid brought our CA, bank and machinery supplier onto the same page. We knew which documents were needed next.",
+        "name": "Client name",
+        "business": "Business name",
+        "location": "Hisar, Haryana",
+        "services": ["Subsidy advisory", "Project finance"]
+      }
+    ]
+  },
+  "logos": {
+    "placeholder": true,
+    "count": 7
+  }
+}

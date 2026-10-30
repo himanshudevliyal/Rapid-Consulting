@@ -858,7 +858,7 @@
     "id": "H01",
     "locale": "en",
     "title": "Home",
-    "h1": "Subsidy & Industrial Project Consulting in Haryana",
+    "h1": "Subsidy, approval and project finance consulting in Haryana",
     "description": "Explore subsidy opportunities for your Haryana investment with Rapid Consulting in Hisar. Get support for applications, approvals and project coordination.",
     "type": "home",
     "group": "Core website",
@@ -900,6 +900,11 @@
         "id": "get-useful-answers-before-your-next-decision",
         "title": "Get useful answers before your next decision",
         "html": "<p><a href=\"/en/p/G01\">Prepare for a manufacturing-subsidy discussion</a>. Gather the project facts and records that make the first conversation useful.</p>\n<p><a href=\"/en/p/B035\">Understand CLU in Haryana</a>. See how intended land use and the site shape the approval discussion.</p>\n<p><a href=\"/en/p/R02\">Browse the Scheme Directory</a>. Find explanations of named programmes and their important conditions.</p>\n"
+      },
+      {
+        "id": "frequently-asked-questions",
+        "title": "Frequently asked questions",
+        "html": "<h3 id=\"what-does-rapid-do\">What does Rapid Consulting do?</h3>\n<p>Rapid is a Hisar-based advisory firm that works with businesses across Haryana on subsidy and incentive advisory, statutory approvals, licences and certifications, industrial insurance, and finance-related documentation. We agree the scope of each assignment with you before work begins.</p><h3 id=\"how-do-i-know-if-my-project-qualifies\">How do I know whether my project may qualify for a subsidy or incentive?</h3>\n<p>It depends on the project: the activity, the location, the investment, the timing and the conditions of each programme. A scheme listed on this website shows that it is relevant to a type of project, not that your project is eligible. An expert consultant looks at your project details and explains what appears relevant.</p><h3 id=\"what-happens-when-i-request-a-callback\">What happens when I request a callback?</h3>\n<p>Share your name and mobile number. An expert consultant from Rapid will call you back to understand the project and explain how Rapid can take the work forward, including the scope, fee and next steps. You do not need to know the scheme or approval name.</p><h3 id=\"what-should-i-have-ready\">What should I have ready before the conversation?</h3>\n<p>Nothing formal is needed. It helps to know what you are building, expanding or buying, where, the approximate investment, your timeline and what you have already committed. Rapid will tell you which records are needed for the work you decide to take forward.</p><h3 id=\"does-rapid-guarantee-a-subsidy-or-approval\">Does Rapid guarantee a subsidy, approval or loan?</h3>\n<p>No. Subsidies, approvals and finance decisions rest with the relevant authority or lender. Rapid prepares and coordinates the agreed application and documentation work and follows it through to the agreed milestone, keeping you informed of progress and the next action.</p><h3 id=\"where-can-i-read-about-schemes\">Where can I read about named schemes and their conditions?</h3>\n<p>Each scheme has its own page with its key facts, conditions and official sources in the <a href=\"/en/schemes\">scheme directory</a>. Policy details change, so check the scheme page and the official source for the current position before you rely on it.</p>"
       },
       {
         "id": "discuss-your-project",
@@ -1812,7 +1817,7 @@
     "id": "H01",
     "locale": "hi",
     "title": "होम",
-    "h1": "हरियाणा में सब्सिडी और औद्योगिक प्रोजेक्ट के लिए सलाह",
+    "h1": "हरियाणा में सब्सिडी, मंज़ूरी और प्रोजेक्ट फाइनेंस की सलाह",
     "description": "हरियाणा में अपने निवेश के लिए सब्सिडी की संभावनाएँ जानें। हिसार की रैपिड कंसल्टिंग से आवेदन, मंज़ूरियों और प्रोजेक्ट का काम आगे बढ़ाने में सहायता लें।",
     "type": "home",
     "group": "Core website",
@@ -1854,6 +1859,11 @@
         "id": "अगले-फैसले-से-पहले-उपयोगी-जानकारी",
         "title": "अगले फैसले से पहले उपयोगी जानकारी",
         "html": "<p><a href=\"/en/p/G01\">मैन्युफैक्चरिंग सब्सिडी की चर्चा की तैयारी करें (English)</a>। प्रोजेक्ट की जानकारी और ज़रूरी रिकॉर्ड साथ रखें।</p>\n<p><a href=\"/en/p/B035\">हरियाणा में CLU को समझें (English)</a>। ज़मीन का प्रस्तावित उपयोग और साइट मंज़ूरी की चर्चा को कैसे प्रभावित करते हैं, यह जानें।</p>\n<p><a href=\"/en/p/R02\">स्कीम डायरेक्टरी देखें (English)</a>। किसी खास योजना और उसकी महत्वपूर्ण शर्तों की जानकारी खोजें।</p>\n"
+      },
+      {
+        "id": "अक्सर-पूछे-जाने-वाले-प्रश्न",
+        "title": "अक्सर पूछे जाने वाले प्रश्न",
+        "html": "<h3 id=\"रैपिड-कंसल्टिंग-क्या-काम-करती-है\">रैपिड कंसल्टिंग क्या काम करती है?</h3>\n<p>रैपिड हिसार की सलाहकार फ़र्म है। हम पूरे हरियाणा के कारोबारियों को सब्सिडी और इंसेंटिव की सलाह, वैधानिक मंज़ूरियों, लाइसेंस और सर्टिफिकेशन, इंडस्ट्रियल इंश्योरेंस और फाइनेंस से जुड़े दस्तावेज़ों में सहायता देते हैं। काम शुरू करने से पहले हम आपके साथ काम का दायरा तय करते हैं।</p><h3 id=\"मेरा-प्रोजेक्ट-सब्सिडी-के-योग्य-है-या-नहीं\">मुझे कैसे पता चलेगा कि मेरे प्रोजेक्ट पर सब्सिडी या इंसेंटिव मिल सकता है?</h3>\n<p>यह प्रोजेक्ट पर निर्भर करता है: आपकी गतिविधि, स्थान, निवेश, समय और हर योजना की शर्तें। इस वेबसाइट पर किसी योजना का दिखना केवल बताता है कि वह किसी तरह के प्रोजेक्ट से जुड़ी है, इससे आपके प्रोजेक्ट की पात्रता तय नहीं होती। विशेषज्ञ सलाहकार आपके प्रोजेक्ट की जानकारी देखकर बताते हैं कि क्या संबंधित लग रहा है।</p><h3 id=\"कॉलबैक-माँगने-पर-क्या-होता-है\">कॉलबैक माँगने पर क्या होता है?</h3>\n<p>अपना नाम और मोबाइल नंबर दें। रैपिड के विशेषज्ञ सलाहकार आपको कॉल करके प्रोजेक्ट समझेंगे और बताएँगे कि रैपिड काम को कैसे आगे बढ़ा सकता है, यानी काम का दायरा, फ़ीस और अगले कदम। आपको योजना या मंज़ूरी का नाम पता होना ज़रूरी नहीं है।</p><h3 id=\"बात-करने-से-पहले-क्या-तैयार-रखें\">बात करने से पहले मुझे क्या तैयार रखना चाहिए?</h3>\n<p>कोई औपचारिक कागज़ ज़रूरी नहीं है। यह जानकारी काम आती है कि आप क्या बना रहे हैं, बढ़ा रहे हैं या खरीद रहे हैं, कहाँ, लगभग कितना निवेश है, समय-सीमा क्या है और आप पहले से क्या तय कर चुके हैं। जो काम आप आगे बढ़ाएँगे, उसके लिए कौन से रिकॉर्ड चाहिए, यह रैपिड बताएगा।</p><h3 id=\"क्या-रैपिड-सब्सिडी-मंज़ूरी-या-लोन-की-गारंटी-देता-है\">क्या रैपिड सब्सिडी, मंज़ूरी या लोन की गारंटी देता है?</h3>\n<p>नहीं। सब्सिडी, मंज़ूरी और फाइनेंस का फैसला संबंधित विभाग या ऋणदाता करता है। रैपिड तय आवेदन और दस्तावेज़ों का काम तैयार करता है, उसमें समन्वय करता है और तय चरण तक आगे बढ़ाता है। इस दौरान आपको प्रगति और अगले कदम की जानकारी देता रहता है।</p><h3 id=\"योजनाओं-और-उनकी-शर्तों-की-जानकारी-कहाँ-मिलेगी\">नामित योजनाओं और उनकी शर्तों की जानकारी कहाँ मिलेगी?</h3>\n<p>हर योजना का अपना पेज है, जिसमें मुख्य तथ्य, शर्तें और आधिकारिक स्रोत हैं। ये <a href=\"/en/schemes\">योजना निर्देशिका (English)</a> में देखें। नीति के विवरण बदलते रहते हैं, इसलिए भरोसा करने से पहले योजना का पेज और आधिकारिक स्रोत देखकर मौजूदा स्थिति जाँच लें।</p>"
       },
       {
         "id": "अपने-प्रोजेक्ट-पर-बात-करें",

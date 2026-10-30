@@ -2,6 +2,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Html, Icon } from "./content-primitives";
 import { ArrowUpRight } from "lucide-react";
+import { CaseCard, caseCardLabels } from "@/components/case-card";
+import { homeText } from "@/lib/pages/home-copy";
 
 // Case investment figures keep one meaning everywhere they appear.
 export function InvestmentMetric({ page, t, size = "card" }) {
@@ -15,6 +17,11 @@ export function InvestmentMetric({ page, t, size = "card" }) {
       data-component="InvestmentMetric"
       data-case-id={page.id}
     >
+      {size === "hero" && (
+        <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-[#1f5d57]">
+          {t("detail.case.investmentLabel")}
+        </span>
+      )}
       {approximate && (
         <span className="investment-qualifier">
           {t("site.card.approximately")}
@@ -42,6 +49,12 @@ const typeLabel = (type, t, has) =>
 
 /**
  * One content-card owner. Compact is for menus; parent grids own column count.
+ *
+ * Cards in one grid row have the same height (the card fills its grid cell and
+ * the action row sits at the bottom) and never cut copy off: titles and
+ * descriptions wrap to as many lines as the text needs - long names and long
+ * Hindi summaries included - instead of being clamped. The card has two links
+ * to the same page (title and action), side by side, never one inside the other.
  */
 export function ContentCard({
   page,
@@ -53,6 +66,18 @@ export function ContentCard({
   className = "",
 }) {
   const caseStudy = page.type === "case-study";
+
+  // One shared case card everywhere (Home, archive, related listings).
+  if (caseStudy) {
+    return (
+      <CaseCard
+        item={page}
+        label={t("site.card.caseStudy")}
+        cta={copy?.linkLabel || t("site.card.readCase")}
+        labels={caseCardLabels(homeText(t, has, page.locale ?? locale))}
+      />
+    );
+  }
 
   const label = caseStudy
     ? t("site.card.caseStudy")
@@ -76,7 +101,7 @@ export function ContentCard({
       data-component="ContentCard"
       data-content-id={page.id}
       data-card-variant={variant}
-      className={`group flex h-full flex-col rounded-2xl  bg-background transition-all duration-300 hover:-translate-y-1 hover:border-[#0d3b37]/25 hover:shadow-[0_20px_45px_-25px_rgba(13,59,55,0.45)] ${
+      className={`group flex h-full min-w-0 flex-col rounded-2xl  bg-background transition-all duration-300 hover:-translate-y-1 hover:border-[#0d3b37]/25 hover:shadow-[0_20px_45px_-25px_rgba(13,59,55,0.45)] ${
         compact ? "p-6" : "p-7 sm:p-8"
       } ${className}`}
     >
@@ -86,7 +111,7 @@ export function ContentCard({
           <Icon name={page.icon} />
         </span>
 
-        <span className="rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#0d3b37]/80">
+        <span className="rounded-full px-3 py-1 text-right text-[10px] font-semibold uppercase tracking-[0.16em] text-[#0d3b37]/80">
           {label}
           {locale === "hi" && page.locale === "en"
             ? t("common.englishTag")
@@ -95,7 +120,7 @@ export function ContentCard({
       </div>
 
       {/* title */}
-      <h3 className="!mb-0 !mt-6 !text-xl !font-semibold !leading-snug !tracking-tight !text-[#0d3b37]">
+      <h3 className="!mb-0 !mt-6 !text-xl !font-semibold !leading-snug !tracking-tight !text-[#0d3b37] [overflow-wrap:anywhere]">
         <a
           href={page.href}
           className="!text-inherit !no-underline hover:underline"
@@ -125,10 +150,10 @@ export function ContentCard({
           {copy?.html ? (
             <Html
               html={copy.html}
-              className="line-clamp-4 text-[15px] leading-7 text-slate-600 [&_p]:m-0 [&_p+p]:mt-2"
+              className="text-[15px] leading-7 text-slate-600 [overflow-wrap:anywhere] [&_p]:m-0 [&_p+p]:mt-2"
             />
           ) : (
-            <p className="!m-0 line-clamp-4 text-[15px] leading-7 text-slate-600">
+            <p className="!m-0 text-[15px] leading-7 text-slate-600 [overflow-wrap:anywhere]">
               {page.description}
             </p>
           )}
@@ -139,7 +164,8 @@ export function ContentCard({
       <div className="mt-auto pt-6">
         <a
           href={page.href}
-          className="inline-flex h-11 w-fit items-center gap-2 rounded-full border border-black/10 bg-transparent px-5 text-sm font-semibold !text-slate-600 !no-underline transition-colors group-hover:border-[#0d3b37] group-hover:bg-[#0d3b37] group-hover:!text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d3b37]"
+          aria-label={`${action}: ${copy?.title || page.title}`}
+          className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-black/10 bg-transparent px-5 text-sm font-semibold !text-slate-600 !no-underline transition-colors group-hover:border-[#0d3b37] group-hover:bg-[#0d3b37] group-hover:!text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d3b37]"
         >
           {action}
           <ArrowUpRight className="size-4" aria-hidden="true" />

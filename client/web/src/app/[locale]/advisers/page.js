@@ -7,10 +7,10 @@ import { contentPageMetadata, robots } from "@/lib/seo";
 import { PageAlternates } from "@/components/layout/page-alternates";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { resolveContentPath } from "@/lib/pages/resolve";
+import { CommunityInvite } from "@/components/common/community-invite";
 import { AdvisersPage } from "./_components/AdvisersPage";
 
 const PATH = "/advisers";
-const HERO_IMAGE = "/assets/hero-section.jpg";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -36,17 +36,14 @@ export default async function AdvisersRoute({ params }) {
         en={`/en${PATH}`}
         hi={found.page.hasHindi ? `/hi${PATH}` : null}
       />
-      <Breadcrumbs
-        page={found.page}
-        t={t}
-        heading={found.page.h1}
-        backgroundImage={HERO_IMAGE}
-      />
+      <Breadcrumbs page={found.page} t={t} />
       <AdvisersPage
         page={found.page}
         t={t}
         has={has}
-        image={HERO_IMAGE}
+        // Groups and invite links come from the admin panel (Community groups).
+        // AdvisersPage renders this in its WhatsApp community section.
+        community={<CommunityInvite placement="advisers" layout="full" locale={locale} />}
       />
     </>
   );

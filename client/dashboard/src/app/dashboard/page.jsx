@@ -99,7 +99,7 @@ const combine = (...queries) => ({
 });
 
 // One bucket per day for the last `days` days, counting each kind of record.
-const buildActivity = (enquiries, queries, days) => {
+const buildActivity = (enquiries, contacts, days) => {
   const start = moment().startOf("day").subtract(days - 1, "days");
   const buckets = Array.from({ length: days }, (_, index) => {
     const day = moment(start).add(index, "days");
@@ -108,7 +108,7 @@ const buildActivity = (enquiries, queries, days) => {
       label: day.format("DD MMM"),
       full: day.format("ddd, DD MMM YYYY"),
       enquiries: 0,
-      queries: 0,
+      contacts: 0,
     };
   });
   const position = new Map(buckets.map((bucket, index) => [bucket.key, index]));
@@ -119,7 +119,7 @@ const buildActivity = (enquiries, queries, days) => {
       if (index !== undefined) buckets[index][field] += 1;
     });
   count(enquiries, "enquiries");
-  count(queries, "queries");
+  count(contacts, "contacts");
 
   return buckets;
 };
@@ -249,8 +249,6 @@ function StatCard({ title, value, hint, icon: Icon, tone = "emerald", href, stat
 function StatCards({ data, services, topics }) {
   const rows = services.data?.rows ?? [];
   const live = rows.filter((row) => row.is_active && row.type !== "service-index").length;
-  const recent = (list) =>
-    (list.data?.rows ?? []).filter((row) => moment(row.created_at).isAfter(moment().subtract(7, "days"))).length;
 
   const published = (all, done) => ({
     value: all.data?.total ?? 0,
@@ -280,7 +278,7 @@ function StatCards({ data, services, topics }) {
       ...published(data.caseStudies, data.caseStudiesPublished),
     },
     {
-      title: "Enquiries",
+      title: "Service enquiries",
       icon: MessageSquare,
       tone: "rose",
       href: "/enquiries?page=1&limit=10",
@@ -289,13 +287,13 @@ function StatCards({ data, services, topics }) {
       state: combine(data.enquiries, data.newEnquiries),
     },
     {
-      title: "Queries",
+      title: "Contact enquiries",
       icon: Mail,
       tone: "sky",
-      href: "/queries?page=1&limit=10",
-      value: data.queries.data?.total ?? 0,
-      hint: `${formatNumber(recent(data.queries))} in the last 7 days`,
-      state: data.queries,
+      href: "/contact-enquiries?page=1&limit=10",
+      value: data.contactEnquiries.data?.total ?? 0,
+      hint: `${formatNumber(data.newContactEnquiries.data?.total ?? 0)} new`,
+      state: combine(data.contactEnquiries, data.newContactEnquiries),
     },
     {
       title: "Categories",
@@ -330,8 +328,8 @@ function StatCards({ data, services, topics }) {
 ========================================================= */
 
 const activityConfig = {
-  enquiries: { label: "Enquiries", color: "var(--chart-1)" },
-  queries: { label: "Queries", color: "var(--chart-2)" },
+  enquiries: { label: "Service enquiries", color: "var(--chart-1)" },
+  contacts: { label: "Contact enquiries", color: "var(--chart-2)" },
 };
 
 function RangeToggle({ value, onChange }) {
@@ -355,22 +353,22 @@ function RangeToggle({ value, onChange }) {
   );
 }
 
-function ActivityChart({ enquiries, queries }) {
+function ActivityChart({ enquiries, contacts }) {
   const [days, setDays] = useState(30);
-  const state = combine(enquiries, queries);
+  const state = combine(enquiries, contacts);
 
   const chartData = useMemo(
-    () => buildActivity(enquiries.data?.rows ?? [], queries.data?.rows ?? [], days),
-    [enquiries.data, queries.data, days],
+    () => buildActivity(enquiries.data?.rows ?? [], contacts.data?.rows ?? [], days),
+    [enquiries.data, contacts.data, days],
   );
-  const total = chartData.reduce((sum, day) => sum + day.enquiries + day.queries, 0);
+  const total = chartData.reduce((sum, day) => sum + day.enquiries + day.contacts, 0);
 
   // The lists hold the latest 200 records; say so when older ones are left out.
-  const capped = (enquiries.data?.total ?? 0) > (enquiries.data?.rows?.length ?? 0) || (queries.data?.total ?? 0) > (queries.data?.rows?.length ?? 0);
+  const capped = (enquiries.data?.total ?? 0) > (enquiries.data?.rows?.length ?? 0) || (contacts.data?.total ?? 0) > (contacts.data?.rows?.length ?? 0);
 
   return (
     <Panel
-      title="Enquiries & queries"
+      title="Enquiries"
       description={`Messages received in the last ${days} days`}
       className="xl:col-span-2"
       action={<RangeToggle value={days} onChange={setDays} />}
@@ -378,7 +376,7 @@ function ActivityChart({ enquiries, queries }) {
       <QueryState
         state={state}
         isEmpty={total === 0}
-        empty={{ icon: Inbox, label: `No enquiries or queries in the last ${days} days.` }}
+        empty={{ icon: Inbox, label: `No enquiries in the last ${days} days.` }}
         skeleton={<Skeleton className="h-64 w-full rounded-lg" />}
       >
         <ChartContainer config={activityConfig} className="aspect-auto h-64 w-full">
@@ -398,7 +396,7 @@ function ActivityChart({ enquiries, queries }) {
               cursor={{ strokeDasharray: "4 4" }}
               content={<ChartTooltipContent labelFormatter={(_, payload) => payload?.[0]?.payload?.full} indicator="dot" />}
             />
-            <Area type="monotone" dataKey="queries" stroke="var(--color-queries)" strokeWidth={2} fill="url(#fill-queries)" />
+            <Area type="monotone" dataKey="contacts" stroke="var(--color-contacts)" strokeWidth={2} fill="url(#fill-contacts)" />
             <Area type="monotone" dataKey="enquiries" stroke="var(--color-enquiries)" strokeWidth={2} fill="url(#fill-enquiries)" />
             <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>
@@ -608,7 +606,7 @@ function LatestEnquiries({ enquiries }) {
   const rows = (enquiries.data?.rows ?? []).slice(0, 5);
 
   return (
-    <Panel title="Latest enquiries" description="Most recent enquiry form submissions" href="/enquiries?page=1&limit=10">
+    <Panel title="Latest service enquiries" description="Most recent service / callback form submissions" href="/enquiries?page=1&limit=10">
       <QueryState
         state={enquiries}
         isEmpty={rows.length === 0}
@@ -639,34 +637,39 @@ function LatestEnquiries({ enquiries }) {
   );
 }
 
-function LatestQueries({ queries }) {
-  const rows = (queries.data?.rows ?? []).slice(0, 5);
+function LatestContactEnquiries({ contacts }) {
+  const rows = (contacts.data?.rows ?? []).slice(0, 5);
 
   return (
-    <Panel title="Latest queries" description="Most recent contact form messages" href="/queries?page=1&limit=10">
+    <Panel
+      title="Latest contact enquiries"
+      description="Most recent Contact Us messages"
+      href="/contact-enquiries?page=1&limit=10"
+    >
       <QueryState
-        state={queries}
+        state={contacts}
         isEmpty={rows.length === 0}
-        empty={{ icon: Mail, label: "No queries yet." }}
+        empty={{ icon: Mail, label: "No contact enquiries yet." }}
         skeleton={<ListSkeleton />}
       >
         <div className="divide-y divide-border/60">
-          {rows.map((row) => (
-            <ActivityRow
-              key={row.id}
-              href="/queries?page=1&limit=10"
-              name={row.name}
-              line={row.subject || row.email || row.phone}
-              meta={moment(row.created_at).fromNow()}
-              badge={
-                row.reason ? (
-                  <Badge variant="secondary" className="max-w-24 truncate font-normal capitalize">
-                    {row.reason}
+          {rows.map((row) => {
+            const status = ENQUIRY_STATUS[row.status];
+            return (
+              <ActivityRow
+                key={row.id}
+                href={`/contact-enquiries/${row.id}/edit`}
+                name={row.name}
+                line={row.subject || row.message || row.email || row.phone}
+                meta={moment(row.created_at).fromNow()}
+                badge={
+                  <Badge variant="outline" className={cn("font-normal", status?.badge)}>
+                    {status?.label ?? row.status}
                   </Badge>
-                ) : null
-              }
-            />
-          ))}
+                }
+              />
+            );
+          })}
         </div>
       </QueryState>
     </Panel>
@@ -735,7 +738,7 @@ export default function DashboardPage() {
         <StatCards data={data} services={data.services} topics={topics} />
 
         <div className="grid gap-6 xl:grid-cols-3">
-          <ActivityChart enquiries={data.enquiries} queries={data.queries} />
+          <ActivityChart enquiries={data.enquiries} contacts={data.contactEnquiries} />
           <ContentChart data={data} services={data.services} />
         </div>
 
@@ -746,7 +749,7 @@ export default function DashboardPage() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           <LatestEnquiries enquiries={data.enquiries} />
-          <LatestQueries queries={data.queries} />
+          <LatestContactEnquiries contacts={data.contactEnquiries} />
         </div>
       </div>
     </PageContainer>

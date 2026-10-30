@@ -8,6 +8,8 @@ import { PageAlternates } from "@/components/layout/page-alternates";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { resolveContentPath } from "@/lib/pages/resolve";
 import { loadInitialList } from "@/lib/content/loaders";
+import { loadManagedPage } from "@/lib/content/site-page-data";
+import { dataOf, mt, rowsOf, withManagedMeta } from "@/lib/pages/managed-view";
 import { CaseStudiesPage } from "./_components/CaseStudiesPage";
 
 const PATH = "/case-studies";
@@ -18,7 +20,8 @@ export async function generateMetadata({ params }) {
   const found = resolveContentPath(locale, PATH);
   if (found.kind !== "page") return { robots };
   const t = await getTranslations({ locale });
-  return contentPageMetadata(found.page, locale, t("meta.siteName"), PATH);
+  const managed = await loadManagedPage("case-studies", locale);
+  return contentPageMetadata(withManagedMeta(found.page, managed), locale, t("meta.siteName"), PATH);
 }
 
 export default async function CaseStudiesRoute({ params }) {
@@ -29,7 +32,11 @@ export default async function CaseStudiesRoute({ params }) {
   setRequestLocale(locale);
   const t = await getTranslations({ locale });
   const has = hasTranslation(t);
-  const initialData = await loadInitialList("case-study");
+  const [initialData, managed] = await Promise.all([loadInitialList("case-study"), loadManagedPage("case-studies", locale)]);
+  // Breadcrumb text from the page's hero ("Home" / "Work / Case studies"), built-in wording otherwise.
+  const crumbs = rowsOf(dataOf(managed, "hero").breadcrumb);
+  const home = crumbs.length > 1 ? mt(crumbs[0].label, t("common.home")) : t("common.home");
+  const current = crumbs.length > 1 ? mt(crumbs[crumbs.length - 1].label, found.page.title) : found.page.title;
   return (
     <>
       <PageAlternates
@@ -37,20 +44,19 @@ export default async function CaseStudiesRoute({ params }) {
         hi={found.page.hasHindi ? `/hi${PATH}` : null}
       />
       <Breadcrumbs
-        heading={found.page.h1}
         items={[
-          { label: t("common.home"), href: `/${locale}` },
-          { label: found.page.title, href: `/${locale}${PATH}` },
+          { label: home, href: `/${locale}` },
+          { label: current, href: `/${locale}${PATH}` },
         ]}
-        backgroundImage="/assets/case-studies.png"
       />
       <main id="main">
         <CaseStudiesPage
           page={found.page}
           t={t}
           has={has}
-          image="/assets/case-studies.png"
+          locale={locale}
           initialData={initialData}
+          managed={managed}
         />
       </main>
     </>

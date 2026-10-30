@@ -970,9 +970,8 @@ button:disabled {
 .collection-hero h1 {
   font-size: clamp(40px, 5vw, 64px);
 }
-.collection-guidance {
-  padding: 24px 0;
-}
+/* .collection-guidance sets no padding: the section around it sets the rhythm (a 24px
+   padding here doubled up inside .b2b-sec and overrode the stand-alone section's own). */
 .collection-guidance details {
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
@@ -3012,9 +3011,7 @@ html[lang="hi"] .hero-copy {
 .nav-tile img {
   flex: none;
   margin-top: 2px;
-  width: 150px;
   opacity: 0.8;
-  height:120px;
 }
 .nav-tile strong {
   display: block;
@@ -4265,4 +4262,14 @@ html[lang="hi"] .hero-copy {
 }
 .home-contact .section-heading {
   align-self: start;
+}
+
+/* Announcement strip marquee: the list is rendered twice, so moving by half its width loops without a gap. */
+@keyframes rapid-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }

@@ -10,6 +10,8 @@ import {
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { StatusSelect } from "@/components/status-select";
+import { updateArticle } from "@/services/article-service";
 import Link from "next/link";
 import { imageSrc } from "@/lib/image-src";
 
@@ -81,10 +83,13 @@ export const columns = (openModal, setId) => [
   {
     accessorKey: "is_published",
     header: "Status",
+    // Draft / Published dropdown: saves straight away.
     cell: ({ row }) => (
-      <Badge variant={row.original.is_published ? "default" : "secondary"}>
-        {row.original.is_published ? "Published" : "Draft"}
-      </Badge>
+      <StatusSelect
+        value={row.original.is_published ? "published" : "draft"}
+        onChange={(status) => updateArticle(row.original.id, { is_published: status === "published" })}
+        queryKey={["articles"]}
+      />
     ),
   },
   {

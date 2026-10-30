@@ -1,0 +1,21 @@
+{
+  "sitePages": {
+    "imagePlaceholder": "Placeholder image - final photography to be supplied by Rapid",
+    "stepLabel": "Step {n}",
+    "learnMore": "Learn more",
+    "chooserLabel": "Choose your stage",
+    "stageCta": "Discuss this stage",
+    "stagePage": "Read about this stage",
+    "faqHeading": "Frequently asked questions",
+    "topicsLabel": "FAQ topics",
+    "videoLabel": "Video",
+    "watchVideo": "Watch the video",
+    "transcript": "Transcript",
+    "comparisonRegion": "Comparison table",
+    "comparisonRowHeader": "Aspect",
+    "toneInfo": "Good to know",
+    "toneCaution": "Please note",
+    "toneNote": "Note",
+    "previewBanner": "Preview of an unpublished draft. This page is hidden from search engines."
+  }
+}

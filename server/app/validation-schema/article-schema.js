@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { editorialFields } from "./editorial-fields.js";
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -33,6 +34,7 @@ const articleFields = {
   excerpt: optionalText(1000),
   content: optionalHtml,
   cover_image: optionalText(500),
+  pdf_url: optionalText(500),
   // Id of a category (/v1/categories); "" clears it.
   category_id: z
     .union([z.literal(""), z.uuid("Pick a valid category")])
@@ -48,6 +50,8 @@ const articleFields = {
   is_published: z.boolean(),
   meta_title: optionalText(255),
   meta_description: optionalText(500),
+  // Author / reviewer (team members) and the date the review was confirmed.
+  ...editorialFields,
 };
 
 const base = z.object(articleFields);

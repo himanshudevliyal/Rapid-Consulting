@@ -1,25 +1,61 @@
-import Section from "@/components/layout/section";
-import Heading from "@/components/layout/heading";
-import { ResourceBlocks } from "@/components/pages/resource-blocks";
+import { SectionHeading } from "@/components/home/section-heading";
+import { WRAP } from "@/components/home/styles";
+import { ContentCard } from "@/components/pages/content-card";
+import { ARTICLES_TAG, fetchArticles } from "@/services/article-service";
+import { articleToSummary } from "@/lib/content/adapters";
+import { loadGuides } from "@/lib/content/site-data";
+import { cachedFor } from "@/utils/api-helpers";
+import { ResourcesTabs } from "./resources-tabs";
 
-// Guides and scheme information come from the API (admin panel -> Articles
-// with type "guide", and Schemes with "Show on the home page" ticked).
-export function ResourcesSection({ section, page, t, eyebrow }) {
+const CARDS = 3;
+
+// Articles and guides come from the API (admin panel -> Articles, type
+// "article" or "guide"). Reports have no collection yet: that tab is disabled.
+export async function ResourcesSection({ text, t, has, locale, articlesHref }) {
+  const [articles, guides] = await Promise.all([
+    fetchArticles({ type: "article", limit: CARDS }, cachedFor(ARTICLES_TAG))
+      .then((result) => result.items.map(articleToSummary))
+      .catch(() => []),
+    loadGuides({ limit: CARDS }),
+  ]);
+
+  const cards = (items) =>
+    items.length ? items.map((item) => <ContentCard key={item.id} page={item} locale={locale} t={t} has={has} />) : null;
+
+  const tabs = [
+    {
+      id: "articles",
+      label: text("homeA.insights.articles"),
+      viewAllHref: articlesHref || `/${locale}/articles`,
+      viewAllLabel: text("homeA.insights.viewArticles"),
+    },
+    {
+      id: "guides",
+      label: text("homeA.insights.guides"),
+      viewAllHref: `/${locale}/guides`,
+      viewAllLabel: text("homeA.insights.viewGuides"),
+    },
+    { id: "reports", label: text("homeA.insights.reports"), disabled: true, hint: text("homeA.insights.soon") },
+  ];
+
   return (
-    <Section id={section.id} className="bg-gray-50 ">
-      <div className="border-b border-slate-200 pb-6">
-        <Heading
-          className="max-w-2xl text-left"
-          eyebrow={eyebrow}
-                  eyebrowClassName="mb-2 inline-block rounded-full bg-[#eaff6b] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#09263e]"
-          heading={section.title}
-          headingClassName="text-3xl font-semibold leading-tight tracking-tight text-[#071f33] md:text-4xl"
+    <section id="resources" aria-labelledby="home-insights-title" className="scroll-mt-24 bg-white py-12 sm:py-16 lg:py-20">
+      <div className={WRAP}>
+        <SectionHeading
+          id="home-insights-title"
+          eyebrow={text("homeA.insights.eyebrow")}
+          title={text("homeA.insights.title")}
+          intro={text("homeA.insights.intro")}
         />
+        <div className="mt-8">
+          <ResourcesTabs
+            tabs={tabs}
+            panels={{ articles: cards(articles), guides: cards(guides) }}
+            tabsLabel={text("homeA.insights.tabsLabel")}
+            emptyText={text("homeA.insights.empty")}
+          />
+        </div>
       </div>
-
-      <div className="mt-10">
-        <ResourceBlocks locale={page.locale} t={t} />
-      </div>
-    </Section>
+    </section>
   );
 }
